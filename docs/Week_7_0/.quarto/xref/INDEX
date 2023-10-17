@@ -1,0 +1,14 @@
+{
+  "index.qmd": {
+    "index.tex": "28f1ed61",
+    "index.html": "0a07034a"
+  },
+  "about.qmd": {
+    "about.html": "70028c86",
+    "about.tex": "3911d5dc"
+  },
+  "DA_Week9_FurtherTasksSolutions.Rmd": {
+    "DA_Week9_FurtherTasksSolutions.html": "5959bc76",
+    "DA_Week9_FurtherTasksSolutions.tex": "ed27cdbd"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "hash": "c405c42d64ecacb1c09bc2df5a47d96f",
+  "result": {
+    "markdown": "---\ntitle: \"Week 7 Tasks\"\nformat: \n  html: default\n  pdf:  default\neditor: visual\n---\n\n\n# Further Tasks\n\n## Yanny or Laurel?\n\nThis auditory illusion first appeared on the internet in May 2018. An explanation of why people hear different things can be found in this [short video](https://www.youtube.com/watch?v=yDiXQl7grPQ), just one of many internet sources discussing the phenomenon. The main reason behind the difference appears to be that as we age we lose the ability to hear certain sounds. To see if we could find evidence of such an age effect, we asked students and staff at the School of Mathematics and Statistics at the University of Glasgow to fill out a survey on what they hear. Below you can see summaries of the responses.\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](images/07_yl1.png){width=350}\n:::\n\n::: {.cell-output-display}\n![](images/07_yl2.png){width=318}\n:::\n\n::: {.cell-output-display}\n![](images/07_yl3.png){width=364}\n:::\n:::\n\n\nThe proportions hearing `Yanny` and `Laurel` are very similar to each other, and there are some respondents who hear both or even something completely different. This may be because people do not listen to the audio file using the same device, something we couldn't control for in the survey. Ignoring the responses other than `Yanny` or `Laurel`, we have 53 observations.\n\nDownload the data (`yanny.csv`) from Moodle and fit a logistic regression model with `hear` as the binary response variable, and `age` and `gender` as the explanatory variables. What are your findings?\n\n## Titanic\n\nOn 15th April 1912, during its maiden voyage, the [Titanic](https://en.wikipedia.org/wiki/RMS_Titanic) sank after colliding with an iceberg, killing 1502 out of 2224 passengers and crew. One of the reasons that the shipwreck led to such loss of life was that there were not enough lifeboats for the passengers and crew. Although there was some element of luck involved in surviving the sinking, some groups of people were more likely to survive than others, such as women, children, and the upper-class.\n\nDownload the data (`titanic.csv`) from Moodle for $n = 891$ passengers aboard the Titanic and fit a logistic regression model with `survived` as the binary response variable, and `age`, `gender`, and `passenger.class` as the explanatory variables. What are your findings?\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
