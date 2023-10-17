@@ -1,4 +1,0 @@
-- source: project
-  quarto-pub:
-    - id: cf12d60b-53db-4e33-86d7-144adeac5a6b
-      url: 'https://jbelmont.quarto.pub/week-2-tidying-and-wrangling-data-using-r'
