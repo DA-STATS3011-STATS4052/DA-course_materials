@@ -1,0 +1,19 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: Week_5
+  navbar:
+    left:
+    - href: index.qmd
+      text: Notes
+    - about.qmd
+format:
+  html:
+    theme: cosmo
+    css:
+    - styles.css
+    - include/webex.css
+    toc: true
+    include-after-body: include/webex.js
+editor: visual

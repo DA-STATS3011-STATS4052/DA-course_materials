@@ -3,6 +3,7 @@ title: " Data Analysis: Example Report"
 number-sections: true
 format: 
   html:
+    embed-resources: true
     code-tools: true
   pdf: default
 editor_options: 
