@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 9e91e6f1-f6ee-4aa0-a38f-22fef7edeef8
+      url: 'https://imarques.quarto.pub/week_8_collaborative_programming_2'
