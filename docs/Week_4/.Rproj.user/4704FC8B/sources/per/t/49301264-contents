@@ -1,0 +1,16 @@
+---
+title: "My title"
+number-sections: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Introduction {#sec-intro}
+
+```{r}
+#| echo: true
+#| message: false
+
+
+
+```

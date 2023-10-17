@@ -1,0 +1,17 @@
+{
+  "index.qmd": {
+    "index.tex": "acbb93c2",
+    "index.html": "52e3ab01"
+  },
+  "about.qmd": {
+    "about.html": "0c923e33",
+    "about.tex": "416979d1"
+  },
+  "webexercises.qmd": {
+    "webexercises.html": "8cd42264"
+  },
+  "Week3Solutions.qmd": {
+    "Week3Solutions.html": "b5a79b80",
+    "Week3Solutions.tex": "4d6a9230"
+  }
+}

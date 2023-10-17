@@ -1,0 +1,7 @@
+"0","#OR
+two_group_prop_2 <- flying |> 
+  na.omit(TRUE) |> 
+  group_by(gender,age) |>
+  summarize(prop_very = mean(recline_rude=='Very'))
+"
+"2","`summarise()` has grouped output by 'gender'. You can override using the `.groups` argument."

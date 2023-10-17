@@ -1,0 +1,17 @@
+---
+title: "Week 4 Tasks"
+format: 
+  pdf:  default
+  html: default
+editor: visual
+---
+
+# Tasks
+
+The following tasks are here to help you prepare for your next class test. For the class test you will be given a data set to analyse and produce a report using Quarto given a basic template. Using the *Basic Template* from Moodle, write a report based on the following data sets.
+
+1.  Return to Week 3 and the section on simple linear regression with one categorical explanatory variable. Produce a report based on life expectancy across various countries around the world from the `gapminder` data set.
+
+# Further Tasks
+
+1.  Digitalis is a heart medicine similar to toxins found in a genus of plants commonly known as foxglove. These plants can be poisonous towards humans and pets. As part of digitalis experiments, 144 domestic adult cats had their heart (in grams) and body weight (in kilograms) measured. The data set `cats` can be found in the `MASS` library. Ignoring their gender, is there a relationship between heart weight and body weight in domestic cats?

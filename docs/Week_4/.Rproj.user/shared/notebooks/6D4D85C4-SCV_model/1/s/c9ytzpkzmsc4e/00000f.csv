@@ -1,0 +1,69 @@
+"0","#| echo: false"
+"0","#| eval: true"
+"0","#| label: load_library"
+"0",""
+"0","library(spOccupancy)"
+"2","Warning: package ‘spOccupancy’ was built under R version 4.2.3"
+"0","library(tidyverse)"
+"0","library(INLA)"
+"2","Warning: package ‘INLA’ was built under R version 4.2.3"
+"2","Loading required package: Matrix
+"
+"2","
+Attaching package: ‘Matrix’
+
+"
+"2","The following objects are masked from ‘package:tidyr’:
+
+    expand, pack, unpack
+
+"
+"2","Loading required package: foreach
+"
+"2","Warning: package ‘foreach’ was built under R version 4.2.3"
+"2","
+Attaching package: ‘foreach’
+
+"
+"2","The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+"
+"2","Loading required package: parallel
+"
+"2","Loading required package: sp
+"
+"2","This is INLA_23.04.24 built 2023-04-24 19:15:35 UTC.
+ - See www.r-inla.org/contact-us for how to get help.
+"
+"0","library(scico)"
+"2","Warning: package ‘scico’ was built under R version 4.2.3"
+"0","library(sf)"
+"2","Linking to GEOS 3.9.3, GDAL 3.5.2, PROJ 8.2.1; sf_use_s2() is TRUE
+"
+"0","library(stars)"
+"2","Warning: package ‘stars’ was built under R version 4.2.3"
+"2","Loading required package: abind
+"
+"0","library(patchwork)"
+"0","library(kableExtra)"
+"2","Warning: package ‘kableExtra’ was built under R version 4.2.3"
+"2","
+Attaching package: ‘kableExtra’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    group_rows
+
+"
+"0","rm(list = ls())"
+"0",""
+"0",""
+"0","theme_maps = theme(axis.title.x=element_blank(),"
+"0","                  axis.text.x=element_blank(),"
+"0","                  axis.ticks.x=element_blank(),"
+"0","                  axis.title.y=element_blank(),"
+"0","                  axis.text.y=element_blank(),"
+"0","                  axis.ticks.y=element_blank(),)"

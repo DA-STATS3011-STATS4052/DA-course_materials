@@ -1,0 +1,20 @@
+{
+  "index.qmd": {
+    "index.tex": "d42e4342",
+    "index.html": "1c47a530"
+  },
+  "about.qmd": {
+    "about.html": "53bf0878",
+    "about.tex": "4a718013"
+  },
+  "Example_report.qmd": {
+    "Example_report.html": "e2e0970e",
+    "Example_report.tex": "6d3ae7d3"
+  },
+  "my_quarto.qmd": {
+    "my_quarto.html": "0f657634"
+  },
+  "webexercises.qmd": {
+    "webexercises.html": "774805b8"
+  }
+}
