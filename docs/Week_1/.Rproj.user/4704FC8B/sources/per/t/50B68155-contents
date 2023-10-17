@@ -1,0 +1,19 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "Week 1: Visualising data using R"
+  navbar:
+    left:
+    - href: DA_Week1.qmd
+      text: Notes
+    - DA_Week1Tasks.qmd
+format:
+  html:
+    theme: cosmo
+    css:
+    - styles.css
+    - include/webex.css
+    toc: true
+    include-after-body: include/webex.js
+editor: visual
