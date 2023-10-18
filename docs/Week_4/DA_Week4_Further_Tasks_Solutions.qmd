@@ -39,8 +39,6 @@ library(tidymodels)
 
 # Tasks
 
-**Question**: Do the model assumptions hold?
-
 1.  Assess the model assumptions for the parallel regression lines model. Do they appear valid?
 
 ```{r}
@@ -493,3 +491,4 @@ c.  What is the correct interpretation of the coefficient on `Service` in the li
 **Solution**
 
 When `Food` and `Decor` are in the model, `Service` is not statistically significant, therefore we cannot know whether it has a significant effect on modeling `Price`.
+

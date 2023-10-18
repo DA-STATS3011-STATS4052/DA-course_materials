@@ -8,9 +8,7 @@ editor: visual
 
 # Tasks
 
-**Question**: Do the model assumptions hold?
-
-1.  Assess the model assumptions for the parallel regression lines model. Do they appear valid?
+1.  Assess the model assumptions for the parallel regression lines/slopes model. Do they appear valid?
 
 <!-- ```{r task1-solution, echo = TRUE, eval = TRUE} -->
 
