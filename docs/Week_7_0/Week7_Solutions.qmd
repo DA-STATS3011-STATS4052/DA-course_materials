@@ -1,15 +1,9 @@
 ---
-title: |
-  | Data Analysis
-  | Week 7 Further Tasks Solutions
-output:
-  pdf_document:
-    fig_caption: yes
-    latex_engine: xelatex
-    number_sections: no
-  html_document:
-    df_print: paged
-header-includes: \usepackage{float}
+title: "Week 7 Tasks Solutions"
+format: 
+  html: default
+  pdf:  default
+editor: visual
 ---
 
 ```{r setup, include=FALSE}

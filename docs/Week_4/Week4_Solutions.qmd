@@ -1,16 +1,9 @@
 ---
-title: |
-  | Data Analysis
-  | Week 4 Further Task Solutions
-output:
-  pdf_document:
-    fig_caption: yes
-    latex_engine: xelatex
-    number_sections: no
-  html_document:
-    df_print: paged
-header-includes: \usepackage{float}
-always_allow_html: true
+title: "Week 4 Tasks Solutions"
+format: 
+  html: default
+  pdf:  default
+editor: visual
 ---
 
 ```{r setup, include=FALSE}
@@ -491,4 +484,3 @@ c.  What is the correct interpretation of the coefficient on `Service` in the li
 **Solution**
 
 When `Food` and `Decor` are in the model, `Service` is not statistically significant, therefore we cannot know whether it has a significant effect on modeling `Price`.
-
