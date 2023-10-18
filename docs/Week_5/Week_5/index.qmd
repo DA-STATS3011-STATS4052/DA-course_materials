@@ -586,3 +586,20 @@ Note that if you are working on a Quarto document you can also compile a PDF ver
 When you render a Quarto document, the R code in you chunks is executed by the [knitr](http://yihui.name/knitr/) R-package and a new markdown (.md) document is then created. This file includes all of your code and its output. [pandoc](http://pandoc.org/) then processes this markdown to create the finished format. *The Render button encapsulates these actions and executes them in the right order for you.*
 
 ![](images/rstudio-qmd-how-it-works.png){fig-align="center"}
+
+Note that HTML rendered documents will typically have a number of external dependencies (e.g. images, CSS style sheets, JavaScript, etc.) which are contained in an external `_files` directory alongside your document. If you share youe HTML rendered file without the external files, it will lose all of its previous formatting and style. Alternatively, you can create a self-contained HTML document using the the `embed-resources` option in quarto as follows:
+
+```         
+---
+title: "My document"
+format:
+  html:
+    embed-resources: true
+---
+```
+
+This will create standalone HTML file with no external dependencies that you can share with others (note that indentation here is important as you are calling arguments within the format output) .
+
+::: callout-important
+For your upcoming class test you want to make sure this option is set to `true` so your work can be displayed properly by a browser.
+:::
