@@ -1,7 +1,8 @@
 ---
 title: "Week 4 Tasks Solutions"
 format: 
-  html: default
+  html: 
+    embed-resources: true
   pdf:  default
 editor: visual
 ---
