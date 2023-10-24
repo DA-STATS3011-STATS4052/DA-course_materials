@@ -131,7 +131,7 @@ where
 
     $$\mathbb{I}_{\mbox{male}}(x)=\left\{
                 \begin{array}{ll}
-                  1 ~~~ \mbox{if gender} ~ x ~ \mbox{is male},\\
+                  1 ~~~ \mbox{If gender} ~ x ~ \mbox{is male},\\
                   0 ~~~ \mbox{Otherwise}.\\
                 \end{array}
               \right.$$
@@ -187,6 +187,15 @@ y_{i} &= \alpha + \beta_1  x_{1i} + \beta_2  x_{2i} + \beta_3  x_{1i}  x_{2i} + 
 \end{align}
 ```
 where $\beta_{\mbox{age, male}} \cdot \mbox{age} \cdot \mathbb{I}_{\mbox{male}}(x)$ corresponds to the interaction term.
+
+More concretely:
+
+$$y_{i}=\left\{
+                \begin{array}{ll}
+                  \alpha + \beta_{\mbox{age}} \cdot \mbox{age} + \epsilon_i ~~~ \mbox{If gender} ~ x ~ \mbox{is female},\\
+                  (\alpha + \beta_{\mbox{male}}) + (\beta_{\mbox{age}} + \beta_{\mbox{age, male}}) \cdot \mbox{age} + \epsilon_i ~~~ \mbox{Otherwise}.\\
+                \end{array}
+              \right.$$
 
 In order to fit an interaction term within our regression model we replace the `+` sign with the `*` sign as follows:
 
@@ -308,7 +317,7 @@ The table below lists a variety of contexts where sample statistics can be used 
 Table 1: Scenarios of sample statistics for inference.
 
 | Scenario | Population Parameter  | Population Notation | Sample Statistic      | Sample Notation                 |
-|:---------|:----------------------|:--------------------|:----------------------|:--------------------------------|
+|:-------------|:-------------|:-------------|:-------------|:----------------|
 | 1        | Population proportion | $p$                 | Sample proportion     | $\widehat{p}$                   |
 | 2        | Population mean       | $\mu$               | Sample mean           | $\bar{x}$                       |
 | 3        | Diff.in pop. props    | $p_1 - p_2$         | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |

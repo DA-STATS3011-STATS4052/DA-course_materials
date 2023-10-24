@@ -513,7 +513,7 @@ y_{i} &amp;= \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \epsilon_i \nonumber \\
 <p><span class="math inline">\(\mathbb{I}_{\mbox{male}}(x)\)</span> is an indicator function such that</p>
 <p><span class="math display">\[\mathbb{I}_{\mbox{male}}(x)=\left\{
             \begin{array}{ll}
-              1 ~~~ \mbox{if gender} ~ x ~ \mbox{is male},\\
+              1 ~~~ \mbox{If gender} ~ x ~ \mbox{is male},\\
               0 ~~~ \mbox{Otherwise}.\\
             \end{array}
           \right.\]</span></p>
@@ -579,6 +579,13 @@ y_{i} &amp;= \alpha + \beta_1  x_{1i} + \beta_2  x_{2i} + \beta_3  x_{1i}  x_{2i
 &amp;= \alpha + \beta_{\mbox{age}} \cdot \mbox{age} + \beta_{\mbox{male}} \cdot \mathbb{I}_{\mbox{male}}(x) + \beta_{\mbox{age, male}} \cdot \mbox{age} \cdot \mathbb{I}_{\mbox{male}}(x) + \epsilon_i, \nonumber
 \end{align}\]</span>
 <p>where <span class="math inline">\(\beta_{\mbox{age, male}} \cdot \mbox{age} \cdot \mathbb{I}_{\mbox{male}}(x)\)</span> corresponds to the interaction term.</p>
+<p>More concretely:</p>
+<p><span class="math display">\[y_{i}=\left\{
+                \begin{array}{ll}
+                  \alpha + \beta_{\mbox{age}} \cdot \mbox{age} + \epsilon_i ~~~ \mbox{If gender} ~ x ~ \mbox{is female},\\
+                  (\alpha + \beta_{\mbox{male}}) + (\beta_{\mbox{age}} + \beta_{\mbox{age, male}}) \cdot \mbox{age} + \epsilon_i ~~~ \mbox{Otherwise}.\\
+                \end{array}
+              \right.\]</span></p>
 <p>In order to fit an interaction term within our regression model we replace the <code>+</code> sign with the <code>*</code> sign as follows:</p>
 <div class="cell" data-layout-align="center">
 <details><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm_spec</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span></span>
@@ -723,11 +730,11 @@ Answer
 <p>Table 1: Scenarios of sample statistics for inference.</p>
 <table class="table">
 <colgroup>
-<col style="width: 9%">
-<col style="width: 20%">
 <col style="width: 19%">
-<col style="width: 20%">
-<col style="width: 30%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 23%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Scenario</th>
