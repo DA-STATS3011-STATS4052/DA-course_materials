@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: docs
 website:
-  title: "Week 7: Collaborative Programming 1"
+  title: "Week 7: Collaborative Coding 1"
   navbar:
     left:
       - href: index.qmd

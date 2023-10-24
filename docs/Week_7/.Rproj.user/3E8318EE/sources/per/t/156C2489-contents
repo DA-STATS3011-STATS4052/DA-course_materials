@@ -1,5 +1,5 @@
 ---
-title: "Week 7: Collaborative Programming 1"
+title: "Week 7: Collaborative Coding 1"
 engine: knitr
 format:
   pdf:
@@ -419,7 +419,6 @@ Here we can see Git has found our new file! We have added some numbered purple c
 3.  The checkbox beside the filename is checked, which in Git terms, means the file has been "staged" for commit
 
 ![](images/image9.png)
-
 :::
 
 # Adding our file to our project
@@ -515,7 +514,6 @@ We can view this "diff" output on its own using the command in the next box.
 3.  This area displays the "diff" of `poem.txt` (more information on what a "diff" is after this example).
 
 ![](images/image10.png)
-
 :::
 
 ## Commit the first version
@@ -740,8 +738,9 @@ You can see that `poem.md` currently has 'untracked' status as it has not been a
 
 ```{bash eval=FALSE}
 git status
-```       
 ```
+
+```         
 On branch main
 Your branch is up to date with 'origin/main'.
 
@@ -758,6 +757,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
 ## GitHub Desktop
+
 The icon beside `poem.md` has a plus symbol for a new, untracked file, whereas the `poem.txt` file has a red minus symbol indicating it has been deleted.
 
 ![](images/image19_1.png)

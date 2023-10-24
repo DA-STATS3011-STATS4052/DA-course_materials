@@ -1,9 +1,9 @@
 {
     "id": "156C2489",
-    "path": "~/Library/CloudStorage/OneDrive-SharedLibraries-UniversityofGlasgow/Jafet Belmont Osuna - 23_24/Week_7/index.qmd",
+    "path": "~/gitrepos/DA-course_materials/docs/Week_7/index.qmd",
     "project_path": "index.qmd",
     "type": "quarto_markdown",
-    "hash": "3028919011",
+    "hash": "441839900",
     "contents": "",
     "dirty": false,
     "created": 1697540356558.0,
@@ -18,16 +18,16 @@
         "rmdVisualCollapsedChunks": "",
         "rmdVisualModeLocation": "17858:16299",
         "cursorPosition": "785,23",
-        "scrollLine": "767",
+        "scrollLine": "778",
         "quartoPreviewFormat": "html",
         "chunk_output_type": "console"
     },
     "folds": "",
-    "lastKnownWriteTime": 1697542732,
+    "lastKnownWriteTime": 1698143638,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1697542732067,
+    "last_content_update": 1698143638,
     "read_only": false,
     "read_only_alternatives": []
 }
