@@ -691,7 +691,7 @@ git push --set-upstream origin main
 ```
 
 ```         
-To https://github.com/isammarques/tutorial1.git
+To https://github.com/dmca-glasgow/tutorial1.git
   * [new branch]      main -> main
 branch 'main' set up to track 'origin/main'.
 ```
