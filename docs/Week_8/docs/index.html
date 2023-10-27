@@ -134,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#switching-branches-with-the-help-of-git-stash" id="toc-switching-branches-with-the-help-of-git-stash" class="nav-link" data-scroll-target="#switching-branches-with-the-help-of-git-stash"><span class="header-section-number">3</span> Switching branches with the help of Git stash</a></li>
   <li><a href="#merging-branches-with-the-help-of-git-merge" id="toc-merging-branches-with-the-help-of-git-merge" class="nav-link" data-scroll-target="#merging-branches-with-the-help-of-git-merge"><span class="header-section-number">4</span> Merging branches with the help of Git merge</a></li>
   <li><a href="#merge-conflicts" id="toc-merge-conflicts" class="nav-link" data-scroll-target="#merge-conflicts"><span class="header-section-number">5</span> Merge conflicts</a></li>
-  <li><a href="#a-better-approach-to-resolving-merge-conflicts" id="toc-a-better-approach-to-resolving-merge-conflicts" class="nav-link" data-scroll-target="#a-better-approach-to-resolving-merge-conflicts"><span class="header-section-number">6</span> A better approach to resolving merge conflicts</a></li>
+  <li><a href="#code-review-a-better-approach-to-resolving-merge-conflicts" id="toc-code-review-a-better-approach-to-resolving-merge-conflicts" class="nav-link" data-scroll-target="#code-review-a-better-approach-to-resolving-merge-conflicts"><span class="header-section-number">6</span> Code Review: A better approach to resolving merge conflicts</a></li>
   </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -1087,8 +1087,8 @@ index 8b94e8e..c886167 100644
 </div>
 </div>
 </div>
-</section><section id="a-better-approach-to-resolving-merge-conflicts" class="level1" data-number="6"><h1 data-number="6">
-<span class="header-section-number">6</span> A better approach to resolving merge conflicts</h1>
+</section><section id="code-review-a-better-approach-to-resolving-merge-conflicts" class="level1" data-number="6"><h1 data-number="6">
+<span class="header-section-number">6</span> Code Review: A better approach to resolving merge conflicts</h1>
 <p>Although Git allows us to resolve a merge conflict as above, this is not considered the “best practice” way to achieve this result. We ended up with something different from both our branch contents and the main branch contents all in one merge conflict resolution, with no opportunity for oversight by someone else working on the project- i.e.&nbsp;we managed to skip the Code Review (aka. Pull Request) stage.</p>
 <p>A Pull Request on GitHub should be thought of as a preparation and checking stage for a Git <code>merge</code> (or <code>rebase</code>) operation. GitHub needs a ‘base’ branch to ‘merge into’, usually <code>main</code>, and a ‘compare’ branch to ‘merge from’. If Git has indicated that a merge will result in a merge conflict, for the base branch as above, GitHub will not easily let you perform the merge process until this is fixed. So let’s see how this could have been done differently.</p>
 <p>Let’s create a new branch called <code>goodbye</code>:</p>

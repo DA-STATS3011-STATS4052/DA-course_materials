@@ -1036,7 +1036,7 @@ Deleted branch capitalise (was 3da9dfb).
 :::
 
 
-# A better approach to resolving merge conflicts
+# Code Review: A better approach to resolving merge conflicts
 
 Although Git allows us to resolve a merge conflict as above, this is not considered the "best practice" way to achieve this result. We ended up with something different from both our branch contents and the main branch contents all in one merge conflict resolution, with no opportunity for oversight by someone else working on the project- i.e. we managed to skip the Code Review (aka. Pull Request) stage.
 
