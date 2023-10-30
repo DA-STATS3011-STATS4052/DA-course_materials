@@ -22,6 +22,7 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(error = TRUE) 
 ```
+This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics at Glasgow University. The content has been reduced to fit the class structure. At the end of Week 8, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>. 
 
 # Using Git
 
@@ -266,7 +267,7 @@ Finally, we are going to look at how you update this file. This essentially foll
 
 4.  Push the changes
 
-# Create a local Git repository
+## Create a local Git repository
 
 First we need to create a local Git repository which will allow us to work through this tutorial. Ensure you have Git installed (see the 'Installation and command-line usage' section).
 
@@ -319,7 +320,7 @@ In File Explorer on Windows, select:
 View > Show > Hidden items.
 ```
 
-# Create a file
+## Create a file
 
 Now let's add a file. Of course, this would usually be code, configuration, or documentation files, but to keep this course somewhat generic and avoid distracting programming concepts, let's add a short poem in a plain text file `poem.txt` to the folder. You should use your preferred Code Editor to create the file, such as VSCode or RStudio. If using Word or other "rich text" editors ensure you choose the File Format "Plain text (`.txt`)" when saving the file.
 
@@ -359,7 +360,7 @@ So I think I'll be six now for ever and ever.
 
 Ensure the file is saved. Git can only 'see' changes that are saved.
 
-# Git status
+## Git status
 
 ::: panel-tabset
 ## Command-line
@@ -421,9 +422,9 @@ Here we can see Git has found our new file! We have added some numbered purple c
 ![](images/image9.png)
 :::
 
-# Adding our file to our project
+## Adding our file to our project
 
-## Stage the file
+### Stage the file
 
 Adding files to the stage is an intermediate step before committing to a version. We need to choose (stage) the files we want to add to our commit. Staging may seem an unnecessary step at this point, but later we will demonstrate how this can be a powerful tool.
 
@@ -516,7 +517,7 @@ We can view this "diff" output on its own using the command in the next box.
 ![](images/image10.png)
 :::
 
-## Commit the first version
+### Commit the first version
 
 Once we have determined which files we want to stage, we can then commit the change(s). Importantly unlike (say) Dropbox, the changes in your project are not stored until you tell Git that they are ready to be stored i.e. in Git you 'commit' them.
 
@@ -585,11 +586,11 @@ Where did our commit go? By clicking on the "History" tab, we can see our first 
 ![](images/image13.png)
 :::
 
-# Get our project onto GitHub
+## Get our project onto GitHub
 
 You have now created a Git repository on your local machine and added a file, however this is only available to people who use your computer. In this section we will demonstrate how to make this available to everyone via the GitHub website.
 
-## Create a new repository on GitHub
+### Create a new repository on GitHub
 
 Up to this point, we have been using Git locally. Next, let's learn how to put a copy of our project on GitHub to share it with others or just make a backup for ourselves.
 
@@ -721,11 +722,11 @@ And we can click on the branches button to view our main branch:
 
 ![](images/image19.png)
 
-# Updating your repository
+## Updating your repository
 
 Now that we have a local Git repository that is linked to GitHub, let's briefly explore the process of updating our project.
 
-## Rename the file
+### Rename the file
 
 First, let's rename our `poem.txt` file to `poem.md` (for Markdown).
 

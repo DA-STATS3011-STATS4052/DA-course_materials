@@ -19,6 +19,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics at Glasgow University. The content has been reduced to fit the class structure. At the end this week, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>. 
+
 # Download a project
 
 There are two main ways to download a project to your computer from GitHub and you should pick the one that makes sense for what you want to do:
