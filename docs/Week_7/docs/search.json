@@ -89,5 +89,40 @@
     "title": "Week 7: Collaborative Coding 1",
     "section": "\n9.1 .gitignore",
     "text": "9.1 .gitignore\nWhen we share our codebase using Git and GitHub, either with the public or with colleagues, we can choose to exclude certain files (e.g. tell Git/GitHub never to consider them) by making use of a .gitignore file. To be more precise, we are telling Git to ignore these files from our project folder by not adding them to any commit change list.\n.gitignore files use a simple syntax to make it easy to match files. The entries in this file can also follow a matching pattern.\n\n\n* is used as a wildcard match\n\n/ is used to ignore pathnames relative to the .gitignore file\n\n# is used to add comments to a .gitignore file\n\nFor example:\n# &lt;-- comments start with a hash sign\n# empty lines are ignored\n\n# ignore 'passwords.txt' at the root of your project:\n/passwords.txt\n\n# ignore 'passwords.txt' anywhere in your project:\npasswords.txt\n\n# ignore 'cache' folder  at the root of your project:\n/cache/\n\n# ignore all 'cache' folders:\ncache/\n\n# ignore all .log files inside a 'logs' folder:\nlogs/*.log\n\n# ignore all .html files inside the 'logs' folder including sub-folders:\nlogs/**/*.log\n\n# ignore all files with .log extension:\n**/*.log\nIf a file has already been committed to Git, ignoring it with .gitignore won’t remove it from the repository, only it’s changes from that point on. If you’d like to remove a file from Git, the simplest way is to follow these steps:\n\nMove the file out of your project folder\nGit will treat the file as deleted. Stage and commit this change.\nAdd the file path to .gitignore\nMove the file back into your project folder\nCheck the stage and confirm that Git is ignoring it\nCommit the updated .gitignore file\n\nHowever, while the file has been removed it is still present in your history in future sections."
+  },
+  {
+    "objectID": "index.html#gitkeep",
+    "href": "index.html#gitkeep",
+    "title": "Week 7: Collaborative Coding 1",
+    "section": "\n9.2 .gitkeep",
+    "text": "9.2 .gitkeep\nA strange quirk of Git is that it is only concerned with files and not folders. Your project can be split into as many files and folders as you wish with no problems, but at some point, you may be confused that Git does not ‘see’ empty folders.\nAs a workaround, a common convention is to create an empty file inside the folder named .gitkeep, which you can commit, enabling you to store the (not really) empty folder in your repository."
+  },
+  {
+    "objectID": "about.html#download-a-.zip-package",
+    "href": "about.html#download-a-.zip-package",
+    "title": "Week 7 Tasks",
+    "section": "Download a .zip package",
+    "text": "Download a .zip package\nThe most straightforward method is to download a .zip file containing the latest version of the files.\n\nClick on the green ‘Code’ button, then the ‘Download ZIP’ option. This will download a single file, archived and compressed using the common ZIP file format. Double-clicking the file will extract its contents to a folder next to the original .zip file.\nAn important distinction here is that you are downloading just the codebase — the files and folders of the repository — and not the Git repository itself. This means you lose some of the key functionality of Git, for example, if the project maintainers make any updates to the project, you will need to manually re-download the .zip file and extract it again to see those changes, instead of being able to easily pull these changes (more on this in the next example!)."
+  },
+  {
+    "objectID": "about.html#clone",
+    "href": "about.html#clone",
+    "title": "Week 7 Tasks",
+    "section": "Clone",
+    "text": "Clone\nAnother way to download a project to your computer is to use Git’s clone method. To use clone, we need to tell Git installed on our computer to make a copy (or ‘clone’) of another repository, in this case from GitHub.\n\nCommand-lineGitHub Desktop\n\n\nFirst, we need to copy the address of the repository we want to clone.\n\n\nClick on the green button labelled “Code”\nChoose either HTTPS or SSH, depending on how you connect to GitHub with Git on your computer (see the Configuration section of Unit 1)\nCopy the address\n\nThen in your terminal, navigate to your desired folder and issue the following command:\n\ngit clone &lt;address&gt;\n\nYou should now see the repository has been cloned to your computer.\n\n\nFirst, navigate to the repository you want to clone on the GitHub website.\n\n\nClick on the green button labelled ‘Code’\nClick on ‘Open with GitHub Desktop’\nYou should then see a window like this pop up in GitHub Desktop:\n\n\n\nThe URL of the repository on GitHub has automatically been populated\nChoose where you would like the repository to be cloned to on your computer\nClick ‘Clone’\n\n\n\n\nUsing this approach, we have a copy of the files and folders in the repository, but we have also copied the metadata which makes this into a Git repository. To answer the example above, now if a project maintainer makes an update to the project on GitHub, we can easily sync both versions:\n\nCommand-lineGitHub Desktop\n\n\nIn the project folder just issue the pull command:\n\ngit pull\n\n\n\nOn GitHub Desktop, click the ‘Fetch origin’ button in the top bar:"
+  },
+  {
+    "objectID": "about.html#command-line-1",
+    "href": "about.html#command-line-1",
+    "title": "Week 7 Tasks",
+    "section": "Command-line",
+    "text": "Command-line\nIn the project folder just issue the pull command:\n{bash eval=FALSE} git pull"
+  },
+  {
+    "objectID": "about.html#github-desktop-1",
+    "href": "about.html#github-desktop-1",
+    "title": "Week 7 Tasks",
+    "section": "GitHub Desktop",
+    "text": "GitHub Desktop\nOn GitHub Desktop, click the ‘Fetch origin’ button in the top bar:"
   }
 ]

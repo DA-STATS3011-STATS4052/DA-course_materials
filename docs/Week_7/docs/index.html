@@ -108,6 +108,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
  <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">Week 7 Tasks</span></a>
+  </li>  
 </ul>
 <div class="quarto-navbar-tools ms-auto">
 </div>
@@ -176,12 +180,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </li>
   <li>
-<a href="#special-file-conventions" id="toc-special-file-conventions" class="nav-link" data-scroll-target="#special-file-conventions"><span class="header-section-number">9</span> Special file conventions</a>
+<a href="#extra-special-file-conventions" id="toc-extra-special-file-conventions" class="nav-link" data-scroll-target="#extra-special-file-conventions"><span class="header-section-number">9</span> Extra: Special file conventions</a>
   <ul class="collapse">
 <li><a href="#gitignore" id="toc-gitignore" class="nav-link" data-scroll-target="#gitignore"><span class="header-section-number">9.1</span> .gitignore</a></li>
+  <li><a href="#gitkeep" id="toc-gitkeep" class="nav-link" data-scroll-target="#gitkeep"><span class="header-section-number">9.2</span> .gitkeep</a></li>
   </ul>
 </li>
-  <li><a href="#gitkeep" id="toc-gitkeep" class="nav-link" data-scroll-target="#gitkeep"><span class="header-section-number">10</span> .gitkeep</a></li>
   </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -831,8 +835,8 @@ rename poem.txt =&gt; poem.md (100%)</code></pre>
 </div>
 </div>
 </div>
-</section></section></section><section id="special-file-conventions" class="level1" data-number="9"><h1 data-number="9">
-<span class="header-section-number">9</span> Special file conventions</h1>
+</section></section></section><section id="extra-special-file-conventions" class="level1" data-number="9"><h1 data-number="9">
+<span class="header-section-number">9</span> Extra: Special file conventions</h1>
 <p>Both Git and GitHub have special file conventions, where files with a particular name have special behaviours. Git uses the ‘dotfile’ convention (a <code>.</code> at the start of the name), whereas GitHub typically uses all-caps. The ‘dotfile’ convention is relatively common and as your operating system may know that they are used as configuration files they may not show up in our file manager.</p>
 <p>The most important are listed below, but please see a <a href="https://stackoverflow.com/questions/12605576#12719247">list of Git special files</a> and a <a href="https://github.com/joelparkerhenderson/github-special-files-and-paths">list of GitHub special files</a> for more information.</p>
 <section id="gitignore" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="gitignore">
@@ -881,13 +885,13 @@ logs/**/*.log
 <li>Commit the updated .gitignore file</li>
 </ol>
 <p>However, while the file has been removed it is still present in your history in future sections.</p>
-</section></section><section id="gitkeep" class="level1" data-number="10"><h1 data-number="10">
-<span class="header-section-number">10</span> .gitkeep</h1>
+</section><section id="gitkeep" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="gitkeep">
+<span class="header-section-number">9.2</span> .gitkeep</h2>
 <p>A strange quirk of Git is that it is only concerned with files and not folders. Your project can be split into as many files and folders as you wish with no problems, but at some point, you may be confused that Git does not ‘see’ empty folders.</p>
 <p>As a workaround, a common convention is to create an empty file inside the folder named <code>.gitkeep</code>, which you can commit, enabling you to store the (not really) empty folder in your repository.</p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

@@ -22,7 +22,8 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(error = TRUE) 
 ```
-This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics at Glasgow University. The content has been reduced to fit the class structure. At the end of Week 8, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>. 
+
+This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics at Glasgow University. The content has been reduced to fit the class structure. At the end of Week 8, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>.
 
 # Using Git
 
@@ -787,7 +788,7 @@ rename poem.txt => poem.md (100%)
 ![](images/image20.png)
 :::
 
-# Special file conventions
+# Extra: Special file conventions
 
 Both Git and GitHub have special file conventions, where files with a particular name have special behaviours. Git uses the 'dotfile' convention (a `.` at the start of the name), whereas GitHub typically uses all-caps. The 'dotfile' convention is relatively common and as your operating system may know that they are used as configuration files they may not show up in our file manager.
 
@@ -842,7 +843,7 @@ If a file has already been committed to Git, ignoring it with .gitignore won't r
 
 However, while the file has been removed it is still present in your history in future sections.
 
-# .gitkeep
+## .gitkeep
 
 A strange quirk of Git is that it is only concerned with files and not folders. Your project can be split into as many files and folders as you wish with no problems, but at some point, you may be confused that Git does not 'see' empty folders.
 

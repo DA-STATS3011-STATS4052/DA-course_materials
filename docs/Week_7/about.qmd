@@ -1,0 +1,111 @@
+---
+title: "Week 7 Tasks"
+engine: knitr
+format: 
+  html: default
+  pdf:  default
+editor: visual
+---
+
+# Tasks
+
+<!-- Create a Pull Request to an existing project -->
+
+<!-- This tutorial is about contributing to someone else's project. The sample project that we are going to contribute to can be found here: -->
+
+<!-- https://github.com/dmca-glasgow/tutorial2 -->
+
+<!-- We're simply going to add a line to the existing readme.md file, but you may have found a bug, or thought of a new feature, in someone else's project, and you've taken it upon yourself to contribute and submit it to the project maintainer for approval. -->
+
+<!-- In Git terms, what you need to do is: -->
+
+<!-- Fork the project on GitHub to your account -->
+
+<!-- Clone it to your local machine -->
+
+<!-- Make the change -->
+
+<!-- Stage, commit and push the change to GitHub -->
+
+<!-- Create a Pull Request on the original project which points to your forked repository -->
+
+<!-- Code review: the project maintainer will review your change to decide if they want to integrate it, close it, or request modifications -->
+
+# Download a project
+
+There are two main ways to download a project to your computer from GitHub and you should pick the one that makes sense for what you want to do:
+
+## Download a `.zip` package
+
+The most straightforward method is to download a `.zip` file containing the latest version of the files.
+
+![](images/image22.png)
+
+Click on the green 'Code' button, then the 'Download ZIP' option. This will download a single file, archived and compressed using the common [ZIP](https://en.wikipedia.org/wiki/ZIP_(file_format)) file format. Double-clicking the file will extract its contents to a folder next to the original .zip file.
+
+An important distinction here is that you are downloading just the codebase --- the files and folders of the repository --- and not the Git repository itself. This means you lose some of the key functionality of Git, for example, if the project maintainers make any updates to the project, you will need to manually re-download the `.zip` file and extract it again to see those changes, instead of being able to easily pull these changes (more on this in the next example!).
+
+## Clone
+
+Another way to download a project to your computer is to use Git's `clone` method. To use `clone`, we need to tell Git installed on our computer to make a copy (or 'clone') of another repository, in this case from GitHub.
+
+::: panel-tabset
+## Command-line
+
+First, we need to copy the address of the repository we want to clone.
+
+![](images/image23.png)
+
+1.  Click on the green button labelled "Code"
+
+2.  Choose either HTTPS or SSH, depending on how you connect to GitHub with Git on your computer (see the Configuration section of Unit 1)
+
+3.  Copy the address
+
+Then in your terminal, navigate to your desired folder and issue the following command:
+
+```{bash eval=FALSE}
+git clone <address>
+```
+
+You should now see the repository has been cloned to your computer.
+
+## GitHub Desktop
+
+First, navigate to the repository you want to clone on the GitHub website.
+
+![](images/image24.png)
+
+1.  Click on the green button labelled 'Code'
+
+2.  Click on 'Open with GitHub Desktop'
+
+3.  You should then see a window like this pop up in GitHub Desktop:
+
+![](images/image25.png)
+
+1.  The URL of the repository on GitHub has automatically been populated
+
+2.  Choose where you would like the repository to be cloned to on your computer
+
+3.  Click 'Clone'
+:::
+
+Using this approach, we have a copy of the files and folders in the repository, but we have also copied the metadata which makes this into a Git repository. To answer the example above, now if a project maintainer makes an update to the project on GitHub, we can easily sync both versions:
+
+::: panel-tabset
+
+## Command-line
+
+In the project folder just issue the `pull` command:
+
+```{bash eval=FALSE}
+git pull
+```
+
+## GitHub Desktop
+
+On GitHub Desktop, click the 'Fetch origin' button in the top bar:
+
+![](images/image26.png)
+:::
