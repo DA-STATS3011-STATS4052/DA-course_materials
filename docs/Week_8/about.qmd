@@ -1,0 +1,33 @@
+---
+title: "Week 7 Tasks"
+engine: knitr
+format: 
+  html: default
+  pdf:  default
+editor: visual
+---
+
+# Tasks
+
+<!-- Create a Pull Request to an existing project -->
+
+<!-- This tutorial is about contributing to someone else's project. The sample project that we are going to contribute to can be found here: -->
+
+<!-- https://github.com/dmca-glasgow/tutorial2 -->
+
+<!-- We're simply going to add a line to the existing readme.md file, but you may have found a bug, or thought of a new feature, in someone else's project, and you've taken it upon yourself to contribute and submit it to the project maintainer for approval. -->
+
+<!-- In Git terms, what you need to do is: -->
+
+<!-- Fork the project on GitHub to your account -->
+
+<!-- Clone it to your local machine -->
+
+<!-- Make the change -->
+
+<!-- Stage, commit and push the change to GitHub -->
+
+<!-- Create a Pull Request on the original project which points to your forked repository -->
+
+<!-- Code review: the project maintainer will review your change to decide if they want to integrate it, close it, or request modifications -->
+

@@ -788,7 +788,7 @@ rename poem.txt => poem.md (100%)
 ![](images/image20.png)
 :::
 
-# Extra: Special file conventions
+# Supplement: Special file conventions
 
 Both Git and GitHub have special file conventions, where files with a particular name have special behaviours. Git uses the 'dotfile' convention (a `.` at the start of the name), whereas GitHub typically uses all-caps. The 'dotfile' convention is relatively common and as your operating system may know that they are used as configuration files they may not show up in our file manager.
 
