@@ -202,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><p>This week’s material is based on the <strong>Version Control Course</strong> from the School of Mathematics and Statistics at Glasgow University. The content has been reduced to fit the class structure. At the end of Week 8, please provide some feedback on the materials on <a href="https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY" class="uri">https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY</a>.</p>
+</header><p>This week’s material is based on the <strong>Version Control Course</strong> from the School of Mathematics and Statistics from the University of Glasgow. The content has been reduced to fit the class structure. At the end of Week 8, please provide some feedback on the materials on <a href="https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY" class="uri">https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY</a>.</p>
 <section id="using-git" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> Using Git</h1>
 <p>Version control is used throughout industry and academia as a way of developing and sharing code. Some people tend to think of version control as simply being GitHub, but it’s important to be aware that version control is a much more general area and GitHub is just a useful way of hosting a version control system called Git. An alternative approach might be more appropriate for your project, thus we recommend thinking through the needs of your project before committing to one scheme, however Git/GitHub is often a good choice for version control, hence why we have created a course around it. GitHub, as a host for Git repositories, is widely used within both academia and industry.</p>
@@ -838,15 +838,11 @@ rename poem.txt =&gt; poem.md (100%)</code></pre>
 <section id="gitignore" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="gitignore">
 <span class="header-section-number">9.1</span> .gitignore</h2>
 <p>When we share our codebase using Git and GitHub, either with the public or with colleagues, we can choose to exclude certain files (e.g.&nbsp;tell Git/GitHub never to consider them) by making use of a <code>.gitignore</code> file. To be more precise, we are telling Git to ignore these files from our project folder by not adding them to any commit change list.</p>
-<p><code>.gitignore</code> files use a simple syntax to make it easy to match files. The entries in this file can also follow a matching pattern.</p>
-<ul>
-<li>
-<code>*</code> is used as a wildcard match</li>
-<li>
-<code>/</code> is used to ignore pathnames relative to the .gitignore file</li>
-<li>
-<code>#</code> is used to add comments to a .gitignore file</li>
-</ul>
+<!--`.gitignore` files use a simple syntax to make it easy to match files. The entries in this file can also follow a matching pattern.
+
+-   `*` is used as a wildcard match
+-   `/` is used to ignore pathnames relative to the .gitignore file
+-   `#` is used to add comments to a .gitignore file-->
 <p>For example:</p>
 <pre><code># &lt;-- comments start with a hash sign
 # empty lines are ignored

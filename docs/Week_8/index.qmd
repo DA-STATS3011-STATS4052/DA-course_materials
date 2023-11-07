@@ -19,7 +19,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics at Glasgow University. The content has been reduced to fit the class structure. At the end this week, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>. 
+This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics from the University of Glasgow. The content has been reduced to fit the class structure. At the end this week, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>. 
 
 # Add collaborator
 To collaborate with users in a repository that belongs to your personal account on GitHub.com, you can [invite the users as collaborators](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository).
