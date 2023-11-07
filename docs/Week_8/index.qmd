@@ -104,17 +104,9 @@ On GitHub Desktop, click the 'Fetch origin' button in the top bar:
 ![](images/image26.png)
 :::
 
-# Motivation
+# Branching and branching strategies
 
-## Working with other people
-Branches enable a team to work on the same files at the same time. However, it doesn't work like other collaboration tools like Google Docs or Microsoft 365, where you can see other users editing parts of a file as you work. Instead, branches allow collaborators to work in isolation, not worrying about what others are up to, and when the time comes to **integrate** changes into the default branch, Git provides the tools to ensure you don't overwrite someone else's work (or, if you do, you do it very intentionally!).
-
-<!-- The GitHub Pull Request feature (covered in last week's tutorial) is based this integration phase and allows team members to review and test the changes in a branch against the default branch before approving (or rejecting) the integration. -->
-
-## Grouping commits
-Even if you're working on your own, branches can be used as a tool to group multiple commits. For example, when working on a new feature for a project, you can create a branch named after your feature, then continue to use Git best practices by **breaking your task into small manageable chunks**, and **complete one thing at a time and commit it**. Then when it comes time to integrate your changes to the main branch, you can choose to "squash" those small commits down into one "merge commit" named after your new feature. This helps to keep the commit history on the default branch minimal and tidy, only showing completed tasks such as new features and bug fixes.
-
-#  Branching and branching strategies
+##  Introduction
 
 Typically a project will have one main direction of development— to reach a predetermined goal, such as a fully working prototype or to complete a course assessment. When Git uses the analogy of a tree (with branches), this main direction could be thought of as the 'trunk' of your development flow.
 
@@ -128,9 +120,19 @@ Similarly, you can merge the changes from``main` into your branch. This is usefu
 
 Git offers another method to merge branches called **rebase**, which is why the Git term for merging branches is **integration** as this covers both methods. Although rebase has some advantages, you can risk losing work when using it, so it won't be covered in this course.
 
+## Motivation
+
+### Working with other people
+Branches enable a team to work on the same files at the same time. However, it doesn't work like other collaboration tools like Google Docs or Microsoft 365, where you can see other users editing parts of a file as you work. Instead, branches allow collaborators to work in isolation, not worrying about what others are up to, and when the time comes to **integrate** changes into the default branch, Git provides the tools to ensure you don't overwrite someone else's work (or, if you do, you do it very intentionally!).
+
+<!-- The GitHub Pull Request feature (covered in last week's tutorial) is based this integration phase and allows team members to review and test the changes in a branch against the default branch before approving (or rejecting) the integration. -->
+
+### Grouping commits
+Even if you're working on your own, branches can be used as a tool to group multiple commits. For example, when working on a new feature for a project, you can create a branch named after your feature, then continue to use Git best practices by **breaking your task into small manageable chunks**, and **complete one thing at a time and commit it**. Then when it comes time to integrate your changes to the main branch, you can choose to "squash" those small commits down into one "merge commit" named after your new feature. This helps to keep the commit history on the default branch minimal and tidy, only showing completed tasks such as new features and bug fixes.
+
 # Branching and integrating
 
-In this tutorial we are going to learn how to create a branch and make changes to it, then integrate this branch back into the main branch. This is particularly helpful when working collaboratively.
+This week we are going to learn how to create a branch and make changes to it, then integrate this branch back into the `main` branch. This is particularly helpful when working collaboratively.
 
 In Git, a branch represents a distinct version of the `main` repository, serving as a snapshot of your changes. When implementing new features or addressing issues, regardless of their scope, creating a new branch is the practice to isolate your modifications. This approach enhances code stability in the main branch and affords you the opportunity to refine your history before merging it into the primary codebase.
 
@@ -387,9 +389,259 @@ Simply right click on the `shout` branch here and select Delete
 
 :::
 
-# Merging branches with the help of Git merge
+## Switching branches with the help of Git stash
 
-Let's stage and commit our 2nd line ``Is it me you're looking for?'' from then previous section:
+Given the example above, branching with Git appears straightforward. However, this is not always the case. Sometimes Git won't let you switch branches. Let's create a scenario where we see an error when switching branches, try to understand why Git is stopping us, and look at a simple universal solution.
+
+Create and switch to a new branch called `question`:
+
+::: panel-tabset
+
+## Command-line
+
+```{bash eval=FALSE}
+git switch -c question
+```
+
+```
+
+Switched to a new branch 'question'
+
+```
+
+## GitHub Desktop
+
+From the main menu select Branch > New Branch and name the branch 'question':
+
+![](images/image37.png)
+
+:::
+
+Let's make a change to the file by changing the exclamation mark to a question mark:
+
+::: callout-note
+
+## example.md
+
+Hello?
+
+:::
+
+Add the change to the stage and commit:
+
+::: panel-tabset
+
+## Command-line
+
+```{bash eval=FALSE}
+git add example.md
+```
+
+```
+
+git commit -m "Change exclamation mark to question mark"
+
+[question 49806f4] Change exclamation mark to question mark
+
+1 file changed, 1 insertion(+), 1 deletion(-)
+
+```
+
+## GitHub Desktop
+
+![](images/image38.png)
+
+:::
+
+Now let's make another change to our file:
+
+::: callout-note
+
+## example.md
+
+Hello?
+
+Is it me you're looking for?
+
+:::
+
+This time, instead of committing, we will try to switch back to the main branch, and Git will tell us we can't switch branches currently as we would lose our local changes (see the next example for the error). Committing our latest change would let us then switch the branch, but what if we don't want to commit the change?
+
+::: panel-tabset
+
+## Command-line
+
+A common scenario is that you have started working on a problem, then when you check Git you realise you are working on the wrong branch, but now you have uncommitted changes and can't switch branches. For this scenario, there is the **stash**. Think of it as a clipboard with cut-and-paste functionality like you would have in a text editor, which will let us 'cut' our changes and store them somewhere safe, let us switch branches, and then paste them.
+
+Let's try it now:
+
+```{bash eval=FALSE}
+git switch main
+```
+
+```
+
+error: Your local changes to the following files would be overwritten by checkout:
+
+example.md
+
+Please commit your changes or stash them before you switch branches.
+
+Aborting
+
+```
+
+Git complains that we will lose our local changes. Let's try out the stash:
+
+```{bash eval=FALSE}
+git stash
+```
+
+```
+
+Saved working directory and index state WIP on question: 49806f4 Change exclamation mark to question mark
+
+```
+
+Git has used the abbreviation 'WIP' which stands for 'Work In Progress'.
+
+Now if we look at our file we'll see the 2nd line has disappeared:
+
+```{bash eval=FALSE}
+cat example.md
+```
+
+```
+
+Hello?
+
+```
+
+We can ask Git to show us our stash:
+
+```{bash eval=FALSE}
+git stash show
+```
+
+```
+
+example.md | 2 ++
+
+1 file changed, 2 insertions(+)
+
+```
+
+This shows us which files have changed. We can add a `-p` (for 'patch') flag which will show us a diff:
+
+```{bash eval=FALSE}
+git stash show -p
+```
+
+```
+
+diff --git a/example.md b/example.md
+
+index ebbc6cd..472b4c5 100644
+
+--- a/example.md
+
++++ b/example.md
+
+@@ -1,2 +1,4 @@
+
+Hello?
+
++Is it me you're looking for?
+
++
+```
+
+Now our local copy is 'clean' and we can safely switch branches:
+```{bash eval=FALSE}
+git switch main
+```
+
+```
+Switched to branch 'main'
+```
+
+And we can apply our change to a different branch:
+
+``` {bash eval=FALSE}
+git stash apply
+```
+
+```
+
+Auto-merging example.md
+
+On branch main
+
+Changes not staged for commit:
+
+(use "git add <file>..." to update what will be committed)
+
+(use "git restore <file>..." to discard changes in working directory)
+
+modified:   example.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+```
+
+And now if we look at the file, we'll see our stashed change has been applied, but there is no question mark on "Hello?" as this change still resides on the `question` branch:
+
+```{bash eval=FALSE}
+cat example.md
+```
+
+```
+
+Hello!
+
+Is it me you're looking for?
+
+```
+
+We can now safely remove our stashed version:
+
+```{bash eval=FALSE}
+git stash drop
+```
+
+```
+
+Dropped refs/stash@{0} (00b8825ce0b6a0e3c2877f3c42c828fb4da4c922)
+
+```
+
+It's important to `drop` the stash afterwards, or you'll end up with several items in the stash that could lead to applying the wrong one. Git has a shortcut for 'apply then drop' which is `git stash pop`.
+
+## GitHub Desktop
+
+Luckily for GitHub Desktop users, this stashing and stash-applying process is all handled by clicking a button.
+
+Once we try to switch to the `main` branch:
+
+![](images/image39.png)
+
+GitHub Desktop offers us two options:
+
+* **Leave my changes on question** allows us to stash the changes and come back to the branch later and apply the stash
+
+* **Bring my changes to main** automates the process of stashing the changes, switching to the desired branch, and applying the stash.
+
+For this tutorial, we will choose the latter option— 'Bring my changes to main':
+
+![](images/image40.png)
+
+And now if we look at the file, we'll see our stashed change has been applied, but no question mark as this change still resides on the `question` branch:
+
+![](images/image41.png)
+
+:::
+
+Let's stage and commit our 2nd line:
 
 ::: panel-tabset
 
@@ -462,7 +714,7 @@ Is it me you're looking for?
 
 :::
 
-# Merge conflicts
+## Merge conflicts
 
 In the examples above we have introduced create a branch, making some changes and then integrating this back into main. However, what happens if you make a change to a line in a file on one branch, then you (or someone else) changes the same line of the same file on a different branch, what should Git do when you want to merge? This is a so-called **merge conflict**.
 
@@ -1135,258 +1387,6 @@ If you are sure you want to delete it, run 'git branch -D goodbye'.
 So to recap, we have prepared our branch for integration by first combining any new changes from the `main` branch into our branch and resolving the merge conflicts in isolation, creating a "final version" of the change we want to make with our branch ready to be checked, before attempting to integrate our branch back into the `main` branch.
 
 If you need to keep your short-lived branch open for some reason, it's advised to merge any recent changes from `main` into your branch often, to avoid painful merge conflicts later.
-
-# Supplement: Switching branches with the help of Git stash
-
-Given the example above, branching with Git appears straightforward. However, this is not always the case. Sometimes Git won't let you switch branches. Let's create a scenario where we see an error when switching branches, try to understand why Git is stopping us, and look at a simple universal solution.
-
-Create and switch to a new branch called `question`:
-
-::: panel-tabset
-
-## Command-line
-
-```{bash eval=FALSE}
-git switch -c question
-```
-
-```
-
-Switched to a new branch 'question'
-
-```
-
-## GitHub Desktop
-
-From the main menu select Branch > New Branch and name the branch 'question':
-
-![](images/image37.png)
-
-:::
-
-Let's make a change to the file by changing the exclamation mark to a question mark:
-
-::: callout-note
-
-## example.md
-
-Hello?
-
-:::
-
-Add the change to the stage and commit:
-
-::: panel-tabset
-
-## Command-line
-
-```{bash eval=FALSE}
-git add example.md
-```
-
-```
-
-git commit -m "Change exclamation mark to question mark"
-
-[question 49806f4] Change exclamation mark to question mark
-
-1 file changed, 1 insertion(+), 1 deletion(-)
-
-```
-
-## GitHub Desktop
-
-![](images/image38.png)
-
-:::
-
-Now let's make another change to our file:
-
-::: callout-note
-
-## example.md
-
-Hello?
-
-Is it me you're looking for?
-
-:::
-
-This time, instead of committing, we will try to switch back to the main branch, and Git will tell us we can't switch branches currently as we would lose our local changes (see the next example for the error). Committing our latest change would let us then switch the branch, but what if we don't want to commit the change?
-
-::: panel-tabset
-
-## Command-line
-
-A common scenario is that you have started working on a problem, then when you check Git you realise you are working on the wrong branch, but now you have uncommitted changes and can't switch branches. For this scenario, there is the **stash**. Think of it as a clipboard with cut-and-paste functionality like you would have in a text editor, which will let us 'cut' our changes and store them somewhere safe, let us switch branches, and then paste them.
-
-Let's try it now:
-
-```{bash eval=FALSE}
-git switch main
-```
-
-```
-
-error: Your local changes to the following files would be overwritten by checkout:
-
-example.md
-
-Please commit your changes or stash them before you switch branches.
-
-Aborting
-
-```
-
-Git complains that we will lose our local changes. Let's try out the stash:
-
-```{bash eval=FALSE}
-git stash
-```
-
-```
-
-Saved working directory and index state WIP on question: 49806f4 Change exclamation mark to question mark
-
-```
-
-Git has used the abbreviation 'WIP' which stands for 'Work In Progress'.
-
-Now if we look at our file we'll see the 2nd line has disappeared:
-
-```{bash eval=FALSE}
-cat example.md
-```
-
-```
-
-Hello?
-
-```
-
-We can ask Git to show us our stash:
-
-```{bash eval=FALSE}
-git stash show
-```
-
-```
-
-example.md | 2 ++
-
-1 file changed, 2 insertions(+)
-
-```
-
-This shows us which files have changed. We can add a `-p` (for 'patch') flag which will show us a diff:
-
-```{bash eval=FALSE}
-git stash show -p
-```
-
-```
-
-diff --git a/example.md b/example.md
-
-index ebbc6cd..472b4c5 100644
-
---- a/example.md
-
-+++ b/example.md
-
-@@ -1,2 +1,4 @@
-
-Hello?
-
-+Is it me you're looking for?
-
-+
-```
-
-Now our local copy is 'clean' and we can safely switch branches:
-```{bash eval=FALSE}
-git switch main
-```
-
-```
-Switched to branch 'main'
-```
-
-And we can apply our change to a different branch:
-
-``` {bash eval=FALSE}
-git stash apply
-```
-
-```
-
-Auto-merging example.md
-
-On branch main
-
-Changes not staged for commit:
-
-(use "git add <file>..." to update what will be committed)
-
-(use "git restore <file>..." to discard changes in working directory)
-
-modified:   example.md
-
-no changes added to commit (use "git add" and/or "git commit -a")
-
-```
-
-And now if we look at the file, we'll see our stashed change has been applied, but there is no question mark on "Hello?" as this change still resides on the `question` branch:
-
-```{bash eval=FALSE}
-cat example.md
-```
-
-```
-
-Hello!
-
-Is it me you're looking for?
-
-```
-
-We can now safely remove our stashed version:
-
-```{bash eval=FALSE}
-git stash drop
-```
-
-```
-
-Dropped refs/stash@{0} (00b8825ce0b6a0e3c2877f3c42c828fb4da4c922)
-
-```
-
-It's important to `drop` the stash afterwards, or you'll end up with several items in the stash that could lead to applying the wrong one. Git has a shortcut for 'apply then drop' which is `git stash pop`.
-
-## GitHub Desktop
-
-Luckily for GitHub Desktop users, this stashing and stash-applying process is all handled by clicking a button.
-
-Once we try to switch to the `main` branch:
-
-![](images/image39.png)
-
-GitHub Desktop offers us two options:
-
-* **Leave my changes on question** allows us to stash the changes and come back to the branch later and apply the stash
-
-* **Bring my changes to main** automates the process of stashing the changes, switching to the desired branch, and applying the stash.
-
-For this tutorial, we will choose the latter option— 'Bring my changes to main':
-
-![](images/image40.png)
-
-And now if we look at the file, we'll see our stashed change has been applied, but no question mark as this change still resides on the `question` branch:
-
-![](images/image41.png)
-
-:::
 
 # Supplement: Create a Pull Request to an existing project
 

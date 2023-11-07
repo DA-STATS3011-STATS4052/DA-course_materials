@@ -1,8 +1,10 @@
 {
-  "hash": "a754ce02c0472c0b163d8ffb898e69ac",
+  "hash": "a05e052ddec7018a0a337c22e4ecae50",
   "result": {
-    "markdown": "---\ntitle: \"About\"\n---\n\n\nAbout this site\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
-    "supporting": [],
+    "markdown": "---\ntitle: \"Week 7 Tasks\"\nengine: knitr\nformat: \n  html: default\n  pdf:  default\neditor: visual\n---\n\n\n# Tasks\n\n<!-- Create a Pull Request to an existing project -->\n\n<!-- This tutorial is about contributing to someone else's project. The sample project that we are going to contribute to can be found here: -->\n\n<!-- https://github.com/dmca-glasgow/tutorial2 -->\n\n<!-- We're simply going to add a line to the existing readme.md file, but you may have found a bug, or thought of a new feature, in someone else's project, and you've taken it upon yourself to contribute and submit it to the project maintainer for approval. -->\n\n<!-- In Git terms, what you need to do is: -->\n\n<!-- Fork the project on GitHub to your account -->\n\n<!-- Clone it to your local machine -->\n\n<!-- Make the change -->\n\n<!-- Stage, commit and push the change to GitHub -->\n\n<!-- Create a Pull Request on the original project which points to your forked repository -->\n\n<!-- Code review: the project maintainer will review your change to decide if they want to integrate it, close it, or request modifications -->\n\n",
+    "supporting": [
+      "about_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],
