@@ -209,7 +209,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, sharp corners, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, frame hidden, breakable, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 This week's material is based on the \textbf{Version Control Course}
 from the School of Mathematics and Statistics from the University of
@@ -323,38 +323,8 @@ On GitHub Desktop, click the `Fetch origin' button in the top bar:
 \section{Branching and branching
 strategies}\label{branching-and-branching-strategies}}
 
-\hypertarget{motivation}{%
-\section{Motivation}\label{motivation}}
-
-\hypertarget{working-with-other-people}{%
-\subsubsection{Working with other
-people}\label{working-with-other-people}}
-
-Branches enable a team to work on the same files at the same time.
-However, it doesn't work like other collaboration tools like Google Docs
-or Microsoft 365, where you can see other users editing parts of a file
-as you work. Instead, branches allow collaborators to work in isolation,
-not worrying about what others are up to, and when the time comes to
-\textbf{integrate} changes into the default branch, Git provides the
-tools to ensure you don't overwrite someone else's work (or, if you do,
-you do it very intentionally!).
-
-\hypertarget{grouping-commits}{%
-\subsubsection{Grouping commits}\label{grouping-commits}}
-
-Even if you're working on your own, branches can be used as a tool to
-group multiple commits. For example, when working on a new feature for a
-project, you can create a branch named after your feature, then continue
-to use Git best practices by \textbf{breaking your task into small
-manageable chunks}, and \textbf{complete one thing at a time and commit
-it}. Then when it comes time to integrate your changes to the main
-branch, you can choose to ``squash'' those small commits down into one
-``merge commit'' named after your new feature. This helps to keep the
-commit history on the default branch minimal and tidy, only showing
-completed tasks such as new features and bug fixes.
-
-\hypertarget{branching-and-integrating}{%
-\section{Branching and integrating}\label{branching-and-integrating}}
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
 
 Typically a project will have one main direction of development--- to
 reach a predetermined goal, such as a fully working prototype or to
@@ -398,11 +368,41 @@ as this covers both methods. Although rebase has some advantages, you
 can risk losing work when using it, so it won't be covered in this
 course.
 
-\hypertarget{branching-and-integrating-1}{%
-\section{Branching and integrating}\label{branching-and-integrating-1}}
+\hypertarget{motivation}{%
+\subsection{Motivation}\label{motivation}}
 
-In this tutorial we are going to learn how to create a branch and make
-changes to it, then integrate this branch back into the main branch.
+\hypertarget{working-with-other-people}{%
+\subsubsection{Working with other
+people}\label{working-with-other-people}}
+
+Branches enable a team to work on the same files at the same time.
+However, it doesn't work like other collaboration tools like Google Docs
+or Microsoft 365, where you can see other users editing parts of a file
+as you work. Instead, branches allow collaborators to work in isolation,
+not worrying about what others are up to, and when the time comes to
+\textbf{integrate} changes into the default branch, Git provides the
+tools to ensure you don't overwrite someone else's work (or, if you do,
+you do it very intentionally!).
+
+\hypertarget{grouping-commits}{%
+\subsubsection{Grouping commits}\label{grouping-commits}}
+
+Even if you're working on your own, branches can be used as a tool to
+group multiple commits. For example, when working on a new feature for a
+project, you can create a branch named after your feature, then continue
+to use Git best practices by \textbf{breaking your task into small
+manageable chunks}, and \textbf{complete one thing at a time and commit
+it}. Then when it comes time to integrate your changes to the main
+branch, you can choose to ``squash'' those small commits down into one
+``merge commit'' named after your new feature. This helps to keep the
+commit history on the default branch minimal and tidy, only showing
+completed tasks such as new features and bug fixes.
+
+\hypertarget{branching-and-integrating}{%
+\section{Branching and integrating}\label{branching-and-integrating}}
+
+This week we are going to learn how to create a branch and make changes
+to it, then integrate this branch back into the \texttt{main} branch.
 This is particularly helpful when working collaboratively.
 
 In Git, a branch represents a distinct version of the \texttt{main}
@@ -463,7 +463,7 @@ and click the ``Create Repository'' button:
 
 Add the following file to the repository:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
 
 Hello
 
@@ -509,7 +509,7 @@ Switched to a new branch 'shout'
 Add an exclamation mark to the end of the word within the
 \texttt{example.md} file:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
 
 Hello!
 
@@ -650,825 +650,9 @@ Simply right click on the \texttt{shout} branch here and select Delete
 
 \includegraphics{images/image36.png}
 
-\hypertarget{merging-branches-with-the-help-of-git-merge}{%
-\section{Merging branches with the help of Git
-merge}\label{merging-branches-with-the-help-of-git-merge}}
-
-Let's stage and commit our 2nd line ``Is it me you're looking for?'\,'
-from then previous section:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ add example.md}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-git commit -m "Add 2nd line"
-[main 6859b82] Add 2nd line
-1 file changed, 2 insertions(+)
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image42.png}
-
-Let's merge in the question mark.
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ merge question}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-Auto-merging example.md
-
-Merge made by the 'ort' strategy.
-
-example.md | 2 +-
-
-1 file changed, 1 insertion(+), 1 deletion(-)
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image44.png}
-
-Let's check the file:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{ example.md}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-Hello?
-
-Is it me you're looking for?
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image45.png}
-
-\hypertarget{merge-conflicts}{%
-\section{Merge conflicts}\label{merge-conflicts}}
-
-In the examples above we have introduced create a branch, making some
-changes and then integrating this back into main. However, what happens
-if you make a change to a line in a file on one branch, then you (or
-someone else) changes the same line of the same file on a different
-branch, what should Git do when you want to merge? This is a so-called
-\textbf{merge conflict}.
-
-In this section, we're going to create a simple scenario where we will
-run into \textbf{merge conflicts} and explore two different ways to
-resolve them.
-
-When using \texttt{merge} to combine two branches, Git will first find a
-common ``base commit'' between the two branches, then compare the
-changes since this commit and attempt to compile a change list known as
-a ``merge commit''.
-
-Git tries to automate this process as much as possible, but if it finds
-two conflicting changes it won't try to guess which change should
-overrule the other. This usually happens when the same line in a file
-has been changed in both branches. In this case, while attempting to
-compile the merge commit, Git will go into a ``merge conflict'' state,
-which involves updating the conflicting files in the filesystem (or
-``working tree'') with some special formatting to show you what it
-cannot guess, and Git will not allow you to commit the merge until you
-have manually decided what you want to happen.
-
-Let's create a branch named \texttt{capitalise} and switch to it:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ switch }\AttributeTok{{-}c}\NormalTok{ capitalise}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Switched to a new branch 'capitalise'
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image46_1.png}
-
-Now we're going to make a different change to the file on the main
-branch. This time change the contents to the following:
-
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
-
-HELLO
-
-\end{tcolorbox}
-
-Then commit the change:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ add example.md}
-\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Capitalise example.md"}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[capitalise 3da9dfb] Capitalise example.md
-
-1 file changed, 1 insertion(+), 3 deletions(-)
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image47.png}
-
-Now switch back to the \texttt{main} branch:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ switch main}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-Switched to branch 'main'
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image48.png}
-
-The file should look like it did before the capitalisation, as that
-change is isolated on the \texttt{capitalise} branch:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{ example.md}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Hello?
-
-Is it me you're looking for?
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image49.png}
-
-Now we're going to make a different change to the file on the main
-branch. This time change the contents to the following:
-
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
-
-Hello.
-
-\end{tcolorbox}
-
-Stage and commit the change:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ add example.md}
-\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Add full stop to end of the line in example.md"}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[main 7888fef] Add full stop to end of the line in example.md
-
-1 file changed, 1 insertion(+), 3 deletions(-)
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image50.png}
-
-Let's see what happens when we try to merge:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ merge capitalise}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Auto-merging example.md
-
-CONFLICT (content): Merge conflict in example.md
-
-Automatic merge failed; fix conflicts and then commit the result.
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image51.png}
-
-Let's see what happens when we try to merge:
-
-\includegraphics{images/image52.png}
-
-Next, GitHub Desktop will tell you which files need attention, and
-instruct you to open them in your preferred code editor.
-
-\includegraphics{images/image53.png}
-
-The Continue Merge button is disabled, as we need to resolve the
-conflicts in our files.
-
-Let's open up \texttt{example.md} in our preferred editor and see what
-is happening:
-
-\begin{verbatim}
-
-<<<<<<< HEAD
-
-Hello.
-
-=======
-
-HELLO
-
->>>>>>> capitalise
-\end{verbatim}
-
-Git has modified our file to delineate a change that it cannot merge.
-The line (or lines) between
-\texttt{\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}}
-and \texttt{======} here show what you already had (you can tell because
-HEAD points to your current branch). The line (or lines) between
-\texttt{=======} and
-\texttt{\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}}
-is what was introduced by the other commit, in this case from the
-capitalise branch.
-
-If this was a large file with multiple lines changed, Git will
-automatically merge the parts that it can, and will highlight the parts
-it can't like this, and we will have to go through each conflict and
-manually resolve them.
-
-Let's have a look at Git's status:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\FunctionTok{git}\NormalTok{ status }\AttributeTok{{-}v}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-On branch main
-
-You have unmerged paths.
-
-(fix conflicts and run "git commit")
-
-(use "git merge --abort" to abort the merge)
-
-Unmerged paths:
-
-(use "git add <file>..." to mark resolution)
-
-both modified:   example.md
-
-* Unmerged path example.md
-
-no changes added to commit (use "git add" and/or "git commit -a")
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-Note that GitHub Desktop displays the conflict icon besides each file
-that needs attention:
-
-\includegraphics{images/image54.png}
-
-Git's method for displaying merge conflicts by modifying the source
-files makes it very straightforward for us to resolve, by just manually
-editing the files as we want. However Git knows that there is now a
-danger that you could commit this merge conflict syntax, and when
-working with code, this will almost certainly cause a syntax error and
-break your project. So Git tries to protect us against this by going
-into a ``merge conflict'' state, where it wants you to either resolve or
-abort this action before you do anything else.
-
-Let's manually edit our file to what we want, like a mixture of both
-changes:
-
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
-
-HELLO.
-
-\end{tcolorbox}
-
-\subsection{Command-line}
-
-Add the file to the stage to mark it as resolved:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ add example.md}
-\end{Highlighting}
-\end{Shaded}
-
-We can see Git is no longer in a merge conflict state:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ status }\AttributeTok{{-}v}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-On branch main
-
-All conflicts fixed but you are still merging.
-
-(use "git commit" to conclude merge)
-
-Changes to be committed:
-
-modified:   example.md
-
-diff --git a/example.md b/example.md
-
-index 8b94e8e..c886167 100644
-
---- a/example.md
-
-+++ b/example.md
-
-@@ -1,2 +1,2 @@
-
--Hello.
-
-+HELLO.
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-Once the special
-\texttt{\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}},
-\texttt{======} and
-\texttt{\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}}
-syntax is removed from our files, GitHub Desktop detects that our merge
-conflict has been resolved and allows us to `Continue Merge':
-
-\includegraphics{images/image55.png}
-
-And we can conclude the merge.
-
-\subsection{Command-line}
-
-I use the \texttt{-\/-no-edit} flag to tell Git to use the default
-message for a merge commit:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}{-}no{-}edit}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-[main fe2d762] Merge branch 'capitalise'
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image56.png}
-
-We have integrated our branch into the \texttt{main} branch and we can
-safely delete our short-lived branch \texttt{capitalise}:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ branch }\AttributeTok{{-}{-}delete}\NormalTok{ capitalise}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Deleted branch capitalise (was 3da9dfb).
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image57.png}
-
-\hypertarget{code-review-a-better-approach-to-resolving-merge-conflicts}{%
-\section{Code Review: A better approach to resolving merge
-conflicts}\label{code-review-a-better-approach-to-resolving-merge-conflicts}}
-
-Although Git allows us to resolve a merge conflict as above, this is not
-considered the ``best practice'' way to achieve this result. We ended up
-with something different from both our branch contents and the main
-branch contents all in one merge conflict resolution, with no
-opportunity for oversight by someone else working on the project-
-i.e.~we managed to skip the Code Review (aka. Pull Request) stage.
-
-A Pull Request on GitHub should be thought of as a preparation and
-checking stage for a Git \texttt{merge} (or \texttt{rebase}) operation.
-GitHub needs a `base' branch to `merge into', usually \texttt{main}, and
-a `compare' branch to `merge from'. If Git has indicated that a merge
-will result in a merge conflict, for the base branch as above, GitHub
-will not easily let you perform the merge process until this is fixed.
-So let's see how this could have been done differently.
-
-Let's create a new branch called \texttt{goodbye}:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ switch }\AttributeTok{{-}c}\NormalTok{ goodbye}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Switched to a new branch 'goodbye'
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-From the main menu select Branch \textgreater{} New Branch and name the
-branch `goodbye': \includegraphics{images/image58.png}
-
-Let's update the file like so:
-
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
-
-GOODBYE
-
-\end{tcolorbox}
-
-And commit the change:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ add example.md}
-\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Change hello to goodbye in example.md"}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[goodbye 753e225] Change hello to goodbye in example.md
-1 file changed, 1 insertion(+), 1 deletion(-)
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-From the main menu select Branch \textgreater{} New Branch and name the
-branch `goodbye': \includegraphics{images/image59.png}
-
-Switch back to the main branch:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ switch main}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Switched to branch 'main'
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image60.png}
-
-Make a change to the file on the main branch:
-
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
-
-HELLO
-
-\end{tcolorbox}
-
-And commit.
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Remove full stop in example.md"}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[main 27c4cc0] Remove full stop in example.md
-1 file changed, 1 insertion(+), 1 deletion(-)
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image61.png}
-
-Then try to merge:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ merge goodbye}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Auto-merging example.md
-CONFLICT (content): Merge conflict in example.md
-Automatic merge failed; fix conflicts and then commit the result.
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image62.png}
-\includegraphics{images/image63.png}
-
-And again we have a merge conflict. This time, let's abort the merge:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ merge }\AttributeTok{{-}{-}abort}
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image64.png}
-
-Now switch back to the \texttt{goodbye} branch:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ switch goodbye}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Switched to branch 'goodbye'
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image65.png}
-
-And \textbf{merge \texttt{main} into our short-lived \texttt{goodbye}
-branch}:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ merge main}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Auto-merging example.md
-CONFLICT (content): Merge conflict in example.md
-Automatic merge failed; fix conflicts and then commit the result.
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image66.png}
-\includegraphics{images/image67.png}
-
-Now if we head to our preferred code editor, we have almost the same
-merge conflict to resolve (except \texttt{HEAD} is now our
-\texttt{goodbye} branch):
-
-\begin{verbatim}
-<<<<<<< HEAD
-GOODBYE
-=======
-HELLO
->>>>>>> main
-\end{verbatim}
-
-And we can manually resolve it as before, this time with some Beatles
-lyrics:
-
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
-
-You say GOODBYE and I say HELLO
-
-\end{tcolorbox}
-
-\subsection{Command-line}
-
-And \texttt{add} to mark the conflict resolved:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ add example.md}
-\end{Highlighting}
-\end{Shaded}
-
-And commit the change.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}{-}no{-}edit}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[goodbye 34ca84f] Merge branch 'main' into goodbye
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-GitHub Desktop has automatically detected that our merge conflict has
-been resolved: \includegraphics{images/image68.png}
-
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
-
-And now our branch could be ready for Code Review on GitHub via a Pull
-Request (see Supplement). This makes sense when you are contributing to
-someone else's project.
-
-\end{tcolorbox}
-
-When we switch back to the \texttt{main} branch:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ switch main}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Switched to branch 'main'
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image69.png}
-
-Our change can be merged without a conflict. We will use
-\texttt{git\ squash} in the next steps. Squashing allows you to combine
-multiple commits in your branch's history into a single commit. This can
-help keep your repository's history more readable and understandable.
-
-\subsection{Command-line}
-
-``Fast-forward'' in Git terms means an automatic merge, or in other
-words, our merge will not result in a conflict.
-
-The \texttt{goodbye} branch has 2 commits, which we can see by asking
-\texttt{git\ log} to compare it to the \texttt{main} branch:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ log }\AttributeTok{{-}{-}oneline}\NormalTok{ main..goodbye}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-34ca84f Merge branch 'main' into goodbye
-753e225 Change hello to goodbye in example.md
-\end{verbatim}
-
-Since we resolved the merge conflict with Beatles lyrics when merging
-the \texttt{main} branch into the \texttt{goodbye} branch, neither of
-these commit messages does a good job describing what we are about to
-integrate into \texttt{main}. So instead of transferring both commits to
-the \texttt{main} `as is', let's `squash' them into one:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ merge }\AttributeTok{{-}{-}squash}\NormalTok{ goodbye}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Updating 27c4cc0..34ca84f
-Fast-forward
-Squash commit -- not updating HEAD
-example.md | 2 +-
-1 file changed, 1 insertion(+), 1 deletion(-)
-\end{verbatim}
-
-Then commit the squashed change with a more descriptive message:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{\textquotesingle{}Change to Beatles lyrics\textquotesingle{}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[main 08a1ff2] Change to Beatles lyrics
-1 file changed, 1 insertion(+), 1 deletion(-)
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image70.png}
-\includegraphics{images/image71.png}
-
-This time instead of clicking `Create a merge commit', click the little
-arrow on the right of the button and select `Squash and merge':
-
-\includegraphics{images/image72.png}
-
-Now if we look at the history tab we can see a commit with the message
-`Squashed commit of the following:'. If you click on `Expand' on the
-right, we can see the description of the commit has a log of the commits
-that were squashed into this one:
-
-\includegraphics{images/image73.png}
-
-Let's change the title to something more descriptive by right-clicking
-on the commit message and selecting `Amend commit\ldots{}':
-
-\includegraphics{images/image74.png}
-
-Then change the message to `Change to Beatles lyrics' and click `Amend
-last commit':
-
-\includegraphics{images/image75.png}
-
-``Fast-forward'' in Git terms means an automatic merge, or in other
-words, our merge will not result in a conflict.
-
-Finally, you can safely delete the goodbye branch:
-
-\subsection{Command-line}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ branch }\AttributeTok{{-}{-}delete}\NormalTok{ goodbye}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-error: The branch 'goodbye' is not fully merged.
-If you are sure you want to delete it, run 'git branch -D goodbye'.
-\end{verbatim}
-
-\subsection{GitHub Desktop}
-
-\includegraphics{images/image76.png}
-
-So to recap, we have prepared our branch for integration by first
-combining any new changes from the \texttt{main} branch into our branch
-and resolving the merge conflicts in isolation, creating a ``final
-version'' of the change we want to make with our branch ready to be
-checked, before attempting to integrate our branch back into the
-\texttt{main} branch.
-
-If you need to keep your short-lived branch open for some reason, it's
-advised to merge any recent changes from \texttt{main} into your branch
-often, to avoid painful merge conflicts later.
-
-\hypertarget{supplement-switching-branches-with-the-help-of-git-stash}{%
-\section{Supplement: Switching branches with the help of Git
-stash}\label{supplement-switching-branches-with-the-help-of-git-stash}}
+\hypertarget{switching-branches-with-the-help-of-git-stash}{%
+\subsection{Switching branches with the help of Git
+stash}\label{switching-branches-with-the-help-of-git-stash}}
 
 Given the example above, branching with Git appears straightforward.
 However, this is not always the case. Sometimes Git won't let you switch
@@ -1501,7 +685,7 @@ branch `question':
 Let's make a change to the file by changing the exclamation mark to a
 question mark:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
 
 Hello?
 
@@ -1514,13 +698,11 @@ Add the change to the stage and commit:
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ add example.md}
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Change exclamation mark to question mark"}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-
-git commit -m "Change exclamation mark to question mark"
-
 [question 49806f4] Change exclamation mark to question mark
 
 1 file changed, 1 insertion(+), 1 deletion(-)
@@ -1532,7 +714,7 @@ git commit -m "Change exclamation mark to question mark"
 
 Now let's make another change to our file:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
 
 Hello?
 
@@ -1750,6 +932,817 @@ applied, but no question mark as this change still resides on the
 
 \includegraphics{images/image41.png}
 
+Let's stage and commit our 2nd line:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ add example.md}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+git commit -m "Add 2nd line"
+[main 6859b82] Add 2nd line
+1 file changed, 2 insertions(+)
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image42.png}
+
+Let's merge in the question mark.
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ merge question}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Auto-merging example.md
+
+Merge made by the 'ort' strategy.
+
+example.md | 2 +-
+
+1 file changed, 1 insertion(+), 1 deletion(-)
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image44.png}
+
+Let's check the file:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{ example.md}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Hello?
+
+Is it me you're looking for?
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image45.png}
+
+\hypertarget{merge-conflicts}{%
+\subsection{Merge conflicts}\label{merge-conflicts}}
+
+In the examples above we have introduced create a branch, making some
+changes and then integrating this back into main. However, what happens
+if you make a change to a line in a file on one branch, then you (or
+someone else) changes the same line of the same file on a different
+branch, what should Git do when you want to merge? This is a so-called
+\textbf{merge conflict}.
+
+In this section, we're going to create a simple scenario where we will
+run into \textbf{merge conflicts} and explore two different ways to
+resolve them.
+
+When using \texttt{merge} to combine two branches, Git will first find a
+common ``base commit'' between the two branches, then compare the
+changes since this commit and attempt to compile a change list known as
+a ``merge commit''.
+
+Git tries to automate this process as much as possible, but if it finds
+two conflicting changes it won't try to guess which change should
+overrule the other. This usually happens when the same line in a file
+has been changed in both branches. In this case, while attempting to
+compile the merge commit, Git will go into a ``merge conflict'' state,
+which involves updating the conflicting files in the filesystem (or
+``working tree'') with some special formatting to show you what it
+cannot guess, and Git will not allow you to commit the merge until you
+have manually decided what you want to happen.
+
+Let's create a branch named \texttt{capitalise} and switch to it:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ switch }\AttributeTok{{-}c}\NormalTok{ capitalise}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Switched to a new branch 'capitalise'
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image46_1.png}
+
+Now we're going to make a different change to the file on the main
+branch. This time change the contents to the following:
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+
+HELLO
+
+\end{tcolorbox}
+
+Then commit the change:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ add example.md}
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Capitalise example.md"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[capitalise 3da9dfb] Capitalise example.md
+
+1 file changed, 1 insertion(+), 3 deletions(-)
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image47.png}
+
+Now switch back to the \texttt{main} branch:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ switch main}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Switched to branch 'main'
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image48.png}
+
+The file should look like it did before the capitalisation, as that
+change is isolated on the \texttt{capitalise} branch:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{ example.md}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Hello?
+
+Is it me you're looking for?
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image49.png}
+
+Now we're going to make a different change to the file on the main
+branch. This time change the contents to the following:
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+
+Hello.
+
+\end{tcolorbox}
+
+Stage and commit the change:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ add example.md}
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Add full stop to end of the line in example.md"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[main 7888fef] Add full stop to end of the line in example.md
+
+1 file changed, 1 insertion(+), 3 deletions(-)
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image50.png}
+
+Let's see what happens when we try to merge:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ merge capitalise}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Auto-merging example.md
+
+CONFLICT (content): Merge conflict in example.md
+
+Automatic merge failed; fix conflicts and then commit the result.
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image51.png}
+
+Let's see what happens when we try to merge:
+
+\includegraphics{images/image52.png}
+
+Next, GitHub Desktop will tell you which files need attention, and
+instruct you to open them in your preferred code editor.
+
+\includegraphics{images/image53.png}
+
+The Continue Merge button is disabled, as we need to resolve the
+conflicts in our files.
+
+Let's open up \texttt{example.md} in our preferred editor and see what
+is happening:
+
+\begin{verbatim}
+
+<<<<<<< HEAD
+
+Hello.
+
+=======
+
+HELLO
+
+>>>>>>> capitalise
+\end{verbatim}
+
+Git has modified our file to delineate a change that it cannot merge.
+The line (or lines) between
+\texttt{\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}}
+and \texttt{======} here show what you already had (you can tell because
+HEAD points to your current branch). The line (or lines) between
+\texttt{=======} and
+\texttt{\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}}
+is what was introduced by the other commit, in this case from the
+capitalise branch.
+
+If this was a large file with multiple lines changed, Git will
+automatically merge the parts that it can, and will highlight the parts
+it can't like this, and we will have to go through each conflict and
+manually resolve them.
+
+Let's have a look at Git's status:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{git}\NormalTok{ status }\AttributeTok{{-}v}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+On branch main
+
+You have unmerged paths.
+
+(fix conflicts and run "git commit")
+
+(use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+
+(use "git add <file>..." to mark resolution)
+
+both modified:   example.md
+
+* Unmerged path example.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+Note that GitHub Desktop displays the conflict icon besides each file
+that needs attention:
+
+\includegraphics{images/image54.png}
+
+Git's method for displaying merge conflicts by modifying the source
+files makes it very straightforward for us to resolve, by just manually
+editing the files as we want. However Git knows that there is now a
+danger that you could commit this merge conflict syntax, and when
+working with code, this will almost certainly cause a syntax error and
+break your project. So Git tries to protect us against this by going
+into a ``merge conflict'' state, where it wants you to either resolve or
+abort this action before you do anything else.
+
+Let's manually edit our file to what we want, like a mixture of both
+changes:
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+
+HELLO.
+
+\end{tcolorbox}
+
+\subsection{Command-line}
+
+Add the file to the stage to mark it as resolved:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ add example.md}
+\end{Highlighting}
+\end{Shaded}
+
+We can see Git is no longer in a merge conflict state:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ status }\AttributeTok{{-}v}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+On branch main
+
+All conflicts fixed but you are still merging.
+
+(use "git commit" to conclude merge)
+
+Changes to be committed:
+
+modified:   example.md
+
+diff --git a/example.md b/example.md
+
+index 8b94e8e..c886167 100644
+
+--- a/example.md
+
++++ b/example.md
+
+@@ -1,2 +1,2 @@
+
+-Hello.
+
++HELLO.
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+Once the special
+\texttt{\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}},
+\texttt{======} and
+\texttt{\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}}
+syntax is removed from our files, GitHub Desktop detects that our merge
+conflict has been resolved and allows us to `Continue Merge':
+
+\includegraphics{images/image55.png}
+
+And we can conclude the merge.
+
+\subsection{Command-line}
+
+I use the \texttt{-\/-no-edit} flag to tell Git to use the default
+message for a merge commit:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}{-}no{-}edit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+[main fe2d762] Merge branch 'capitalise'
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image56.png}
+
+We have integrated our branch into the \texttt{main} branch and we can
+safely delete our short-lived branch \texttt{capitalise}:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ branch }\AttributeTok{{-}{-}delete}\NormalTok{ capitalise}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Deleted branch capitalise (was 3da9dfb).
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image57.png}
+
+\hypertarget{code-review-a-better-approach-to-resolving-merge-conflicts}{%
+\section{Code Review: A better approach to resolving merge
+conflicts}\label{code-review-a-better-approach-to-resolving-merge-conflicts}}
+
+Although Git allows us to resolve a merge conflict as above, this is not
+considered the ``best practice'' way to achieve this result. We ended up
+with something different from both our branch contents and the main
+branch contents all in one merge conflict resolution, with no
+opportunity for oversight by someone else working on the project-
+i.e.~we managed to skip the Code Review (aka. Pull Request) stage.
+
+A Pull Request on GitHub should be thought of as a preparation and
+checking stage for a Git \texttt{merge} (or \texttt{rebase}) operation.
+GitHub needs a `base' branch to `merge into', usually \texttt{main}, and
+a `compare' branch to `merge from'. If Git has indicated that a merge
+will result in a merge conflict, for the base branch as above, GitHub
+will not easily let you perform the merge process until this is fixed.
+So let's see how this could have been done differently.
+
+Let's create a new branch called \texttt{goodbye}:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ switch }\AttributeTok{{-}c}\NormalTok{ goodbye}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Switched to a new branch 'goodbye'
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+From the main menu select Branch \textgreater{} New Branch and name the
+branch `goodbye': \includegraphics{images/image58.png}
+
+Let's update the file like so:
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+
+GOODBYE
+
+\end{tcolorbox}
+
+And commit the change:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ add example.md}
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Change hello to goodbye in example.md"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[goodbye 753e225] Change hello to goodbye in example.md
+1 file changed, 1 insertion(+), 1 deletion(-)
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+From the main menu select Branch \textgreater{} New Branch and name the
+branch `goodbye': \includegraphics{images/image59.png}
+
+Switch back to the main branch:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ switch main}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Switched to branch 'main'
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image60.png}
+
+Make a change to the file on the main branch:
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+
+HELLO
+
+\end{tcolorbox}
+
+And commit.
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{"Remove full stop in example.md"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[main 27c4cc0] Remove full stop in example.md
+1 file changed, 1 insertion(+), 1 deletion(-)
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image61.png}
+
+Then try to merge:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ merge goodbye}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Auto-merging example.md
+CONFLICT (content): Merge conflict in example.md
+Automatic merge failed; fix conflicts and then commit the result.
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image62.png}
+\includegraphics{images/image63.png}
+
+And again we have a merge conflict. This time, let's abort the merge:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ merge }\AttributeTok{{-}{-}abort}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image64.png}
+
+Now switch back to the \texttt{goodbye} branch:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ switch goodbye}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Switched to branch 'goodbye'
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image65.png}
+
+And \textbf{merge \texttt{main} into our short-lived \texttt{goodbye}
+branch}:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ merge main}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Auto-merging example.md
+CONFLICT (content): Merge conflict in example.md
+Automatic merge failed; fix conflicts and then commit the result.
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image66.png}
+\includegraphics{images/image67.png}
+
+Now if we head to our preferred code editor, we have almost the same
+merge conflict to resolve (except \texttt{HEAD} is now our
+\texttt{goodbye} branch):
+
+\begin{verbatim}
+<<<<<<< HEAD
+GOODBYE
+=======
+HELLO
+>>>>>>> main
+\end{verbatim}
+
+And we can manually resolve it as before, this time with some Beatles
+lyrics:
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+
+You say GOODBYE and I say HELLO
+
+\end{tcolorbox}
+
+\subsection{Command-line}
+
+And \texttt{add} to mark the conflict resolved:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ add example.md}
+\end{Highlighting}
+\end{Shaded}
+
+And commit the change.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}{-}no{-}edit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[goodbye 34ca84f] Merge branch 'main' into goodbye
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+GitHub Desktop has automatically detected that our merge conflict has
+been resolved: \includegraphics{images/image68.png}
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+
+And now our branch could be ready for Code Review on GitHub via a Pull
+Request (see Supplement). This makes sense when you are contributing to
+someone else's project.
+
+\end{tcolorbox}
+
+When we switch back to the \texttt{main} branch:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ switch main}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Switched to branch 'main'
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image69.png}
+
+Our change can be merged without a conflict. We will use
+\texttt{git\ squash} in the next steps. Squashing allows you to combine
+multiple commits in your branch's history into a single commit. This can
+help keep your repository's history more readable and understandable.
+
+\subsection{Command-line}
+
+``Fast-forward'' in Git terms means an automatic merge, or in other
+words, our merge will not result in a conflict.
+
+The \texttt{goodbye} branch has 2 commits, which we can see by asking
+\texttt{git\ log} to compare it to the \texttt{main} branch:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ log }\AttributeTok{{-}{-}oneline}\NormalTok{ main..goodbye}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+34ca84f Merge branch 'main' into goodbye
+753e225 Change hello to goodbye in example.md
+\end{verbatim}
+
+Since we resolved the merge conflict with Beatles lyrics when merging
+the \texttt{main} branch into the \texttt{goodbye} branch, neither of
+these commit messages does a good job describing what we are about to
+integrate into \texttt{main}. So instead of transferring both commits to
+the \texttt{main} `as is', let's `squash' them into one:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ merge }\AttributeTok{{-}{-}squash}\NormalTok{ goodbye}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Updating 27c4cc0..34ca84f
+Fast-forward
+Squash commit -- not updating HEAD
+example.md | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
+\end{verbatim}
+
+Then commit the squashed change with a more descriptive message:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ commit }\AttributeTok{{-}m} \StringTok{\textquotesingle{}Change to Beatles lyrics\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[main 08a1ff2] Change to Beatles lyrics
+1 file changed, 1 insertion(+), 1 deletion(-)
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image70.png}
+\includegraphics{images/image71.png}
+
+This time instead of clicking `Create a merge commit', click the little
+arrow on the right of the button and select `Squash and merge':
+
+\includegraphics{images/image72.png}
+
+Now if we look at the history tab we can see a commit with the message
+`Squashed commit of the following:'. If you click on `Expand' on the
+right, we can see the description of the commit has a log of the commits
+that were squashed into this one:
+
+\includegraphics{images/image73.png}
+
+Let's change the title to something more descriptive by right-clicking
+on the commit message and selecting `Amend commit\ldots{}':
+
+\includegraphics{images/image74.png}
+
+Then change the message to `Change to Beatles lyrics' and click `Amend
+last commit':
+
+\includegraphics{images/image75.png}
+
+``Fast-forward'' in Git terms means an automatic merge, or in other
+words, our merge will not result in a conflict.
+
+Finally, you can safely delete the goodbye branch:
+
+\subsection{Command-line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ branch }\AttributeTok{{-}{-}delete}\NormalTok{ goodbye}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+error: The branch 'goodbye' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D goodbye'.
+\end{verbatim}
+
+\subsection{GitHub Desktop}
+
+\includegraphics{images/image76.png}
+
+So to recap, we have prepared our branch for integration by first
+combining any new changes from the \texttt{main} branch into our branch
+and resolving the merge conflicts in isolation, creating a ``final
+version'' of the change we want to make with our branch ready to be
+checked, before attempting to integrate our branch back into the
+\texttt{main} branch.
+
+If you need to keep your short-lived branch open for some reason, it's
+advised to merge any recent changes from \texttt{main} into your branch
+often, to avoid painful merge conflicts later.
+
 \hypertarget{supplement-create-a-pull-request-to-an-existing-project}{%
 \section{Supplement: Create a Pull Request to an existing
 project}\label{supplement-create-a-pull-request-to-an-existing-project}}
@@ -1786,7 +1779,7 @@ In Git terms, what you need to do is:
   modifications
 \end{enumerate}
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
 
 What is the difference between Clone and Fork?
 
@@ -1880,7 +1873,7 @@ repository on your computer, then finally click `Clone':
 Let's add a new line to the \texttt{readme.md} file, making sure to save
 it:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{readme.md}, toptitle=1mm, left=2mm, leftrule=.75mm, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, arc=.35mm, coltitle=black, breakable, colback=white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{readme.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
 
 \#\# Follow along tutorial 2: Create a Pull Request to an existing
 project

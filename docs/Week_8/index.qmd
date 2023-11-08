@@ -435,12 +435,10 @@ Add the change to the stage and commit:
 
 ```{bash eval=FALSE}
 git add example.md
-```
-
-```
-
 git commit -m "Change exclamation mark to question mark"
+```
 
+```
 [question 49806f4] Change exclamation mark to question mark
 
 1 file changed, 1 insertion(+), 1 deletion(-)
