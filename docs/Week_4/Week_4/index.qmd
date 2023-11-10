@@ -317,7 +317,7 @@ The table below lists a variety of contexts where sample statistics can be used 
 Table 1: Scenarios of sample statistics for inference.
 
 | Scenario | Population Parameter  | Population Notation | Sample Statistic      | Sample Notation                 |
-|:---------|:----------------------|:--------------------|:----------------------|:--------------------------------|
+|:-------------|:-------------|:-------------|:-------------|:----------------|
 | 1        | Population proportion | $p$                 | Sample proportion     | $\widehat{p}$                   |
 | 2        | Population mean       | $\mu$               | Sample mean           | $\bar{x}$                       |
 | 3        | Diff.in pop. props    | $p_1 - p_2$         | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |
@@ -607,7 +607,7 @@ bind_rows(model.comp.values.slr.age, model.comp.values.slr.bty_avg,
 
 A great deal of care should be taken in selecting predictor/explanatory variables for a model because the values of the regression coefficients depend upon the variables included in the model. Therefore, the predictors included and the order in which they are entered into the model can have great impact. In an ideal world, predictors should be selected based on past research and new predictors should be added to existing models based on the theoretical importance of the variables. One thing not to do is select hundreds of random predictors, bung them all into a regression analysis and hope for the best.
 
-But in practice there are automatic strategies, such as **Stepwise** (see Week 6 on stepwise regression using **AIC**) and **Best Subsets** regression, based on systematically searching through the entire list of variables not in the current model to make decisions on whether each should be included. These strategies need to be handled with care, and a proper discussion of them is beyond this course. Our best strategy is a mixture of judgement on what variables should be included as potential explanatory variables, together with an interval estimation and hypothesis testing strategy for assessing these. The judgement should be made in the light of advice from the problem context.
+But in practice there are automatic strategies, such as **Stepwise** (see Section on stepwise regression using **AIC**) and **Best Subsets** regression, based on systematically searching through the entire list of variables not in the current model to make decisions on whether each should be included. These strategies need to be handled with care, and a proper discussion of them is beyond this course. Our best strategy is a mixture of judgement on what variables should be included as potential explanatory variables, together with an interval estimation and hypothesis testing strategy for assessing these. The judgement should be made in the light of advice from the problem context.
 
 ------------------------------------------------------------------------
 
