@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Week 8: Collaborative Coding 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Week 8: Collaborative Coding 2</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+<div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+   
+  <ul>
+<li><a href="#add-collaborator" id="toc-add-collaborator" class="nav-link active" data-scroll-target="#add-collaborator"><span class="header-section-number">1</span> Add collaborator</a></li>
+  <li><a href="#clone" id="toc-clone" class="nav-link" data-scroll-target="#clone"><span class="header-section-number">2</span> Clone</a></li>
+  <li>
+<a href="#branching-and-branching-strategies" id="toc-branching-and-branching-strategies" class="nav-link" data-scroll-target="#branching-and-branching-strategies"><span class="header-section-number">3</span> Branching and branching strategies</a>
+  <ul class="collapse">
+<li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">3.1</span> Introduction</a></li>
+  <li>
+<a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">3.2</span> Motivation</a>
+  <ul class="collapse">
+<li><a href="#working-with-other-people" id="toc-working-with-other-people" class="nav-link" data-scroll-target="#working-with-other-people"><span class="header-section-number">3.2.1</span> Working with other people</a></li>
+  <li><a href="#grouping-commits" id="toc-grouping-commits" class="nav-link" data-scroll-target="#grouping-commits"><span class="header-section-number">3.2.2</span> Grouping commits</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#branching-and-integrating" id="toc-branching-and-integrating" class="nav-link" data-scroll-target="#branching-and-integrating"><span class="header-section-number">4</span> Branching and integrating</a>
+  <ul class="collapse">
+<li><a href="#create-a-new-local-git-repository" id="toc-create-a-new-local-git-repository" class="nav-link" data-scroll-target="#create-a-new-local-git-repository"><span class="header-section-number">4.1</span> Create a new local Git repository</a></li>
+  <li><a href="#switching-branches-with-the-help-of-git-stash" id="toc-switching-branches-with-the-help-of-git-stash" class="nav-link" data-scroll-target="#switching-branches-with-the-help-of-git-stash"><span class="header-section-number">4.2</span> Switching branches with the help of Git stash</a></li>
+  <li><a href="#merge-conflicts" id="toc-merge-conflicts" class="nav-link" data-scroll-target="#merge-conflicts"><span class="header-section-number">4.3</span> Merge conflicts</a></li>
+  </ul>
+</li>
+  <li><a href="#code-review-a-better-approach-to-resolving-merge-conflicts" id="toc-code-review-a-better-approach-to-resolving-merge-conflicts" class="nav-link" data-scroll-target="#code-review-a-better-approach-to-resolving-merge-conflicts"><span class="header-section-number">5</span> Code Review: A better approach to resolving merge conflicts</a></li>
+  <li>
+<a href="#supplement-create-a-pull-request-to-an-existing-project" id="toc-supplement-create-a-pull-request-to-an-existing-project" class="nav-link" data-scroll-target="#supplement-create-a-pull-request-to-an-existing-project"><span class="header-section-number">6</span> Supplement: Create a Pull Request to an existing project</a>
+  <ul class="collapse">
+<li><a href="#fork" id="toc-fork" class="nav-link" data-scroll-target="#fork"><span class="header-section-number">6.1</span> Fork</a></li>
+  <li><a href="#clone-1" id="toc-clone-1" class="nav-link" data-scroll-target="#clone-1"><span class="header-section-number">6.2</span> Clone</a></li>
+  <li><a href="#make-some-changes" id="toc-make-some-changes" class="nav-link" data-scroll-target="#make-some-changes"><span class="header-section-number">6.3</span> Make some changes</a></li>
+  <li><a href="#stage-commit-and-push-the-change-to-our-repository" id="toc-stage-commit-and-push-the-change-to-our-repository" class="nav-link" data-scroll-target="#stage-commit-and-push-the-change-to-our-repository"><span class="header-section-number">6.4</span> Stage, commit and push the change to our repository</a></li>
+  <li><a href="#create-a-pull-request" id="toc-create-a-pull-request" class="nav-link" data-scroll-target="#create-a-pull-request"><span class="header-section-number">6.5</span> Create a Pull Request</a></li>
+  <li><a href="#code-review" id="toc-code-review" class="nav-link" data-scroll-target="#code-review"><span class="header-section-number">6.6</span> Code review</a></li>
+  </ul>
+</li>
+  </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Week 8: Collaborative Coding 2</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>This week’s material is based on the <strong>Version Control Course</strong> from the School of Mathematics and Statistics from the University of Glasgow. The content has been reduced to fit the class structure. At the end this week, please provide some feedback on the materials on <a href="https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY" class="uri">https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY</a>.</p>
+<section id="add-collaborator" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Add collaborator</h1>
+<p>To collaborate with users in a repository that belongs to your personal account on GitHub.com, you can <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository">invite the users as collaborators</a>.</p>
+<!-- ## Download a project -->
+<!-- There are two main ways to download a project to your computer from GitHub and you should pick the one that makes sense for what you want to do: -->
+<!-- ### Download a `.zip` package -->
+<!-- The most straightforward method is to download a `.zip` file containing the latest version of the files. -->
+<!-- ![](images/image22.png) -->
+<!-- Click on the green 'Code' button, then the 'Download ZIP' option. This will download a single file, archived and compressed using the common [ZIP](https://en.wikipedia.org/wiki/ZIP_(file_format)) file format. Double-clicking the file will extract its contents to a folder next to the original .zip file. -->
+<!-- An important distinction here is that you are downloading just the codebase --- the files and folders of the repository --- and not the Git repository itself. This means you lose some of the key functionality of Git, for example, if the project maintainers make any updates to the project, you will need to manually re-download the `.zip` file and extract it again to see those changes, instead of being able to easily pull these changes (more on this in the next example!). -->
+</section><section id="clone" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Clone</h1>
+<p>One way to download a project to your computer is to use Git’s <code>clone</code> method. To use <code>clone</code>, we need to tell Git installed on our computer to make a copy (or ‘clone’) of another repository, in this case from GitHub.</p>
+<p>Clone is a Git feature that allows a user to make a copy of a repository, including all the associated metadata on their computer so they can work on it. This is an essential feature and makes sense for a team of collaborators, with read-and-write privileges to the repository, all working on a project together.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>First, we need to copy the address of the repository we want to clone.</p>
+<p><img src="images/image23.png" class="img-fluid"></p>
+<ol type="1">
+<li><p>Click on the green button labelled “Code”</p></li>
+<li><p>Choose either HTTPS or SSH, depending on how you connect to GitHub with Git on your computer (see the Configuration section of Unit 1)</p></li>
+<li><p>Copy the address</p></li>
+</ol>
+<p>Then in your terminal, navigate to your desired folder and issue the following command:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>address<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>You should now see the repository has been cloned to your computer.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>First, navigate to the repository you want to clone on the GitHub website.</p>
+<p><img src="images/image24.png" class="img-fluid"></p>
+<ol type="1">
+<li><p>Click on the green button labelled ‘Code’</p></li>
+<li><p>Click on ‘Open with GitHub Desktop’</p></li>
+<li><p>You should then see a window like this pop up in GitHub Desktop:</p></li>
+</ol>
+<p><img src="images/image25.png" class="img-fluid"></p>
+<ol type="1">
+<li><p>The URL of the repository on GitHub has automatically been populated</p></li>
+<li><p>Choose where you would like the repository to be cloned to on your computer</p></li>
+<li><p>Click ‘Clone’</p></li>
+</ol>
+</div>
+</div>
+</div>
+<p>Using this approach, we have a copy of the files and folders in the repository, but we have also copied the metadata which makes this into a Git repository. To answer the example above, now if a project maintainer makes an update to the project on GitHub, we can easily sync both versions:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>In the project folder just issue the <code>pull</code> command:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>On GitHub Desktop, click the ‘Fetch origin’ button in the top bar:</p>
+<p><img src="images/image26.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section><section id="branching-and-branching-strategies" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Branching and branching strategies</h1>
+<section id="introduction" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="introduction">
+<span class="header-section-number">3.1</span> Introduction</h2>
+<p>Typically a project will have one main direction of development— to reach a predetermined goal, such as a fully working prototype or to complete a course assessment. When Git uses the analogy of a tree (with branches), this main direction could be thought of as the ‘trunk’ of your development flow.</p>
+<p>So far, we have only committed changes to one branch, the default branch called <code>main</code>, which, in our tree analogy, can be thought of as the trunk. If you are working on your own, or with a small group and you are not all committing changes at the same time, this can be a valid approach and avoids a lot of complexity in using Git.</p>
+<p>Branches allow you to ‘branch off’ from the trunk in a new direction, which we may then add back to our trunk at a later time (see next paragraph). On this new branch, you can experiment with new ideas or work away in isolation, committing to Git and pushing your changes to GitHub, safe in the knowledge that nothing you do will affect the main direction of development. Likewise, the main direction of development on <code>main</code> can carry on in parallel with its own changes, and these will not affect your isolated branch.</p>
+<p>It’s possible to <strong>merge</strong> the changes made in a branch, into another branch (usually the <code>main</code> branch). For example, if you created a branch to try out an experiment and the experiment was a success, Git enables you to merge those changes back into the main branch, or main direction of development, then you can delete your branch as it’s no longer needed. Or, if the experiment failed, you can leave the branch and never speak of it again, although it will still be stored if you decide later it is a good idea after all, or you can safely delete the branch.</p>
+<p>Similarly, you can merge the changes from`<code>main</code> into your branch. This is useful if, for example, <code>main</code> has had updates made to it since you ‘branched off’, and you would like to see these updates in your branch.</p>
+<p>Git offers another method to merge branches called <strong>rebase</strong>, which is why the Git term for merging branches is <strong>integration</strong> as this covers both methods. Although rebase has some advantages, you can risk losing work when using it, so it won’t be covered in this course.</p>
+</section><section id="motivation" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="motivation">
+<span class="header-section-number">3.2</span> Motivation</h2>
+<section id="working-with-other-people" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="working-with-other-people">
+<span class="header-section-number">3.2.1</span> Working with other people</h3>
+<p>Branches enable a team to work on the same files at the same time. However, it doesn’t work like other collaboration tools like Google Docs or Microsoft 365, where you can see other users editing parts of a file as you work. Instead, branches allow collaborators to work in isolation, not worrying about what others are up to, and when the time comes to <strong>integrate</strong> changes into the default branch, Git provides the tools to ensure you don’t overwrite someone else’s work (or, if you do, you do it very intentionally!).</p>
+<!-- The GitHub Pull Request feature (covered in last week's tutorial) is based this integration phase and allows team members to review and test the changes in a branch against the default branch before approving (or rejecting) the integration. -->
+</section><section id="grouping-commits" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="grouping-commits">
+<span class="header-section-number">3.2.2</span> Grouping commits</h3>
+<p>Even if you’re working on your own, branches can be used as a tool to group multiple commits. For example, when working on a new feature for a project, you can create a branch named after your feature, then continue to use Git best practices by <strong>breaking your task into small manageable chunks</strong>, and <strong>complete one thing at a time and commit it</strong>. Then when it comes time to integrate your changes to the main branch, you can choose to “squash” those small commits down into one “merge commit” named after your new feature. This helps to keep the commit history on the default branch minimal and tidy, only showing completed tasks such as new features and bug fixes.</p>
+</section></section></section><section id="branching-and-integrating" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Branching and integrating</h1>
+<p>This week we are going to learn how to create a branch and make changes to it, then integrate this branch back into the <code>main</code> branch. This is particularly helpful when working collaboratively.</p>
+<p>In Git, a branch represents a distinct version of the <code>main</code> repository, serving as a snapshot of your changes. When implementing new features or addressing issues, regardless of their scope, creating a new branch is the practice to isolate your modifications. This approach enhances code stability in the main branch and affords you the opportunity to refine your history before merging it into the primary codebase.</p>
+<p>When the work is complete, a branch can be merged with the main project. You can even switch between branches and work on different projects without them interfering with each other.</p>
+<p>We are also going to learn about Git’s stash feature, and how it can help you when switching between branches.</p>
+<section id="create-a-new-local-git-repository" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="create-a-new-local-git-repository">
+<span class="header-section-number">4.1</span> Create a new local Git repository</h2>
+<p>Let’s create a new folder on our computer called ‘tutorial3’ and initialise Git:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Create a directory for your ‘tutorial3’ work:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> tutorial3</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> tutorial3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>and run git init inside:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Initialized empty Git repository in /Users/staff/Work/tutorial3/.git/
+</code></pre>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>Choose <code>File &gt; New Repository...</code> from the menu.</p>
+<p>In the “Create a New Repository” form, name the repository “tutorial3”, set the “Local Path” field to your preferred location and click the “Create Repository” button:</p>
+<p><img src="images/image27.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Add the following file to the repository:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hello</p>
+</div>
+</div>
+<p>Then add and commit the file:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add example.md"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p><img src="images/image28.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Next, let’s create a branch named <code>shout</code> based on this commit.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p>We can create a new branch and switch to it using the switch command with the -c flag:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> shout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Switched to a new branch 'shout'
+</code></pre>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p><img src="images/image29.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Add an exclamation mark to the end of the word within the <code>example.md</code> file:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hello!</p>
+</div>
+</div>
+<p>Then commit the change:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+git commit -m "Add exclamation mark"
+
+[shout eed4222] Add exclamation mark
+
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p><img src="images/image30.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Let’s take a quick look at the log:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--all</span> <span class="at">--decorate</span> <span class="at">--oneline</span> <span class="at">--graph</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+* eed4222 (HEAD -&gt; shout) Add exclamation mark
+
+* 8f601cd (main) Add example.md
+</code></pre>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p><img src="images/image31.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Now let’s try merging the branch back into the <code>main</code> branch. First, switch back to <code>main</code>:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Switched to branch 'main'
+</code></pre>
+<p>(Note, we don’t include the -c flag as this branch already exists)</p>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<p><img src="images/image32.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Then merge our <code>shout</code> branch into <code>main</code>:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge shout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Updating 8f601cd..eed4222
+
+Fast-forward
+
+example.md | 2 +-
+
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<p><img src="images/image33.png" class="img-fluid"></p>
+<p><img src="images/image34.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>We can check that the version of our file in the main branch now has the exclamation mark:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Hello!
+</code></pre>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<p><img src="images/image35.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>As the change is now reflected in our <code>main</code> branch, we can safely delete our <code>shout</code> branch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">--delete</span> shout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Deleted branch shout (was eed4222).
+</code></pre>
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<p>Simply right click on the <code>shout</code> branch here and select Delete</p>
+<p><img src="images/image36.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section><section id="switching-branches-with-the-help-of-git-stash" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="switching-branches-with-the-help-of-git-stash">
+<span class="header-section-number">4.2</span> Switching branches with the help of Git stash</h2>
+<p>Given the example above, branching with Git appears straightforward. However, this is not always the case. Sometimes Git won’t let you switch branches. Let’s create a scenario where we see an error when switching branches, try to understand why Git is stopping us, and look at a simple universal solution.</p>
+<p>Create and switch to a new branch called <code>question</code>:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> question</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Switched to a new branch 'question'
+</code></pre>
+</div>
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<p>From the main menu select Branch &gt; New Branch and name the branch ‘question’:</p>
+<p><img src="images/image37.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Let’s make a change to the file by changing the exclamation mark to a question mark:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hello?</p>
+</div>
+</div>
+<p>Add the change to the stage and commit:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Change exclamation mark to question mark"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[question 49806f4] Change exclamation mark to question mark
+
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre>
+</div>
+<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
+<p><img src="images/image38.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Now let’s make another change to our file:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hello?</p>
+<p>Is it me you’re looking for?</p>
+</div>
+</div>
+<p>This time, instead of committing, we will try to switch back to the main branch, and Git will tell us we can’t switch branches currently as we would lose our local changes (see the next example for the error). Committing our latest change would let us then switch the branch, but what if we don’t want to commit the change?</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
+<p>A common scenario is that you have started working on a problem, then when you check Git you realise you are working on the wrong branch, but now you have uncommitted changes and can’t switch branches. For this scenario, there is the <strong>stash</strong>. Think of it as a clipboard with cut-and-paste functionality like you would have in a text editor, which will let us ‘cut’ our changes and store them somewhere safe, let us switch branches, and then paste them.</p>
+<p>Let’s try it now:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+error: Your local changes to the following files would be overwritten by checkout:
+
+example.md
+
+Please commit your changes or stash them before you switch branches.
+
+Aborting
+</code></pre>
+<p>Git complains that we will lose our local changes. Let’s try out the stash:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Saved working directory and index state WIP on question: 49806f4 Change exclamation mark to question mark
+</code></pre>
+<p>Git has used the abbreviation ‘WIP’ which stands for ‘Work In Progress’.</p>
+<p>Now if we look at our file we’ll see the 2nd line has disappeared:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Hello?
+</code></pre>
+<p>We can ask Git to show us our stash:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash show</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+example.md | 2 ++
+
+1 file changed, 2 insertions(+)
+</code></pre>
+<p>This shows us which files have changed. We can add a <code>-p</code> (for ‘patch’) flag which will show us a diff:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash show <span class="at">-p</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+diff --git a/example.md b/example.md
+
+index ebbc6cd..472b4c5 100644
+
+--- a/example.md
+
++++ b/example.md
+
+@@ -1,2 +1,4 @@
+
+Hello?
+
++Is it me you're looking for?
+
++</code></pre>
+<p>Now our local copy is ‘clean’ and we can safely switch branches:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Switched to branch 'main'</code></pre>
+<p>And we can apply our change to a different branch:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash apply</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Auto-merging example.md
+
+On branch main
+
+Changes not staged for commit:
+
+(use "git add &lt;file&gt;..." to update what will be committed)
+
+(use "git restore &lt;file&gt;..." to discard changes in working directory)
+
+modified:   example.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+<p>And now if we look at the file, we’ll see our stashed change has been applied, but there is no question mark on “Hello?” as this change still resides on the <code>question</code> branch:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Hello!
+
+Is it me you're looking for?
+</code></pre>
+<p>We can now safely remove our stashed version:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash drop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Dropped refs/stash@{0} (00b8825ce0b6a0e3c2877f3c42c828fb4da4c922)
+</code></pre>
+<p>It’s important to <code>drop</code> the stash afterwards, or you’ll end up with several items in the stash that could lead to applying the wrong one. Git has a shortcut for ‘apply then drop’ which is <code>git stash pop</code>.</p>
+</div>
+<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
+<p>Luckily for GitHub Desktop users, this stashing and stash-applying process is all handled by clicking a button.</p>
+<p>Once we try to switch to the <code>main</code> branch:</p>
+<p><img src="images/image39.png" class="img-fluid"></p>
+<p>GitHub Desktop offers us two options:</p>
+<ul>
+<li><p><strong>Leave my changes on question</strong> allows us to stash the changes and come back to the branch later and apply the stash</p></li>
+<li><p><strong>Bring my changes to main</strong> automates the process of stashing the changes, switching to the desired branch, and applying the stash.</p></li>
+</ul>
+<p>For this tutorial, we will choose the latter option— ‘Bring my changes to main’:</p>
+<p><img src="images/image40.png" class="img-fluid"></p>
+<p>And now if we look at the file, we’ll see our stashed change has been applied, but no question mark as this change still resides on the <code>question</code> branch:</p>
+<p><img src="images/image41.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Let’s stage and commit our 2nd line:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>git commit -m "Add 2nd line"
+[main 6859b82] Add 2nd line
+1 file changed, 2 insertions(+)</code></pre>
+</div>
+<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
+<p><img src="images/image42.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Let’s merge in the question mark.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge question</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Auto-merging example.md
+
+Merge made by the 'ort' strategy.
+
+example.md | 2 +-
+
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre>
+</div>
+<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
+<p><img src="images/image44.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Let’s check the file:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Hello?
+
+Is it me you're looking for?
+</code></pre>
+</div>
+<div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
+<p><img src="images/image45.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section><section id="merge-conflicts" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="merge-conflicts">
+<span class="header-section-number">4.3</span> Merge conflicts</h2>
+<p>In the examples above we have introduced create a branch, making some changes and then integrating this back into main. However, what happens if you make a change to a line in a file on one branch, then you (or someone else) changes the same line of the same file on a different branch, what should Git do when you want to merge? This is a so-called <strong>merge conflict</strong>.</p>
+<p>In this section, we’re going to create a simple scenario where we will run into <strong>merge conflicts</strong> and explore two different ways to resolve them.</p>
+<p>When using <code>merge</code> to combine two branches, Git will first find a common “base commit” between the two branches, then compare the changes since this commit and attempt to compile a change list known as a “merge commit”.</p>
+<p>Git tries to automate this process as much as possible, but if it finds two conflicting changes it won’t try to guess which change should overrule the other. This usually happens when the same line in a file has been changed in both branches. In this case, while attempting to compile the merge commit, Git will go into a “merge conflict” state, which involves updating the conflicting files in the filesystem (or “working tree”) with some special formatting to show you what it cannot guess, and Git will not allow you to commit the merge until you have manually decided what you want to happen.</p>
+<p>Let’s create a branch named <code>capitalise</code> and switch to it:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> capitalise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Switched to a new branch 'capitalise'</code></pre>
+</div>
+<div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
+<p><img src="images/image46_1.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Now we’re going to make a different change to the file on the main branch. This time change the contents to the following:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>HELLO</p>
+</div>
+</div>
+<p>Then commit the change:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Capitalise example.md"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[capitalise 3da9dfb] Capitalise example.md
+
+1 file changed, 1 insertion(+), 3 deletions(-)
+</code></pre>
+</div>
+<div id="tabset-19-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-2-tab">
+<p><img src="images/image47.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Now switch back to the <code>main</code> branch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+Switched to branch 'main'
+</code></pre>
+</div>
+<div id="tabset-20-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-20-2-tab">
+<p><img src="images/image48.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>The file should look like it did before the capitalisation, as that change is isolated on the <code>capitalise</code> branch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Hello?
+
+Is it me you're looking for?</code></pre>
+</div>
+<div id="tabset-21-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-21-2-tab">
+<p><img src="images/image49.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Now we’re going to make a different change to the file on the main branch. This time change the contents to the following:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hello.</p>
+</div>
+</div>
+<p>Stage and commit the change:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-22-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-1" role="tab" aria-controls="tabset-22-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-2" role="tab" aria-controls="tabset-22-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-22-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-22-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add full stop to end of the line in example.md"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[main 7888fef] Add full stop to end of the line in example.md
+
+1 file changed, 1 insertion(+), 3 deletions(-)
+</code></pre>
+</div>
+<div id="tabset-22-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-22-2-tab">
+<p><img src="images/image50.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Let’s see what happens when we try to merge:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-23-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-2" role="tab" aria-controls="tabset-23-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-23-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-23-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge capitalise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Auto-merging example.md
+
+CONFLICT (content): Merge conflict in example.md
+
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+</div>
+<div id="tabset-23-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-23-2-tab">
+<p><img src="images/image51.png" class="img-fluid"></p>
+<p>Let’s see what happens when we try to merge:</p>
+<p><img src="images/image52.png" class="img-fluid"></p>
+<p>Next, GitHub Desktop will tell you which files need attention, and instruct you to open them in your preferred code editor.</p>
+<p><img src="images/image53.png" class="img-fluid"></p>
+<p>The Continue Merge button is disabled, as we need to resolve the conflicts in our files.</p>
+</div>
+</div>
+</div>
+<p>Let’s open up <code>example.md</code> in our preferred editor and see what is happening:</p>
+<pre><code>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+
+Hello.
+
+=======
+
+HELLO
+
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; capitalise
+</code></pre>
+<p>Git has modified our file to delineate a change that it cannot merge. The line (or lines) between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>======</code> here show what you already had (you can tell because HEAD points to your current branch). The line (or lines) between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> is what was introduced by the other commit, in this case from the capitalise branch.</p>
+<p>If this was a large file with multiple lines changed, Git will automatically merge the parts that it can, and will highlight the parts it can’t like this, and we will have to go through each conflict and manually resolve them.</p>
+<p>Let’s have a look at Git’s status:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-24-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-1" role="tab" aria-controls="tabset-24-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-24-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-2" role="tab" aria-controls="tabset-24-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-24-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-24-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="at">-v</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+On branch main
+
+You have unmerged paths.
+
+(fix conflicts and run "git commit")
+
+(use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+
+(use "git add &lt;file&gt;..." to mark resolution)
+
+both modified:   example.md
+
+* Unmerged path example.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+</div>
+<div id="tabset-24-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-24-2-tab">
+<p>Note that GitHub Desktop displays the conflict icon besides each file that needs attention:</p>
+<p><img src="images/image54.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Git’s method for displaying merge conflicts by modifying the source files makes it very straightforward for us to resolve, by just manually editing the files as we want. However Git knows that there is now a danger that you could commit this merge conflict syntax, and when working with code, this will almost certainly cause a syntax error and break your project. So Git tries to protect us against this by going into a “merge conflict” state, where it wants you to either resolve or abort this action before you do anything else.</p>
+<p>Let’s manually edit our file to what we want, like a mixture of both changes:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>HELLO.</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-25-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-1" role="tab" aria-controls="tabset-25-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-25-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-2" role="tab" aria-controls="tabset-25-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-25-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-25-1-tab">
+<p>Add the file to the stage to mark it as resolved:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We can see Git is no longer in a merge conflict state:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="at">-v</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+On branch main
+
+All conflicts fixed but you are still merging.
+
+(use "git commit" to conclude merge)
+
+Changes to be committed:
+
+modified:   example.md
+
+diff --git a/example.md b/example.md
+
+index 8b94e8e..c886167 100644
+
+--- a/example.md
+
++++ b/example.md
+
+@@ -1,2 +1,2 @@
+
+-Hello.
+
++HELLO.
+</code></pre>
+</div>
+<div id="tabset-25-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-25-2-tab">
+<p>Once the special <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> syntax is removed from our files, GitHub Desktop detects that our merge conflict has been resolved and allows us to ‘Continue Merge’:</p>
+<p><img src="images/image55.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>And we can conclude the merge.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-26-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-1" role="tab" aria-controls="tabset-26-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-26-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-2" role="tab" aria-controls="tabset-26-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-26-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-26-1-tab">
+<p>I use the <code>--no-edit</code> flag to tell Git to use the default message for a merge commit:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--no-edit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>
+[main fe2d762] Merge branch 'capitalise'
+</code></pre>
+</div>
+<div id="tabset-26-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-26-2-tab">
+<p><img src="images/image56.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>We have integrated our branch into the <code>main</code> branch and we can safely delete our short-lived branch <code>capitalise</code>:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-27-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-1" role="tab" aria-controls="tabset-27-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-27-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-2" role="tab" aria-controls="tabset-27-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-27-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-27-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">--delete</span> capitalise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Deleted branch capitalise (was 3da9dfb).</code></pre>
+</div>
+<div id="tabset-27-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-27-2-tab">
+<p><img src="images/image57.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section></section><section id="code-review-a-better-approach-to-resolving-merge-conflicts" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> Code Review: A better approach to resolving merge conflicts</h1>
+<p>Although Git allows us to resolve a merge conflict as above, this is not considered the “best practice” way to achieve this result. We ended up with something different from both our branch contents and the main branch contents all in one merge conflict resolution, with no opportunity for oversight by someone else working on the project- i.e.&nbsp;we managed to skip the Code Review (aka. Pull Request) stage.</p>
+<p>A Pull Request on GitHub should be thought of as a preparation and checking stage for a Git <code>merge</code> (or <code>rebase</code>) operation. GitHub needs a ‘base’ branch to ‘merge into’, usually <code>main</code>, and a ‘compare’ branch to ‘merge from’. If Git has indicated that a merge will result in a merge conflict, for the base branch as above, GitHub will not easily let you perform the merge process until this is fixed. So let’s see how this could have been done differently.</p>
+<p>Let’s create a new branch called <code>goodbye</code>:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-28-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-1" role="tab" aria-controls="tabset-28-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-28-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-2" role="tab" aria-controls="tabset-28-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-28-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-28-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> goodbye</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Switched to a new branch 'goodbye'</code></pre>
+</div>
+<div id="tabset-28-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-28-2-tab">
+<p>From the main menu select Branch &gt; New Branch and name the branch ‘goodbye’: <img src="images/image58.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Let’s update the file like so:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>GOODBYE</p>
+</div>
+</div>
+<p>And commit the change:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-29-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-1" role="tab" aria-controls="tabset-29-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-2" role="tab" aria-controls="tabset-29-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-29-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-29-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Change hello to goodbye in example.md"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[goodbye 753e225] Change hello to goodbye in example.md
+1 file changed, 1 insertion(+), 1 deletion(-)</code></pre>
+</div>
+<div id="tabset-29-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-29-2-tab">
+<p>From the main menu select Branch &gt; New Branch and name the branch ‘goodbye’: <img src="images/image59.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Switch back to the main branch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-30-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-1" role="tab" aria-controls="tabset-30-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-30-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-2" role="tab" aria-controls="tabset-30-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-30-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-30-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Switched to branch 'main'</code></pre>
+</div>
+<div id="tabset-30-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-30-2-tab">
+<p><img src="images/image60.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Make a change to the file on the main branch:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>HELLO</p>
+</div>
+</div>
+<p>And commit.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-31-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-1" role="tab" aria-controls="tabset-31-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-31-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-2" role="tab" aria-controls="tabset-31-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-31-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-31-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Remove full stop in example.md"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[main 27c4cc0] Remove full stop in example.md
+1 file changed, 1 insertion(+), 1 deletion(-)</code></pre>
+</div>
+<div id="tabset-31-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-31-2-tab">
+<p><img src="images/image61.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Then try to merge:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-32-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-1" role="tab" aria-controls="tabset-32-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-32-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-2" role="tab" aria-controls="tabset-32-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-32-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-32-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge goodbye</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Auto-merging example.md
+CONFLICT (content): Merge conflict in example.md
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+</div>
+<div id="tabset-32-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-32-2-tab">
+<p><img src="images/image62.png" class="img-fluid"><img src="images/image63.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>And again we have a merge conflict. This time, let’s abort the merge:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-33-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-1" role="tab" aria-controls="tabset-33-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-33-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-2" role="tab" aria-controls="tabset-33-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-33-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-33-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge <span class="at">--abort</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-33-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-33-2-tab">
+<p><img src="images/image64.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Now switch back to the <code>goodbye</code> branch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-34-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-1" role="tab" aria-controls="tabset-34-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-34-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-2" role="tab" aria-controls="tabset-34-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-34-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-34-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch goodbye</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Switched to branch 'goodbye'</code></pre>
+</div>
+<div id="tabset-34-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-34-2-tab">
+<p><img src="images/image65.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>And <strong>merge <code>main</code> into our short-lived <code>goodbye</code> branch</strong>:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-35-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-1" role="tab" aria-controls="tabset-35-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-35-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-2" role="tab" aria-controls="tabset-35-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-35-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-35-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Auto-merging example.md
+CONFLICT (content): Merge conflict in example.md
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+</div>
+<div id="tabset-35-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-35-2-tab">
+<p><img src="images/image66.png" class="img-fluid"><img src="images/image67.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Now if we head to our preferred code editor, we have almost the same merge conflict to resolve (except <code>HEAD</code> is now our <code>goodbye</code> branch):</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+GOODBYE
+=======
+HELLO
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; main</code></pre>
+<p>And we can manually resolve it as before, this time with some Beatles lyrics:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+example.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You say GOODBYE and I say HELLO</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-36-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-1" role="tab" aria-controls="tabset-36-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-36-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-2" role="tab" aria-controls="tabset-36-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-36-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-36-1-tab">
+<p>And <code>add</code> to mark the conflict resolved:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add example.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>And commit the change.</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--no-edit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[goodbye 34ca84f] Merge branch 'main' into goodbye</code></pre>
+</div>
+<div id="tabset-36-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-36-2-tab">
+<p>GitHub Desktop has automatically detected that our merge conflict has been resolved: <img src="images/image68.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>And now our branch could be ready for Code Review on GitHub via a Pull Request (see Supplement). This makes sense when you are contributing to someone else’s project.</p>
+</div>
+</div>
+<p>When we switch back to the <code>main</code> branch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-37-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-1" role="tab" aria-controls="tabset-37-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-37-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-2" role="tab" aria-controls="tabset-37-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-37-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-37-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Switched to branch 'main'</code></pre>
+</div>
+<div id="tabset-37-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-37-2-tab">
+<p><img src="images/image69.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Our change can be merged without a conflict. We will use <code>git squash</code> in the next steps. Squashing allows you to combine multiple commits in your branch’s history into a single commit. This can help keep your repository’s history more readable and understandable.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-38-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-1" role="tab" aria-controls="tabset-38-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-38-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-2" role="tab" aria-controls="tabset-38-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-38-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-38-1-tab">
+<p>“Fast-forward” in Git terms means an automatic merge, or in other words, our merge will not result in a conflict.</p>
+<p>The <code>goodbye</code> branch has 2 commits, which we can see by asking <code>git log</code> to compare it to the <code>main</code> branch:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> main..goodbye</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>34ca84f Merge branch 'main' into goodbye
+753e225 Change hello to goodbye in example.md</code></pre>
+<p>Since we resolved the merge conflict with Beatles lyrics when merging the <code>main</code> branch into the <code>goodbye</code> branch, neither of these commit messages does a good job describing what we are about to integrate into <code>main</code>. So instead of transferring both commits to the <code>main</code> ‘as is’, let’s ‘squash’ them into one:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge <span class="at">--squash</span> goodbye</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Updating 27c4cc0..34ca84f
+Fast-forward
+Squash commit -- not updating HEAD
+example.md | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)</code></pre>
+<p>Then commit the squashed change with a more descriptive message:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">'Change to Beatles lyrics'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[main 08a1ff2] Change to Beatles lyrics
+1 file changed, 1 insertion(+), 1 deletion(-)</code></pre>
+</div>
+<div id="tabset-38-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-38-2-tab">
+<p><img src="images/image70.png" class="img-fluid"><img src="images/image71.png" class="img-fluid"></p>
+<p>This time instead of clicking ‘Create a merge commit’, click the little arrow on the right of the button and select ‘Squash and merge’:</p>
+<p><img src="images/image72.png" class="img-fluid"></p>
+<p>Now if we look at the history tab we can see a commit with the message ‘Squashed commit of the following:’. If you click on ‘Expand’ on the right, we can see the description of the commit has a log of the commits that were squashed into this one:</p>
+<p><img src="images/image73.png" class="img-fluid"></p>
+<p>Let’s change the title to something more descriptive by right-clicking on the commit message and selecting ‘Amend commit…’:</p>
+<p><img src="images/image74.png" class="img-fluid"></p>
+<p>Then change the message to ‘Change to Beatles lyrics’ and click ‘Amend last commit’:</p>
+<p><img src="images/image75.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>“Fast-forward” in Git terms means an automatic merge, or in other words, our merge will not result in a conflict.</p>
+<p>Finally, you can safely delete the goodbye branch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-39-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-1" role="tab" aria-controls="tabset-39-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-39-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-2" role="tab" aria-controls="tabset-39-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-39-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-39-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">--delete</span> goodbye</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>error: The branch 'goodbye' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D goodbye'.</code></pre>
+</div>
+<div id="tabset-39-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-39-2-tab">
+<p><img src="images/image76.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>So to recap, we have prepared our branch for integration by first combining any new changes from the <code>main</code> branch into our branch and resolving the merge conflicts in isolation, creating a “final version” of the change we want to make with our branch ready to be checked, before attempting to integrate our branch back into the <code>main</code> branch.</p>
+<p>If you need to keep your short-lived branch open for some reason, it’s advised to merge any recent changes from <code>main</code> into your branch often, to avoid painful merge conflicts later.</p>
+</section><section id="supplement-create-a-pull-request-to-an-existing-project" class="level1" data-number="6"><h1 data-number="6">
+<span class="header-section-number">6</span> Supplement: Create a Pull Request to an existing project</h1>
+<p>This tutorial is about contributing to someone else’s project. The sample project that we are going to contribute to can be found here:</p>
+<p><a href="https://github.com/UofGAnalyticsData/tutorial2">https://github.com/UofGAnalyticsData/tutorial2</a></p>
+<p>We’re simply going to add a line to the existing readme.md file, but you may have found a bug, or thought of a new feature, in someone else’s project, and you’ve taken it upon yourself to contribute and submit it to the project maintainer for approval.</p>
+<p>In Git terms, what you need to do is:</p>
+<ol type="1">
+<li>
+<strong>Fork</strong> the project on GitHub to your account</li>
+<li>
+<strong>Clone</strong> it to your local machine</li>
+<li>Make the change</li>
+<li>
+<strong>Stage</strong>, <strong>commit</strong> and <strong>push</strong> the change to GitHub</li>
+<li>Create a <strong>Pull Request</strong> on the original project which points to your forked repository</li>
+<li>
+<strong>Code review</strong>: the project maintainer will review your change to decide if they want to integrate it, close it, or request modifications</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What is the difference between Clone and Fork?</p>
+<p><strong>Clone</strong> is a Git feature that allows a user to make a copy of a repository, including all the associated metadata on their computer so they can work on it. This is an essential feature and makes sense for a team of collaborators, with read-and-write privileges to the repository, all working on a project together.</p>
+<p>If you have read privileges but not write privileges to a repository, like for example an open-source GitHub project where you’re not a project maintainer like the <a href="https://github.com/facebook/react">React</a> repository we explored above, it’s easy to consume open-source projects but difficult to contribute to them.</p>
+<p><strong>Fork</strong> is a GitHub feature aimed at making it easier to be part of the open-source community. When you fork a repository, you make a copy of a repository, including all the associated metadata, but crucially, you become the owner of the new copied repository, and you now have read and write privileges necessary to make changes.</p>
+<p>If you would like to contribute your changes back to the original repository, you can create a <strong>Forked Pull Request</strong> (see the next section) which will notify the original project maintainers that you are requesting to have your changes integrated with their project. Those maintainers reserve the right to approve, reject, or request changes to your Pull Request.</p>
+</div>
+</div>
+<section id="fork" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="fork">
+<span class="header-section-number">6.1</span> Fork</h2>
+<p>To fork a GitHub repository, first, click the Fork button on the top right:</p>
+<p><img src="images/image77.png" class="img-fluid"></p>
+<p>Then you have the opportunity to give the forked repository a different name, description, and which branch to fork: <img src="images/image78.png" class="img-fluid"></p>
+<p>And that’s it! You have a copy of the project under your name on GitHub: <img src="images/image79.png" class="img-fluid"></p>
+</section><section id="clone-1" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="clone-1">
+<span class="header-section-number">6.2</span> Clone</h2>
+<p>Next, we’ll clone the project to our local machine:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-40-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-1" role="tab" aria-controls="tabset-40-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-40-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-2" role="tab" aria-controls="tabset-40-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-40-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-40-1-tab">
+<p><img src="images/image80_1.png" class="img-fluid"></p>
+<ol type="1">
+<li>Click on the green button labelled “Code”</li>
+<li>Choose either HTTPS or SSH depending on your authentication setup and copy the URL Next, we can navigate to the folder we want and run the command:</li>
+</ol>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:daviestar/tutorial2.git .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>Cloning into '.'...</code></pre>
+</div>
+<div id="tabset-40-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-40-2-tab">
+<p>In GitHub Desktop, click on the ‘repository’ tab in the top-left of the window, then ‘Add’, then ‘Clone repository…’: <img src="images/image80.png" class="img-fluid"></p>
+<p>Choose the ‘URL’ tab and enter <code>dmca-glasgow/tutorial2</code> into the ‘Repository URL’ input box, choose where you’d like to store the repository on your computer, then finally click ‘Clone’: <img src="images/image81.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section><section id="make-some-changes" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="make-some-changes">
+<span class="header-section-number">6.3</span> Make some changes</h2>
+<p>Let’s add a new line to the <code>readme.md</code> file, making sure to save it:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+readme.md
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>## Follow along tutorial 2: Create a Pull Request to an existing project</p>
+<p>My updated text.</p>
+</div>
+</div>
+</section><section id="stage-commit-and-push-the-change-to-our-repository" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="stage-commit-and-push-the-change-to-our-repository">
+<span class="header-section-number">6.4</span> Stage, commit and push the change to our repository</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-41-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-1" role="tab" aria-controls="tabset-41-1" aria-selected="true">Command-line</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-41-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-2" role="tab" aria-controls="tabset-41-2" aria-selected="false">GitHub Desktop</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-41-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-41-1-tab">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add readme.md</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"added my updated text to readme"</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<pre><code>[main 7d73c6c] added my updated text to readme
+1 file changed, 2 insertions(+)
+To github.com:daviestar/tutorial2.git
+c9dfc4a..7d73c6c  main -&gt; main</code></pre>
+</div>
+<div id="tabset-41-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-41-2-tab">
+<p>In GitHub Desktop, add a descriptive message and click ‘Commit to main’: <img src="images/image82.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section><section id="create-a-pull-request" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="create-a-pull-request">
+<span class="header-section-number">6.5</span> Create a Pull Request</h2>
+<p><img src="images/image83.png" class="img-fluid"></p>
+<ol type="1">
+<li>Navigate to the original project repository</li>
+<li>Click on the Pull Requests tab</li>
+<li>Click on the green button with the label “New pull request”</li>
+</ol>
+<p><img src="images/image84.png" class="img-fluid"></p>
+<ol type="1">
+<li>Click “compare across forks”</li>
+<li>Select your repository from the “head” dropdown menu</li>
+<li>See your commit message!</li>
+<li>See the contents of your commit! Now you can click the green button with the label “Create pull request”.</li>
+</ol>
+<p><img src="images/image85.png" class="img-fluid"></p>
+<p>Now you have the opportunity to rename your Pull Request and give it a description. When you’re ready, you can click the green button with the label “Create pull request”.</p>
+<p>Note that you have the option to create a “Draft Pull Request”. This lets other users know that although you have opened a Pull Request, it’s not ready to review yet. This allows you the flexibility to set up the Pull Request before finalising the change. For example, you may want to make others aware that you are working on this particular change so they don’t start working on it too.</p>
+<p>The “Draft Pull Request” feature is unfortunately only available on public repositories and some enterprise accounts. If you were hoping to use this workflow in a private repository, another convention is to put “WIP” (Work In Progress) at the top of your Pull Request description.</p>
+<p><img src="images/image86.png" class="img-fluid"></p>
+<p>Now we can see our Pull Request has been created. At this point, the project maintainers will be notified. There’s nothing else we can do now, as we don’t have permission to integrate this change ourselves, but we will be notified if there is any activity on the Pull Request.</p>
+</section><section id="code-review" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="code-review">
+<span class="header-section-number">6.6</span> Code review</h2>
+<p>The Pull Request page we have just created is where a project maintainer will perform a code review. As an extreme example, the reviewer has a duty to at least ensure someone isn’t submitting a virus to their project, so your code <em>will</em> be read and reviewed.</p>
+<p>For the reviewer, this is a whole topic (or even course) on its own as Code Review can be such a powerful process. At its best, it can be an opportunity to spread knowledge and build relationships in a team while keeping the codebase standardised and robust. It’s just simply a good idea to have a 2nd set of eyes look over your code offering constructive criticism.</p>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
