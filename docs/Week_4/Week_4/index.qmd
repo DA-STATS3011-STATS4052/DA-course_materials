@@ -167,7 +167,7 @@ From the parallel regression lines model both males and females have the same sl
 ::: {.callout-tip icon="false"}
 ## {{< bi question-octagon color=#6dc83c >}} Question
 
-What is different between our previous scatterplot of teaching score against age (Figure 6) and the one we just created with our parallel lines superimposed (Figure 7)?
+What is different between our previous scatterplot of teaching score against age and the one we just created with our parallel lines superimposed?
 
 `r hide("Answer")`
 
@@ -317,7 +317,7 @@ The table below lists a variety of contexts where sample statistics can be used 
 Table 1: Scenarios of sample statistics for inference.
 
 | Scenario | Population Parameter  | Population Notation | Sample Statistic      | Sample Notation                 |
-|:-------------|:-------------|:-------------|:-------------|:----------------|
+|:--------------|:--------------|:--------------|:--------------|:--------------|
 | 1        | Population proportion | $p$                 | Sample proportion     | $\widehat{p}$                   |
 | 2        | Population mean       | $\mu$               | Sample mean           | $\bar{x}$                       |
 | 3        | Diff.in pop. props    | $p_1 - p_2$         | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |
@@ -443,7 +443,7 @@ Having described several ways of calculating confidence intervals for model para
 
 **Simple Linear Regression:** $\widehat{y}_i = \alpha + \beta x_i$
 
-Whether we have obtained a confidence interval for $\beta$ in a simple linear regression model via bootstrapping or theoretical results based on assumptions, the interpretation of the interval is the same. As we saw in Week 7,
+Whether we have obtained a confidence interval for $\beta$ in a simple linear regression model via bootstrapping or theoretical results based on assumptions, the interpretation of the interval is the same:
 
 > A confidence interval gives a range of plausible values for a population parameter.
 
