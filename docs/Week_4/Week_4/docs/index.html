@@ -1284,7 +1284,10 @@ Answer
 <p>A popular data analysis strategy that can be adopted is to calculate <span class="math inline">\(R_{adj}^2\)</span>, <span class="math inline">\(AIC\)</span> and <span class="math inline">\(BIC\)</span> and compare the models which <strong>minimise</strong> the <span class="math inline">\(AIC\)</span> and <span class="math inline">\(BIC\)</span> with the model that <strong>maximises</strong> the <span class="math inline">\(R_{adj}^2\)</span>.</p>
 <p>To illustrate this, let’s return to the <code>evals</code> data and the MLR on the teaching evaluation score <code>score</code> with the two continuous explanatory variables <code>age</code> and <code>bty_avg</code> and compare this with the SLR model with just <code>bty_avg</code>. To access these measures for model comparisons we can use the <code>glance</code> function in the <code>broom</code> package (not to be confused with the <code>glimpse</code> function from the <code>dplyr</code> package). Here, for the sake of simplicity, we simply use the <code>lm</code> function.</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.comp.values.slr.age</span> <span class="op">&lt;-</span> <span class="fu">glance</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">evals</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slr.model.age</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">evals</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">extract_fit_engine</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">model.comp.values.slr.age</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
@@ -1292,7 +1295,9 @@ Answer
 1    0.0115       0.00931 0.541      5.34  0.0213     1  -372.  750.  762.
 # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
-<details><summary>Code</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.comp.values.slr.bty_avg</span> <span class="op">&lt;-</span> <span class="fu">glance</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">bty_avg</span>, data <span class="op">=</span> <span class="va">evals</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slr.model.bty_avg</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">bty_avg</span>, data <span class="op">=</span> <span class="va">evals</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">extract_fit_engine</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
@@ -1300,8 +1305,7 @@ Answer
 1    0.0350        0.0329 0.535      16.7 0.0000508     1  -366.  738.  751.
 # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
-<details><summary>Code</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.comp.values.mlr</span> <span class="op">&lt;-</span> <span class="fu">glance</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">bty_avg</span>, data <span class="op">=</span> <span class="va">evals</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1311,7 +1315,7 @@ Answer
 </div>
 <p>Note that <span class="math inline">\(R_{adj}^2\)</span>, <span class="math inline">\(AIC\)</span> and <span class="math inline">\(BIC\)</span> are contained in columns 2, 9 and 10 respectively. To access just these values and combine them in a single table we use:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'SLR(age)'</span>,<span class="st">'SLR(bty_avg)'</span>,<span class="st">'MLR'</span><span class="op">)</span> </span>
+<details><summary>Code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'SLR(age)'</span>,<span class="st">'SLR(bty_avg)'</span>,<span class="st">'MLR'</span><span class="op">)</span> </span>
 <span><span class="fu">bind_rows</span><span class="op">(</span><span class="va">model.comp.values.slr.age</span>, <span class="va">model.comp.values.slr.bty_avg</span>, </span>
 <span>          <span class="va">model.comp.values.mlr</span>, .id <span class="op">=</span> <span class="st">"Model"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>          <span class="fu">select</span><span class="op">(</span><span class="va">Model</span>, <span class="va">adj.r.squared</span>, <span class="va">AIC</span>, <span class="va">BIC</span><span class="op">)</span> <span class="op">|&gt;</span></span>

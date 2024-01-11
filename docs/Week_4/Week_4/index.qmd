@@ -581,11 +581,22 @@ A popular data analysis strategy that can be adopted is to calculate $R_{adj}^2$
 To illustrate this, let's return to the `evals` data and the MLR on the teaching evaluation score `score` with the two continuous explanatory variables `age` and `bty_avg` and compare this with the SLR model with just `bty_avg`. To access these measures for model comparisons we can use the `glance` function in the `broom` package (not to be confused with the `glimpse` function from the `dplyr` package). Here, for the sake of simplicity, we simply use the `lm` function.
 
 ```{r, echo = c(1,3,5)}
-model.comp.values.slr.age <- glance(lm(score ~ age, data = evals))
+slr.model.age <- linear_reg() |> 
+  fit(score ~ age, data = evals) |> 
+  extract_fit_engine()
+model.comp.values.slr.age <- glance(slr.model.age)
 model.comp.values.slr.age
-model.comp.values.slr.bty_avg <- glance(lm(score ~ bty_avg, data = evals))
+
+slr.model.bty_avg <- linear_reg() |> 
+  fit(score ~ bty_avg, data = evals) |> 
+  extract_fit_engine()
+model.comp.values.slr.bty_avg <- glance(slr.model.bty_avg)
 model.comp.values.slr.bty_avg
-model.comp.values.mlr <- glance(lm(score ~ age + bty_avg, data = evals))
+
+slr.model.mlr <- linear_reg() |> 
+  fit(score ~ age + bty_avg, data = evals) |>
+  extract_fit_engine()
+model.comp.values.mlr <- glance(slr.model.mlr)
 model.comp.values.mlr
 ```
 
