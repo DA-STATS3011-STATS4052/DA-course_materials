@@ -397,7 +397,7 @@ ggpairs(restNYC[, 4:8], aes(colour = East, alpha = 0.4))
 ggpairs(restNYC[, 4:7], aes(alpha = 0.4)) 
 ```
 
-b.  Fit the simple linear model with `Price` as the response and `Service` as the predictor and display the fitted model on a scatterplot of the data. Construct a bootstrap confidence interval (using the standard error from the bootstrap distribution) for the slope parameter in the model.
+b.  Fit the simple linear model with `Price` as the response and `Service` as the predictor and display the fitted model on a scatterplot of the data. Construct a confidence interval for the slope parameter in the model.
 
     Now fit a multiple regressing model of `Price` on `Service`, `Food`, and `Decor`. What happens to the significance of `Service` when additional variables were added to the model?
 

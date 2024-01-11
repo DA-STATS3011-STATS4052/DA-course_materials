@@ -456,11 +456,11 @@ ggplot(restNYC,aes(x=Service,y=Price))+
 coeff.Service <- slr.Service |>
                   coef() 
 
-percentile_beta_Service_ci <- restNYC |> 
-  specify(Price ~ Service) |>
-  generate(reps = 1000, type = "bootstrap") |> 
-  calculate(stat = "slope") |>
-  get_ci(level = 0.95, type = "se", point_estimate=coeff.Service[2])
+get_regression_table(slr.Service) |>  
+  kable(
+     digits = 2,
+     caption = "Parameter estimates for MLR model of Price on Service, Food, and Decor", 
+  )
 
 mlr.Service.Food.Decor <- linear_reg()
 mlr.Service.Food.Decor <- mlr.Service.Food.Decor  |>
@@ -474,7 +474,7 @@ get_regression_table(mlr.Service.Food.Decor) |>
   )
 ```
 
-When only `Service` is included in the model, it appears significant (confidence interval using the standard error from the bootstrap: `r round(percentile_beta_Service_ci[1],2)` up to `r round(percentile_beta_Service_ci[2],2)`, which doesn't contain zero). However, once `Food` and `Decor` are added into the model, that is no longer the case as can be seen in the confidence interval table above, which does contain zero.
+When only `Service` is included in the model, it appears significant (confidence interval doesn't contain zero). However, once `Food` and `Decor` are added into the model, that is no longer the case as can be seen in the confidence interval table above, which does contain zero.
 
 ------------------------------------------------------------------------
 
