@@ -413,7 +413,7 @@ ggplot(data = flights,
        aes(y = carrier,fill=origin)) +
   geom_bar()+
   coord_flip() +
-  labs(x = "Carrier", y = "Count",
+  labs(x = "Count", y = "Carrier",
         title = "Carriers who flew out of New York City in 2013") 
 ```
 
@@ -424,7 +424,7 @@ ggplot(data = flights,
        aes(y = carrier,fill=origin)) +
   geom_bar(position = 'dodge')+
   coord_flip() +
-  labs(x = "Carrier", y = "Count",
+  labs(x = "Count", y = "Carrier",
         title = "Carriers who flew out of New York City in 2013") 
 ```
 
@@ -443,7 +443,7 @@ ggplot(data = flights,
   geom_bar()+
   coord_flip()+
   facet_wrap(~ origin, ncol = 1) +
-  labs(x = "Carrier", y = "Count",
+  labs(x = "Count", y = "Carrier",
         title = "Carriers who flew out of New York City in 2013") 
 ```
 
