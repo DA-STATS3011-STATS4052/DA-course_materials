@@ -423,8 +423,6 @@ $$\mathbb{I}_{\mbox{Male}}(x)=\left\{
 For additional tricks inserting mathematics into documents see [here](https://quarto.org/docs/visual-editor/technical.html).
 :::
 
-# References
-
 # Quarto Presentations
 
 Another great feature of Quarto is that it allows you to create presentations and supports a variety of formats such as [html](https://quarto.org/docs/presentations/revealjs/), [power point](https://quarto.org/docs/presentations/powerpoint.html) and [beamer](https://quarto.org/docs/presentations/beamer.html). Today we will focus on creating an html presentation (which can be also printed as a pdf).
