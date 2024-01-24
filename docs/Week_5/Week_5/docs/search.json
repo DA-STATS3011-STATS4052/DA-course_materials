@@ -11,7 +11,7 @@
     "href": "webexercises.html#example-questions",
     "title": "Webexercises",
     "section": "Example Questions",
-    "text": "Example Questions\n\nFill-In-The-Blanks (fitb())\nCreate fill-in-the-blank questions using fitb(), providing the answer as the first argument.\n\n2 + 2 is \n\nYou can also create these questions dynamically, using variables from your R session.\n\nThe square root of 49 is: \n\nThe blanks are case-sensitive; if you don’t care about case, use the argument ignore_case = TRUE.\n\nWhat is the letter after D? \n\nIf you want to ignore differences in whitespace use, use the argument ignore_ws = TRUE (which is the default) and include spaces in your answer anywhere they could be acceptable.\n\nHow do you load the tidyverse package? \n\nYou can set more than one possible correct answer by setting the answers as a vector.\n\nType a vowel: \n\nYou can use regular expressions to test answers against more complex rules.\n\nType any 3 letters: \n\n\n\nMultiple Choice (mcq())\n\n“Never gonna give you up, never gonna: let you goturn you downrun awaylet you down”\n“I bless the rainsguess it rainssense the rain down in Africa” -Toto\n\n\n\nTrue or False (torf())\n\nTrue or False? You can permute values in a vector using sample(). TRUEFALSE\n\n\n\nLonger MCQs (longmcq())\nWhen your answers are very long, sometimes a drop-down select box gets formatted oddly. You can use longmcq() to deal with this. Since the answers are long, It’s probably best to set up the options inside an R chunk with echo=FALSE.\nWhat is a p-value?\n\n the probability that the null hypothesis is true the probability of the observed, or more extreme, data, under the assumption that the null-hypothesis is true the probability of making an error in your conclusion\n\nWhat is true about a 95% confidence interval of the mean?\n\n there is a 95% probability that the true mean lies within this range if you repeated the process many times, 95% of intervals calculated in this way contain the true mean 95% of the data fall within this range"
+    "text": "Example Questions\n\nFill-In-The-Blanks (fitb())\nCreate fill-in-the-blank questions using fitb(), providing the answer as the first argument.\n\n2 + 2 is \n\nYou can also create these questions dynamically, using variables from your R session.\n\nThe square root of 49 is: \n\nThe blanks are case-sensitive; if you don’t care about case, use the argument ignore_case = TRUE.\n\nWhat is the letter after D? \n\nIf you want to ignore differences in whitespace use, use the argument ignore_ws = TRUE (which is the default) and include spaces in your answer anywhere they could be acceptable.\n\nHow do you load the tidyverse package? \n\nYou can set more than one possible correct answer by setting the answers as a vector.\n\nType a vowel: \n\nYou can use regular expressions to test answers against more complex rules.\n\nType any 3 letters: \n\n\n\nMultiple Choice (mcq())\n\n“Never gonna give you up, never gonna: let you goturn you downrun awaylet you down”\n“I bless the rainsguess it rainssense the rain down in Africa” -Toto\n\n\n\nTrue or False (torf())\n\nTrue or False? You can permute values in a vector using sample(). TRUEFALSE\n\n\n\nLonger MCQs (longmcq())\nWhen your answers are very long, sometimes a drop-down select box gets formatted oddly. You can use longmcq() to deal with this. Since the answers are long, It’s probably best to set up the options inside an R chunk with echo=FALSE.\nWhat is a p-value?\n\n the probability that the null hypothesis is true the probability of the observed, or more extreme, data, under the assumption that the null-hypothesis is true the probability of making an error in your conclusion\n\nWhat is true about a 95% confidence interval of the mean?\n\n 95% of the data fall within this range there is a 95% probability that the true mean lies within this range if you repeated the process many times, 95% of intervals calculated in this way contain the true mean"
   },
   {
     "objectID": "webexercises.html#checked-sections",
@@ -26,20 +26,6 @@
     "title": "Webexercises",
     "section": "Hidden solutions and hints",
     "text": "Hidden solutions and hints\nYou can fence off a solution area that will be hidden behind a button using hide() before the solution and unhide() after, each as inline R code. Pass the text you want to appear on the button to the hide() function.\nIf the solution is a code chunk, instead of using hide() and unhide(), simply set the webex.hide chunk option to TRUE, or set it to the string you wish to display on the button.\nRecreate the scatterplot below, using the built-in cars dataset.\n\n\n\n\n\n\n\nI need a hint\n\nSee the documentation for plot() (?plot)\n\n\n\n\n\nClick here to see the solution\n\nplot(cars$speed, cars$dist)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Week 5 Tasks",
-    "section": "",
-    "text": "Tasks\nThe following tasks are here to help you prepare for your next class test. For the class test you will be given a data set to analyse and produce a report using Quarto given a basic template. Using the Basic Template from Moodle, write a report based on the following data sets.\n\nReturn to Week 3 and the section on simple linear regression with one categorical explanatory variable. Produce a report based on life expectancy across various countries around the world from the gapminder data set.\n\n\n\nFurther Tasks\n\nDigitalis is a heart medicine similar to toxins found in a genus of plants commonly known as foxglove. These plants can be poisonous towards humans and pets. As part of digitalis experiments, 144 domestic adult cats had their heart (in grams) and body weight (in kilograms) measured. The data set cats can be found in the MASS library. Ignoring their gender, is there a relationship between heart weight and body weight in domestic cats?"
-  },
-  {
-    "objectID": "my_quarto.html",
-    "href": "my_quarto.html",
-    "title": "My title",
-    "section": "",
-    "text": "1 Introduction"
   },
   {
     "objectID": "index.html",
@@ -89,5 +75,19 @@
     "title": "Week 5: Introduction to Quarto",
     "section": "\n6.2 Embedding R generated figures",
     "text": "6.2 Embedding R generated figures\nVery often we would like to use the R plots generated from your analysis instead of using external figures. To achieve this, the R code for the plot is simply included within a code chunk including additional arguments for plot size and positioning. For example, to include the scatterplot of teaching and beauty:\n\nCode```{r}\n#| label: fig-scatterplot1\n#| fig-cap: Relationship between teaching and beauty scores. The best-fitting line has been superimposed.\n#| fig-width: 4\n#| fig-height: 5\n#| fig-align: center\n#| message: false\n\nggplot(evals.scores, aes(x = bty_avg, y = score)) +\n  geom_point() +\n  labs(x = \"Beauty Score\", y = \"Teaching Score\") +\n  geom_smooth(method = \"lm\", se = FALSE)\n```\n\n\n\nFigure 1: Relationship between teaching and beauty scores. The best-fitting line has been superimposed.\n\n\n\nHere, we set the chunk label to include the fig- prefix so we can cross-reference using the @ prefix. For example @fig-scatterplot1 will create a hyperlink to Figure 1. Then we added a figure caption using the fig-cap option. For size and positioning of the figure we can include:\n\n\nfig.width: an integer value denoting the width of the figure;\n\nfig.height: an integer value denoting the height of the figure;\n\nfig.align: the alignment of the figure within the body of the document\n\n\n\n\n\n\n\n Question\n\n\n\nWhat other argument would you need to include if you wish to show the chunk plot output only?\n\neval: false\necho: true\necho: false\neval: true\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou can read more about authoring Quarto tables here."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Week 5 Tasks",
+    "section": "",
+    "text": "Tasks\nThe following tasks are here to help you prepare for your next class test. For the class test you will be given a data set to analyse and produce a report using Quarto given a basic template. Using the Basic Template from Moodle, write a report based on the following data sets.\n\nReturn to Week 3 and the section on simple linear regression with one categorical explanatory variable. Produce a report based on life expectancy across various countries around the world from the gapminder data set.\n\n\n\nFurther Tasks\n\nDigitalis is a heart medicine similar to toxins found in a genus of plants commonly known as foxglove. These plants can be poisonous towards humans and pets. As part of digitalis experiments, 144 domestic adult cats had their heart (in grams) and body weight (in kilograms) measured. The data set cats can be found in the MASS library. Ignoring their gender, is there a relationship between heart weight and body weight in domestic cats?"
+  },
+  {
+    "objectID": "my_quarto.html",
+    "href": "my_quarto.html",
+    "title": "My title",
+    "section": "",
+    "text": "1 Introduction"
   }
 ]

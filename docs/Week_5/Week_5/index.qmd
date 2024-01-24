@@ -1,18 +1,17 @@
 ---
 title: "Week 5: Introduction to Quarto "
+toc: true
+toc-location: left
+toc-title: Contents
+number-sections: true
 format:
-  pdf:
-    latex-auto-install: true
   html:    
     code-link: true
     code-fold: true
     code-tools:
       source: false
       toggle: true
-    toc: true
-    toc-location: left
-    toc-title: Contents
-    number-sections: true
+  pdf: default
 editor: visual
 editor_options: 
   chunk_output_type: console
