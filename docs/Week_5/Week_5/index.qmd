@@ -171,6 +171,15 @@ Some of the most common arguments you will use in your R Chunks are:
 
 For example, let's say we wanted to select the `score` and `bty_avg` variables from the `evals` data set to be used later, we can do that using the following code chunk:
 
+```         
+{r}
+#| echo: false
+library(tidyverse)
+library(moderndive)
+evals.scores <- evals |>
+  select(score, bty_avg)
+```
+
 ```{r}
 #| echo: false
 library(tidyverse)
