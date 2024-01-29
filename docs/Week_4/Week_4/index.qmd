@@ -349,7 +349,7 @@ coeff <- slr.model |>
 coeff
 ```
 
-```{r modelslr, echo=FALSE, warning=FALSE, fig.cap="Figure 1: SLR model applied to the teaching evaluation Data.", fig.align = "center"}
+```{r modelslr, echo=FALSE, warning=FALSE, fig.cap="SLR model applied to the teaching evaluation Data.", fig.align = "center"}
 ggplot(evals, aes(x = age, y = score)) +
   geom_jitter() +
   labs(x = "Age", y = "Teaching Score") +
