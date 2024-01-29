@@ -550,7 +550,6 @@ y_{i} &amp;= \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \epsilon_i \nonumber \\
 </div>
 </div>
 </div>
-<p><strong>Note</strong>: go through the code used to create <code>coeff</code> and <code>slopes</code> and make sure you understand it.</p>
 <p>From the parallel regression lines model both males and females have the same slope, that is, the associated effect of age on teaching score is the same for both men and women. Hence, for every one year increase in age, there is an associated decrease in teaching score of 0.009. However, male instructors have a higher intercept term, that is, there is a vertical bump in the regression line for males in teaching scores. This is linked to the average difference in teaching scores that males obtain relative to females.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1273,16 +1272,15 @@ Answer
 <p><span class="math display">\[AIC = -2 \cdot \mbox{log-likeihood} + 2p = n\ln\left(\frac{RSS}{n}\right)+2p\]</span></p>
 <ul>
 <li>A value based on the maximum likelihood function of the parameters in the fitted model penalised by the number of parameters in the model</li>
-<li>It be used to compare any models fitted to the same response variable</li>
+<li>It should be used to compare any models fitted to the same response variable</li>
 <li>The smaller the AIC the ‘better’ the model, i.e.&nbsp;no distributional results are employed to assess differences</li>
-<li>See the <code>stepAIC</code> function from the <code>MASS</code> library that was mention in Week 6.</li>
 </ul>
 <ol start="3" type="1">
 <li>Bayesian Information Criteria</li>
 </ol>
 <p><span class="math display">\[BIC = -2 \cdot \mbox{log-likeihood} +\ln(n)p\]</span></p>
 <p>A popular data analysis strategy that can be adopted is to calculate <span class="math inline">\(R_{adj}^2\)</span>, <span class="math inline">\(AIC\)</span> and <span class="math inline">\(BIC\)</span> and compare the models which <strong>minimise</strong> the <span class="math inline">\(AIC\)</span> and <span class="math inline">\(BIC\)</span> with the model that <strong>maximises</strong> the <span class="math inline">\(R_{adj}^2\)</span>.</p>
-<p>To illustrate this, let’s return to the <code>evals</code> data and the MLR on the teaching evaluation score <code>score</code> with the two continuous explanatory variables <code>age</code> and <code>bty_avg</code> and compare this with the SLR model with just <code>bty_avg</code>. To access these measures for model comparisons we can use the <code>glance</code> function in the <code>broom</code> package (not to be confused with the <code>glimpse</code> function from the <code>dplyr</code> package). Here, for the sake of simplicity, we simply use the <code>lm</code> function.</p>
+<p>To illustrate this, let’s return to the <code>evals</code> data and the MLR on the teaching evaluation score <code>score</code> with the two continuous explanatory variables <code>age</code> and <code>bty_avg</code> and compare this with the SLR model with just <code>bty_avg</code>. To access these measures for model comparisons we can use the <code>glance</code> function in the <code>broom</code> package (not to be confused with the <code>glimpse</code> function from the <code>dplyr</code> package).</p>
 <div class="cell" data-layout-align="center">
 <details><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slr.model.age</span> <span class="op">&lt;-</span> <span class="fu">linear_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">fit</span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">evals</span><span class="op">)</span> <span class="op">|&gt;</span> </span>

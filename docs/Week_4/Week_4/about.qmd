@@ -350,23 +350,13 @@ grid.arrange(hist1, hist2, hist1log, hist2log, plot1, plot2,
              ncol = 2, nrow = 3)
 ```
 
-b.  Fit the simple linear model with `log(price)` as the response and `log(sqft)` as the predictor. Display the fitted model on a scatterplot of the data and construct a bootstrap confidence interval (using the percentiles of the bootstrap distribution) for the slope parameter in the model and interpret its point and interval estimates.
+b.  Fit the simple linear model with `log(price)` as the response and `log(sqft)` as the predictor. Display the fitted model on a scatterplot of the data and construct a confidence interval for the slope parameter in the model and interpret its point and interval estimates.
 
-::: callout-tip
-## Hint 1
-
-Although you can supply the `lm()` function with terms like `log(price)` when you use the `infer` package to generate bootstrap intervals the transformed variable needs to already exist. Use the `mutate()` function in the `dplyr` package to create new transformed variables.
-:::
 
 c.  Repeat the analysis in part b. but with the log of the number of bathrooms (`bath`) as the single explanatory variable.
 
 d.  Fit the multiple linear regression model using the **log transform of all the variables** `price` (as the response) and both `sqft` and `bath` (as the explanatory variables). Calculate the point and interval estimates of the coefficients of the two predictors separately. Compare their point and interval estimates to those you calculated in parts b. and c. Can you account for the differences?
 
-::: callout-tip
-## Hint 2
-
-Remember that we didn't use bootstrapping to construct the confidence intervals for parameters in multiple linear regression models, but rather used the theoretical results based on assumptions. You can access these estimates using the `get_regression_table()` function in the `moderndive` package.
-:::
 
 e.  Using the objective measures for model comparisons, which of the models in parts b., c. and d. would you favour? Is this consistent with your conclusions in part d.?
 

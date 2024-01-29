@@ -270,9 +270,7 @@ If these transformations are employed, special care must be taken when interpret
 
 ------------------------------------------------------------------------
 
-b.  Fit the simple linear model with `log(price)` as the response and `log(sqft)` as the predictor. Display the fitted model on a scatterplot of the data and construct a bootstrap confidence interval (using the percentiles of the bootstrap distribution) for the slope parameter in the model and interpret its point and interval estimates.
-
-*Hint:* Although you can supply the `lm()` function with terms like `log(price)` when you use the `infer` package to generate bootstrap intervals you the transformed variable needs to already exist. Use the `mutate()` function in the `dplyr` package to create new transformed variables.
+b.  Fit the simple linear model with `log(price)` as the response and `log(sqft)` as the predictor. Display the fitted model on a scatterplot of the data and a confidence interval for the slope parameter in the model and interpret its point and interval estimates.
 
 ------------------------------------------------------------------------
 
@@ -293,18 +291,17 @@ ggplot(LAhomes,aes(x = log(sqft), y = log(price))) +
 coeff <- slr.model1 |>
           coef() 
 
-percentile_beta_ci <- LAhomes |> 
-  specify(log.price ~ log.sqft) |>
-  generate(reps = 1000, type = "bootstrap") |> 
-  calculate(stat = "slope") |>
-  get_ci(level = 0.95, type = "percentile")
+slr.model1.est <- get_regression_table(slr.model1)
+glimpse(slr.model1.est)
+percentile_beta_ci <- c(slr.model1.est$lower_ci[2], slr.model1.est$upper_ci[2])
+percentile_beta_ci
 ```
 
 The above plot shows the fitted line `log(price)`=`r round(coeff[1],2)` + `r round(coeff[2],2)` `log(sqft)`. The point estimate of the slope parameter estimates that for every unit increase in `log(sqft)` the average `log(price)` of houses will increase by `r round(coeff[2],2)` US dollars. Another way of saying this is that each additional 1% of square footage produces an estimate of the average price which is `r round(coeff[2],2)`% higher (i.e. there is a multiplicative effect in the original units).
 
 *Note: you must be careful to avoid causative interpretations. Additional square footage does not necessarily **cause** the price of a specific house to go up.*
 
-Furthermore, based on the bootstrap confidence interval, we are 95% confident that the interval from `r round(percentile_beta_ci[1],2)` up to `r round(percentile_beta_ci[2],2)` contains the true rate of increase in the average of the logged prices as `log(sqft)` increase. Because this interval does not contain zero we conclude that the relationship between `log(price)` and `log(sqft)` is statistically significant.
+Furthermore, based on the confidence interval, we are 95% confident that the interval from `r round(percentile_beta_ci[1],2)` up to `r round(percentile_beta_ci[2],2)` contains the true rate of increase in the average of the logged prices as `log(sqft)` increase. Because this interval does not contain zero we conclude that the relationship between `log(price)` and `log(sqft)` is statistically significant.
 
 ------------------------------------------------------------------------
 
@@ -329,22 +326,19 @@ ggplot(LAhomes,aes(x=log(bath),y=log(price)))+
 coeff2 <- slr.model2 |>
             coef() 
 
-percentile_beta_ci2 <- LAhomes |> 
-  specify(log.price ~ log.bath) |>
-  generate(reps = 1000, type = "bootstrap") |> 
-  calculate(stat = "slope") |>
-  get_ci(level = 0.95, type = "percentile")
+slr.model2.est <- get_regression_table(slr.model2)
+glimpse(slr.model2.est)
+percentile_beta_ci2 <- c(slr.model2.est$lower_ci[2], slr.model2.est$upper_ci[2])
+percentile_beta_ci2
 ```
 
 The above plot shows the fitted line `log(price)`=`r round(coeff2[1],2)` + `r round(coeff2[2],2)` `log(bath)`. The point estimate of the slope parameter estimates that for every unit increase in the log of the number of bathrooms in a house the average log of the prices of houses will increase by `r round(coeff2[2],2)` US dollars. Another way of saying this is that each doubling of bathroom produces an estimate of the average price which is `r 100*round(coeff2[2],2)`% higher (i.e. there is a multiplicative effect in the original units).
 
-Furthermore, based on the bootstrap confidence interval, we are 95% confident that the interval from `r round(percentile_beta_ci2[1],2)` up to `r round(percentile_beta_ci2[2],2)` contains the true rate of increase in the average of the logged prices as the log of the number of bathrooms increases. Because this interval does not contain zero we conclude that the relationship between `log(price)` and `log(bath)` is statistically significant.
+Based on the confidence interval, we are 95% confident that the interval from `r round(percentile_beta_ci2[1],2)` up to `r round(percentile_beta_ci2[2],2)` contains the true rate of increase in the average of the logged prices as the log of the number of bathrooms increases. Because this interval does not contain zero we conclude that the relationship between `log(price)` and `log(bath)` is statistically significant.
 
 ------------------------------------------------------------------------
 
 d.  Fit the multiple linear regression model using the **log transform of all the variables** `price` (as the response) and both `sqft` and `bath` (as the explanatory variables). Calculate the point and interval estimates of the coefficients of the two predictors separately. Compare their point and interval estimates to those you calculated in parts b. and c. Can you account for the differences?
-
-*Hint:* Remember that we didn't use bootstrapping to construct the confidence intervals for parameters in multiple linear regression models, but rather used the theoretical results based on assumptions. You can access these estimates using the `get_regression_table()` function in the `moderndive` package.
 
 ------------------------------------------------------------------------
 
@@ -435,7 +429,7 @@ ggpairs(restNYC[, 4:7], aes(alpha = 0.4)) # Without the `East` factor
 
 ------------------------------------------------------------------------
 
-b.  Fit the simple linear model with `Price` as the response and `Service` as the predictor and display the fitted model on a scatterplot of the data. Construct a bootstrap confidence interval (using the standard error from the bootstrap distribution) for the slope parameter in the model.
+b.  Fit the simple linear model with `Price` as the response and `Service` as the predictor and display the fitted model on a scatterplot of the data. Construct a confidence interval for the slope parameter in the model.
 
     Now fit a multiple regressing model of `Price` on `Service`, `Food`, and `Decor`. What happens to the significance of `Service` when additional variables were added to the model?
 
