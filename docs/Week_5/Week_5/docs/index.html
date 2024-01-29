@@ -153,9 +153,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </li>
   <li><a href="#mathematics" id="toc-mathematics" class="nav-link" data-scroll-target="#mathematics"><span class="header-section-number">7</span> Mathematics</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">8</span> References</a></li>
-  <li><a href="#quarto-presentations" id="toc-quarto-presentations" class="nav-link" data-scroll-target="#quarto-presentations"><span class="header-section-number">9</span> Quarto Presentations</a></li>
-  <li><a href="#rendering" id="toc-rendering" class="nav-link" data-scroll-target="#rendering"><span class="header-section-number">10</span> Rendering</a></li>
+  <li><a href="#quarto-presentations" id="toc-quarto-presentations" class="nav-link" data-scroll-target="#quarto-presentations"><span class="header-section-number">8</span> Quarto Presentations</a></li>
+  <li><a href="#rendering" id="toc-rendering" class="nav-link" data-scroll-target="#rendering"><span class="header-section-number">9</span> Rendering</a></li>
   </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -340,6 +339,12 @@ If you are in the source mode the R chunks will appear as follow:</p>
 <strong>message</strong>: suppress messages from R (true/false).</li>
 </ul>
 <p>For example, let’s say we wanted to select the <code>score</code> and <code>bty_avg</code> variables from the <code>evals</code> data set to be used later, we can do that using the following code chunk:</p>
+<pre><code>{r}
+#| echo: false
+library(tidyverse)
+library(moderndive)
+evals.scores &lt;- evals |&gt;
+  select(score, bty_avg)</code></pre>
 <p>Setting <code>echo: false</code> will tell the R to evaluate the code while hiding the R chunk from the main document. In this example, we will store the subsetted data set as the object <code>evals.scores</code> so that it can be used later . If you want to embed the code within the Quarto document then you would simply set <code>echo: true</code>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -376,23 +381,23 @@ Important
 </div>
 <p>Lets look at another example:</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>In this case, we set <code>warning</code> and <code>message</code> to <code>false</code> to indicate that we want to suppress any warnings or messages (e.g., the ones that you usually get when loading R packages). Another useful options is <code>eval.</code> If we set <code>eval: false</code> then we indicate that we don’t want the chunk output to be included in the rendered document (this is useful for example if we just want to show our R code without rendering its output):</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>evals.scores,<span class="fu">aes</span>(<span class="at">y=</span>score,<span class="at">x=</span>bty_avg)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>evals.scores,<span class="fu">aes</span>(<span class="at">y=</span>score,<span class="at">x=</span>bty_avg)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -417,30 +422,30 @@ Note
 <p>There are several ways to produce tables in Quarto . Here, a couple of different approaches will be presented. The first approach uses the <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code> function from the <code>gt</code> package and essentially puts a wrapper around the tables produced in R in order to make them more visually appealing within the Quarto document. Here we will just cover the basics, but if you want to learn more about creating eye-catching tables with <code>gt</code> visit <a href="https://gt.rstudio.com/articles/intro-creating-gt-tables.html">here</a>.</p>
 <p>Let’s say we wanted to create a table of the first 5 rows of the <code>iris</code> data from the <code>datasets</code> library. We can create the table using the <code>gt</code> function as follows:</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
+<details><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">iris</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">slice_head</span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 
-<div id="aglqumngrp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aglqumngrp table {
+<div id="hqnmwwhoxg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hqnmwwhoxg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aglqumngrp thead, #aglqumngrp tbody, #aglqumngrp tfoot, #aglqumngrp tr, #aglqumngrp td, #aglqumngrp th {
+#hqnmwwhoxg thead, #hqnmwwhoxg tbody, #hqnmwwhoxg tfoot, #hqnmwwhoxg tr, #hqnmwwhoxg td, #hqnmwwhoxg th {
   border-style: none;
 }
 
-#aglqumngrp p {
+#hqnmwwhoxg p {
   margin: 0;
   padding: 0;
 }
 
-#aglqumngrp .gt_table {
+#hqnmwwhoxg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -466,12 +471,12 @@ Note
   border-left-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_caption {
+#hqnmwwhoxg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#aglqumngrp .gt_title {
+#hqnmwwhoxg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -483,7 +488,7 @@ Note
   border-bottom-width: 0;
 }
 
-#aglqumngrp .gt_subtitle {
+#hqnmwwhoxg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -495,7 +500,7 @@ Note
   border-top-width: 0;
 }
 
-#aglqumngrp .gt_heading {
+#hqnmwwhoxg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -507,13 +512,13 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_bottom_border {
+#hqnmwwhoxg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_col_headings {
+#hqnmwwhoxg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -528,7 +533,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_col_heading {
+#hqnmwwhoxg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -548,7 +553,7 @@ Note
   overflow-x: hidden;
 }
 
-#aglqumngrp .gt_column_spanner_outer {
+#hqnmwwhoxg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -560,15 +565,15 @@ Note
   padding-right: 4px;
 }
 
-#aglqumngrp .gt_column_spanner_outer:first-child {
+#hqnmwwhoxg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aglqumngrp .gt_column_spanner_outer:last-child {
+#hqnmwwhoxg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aglqumngrp .gt_column_spanner {
+#hqnmwwhoxg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -580,11 +585,11 @@ Note
   width: 100%;
 }
 
-#aglqumngrp .gt_spanner_row {
+#hqnmwwhoxg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#aglqumngrp .gt_group_heading {
+#hqnmwwhoxg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -610,7 +615,7 @@ Note
   text-align: left;
 }
 
-#aglqumngrp .gt_empty_group_heading {
+#hqnmwwhoxg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -625,15 +630,15 @@ Note
   vertical-align: middle;
 }
 
-#aglqumngrp .gt_from_md > :first-child {
+#hqnmwwhoxg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aglqumngrp .gt_from_md > :last-child {
+#hqnmwwhoxg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aglqumngrp .gt_row {
+#hqnmwwhoxg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -652,7 +657,7 @@ Note
   overflow-x: hidden;
 }
 
-#aglqumngrp .gt_stub {
+#hqnmwwhoxg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -665,7 +670,7 @@ Note
   padding-right: 5px;
 }
 
-#aglqumngrp .gt_stub_row_group {
+#hqnmwwhoxg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -679,15 +684,15 @@ Note
   vertical-align: top;
 }
 
-#aglqumngrp .gt_row_group_first td {
+#hqnmwwhoxg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#aglqumngrp .gt_row_group_first th {
+#hqnmwwhoxg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#aglqumngrp .gt_summary_row {
+#hqnmwwhoxg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -697,16 +702,16 @@ Note
   padding-right: 5px;
 }
 
-#aglqumngrp .gt_first_summary_row {
+#hqnmwwhoxg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_first_summary_row.thick {
+#hqnmwwhoxg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#aglqumngrp .gt_last_summary_row {
+#hqnmwwhoxg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -716,7 +721,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_grand_summary_row {
+#hqnmwwhoxg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -726,7 +731,7 @@ Note
   padding-right: 5px;
 }
 
-#aglqumngrp .gt_first_grand_summary_row {
+#hqnmwwhoxg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -736,7 +741,7 @@ Note
   border-top-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_last_grand_summary_row_top {
+#hqnmwwhoxg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -746,11 +751,11 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_striped {
+#hqnmwwhoxg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aglqumngrp .gt_table_body {
+#hqnmwwhoxg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -759,7 +764,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_footnotes {
+#hqnmwwhoxg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -773,7 +778,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_footnote {
+#hqnmwwhoxg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -782,7 +787,7 @@ Note
   padding-right: 5px;
 }
 
-#aglqumngrp .gt_sourcenotes {
+#hqnmwwhoxg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -796,7 +801,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#aglqumngrp .gt_sourcenote {
+#hqnmwwhoxg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -804,63 +809,63 @@ Note
   padding-right: 5px;
 }
 
-#aglqumngrp .gt_left {
+#hqnmwwhoxg .gt_left {
   text-align: left;
 }
 
-#aglqumngrp .gt_center {
+#hqnmwwhoxg .gt_center {
   text-align: center;
 }
 
-#aglqumngrp .gt_right {
+#hqnmwwhoxg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aglqumngrp .gt_font_normal {
+#hqnmwwhoxg .gt_font_normal {
   font-weight: normal;
 }
 
-#aglqumngrp .gt_font_bold {
+#hqnmwwhoxg .gt_font_bold {
   font-weight: bold;
 }
 
-#aglqumngrp .gt_font_italic {
+#hqnmwwhoxg .gt_font_italic {
   font-style: italic;
 }
 
-#aglqumngrp .gt_super {
+#hqnmwwhoxg .gt_super {
   font-size: 65%;
 }
 
-#aglqumngrp .gt_footnote_marks {
+#hqnmwwhoxg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#aglqumngrp .gt_asterisk {
+#hqnmwwhoxg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#aglqumngrp .gt_indent_1 {
+#hqnmwwhoxg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#aglqumngrp .gt_indent_2 {
+#hqnmwwhoxg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#aglqumngrp .gt_indent_3 {
+#hqnmwwhoxg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#aglqumngrp .gt_indent_4 {
+#hqnmwwhoxg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#aglqumngrp .gt_indent_5 {
+#hqnmwwhoxg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -915,49 +920,49 @@ Note
 </div>
 <p>Lets customize this table a bit by (1) adding a table caption and number (2) modifying the labels of the columns and (3) create a grouping structure for the petals and sepals width and length columns:</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-iris</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: First five entries of the iris Data set</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fmt_number</span>(<span class="at">decimals=</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">tab_spanner</span>(</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Sepals"</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Sepal.Length, Sepal.Width)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Petals"</span>,</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Petal.Length, Petal.Width)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Length =</span> <span class="fu">html</span>(<span class="st">"Length (cm)"</span>),</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Width =</span> <span class="fu">html</span>(<span class="st">"Width (cm)"</span>),</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Length =</span> <span class="fu">html</span>(<span class="st">"Length (cm)"</span>),</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Width =</span> <span class="fu">html</span>(<span class="st">"Width (cm)"</span>)</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-iris</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: First five entries of the iris Data set</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fmt_number</span>(<span class="at">decimals=</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">tab_spanner</span>(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Sepals"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Sepal.Length, Sepal.Width)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Petals"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Petal.Length, Petal.Width)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Length =</span> <span class="fu">html</span>(<span class="st">"Length (cm)"</span>),</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Width =</span> <span class="fu">html</span>(<span class="st">"Width (cm)"</span>),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Length =</span> <span class="fu">html</span>(<span class="st">"Length (cm)"</span>),</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Width =</span> <span class="fu">html</span>(<span class="st">"Width (cm)"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div id="tbl-iris" class="anchored">
 
-<div id="rbmqbjofxh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rbmqbjofxh table {
+<div id="orofkueqyp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#orofkueqyp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rbmqbjofxh thead, #rbmqbjofxh tbody, #rbmqbjofxh tfoot, #rbmqbjofxh tr, #rbmqbjofxh td, #rbmqbjofxh th {
+#orofkueqyp thead, #orofkueqyp tbody, #orofkueqyp tfoot, #orofkueqyp tr, #orofkueqyp td, #orofkueqyp th {
   border-style: none;
 }
 
-#rbmqbjofxh p {
+#orofkueqyp p {
   margin: 0;
   padding: 0;
 }
 
-#rbmqbjofxh .gt_table {
+#orofkueqyp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -983,12 +988,12 @@ Note
   border-left-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_caption {
+#orofkueqyp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rbmqbjofxh .gt_title {
+#orofkueqyp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1000,7 +1005,7 @@ Note
   border-bottom-width: 0;
 }
 
-#rbmqbjofxh .gt_subtitle {
+#orofkueqyp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1012,7 +1017,7 @@ Note
   border-top-width: 0;
 }
 
-#rbmqbjofxh .gt_heading {
+#orofkueqyp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1024,13 +1029,13 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_bottom_border {
+#orofkueqyp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_col_headings {
+#orofkueqyp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1045,7 +1050,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_col_heading {
+#orofkueqyp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1065,7 +1070,7 @@ Note
   overflow-x: hidden;
 }
 
-#rbmqbjofxh .gt_column_spanner_outer {
+#orofkueqyp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1077,15 +1082,15 @@ Note
   padding-right: 4px;
 }
 
-#rbmqbjofxh .gt_column_spanner_outer:first-child {
+#orofkueqyp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rbmqbjofxh .gt_column_spanner_outer:last-child {
+#orofkueqyp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rbmqbjofxh .gt_column_spanner {
+#orofkueqyp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1097,11 +1102,11 @@ Note
   width: 100%;
 }
 
-#rbmqbjofxh .gt_spanner_row {
+#orofkueqyp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rbmqbjofxh .gt_group_heading {
+#orofkueqyp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1127,7 +1132,7 @@ Note
   text-align: left;
 }
 
-#rbmqbjofxh .gt_empty_group_heading {
+#orofkueqyp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1142,15 +1147,15 @@ Note
   vertical-align: middle;
 }
 
-#rbmqbjofxh .gt_from_md > :first-child {
+#orofkueqyp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rbmqbjofxh .gt_from_md > :last-child {
+#orofkueqyp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rbmqbjofxh .gt_row {
+#orofkueqyp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1169,7 +1174,7 @@ Note
   overflow-x: hidden;
 }
 
-#rbmqbjofxh .gt_stub {
+#orofkueqyp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1182,7 +1187,7 @@ Note
   padding-right: 5px;
 }
 
-#rbmqbjofxh .gt_stub_row_group {
+#orofkueqyp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1196,15 +1201,15 @@ Note
   vertical-align: top;
 }
 
-#rbmqbjofxh .gt_row_group_first td {
+#orofkueqyp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rbmqbjofxh .gt_row_group_first th {
+#orofkueqyp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rbmqbjofxh .gt_summary_row {
+#orofkueqyp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1214,16 +1219,16 @@ Note
   padding-right: 5px;
 }
 
-#rbmqbjofxh .gt_first_summary_row {
+#orofkueqyp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_first_summary_row.thick {
+#orofkueqyp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rbmqbjofxh .gt_last_summary_row {
+#orofkueqyp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1233,7 +1238,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_grand_summary_row {
+#orofkueqyp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1243,7 +1248,7 @@ Note
   padding-right: 5px;
 }
 
-#rbmqbjofxh .gt_first_grand_summary_row {
+#orofkueqyp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1253,7 +1258,7 @@ Note
   border-top-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_last_grand_summary_row_top {
+#orofkueqyp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1263,11 +1268,11 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_striped {
+#orofkueqyp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rbmqbjofxh .gt_table_body {
+#orofkueqyp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1276,7 +1281,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_footnotes {
+#orofkueqyp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1290,7 +1295,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_footnote {
+#orofkueqyp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1299,7 +1304,7 @@ Note
   padding-right: 5px;
 }
 
-#rbmqbjofxh .gt_sourcenotes {
+#orofkueqyp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1313,7 +1318,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#rbmqbjofxh .gt_sourcenote {
+#orofkueqyp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1321,63 +1326,63 @@ Note
   padding-right: 5px;
 }
 
-#rbmqbjofxh .gt_left {
+#orofkueqyp .gt_left {
   text-align: left;
 }
 
-#rbmqbjofxh .gt_center {
+#orofkueqyp .gt_center {
   text-align: center;
 }
 
-#rbmqbjofxh .gt_right {
+#orofkueqyp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rbmqbjofxh .gt_font_normal {
+#orofkueqyp .gt_font_normal {
   font-weight: normal;
 }
 
-#rbmqbjofxh .gt_font_bold {
+#orofkueqyp .gt_font_bold {
   font-weight: bold;
 }
 
-#rbmqbjofxh .gt_font_italic {
+#orofkueqyp .gt_font_italic {
   font-style: italic;
 }
 
-#rbmqbjofxh .gt_super {
+#orofkueqyp .gt_super {
   font-size: 65%;
 }
 
-#rbmqbjofxh .gt_footnote_marks {
+#orofkueqyp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rbmqbjofxh .gt_asterisk {
+#orofkueqyp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rbmqbjofxh .gt_indent_1 {
+#orofkueqyp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rbmqbjofxh .gt_indent_2 {
+#orofkueqyp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rbmqbjofxh .gt_indent_3 {
+#orofkueqyp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rbmqbjofxh .gt_indent_4 {
+#orofkueqyp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rbmqbjofxh .gt_indent_5 {
+#orofkueqyp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1541,19 +1546,19 @@ Note
 <span class="header-section-number">6.2</span> Embedding R generated figures</h2>
 <p>Very often we would like to use the R plots generated from your analysis instead of using external figures. To achieve this, the R code for the plot is simply included within a code chunk including additional arguments for plot size and positioning. For example, to include the scatterplot of teaching and beauty:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-scatterplot1</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Relationship between teaching and beauty scores. The best-fitting line has been superimposed.</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 4</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals.scores, <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> score)) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Beauty Score"</span>, <span class="at">y =</span> <span class="st">"Teaching Score"</span>) <span class="sc">+</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-scatterplot1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Relationship between teaching and beauty scores. The best-fitting line has been superimposed.</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 4</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals.scores, <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> score)) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Beauty Score"</span>, <span class="at">y =</span> <span class="st">"Teaching Score"</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div id="fig-scatterplot1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="index_files/figure-html/fig-scatterplot1-1.png" class="img-fluid figure-img" width="384"></p>
@@ -1644,21 +1649,17 @@ Note
 <p>For additional tricks inserting mathematics into documents see <a href="https://quarto.org/docs/visual-editor/technical.html">here</a>.</p>
 </div>
 </div>
-</section><section id="references" class="level1" data-number="8"><h1 data-number="8">
-<span class="header-section-number">8</span> References</h1>
-</section><section id="quarto-presentations" class="level1" data-number="9"><h1 data-number="9">
-<span class="header-section-number">9</span> Quarto Presentations</h1>
+</section><section id="quarto-presentations" class="level1" data-number="8"><h1 data-number="8">
+<span class="header-section-number">8</span> Quarto Presentations</h1>
 <p>Another great feature of Quarto is that it allows you to create presentations and supports a variety of formats such as <a href="https://quarto.org/docs/presentations/revealjs/">html</a>, <a href="https://quarto.org/docs/presentations/powerpoint.html">power point</a> and <a href="https://quarto.org/docs/presentations/beamer.html">beamer</a>. Today we will focus on creating an html presentation (which can be also printed as a pdf).</p>
 <p>Creating an html presentation is as easy as setting the output format to <code>revealjs</code>:</p>
 <pre><code>
-
 
 ---
 title: "My title"
 author: "Jafet Belmont"
 format: revealjs
 ---
-
 
 </code></pre>
 <p>This will create a title slide that includes the provided <code>title</code> and <code>author</code>. (you can remove any of these options if you the author or title page to be removed). Now we will switch to the <code>visual</code> mode. You will notice that a new set of options have now appeared:</p>
@@ -1669,13 +1670,11 @@ format: revealjs
 <p>This new tab will allow us to interact with the different features of our presentation. Lets begin by creating some slides. Slides in Quarto are delineated using level 1 and 2 headings:</p>
 <pre><code>
 
-
 ---
 title: "My title"
 author: "Jafet Belmont"
 format: revealjs
 ---
-
 
 
 
@@ -1692,13 +1691,11 @@ format: revealjs
 <p>In the example above we use level 1 headings for creating a new sections and level 2 heading for defining the new slides. Alternatively we can use horizontal rules to create the slides as follows (on <code>visual</code> mode click on <code>Insert▾ ➠ Horizontal Rule</code>):</p>
 <pre><code>
 
-
 ---
 title: "My title"
 author: "Jafet Belmont"
 format: revealjs
 ---
-
 
 
 
@@ -1710,11 +1707,9 @@ format: revealjs
 
 
 
-
 ---</code></pre>
 <p>You can add bullet and numbered lists to each slide as follows (on <code>visual</code> mode click on <img src="images/bullets.png" width="24" height="25"> or <img src="images/numbered.png" width="30" height="25"> for adding bullet or numbered lists respectively):</p>
 <pre><code>---
-
 
 
 title: "My title"
@@ -1821,8 +1816,8 @@ ggplot(evals.scores, aes(x = bty_avg, y = score)) +
 :::
 :::</code></pre>
 </li>
-</ul></section><section id="rendering" class="level1" data-number="10"><h1 data-number="10">
-<span class="header-section-number">10</span> Rendering</h1>
+</ul></section><section id="rendering" class="level1" data-number="9"><h1 data-number="9">
+<span class="header-section-number">9</span> Rendering</h1>
 <p>You can render a Quarto document or a presentation by clicking the Render button <img src="images/rstudio-render-button.png" class="img-fluid" width="22">.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
