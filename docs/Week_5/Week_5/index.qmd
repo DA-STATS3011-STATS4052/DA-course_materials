@@ -171,8 +171,7 @@ Some of the most common arguments you will use in your R Chunks are:
 
 For example, let's say we wanted to select the `score` and `bty_avg` variables from the `evals` data set to be used later, we can do that using the following code chunk:
 
-```         
-{r}
+```{r}
 #| echo: false
 library(tidyverse)
 library(moderndive)
@@ -233,7 +232,7 @@ ggplot(data=evals.scores,aes(y=score,x=bty_avg)) +
 ```
 
 ::: callout-note
-Note that we can still run the code in each individual chunk (even if we set `eval: false`) by clicking the run chunk bottom![](images/run_chunk.png){width="28" height="18"}. The code will be evaluated in either your `.qmd` file or in the console depending on the Chunk output settings (this mean that can test your code in R but its output won;t be rendered in the final dicument).
+Note that we can still run the code in each individual chunk (even if we set `eval: false`) by clicking the run chunk bottom![](images/run_chunk.png){width="28" height="18"}. The code will be evaluated in either your `.qmd` file or in the console depending on the Chunk output settings (this mean that you can test your code in R but its output won't be rendered in the final document).
 :::
 
 Additional arguments can be passed to code chunks other than those displayed above. The most useful ones other than those relate to figure sizing and positioning and are discussed in the upcoming sections.
