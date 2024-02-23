@@ -217,10 +217,10 @@ y_i &amp;\sim f(g(\boldsymbol{\mu}_i)) \nonumber \\
 <p><span class="math display">\[p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].\]</span> This linear regression model with a binary response variable is referred to as <strong>logistic regression</strong>. As such, when it comes to looking at binary response variables we shall be looking at odds ratios and probabilities of success/failure. The table below is a reminder of the distribution and link function used for the normal model we have previously looked at as well as the logistic regression model we shall be examining for the rest of this week.</p>
 <table class="table">
 <colgroup>
-<col style="width: 5%">
-<col style="width: 28%">
-<col style="width: 41%">
-<col style="width: 24%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 33%">
+<col style="width: 22%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: center;"><strong>Model</strong></th>
@@ -576,8 +576,10 @@ p &amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\lef
 <span class="header-section-number">3.1</span> Log-odds</h2>
 <p>The logistic regression model is given by:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">ethnicity</span>, data <span class="op">=</span> <span class="va">evals.ethnic</span>,</span>
-<span>                      family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op">&lt;-</span> <span class="fu">logistic_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glm"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">ethnicity</span>, data <span class="op">=</span> <span class="va">evals.ethnic</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">extract_fit_engine</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell" data-layout-align="center">
@@ -586,8 +588,8 @@ p &amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\lef
 </details><div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = gender ~ ethnicity, family = binomial(link = "logit"), 
-    data = evals.ethnic)
+stats::glm(formula = gender ~ ethnicity, family = stats::binomial, 
+    data = data)
 
 Coefficients:
                       Estimate Std. Error z value Pr(&gt;|z|)  
