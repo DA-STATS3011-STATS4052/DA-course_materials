@@ -153,7 +153,7 @@ Here we can see that the age of male teaching instructors tends to be higher tha
 
 ## Log-odds
 
-To fit a logistic regression model we will use the generalised linear model function `glm`, which acts in a very similar manner to the `lm` function we have used previously. We only have to deal with an additional argument. The logistic regression model with **gender** as the response and **age** as the explanatory variable is given by:
+To fit a logistic regression model we will use the generalised linear model function `glm`, which acts in a very similar manner to the `lm` function we have used previously. The logistic regression model with **gender** as the response and **age** as the explanatory variable is given by:
 
 ```{r model1, echo = TRUE, eval = TRUE}
 model <- logistic_reg() |> 
@@ -163,7 +163,7 @@ model <- model |>
   extract_fit_engine()
 ```
 
-Here we include the additional `family` argument, which states the distribution and link function we would like to use. Hence `family = binomial(link = "logit")` states we have a binary response variable, and thus have a binomial distribution, with its corresponding **logit link** function. Now, let's take a look at the summary produced from our logistic regression model:
+This model uses the **logit link** function. Now, let's take a look at the summary produced from our logistic regression model:
 
 ```{r mod1sum, echo = TRUE, eval = TRUE}
 model |>
