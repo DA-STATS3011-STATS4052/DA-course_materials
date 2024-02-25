@@ -102,7 +102,7 @@ no restrictions need to be in place on our estimates of the parameter vector $\b
 $$p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].$$ This linear regression model with a binary response variable is referred to as **logistic regression**. As such, when it comes to looking at binary response variables we shall be looking at odds ratios and probabilities of success/failure. The table below is a reminder of the distribution and link function used for the normal model we have previously looked at as well as the logistic regression model we shall be examining for the rest of this week.
 
 | **Model** |                   **Random component**                    |                               **Systematic component**                                |                 **Link function**                  |
-|:-------------:|:---------------:|:------------------------:|:-------------:|
+|:--------------:|:--------------:|:----------------------:|:--------------:|
 |  Normal   | $y_i\overset{\text{indep}}\sim \mbox{N}(\mu_i,\sigma^2),$ | $\boldsymbol{x}_i^\top\boldsymbol{\beta} =\beta_0 + \beta_1x_i + \beta_2x_i + \ldots$ |                  $g(\mu_i)=\mu_i$                  |
 | Logistic  |    $y_i\overset{\text{indep}}\sim \mbox{Bin}(1,p_i),$     | $\boldsymbol{x}_i^\top\boldsymbol{\beta} =\beta_0+ \beta_1x_i + \beta_2x_i + \ldots$  | $g(\mu_i) = \log \left( \frac{p_i}{1-p_i} \right)$ |
 
@@ -153,7 +153,7 @@ Here we can see that the age of male teaching instructors tends to be higher tha
 
 ## Log-odds
 
-To fit a logistic regression model we will use the generalised linear model function `glm`, which acts in a very similar manner to the `lm` function we have used previously. We only have to deal with an additional argument. The logistic regression model with **gender** as the response and **age** as the explanatory variable is given by:
+To fit a logistic regression model we will use the generalised linear model function `glm`, which acts in a very similar manner to the `lm` function we have used previously. The logistic regression model with **gender** as the response and **age** as the explanatory variable is given by:
 
 ```{r model1, echo = TRUE, eval = TRUE}
 model <- logistic_reg() |> 
@@ -163,7 +163,7 @@ model <- model |>
   extract_fit_engine()
 ```
 
-Here we include the additional `family` argument, which states the distribution and link function we would like to use. Hence `family = binomial(link = "logit")` states we have a binary response variable, and thus have a binomial distribution, with its corresponding **logit link** function. Now, let's take a look at the summary produced from our logistic regression model:
+This model uses the **logit link** function. Now, let's take a look at the summary produced from our logistic regression model:
 
 ```{r mod1sum, echo = TRUE, eval = TRUE}
 model |>
@@ -397,8 +397,10 @@ We can see that a larger proportion of instructors in the `minority` ethnic grou
 The logistic regression model is given by:
 
 ```{r model2, echo = TRUE, eval = TRUE}
-model.ethnic <- glm(gender ~ ethnicity, data = evals.ethnic,
-                      family = binomial(link = "logit"))
+model.ethnic <- logistic_reg() |> 
+  set_engine("glm") |> 
+  fit(gender ~ ethnicity, data = evals.ethnic) |>
+  extract_fit_engine()
 ```
 
 ```{r mod2sum, echo = TRUE, eval = TRUE}
