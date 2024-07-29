@@ -1,0 +1,5 @@
+For branching class:
+
+* how to add collaborators 
+* need to give admin rights if you want to give your colleagues the right to delete the repo
+* go over the push and pull in a collaborative project -> just always push changes to main
