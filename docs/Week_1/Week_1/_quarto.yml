@@ -5,7 +5,7 @@ website:
   title: "Week 1: Visualising data using R"
   navbar:
     left:
-    - href: DA_Week1.qmd
+    - href: DA_Week1_25.qmd
       text: Notes
     - DA_Week1Tasks.qmd
 format:
