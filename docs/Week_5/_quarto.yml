@@ -1,14 +1,16 @@
 project:
   type: website
   output-dir: docs
-    render:
+  render:
     - "notes_24_25.qmd"
+    - "tutorial.qmd"
 website:
-  title: "Week 4: Regression modelling part 2"
+  title: "Data Analysis Week 6"
   navbar:
     left:
     - href: notes_24_25.qmd
       text: Notes
+    - about.qmd
 format:
   html:
     theme:
@@ -20,4 +22,3 @@ format:
     toc: true
     include-after-body: include/webex.js
 editor: visual
-
