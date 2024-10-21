@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Week 7: Generalised Linear Models</title>
 <style>
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -51,7 +51,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -60,21 +80,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./UofG_Coat_of_Arms.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/quarto-contrib/bootstrap-icons-1.11.1/all.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -83,18 +113,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="include/webex.css">
 </head>
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./UofG.png" alt="" class="navbar-logo"></a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Week 7: Generalised Linear Models</span>
     </a>
@@ -106,21 +164,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">Week 7 Tasks</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Week 7 Further Tasks</span></a>
   </li>  
 </ul>
-<div class="quarto-navbar-tools ms-auto">
+</div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
    
   <ul>
 <li>
@@ -140,15 +199,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </li>
   <li>
-<a href="#logistic-regression-with-one-categorical-explanatory-variable" id="toc-logistic-regression-with-one-categorical-explanatory-variable" class="nav-link" data-scroll-target="#logistic-regression-with-one-categorical-explanatory-variable"><span class="header-section-number">3</span> Logistic regression with one categorical explanatory variable</a>
+<a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">3</span> Model evaluation</a>
   <ul class="collapse">
-<li><a href="#log-odds-1" id="toc-log-odds-1" class="nav-link" data-scroll-target="#log-odds-1"><span class="header-section-number">3.1</span> Log-odds</a></li>
-  <li><a href="#odds-1" id="toc-odds-1" class="nav-link" data-scroll-target="#odds-1"><span class="header-section-number">3.2</span> Odds</a></li>
-  <li><a href="#probabilities-1" id="toc-probabilities-1" class="nav-link" data-scroll-target="#probabilities-1"><span class="header-section-number">3.3</span> Probabilities</a></li>
+<li><a href="#diagnostic-plots" id="toc-diagnostic-plots" class="nav-link" data-scroll-target="#diagnostic-plots"><span class="header-section-number">3.1</span> Diagnostic plots</a></li>
+  <li><a href="#predictive-performance-metrics" id="toc-predictive-performance-metrics" class="nav-link" data-scroll-target="#predictive-performance-metrics"><span class="header-section-number">3.2</span> Predictive performance metrics</a></li>
+  <li><a href="#roc-curve" id="toc-roc-curve" class="nav-link" data-scroll-target="#roc-curve"><span class="header-section-number">3.3</span> ROC Curve</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#logistic-regression-with-one-categorical-explanatory-variable" id="toc-logistic-regression-with-one-categorical-explanatory-variable" class="nav-link" data-scroll-target="#logistic-regression-with-one-categorical-explanatory-variable"><span class="header-section-number">4</span> Logistic regression with one categorical explanatory variable</a>
+  <ul class="collapse">
+<li><a href="#log-odds-1" id="toc-log-odds-1" class="nav-link" data-scroll-target="#log-odds-1"><span class="header-section-number">4.1</span> Log-odds</a></li>
+  <li><a href="#odds-1" id="toc-odds-1" class="nav-link" data-scroll-target="#odds-1"><span class="header-section-number">4.2</span> Odds</a></li>
+  <li><a href="#probabilities-1" id="toc-probabilities-1" class="nav-link" data-scroll-target="#probabilities-1"><span class="header-section-number">4.3</span> Probabilities</a></li>
   </ul>
 </li>
   </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
@@ -167,6 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header><style>
 p.caption {
   font-size: 1.4em;
@@ -174,7 +242,7 @@ p.caption {
 </style>
 <section id="introduction" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> Introduction</h1>
-<p>In Weeks 3 and 4 we looked at modelling data using linear regression models were we had:</p>
+<p>In previous weeks we looked at modelling data using linear regression models were we had:</p>
 <ul>
 <li>a <strong>continuous response variable</strong> <span class="math inline">\(y\)</span> and</li>
 <li>one or more <strong>explanatory variables</strong> <span class="math inline">\(x_1, x_2,\ldots, x_p\)</span>, which were <strong>numerical</strong>/<strong>categorical</strong> variables.</li>
@@ -198,29 +266,31 @@ p.caption {
 <p>where the mean <span class="math inline">\(\alpha + \beta x_i\)</span> is given by the deterministic part of the model and the variance <span class="math inline">\(\sigma^2\)</span> by the random part. Hence we make the assumption that the outcomes <span class="math inline">\(y_i\)</span> are normally distributed with mean <span class="math inline">\(\alpha + \beta x_i\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. However, what if our response variable <span class="math inline">\(y\)</span> is not a continuous random variable?</p>
 <section id="generalised-linear-models" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="generalised-linear-models">
 <span class="header-section-number">1.1</span> Generalised linear models</h2>
-<p>The main objective this week is to introduce <strong>Generalised Linear Models (GLMs)</strong>, which extend the linear model framework to response variables that don’t follow the normal distribution. GLMs can be used to model non-normal continuous response variables, but they are most frequently used to model binary, categorical or count data. Here we shall focus on binary/categorical response variables. The generalised linear model can be written as:</p>
+<p>The main objective this week is to introduce <strong>Generalised Linear Models (GLMs)</strong>, which extend the linear model framework to response variables that don’t follow the normal distribution. GLMs can be used to model non-normal continuous response variables, but they are most frequently used to model binary, categorical or count data. The generalised linear model can be written as:</p>
 <span class="math display">\[\begin{align}
 y_i &amp;\sim f(g(\boldsymbol{\mu}_i)) \nonumber \\
 \boldsymbol{\mu}_i &amp;= \mathbf{x}_i^\top \boldsymbol{\beta}, \nonumber
 \end{align}\]</span>
 <p>where the response <span class="math inline">\(y_i\)</span> is predicted through the linear combination <span class="math inline">\(\boldsymbol{\mu}_i\)</span> of explanatory variables by the link function <span class="math inline">\(g(\cdot)\)</span>, assuming some distribution <span class="math inline">\(f(\cdot)\)</span> for <span class="math inline">\(y_i\)</span>, and <span class="math inline">\(\mathbf{x}_i^\top\)</span> is the <span class="math inline">\(i^{th}\)</span> row of the design matrix <span class="math inline">\(\boldsymbol{X}\)</span>. For example, the simple linear regression model above for a continuous response variable has the normal distribution distribution as <span class="math inline">\(f(\cdot)\)</span>, with corresponding link function equal to the Identity function, that is, <span class="math inline">\(g(\boldsymbol{\mu}_i) = \boldsymbol{\mu}_i\)</span>.</p>
-<p>What if our response variable <span class="math inline">\(y\)</span> is binary (e.g.&nbsp;yes/no, success/failure, alive/dead)? That is, the independent responses <span class="math inline">\(y_i\)</span> can either be:</p>
+<p>This week we will learn how to model outcomes of interest that take one of two categorical values (e.g.&nbsp;yes/no, success/failure, alive/dead).</p>
 <ul>
 <li><p><strong>binary</strong>, taking the value 1 (say success, with probability <span class="math inline">\(p_i\)</span>) or 0 (failure, with probability <span class="math inline">\(1-p_i\)</span>) or</p></li>
 <li><p><strong>binomial</strong>, where <span class="math inline">\(y_i\)</span> is the number of successes in a given number of trials <span class="math inline">\(n_i\)</span>, with the probability of success being <span class="math inline">\(p_i\)</span> and the probability of failure being <span class="math inline">\(1-p_i\)</span>.</p></li>
 </ul>
-<p>In both cases the distribution of <span class="math inline">\(y_i\)</span> is assumed to be binomial, but in the first case it is Bin<span class="math inline">\((1,p_i)\)</span> and in the second case it is Bin<span class="math inline">\((n_i,p_i)\)</span>. Hence, a binary response variable <span class="math inline">\(y_i\)</span> has a binomial distribution with corresponding link function <span class="math inline">\(g(\cdot)\)</span> equal to the <strong>logit link</strong> function, that is</p>
-<p><span class="math display">\[g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right),\]</span> which is also referred to as the <strong>log-odds</strong> (since <span class="math inline">\(p_i ~ / ~ 1-p_i\)</span> is an odds ratio). Why is such a transformation required when looking at a binary response variable? Well here we are interested in modelling the probability of success <span class="math inline">\(p_i\)</span>, and as we know probabilities must be between 0 and 1 <span class="math inline">\(\left(p_i \in [0, 1]\right)\)</span>. So if we want to model the probability of success using a linear model we need to ensure that the probabilities obtained are between 0 and 1. However, if we just use the identity link function, such that</p>
+<p>In both cases the distribution of <span class="math inline">\(y_i\)</span> is assumed to be binomial, but in the first case it is Bin<span class="math inline">\((1,p_i)\)</span> and in the second case it is Bin<span class="math inline">\((n_i,p_i)\)</span>. Hence, a binary response variable <span class="math inline">\(y_i\)</span> has a binomial distribution with corresponding link function <span class="math inline">\(g(\cdot)\)</span> , e.g.&nbsp;the <strong>logit link</strong> function, that is</p>
+<p><span class="math display">\[g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right),\]</span></p>
+<p>which is also referred to as the <strong>log-odds</strong> (since <span class="math inline">\(p_i ~ / ~ 1-p_i\)</span> is an odds ratio). Why is such a transformation required when looking at a binary response variable? Well here we are interested in modelling the probability of success <span class="math inline">\(p_i\)</span>, and as we know probabilities must be between 0 and 1 <span class="math inline">\(\left(p_i \in [0, 1]\right)\)</span>. So if we want to model the probability of success using a linear model we need to ensure that the probabilities obtained are between 0 and 1. However, if we just use the identity link function, such that</p>
 <p><span class="math display">\[p_i = \mathbf{x}_i^\top \boldsymbol{\beta},\]</span> we would need to ensure that in some way <span class="math inline">\(\mathbf{x}_i^\top \boldsymbol{\beta} \in [0, 1]\)</span>, that is, the linear combination of the explanatory variables and their corresponding regression coefficients was between 0 and 1. Hence some restrictions of some sort would need to be put in place to ensure this was the case. However, if we use the logit link function, such that</p>
 <p><span class="math display">\[\log \left(\frac{p_i}{1 - p_i} \right) = \mathbf{x}_i^\top \boldsymbol{\beta},\]</span></p>
 <p>no restrictions need to be in place on our estimates of the parameter vector <span class="math inline">\(\boldsymbol{\beta}\)</span>, since the inverse of the logit link function will always gives us valid probabilities since</p>
-<p><span class="math display">\[p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].\]</span> This linear regression model with a binary response variable is referred to as <strong>logistic regression</strong>. As such, when it comes to looking at binary response variables we shall be looking at odds ratios and probabilities of success/failure. The table below is a reminder of the distribution and link function used for the normal model we have previously looked at as well as the logistic regression model we shall be examining for the rest of this week.</p>
+<p><span class="math display">\[p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].\]</span></p>
+<p>This linear regression model with a binary response variable and logit link function is referred to as <strong>logistic regression</strong>. As such, when it comes to looking at binary response variables we shall be looking at odds ratios and probabilities of success/failure. The table below is a reminder of the distribution and link function used for the normal model we have previously looked at as well as the logistic regression model we shall be examining for the rest of this week.</p>
 <table class="table">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 33%">
-<col style="width: 22%">
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 26%">
+<col style="width: 24%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: center;"><strong>Model</strong></th>
@@ -245,129 +315,285 @@ y_i &amp;\sim f(g(\boldsymbol{\mu}_i)) \nonumber \\
 </table></section><section id="required-r-packages" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="required-r-packages">Required R packages</h2>
 <p>Before we proceed, load all the packages needed for this week:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://moderndive.github.io/moderndive/">moderndive</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jennybc/gapminder">gapminder</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/sjPlot/">sjPlot</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section></section><section id="logistic-regression-with-one-numerical-explanatory-variable" class="level1" data-number="2"><h1 data-number="2">
 <span class="header-section-number">2</span> Logistic regression with one numerical explanatory variable</h1>
-<p>Here we shall begin by fitting a logistic regression model with one numerical explanatory variable. Let’s return to the <code>evals</code> data from the <code>moderndive</code> package that we examined in Week 3.</p>
+<p>Here we shall begin by fitting a logistic regression model with one numerical explanatory variable. Let’s return to the <code>evals</code> data from the <code>moderndive</code> package that we examined in previous weeks.</p>
 <section id="teaching-evaluation-scores" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="teaching-evaluation-scores">
 <span class="header-section-number">2.1</span> Teaching evaluation scores</h2>
 <p>Student feedback in higher education is extremely important when it comes to the evaluation of teaching techniques, materials, and improvements in teaching methods and technologies. However, there have been studies into potential bias factors when feedback is provided, such as the physical appearance of the teacher; see <a href="https://www.journals.elsevier.com/economics-of-education-review/">Economics of Education Review</a> for details. Here, we shall look at a study from student evaluations of <span class="math inline">\(n=463\)</span> professors from The University of Texas at Austin.</p>
 <p>Previously, we looked at <strong>teaching score</strong> as our continuous response variable and <strong>beauty score</strong> as our explanatory variable. Now we shall consider <strong>gender</strong> as our response variable, and hence shall have a binary response variable (female/male). We will examine if there is any difference in <strong>gender</strong> by <strong>age</strong> of the teaching instructors within the <code>evals</code> data set.</p>
 <p>First, let’s start by selecting the variables of interest from the <code>evals</code> data set:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.gender</span> <span class="op">&lt;-</span> <span class="va">evals</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-  gender   age
-  &lt;fct&gt;  &lt;int&gt;
-1 female    36
-2 female    36
-3 female    36
-4 female    36
-5 male      59
-6 male      59</code></pre>
-</div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.gender</span> <span class="op">&lt;-</span> <span class="va">evals</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>                  <span class="fu">select</span><span class="op">(</span><span class="va">gender</span>, <span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Now, let’s look at a boxplot of <code>age</code> by <code>gender</code> to get an initial impression of the data:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">R code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">evals.gender</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gender</span>, y <span class="op">=</span> <span class="va">age</span>, fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>Teaching instructor age by gender.</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">evals.gender</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gender</span>, y <span class="op">=</span> <span class="va">age</span>, fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Gender"</span>, y <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Teaching instructor age by gender.</figcaption></figure>
+</div>
 </div>
 </div>
 </div>
 <p>Here we can see that the age of male teaching instructors tends to be higher than that of their female counterparts. Now, let’s fit a logistic regression model to see whether age is a significant predictor of the odds of a teaching instructor being male or female.</p>
 </section><section id="log-odds" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="log-odds">
 <span class="header-section-number">2.2</span> Log-odds</h2>
-<p>To fit a logistic regression model we will use the generalised linear model function <code>glm</code>, which acts in a very similar manner to the <code>lm</code> function we have used previously. The logistic regression model with <strong>gender</strong> as the response and <strong>age</strong> as the explanatory variable is given by:</p>
+<p>To fit a logistic regression model we will use the generalised linear model function <code>glm</code> and set the argument <code>family = binomial</code>. The logistic regression model with <strong>gender</strong> as the response and <strong>age</strong> as the explanatory variable is given by:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">logistic_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glm"</span><span class="op">)</span></span>
-<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">evals.gender</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">extract_fit_engine</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">evals.gender</span>,family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This model uses the <strong>logit link</strong> function. Now, let’s take a look at the summary produced from our logistic regression model:</p>
+<p>This model uses the <strong>logit link</strong> function by default.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To use a non-default or <code>link</code>, pass in as an argument to <code><a href="https://rdrr.io/r/stats/family.html">binomial()</a></code>. For example if we wanted to use the probit link function we could specify the following argument:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-stats::glm(formula = gender ~ age, family = stats::binomial, 
-    data = data)
-
-Coefficients:
-            Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -2.69795    0.51194  -5.270 1.36e-07 ***
-age          0.06296    0.01059   5.948 2.71e-09 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 630.30  on 462  degrees of freedom
-Residual deviance: 591.41  on 461  degrees of freedom
-AIC: 595.41
-
-Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">age</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">evals.gender</span>,</span>
+<span>    family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"probit"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s take a look at the summary produced from our logistic regression model using the <code>tidy</code> function from the <code>broom</code> library:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-2.6979460</td>
+<td style="text-align: right;">0.5119379</td>
+<td style="text-align: right;">-5.270066</td>
+<td style="text-align: right;">1e-07</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">0.0629647</td>
+<td style="text-align: right;">0.0105852</td>
+<td style="text-align: right;">5.948386</td>
+<td style="text-align: right;">0e+00</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Firstly, the baseline category for our binary response is <code>female</code>. This is due to the default baseline in R being taken as the one which comes first alphabetically, which can be seen from the <code>levels</code> function:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">evals.gender</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">evals.gender</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "female" "male"  </code></pre>
 </div>
 </div>
 <p>This means that estimates from the logistic regression model are for a change on the <strong>log-odds</strong> scale for <code>males</code> in comparison to the response baseline <code>females</code>. That is</p>
 <span class="math display">\[\begin{align}
-\ln\left(\frac{p}{1-p}\right) &amp;= \alpha + \beta \cdot \textrm{age} = -2.7 + 0.06 \cdot \textrm{age}, \nonumber
+\ln\left(\frac{p}{1-p}\right) &amp;= \alpha + \beta \times \textrm{age} = -2.7 + 0.06 \times \textrm{age}, \nonumber
 \end{align}\]</span>
-<p>where <span class="math inline">\(p = \textrm{Prob}\left(\textrm{Male}\right)\)</span> and <span class="math inline">\(1 - p = \textrm{Prob}\left(\textrm{Female}\right)\)</span>. Hence, the <strong>log-odds</strong> of the instructor being male increase by 0.06 for every one unit increase in <code>age</code>. This provides us with a point estimate of how the log-odds changes with age, however, we are also interested in producing a 95% confidence interval for these log-odds. This can be done as follows:</p>
+<p>where <span class="math inline">\(p = \textrm{Prob}\left(\textrm{Male}\right)\)</span> and <span class="math inline">\(1 - p = \textrm{Prob}\left(\textrm{Female}\right)\)</span>.</p>
+<p>Hence, the <strong>log-odds</strong> of the instructor being male increase by 0.06 for every one unit increase in <code>age</code>.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi-pencil-square " style="color: #c8793c;" role="img" aria-hidden="true"></i> Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose now that we are interested in the <strong>log-odds</strong> of the instructor being a female (i.e.&nbsp;treat male as our reference category), how can we calculate the log-odds of this alternative outcome?</p>
+<div class="webex-solution">
+<button>
+Take hint
+</button>
+<p>Recall that the logistic regression model we fitted previously predicts the log-odds of being a male (since female is treated as our reference category), i.e.</p>
+<span class="math display">\[\begin{align}
+\mathrm{log}\left(\dfrac{P(male=1)}{P(male=0)}\right) &amp;= \alpha + \beta \cdot \textrm{age} = -2.7 + 0.06 \cdot \textrm{age}
+\end{align}\]</span>
+<p>Now we are interested in :</p>
+<span class="math display">\[\begin{align}
+\mathrm{log}\left(\dfrac{P(male=0)}{P(male=1)}\right) &amp;= -\mathrm{log}\left(\dfrac{P(male=1)}{P(male=0)}\right) \\
+&amp;= -[ \alpha + \beta \cdot \textrm{age}] = -[-2.7 + 0.06] \cdot \textrm{age}
+\end{align}\]</span>
+<p><strong>Note</strong>: The reference category in your data can be changed by using the <code><a href="https://rdrr.io/r/stats/relevel.html">relevel()</a></code> function. see <code><a href="https://rdrr.io/r/stats/relevel.html">?relevel</a></code> for further details.</p>
+</div>
+<div class="cell" data-layout-align="center" data-webex.hide="Click here to see the solution">
+<div class="webex-solution">
+<button>
+Click here to see the solution
+</button>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.gender</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html">relevel</a></span><span class="op">(</span><span class="va">gender</span>,ref <span class="op">=</span> <span class="st">"male"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">.</span> ,family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic       p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 (Intercept)   2.70      0.512       5.27 0.000000136  
+2 age          -0.0630    0.0106     -5.95 0.00000000271</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>This provides us with a point estimate of how the log-odds changes with age, however, we are also interested in producing a 95% confidence interval for these log-odds. This can be done by setting the option <code>conf.int = TRUE</code> within the <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code> function:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod.coef.logodds</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op">|&gt;</span></span>
-<span>                      <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>                      <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>conf.int <span class="op">=</span> <span class="cn">TRUE</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age.logodds.lower</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"age"</span>, <span class="st">"Estimate"</span><span class="op">]</span> </span>
-<span>                        <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"age"</span>, <span class="st">"Std. Error"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.04221777</code></pre>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-2.6979460</td>
+<td style="text-align: right;">0.5119379</td>
+<td style="text-align: right;">-5.270066</td>
+<td style="text-align: right;">1e-07</td>
+<td style="text-align: right;">-3.7196499</td>
+<td style="text-align: right;">-1.7097067</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">0.0629647</td>
+<td style="text-align: right;">0.0105852</td>
+<td style="text-align: right;">5.948386</td>
+<td style="text-align: right;">0e+00</td>
+<td style="text-align: right;">0.0425879</td>
+<td style="text-align: right;">0.0841436</td>
+</tr>
+</tbody>
+</table>
 </div>
-<details><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age.logodds.upper</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"age"</span>, <span class="st">"Estimate"</span><span class="op">]</span> </span>
-<span>                        <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"age"</span>, <span class="st">"Std. Error"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.08371167</code></pre>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<p>Hence the point estimate for the log-odds is 0.06, which has a corresponding 95% confidence interval of (0.04, 0.08). This can be displayed graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package by simply passing our <code>model</code> as an argument:</p>
+<div class="callout-body-container callout-body">
+<p>Notice that we could have omitted the argument <code>conf.level = 0.95</code> since this is the default confidence level used in the <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code> function. Thus, unless you need a confidence level other than the 95% CI, you can leave this argument with the default setting as will do in the following exercises.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi-pencil-square " style="color: #c8793c;" role="img" aria-hidden="true"></i> Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Produce a 95% Wald confidence interval (i.e., based on asymptotic normality) for the age coefficient by “hand”, i.e.&nbsp;using only the coefficient’s estimate and std. error. Then compare this result with the confidence interval obtained in R.</p>
+<p>Notice that the <code>tidy</code> function will compute a confidence interval using the profile-likelihood by default. Thus, if you want the results to be comparable, you will need to use the <code><a href="https://rdrr.io/r/stats/confint.html">confint.default()</a></code> function.</p>
+<div class="webex-solution">
+<button>
+I need a hint
+</button>
+<p>Recall that a 95% Wald CI for <span class="math inline">\(\beta\)</span> can be computed as <span class="math inline">\(\hat{\beta} \pm z_{1-\alpha/2} \times SE(\hat{\beta})\)</span>, where <span class="math inline">\(SE(\cdot)\)</span> denotes the standard error of the estimate and <span class="math inline">\(z_{1-\alpha/2}\)</span> the quantile of the Normal density.</p>
+</div>
+<div class="cell" data-layout-align="center" data-webex.hide="See the solution">
+<div class="webex-solution">
+<button>
+See the solution
+</button>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod.coef.logodds</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span><span class="op">==</span><span class="st">"age"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute Wald 95% CI by hand</span></span>
+<span><span class="va">mod.coef.logodds</span><span class="op">$</span><span class="va">estimate</span> <span class="op">+</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">*</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">mod.coef.logodds</span><span class="op">$</span><span class="va">std.error</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04221815 0.08371129</code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare with Wald 95% CI in R</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint.default</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5 %     97.5 % 
+0.04221815 0.08371129 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The point estimate for the log-odds is 0.06, which has a corresponding 95% confidence interval of (0.04, 0.08). This can be displayed graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package by simply passing our <code>model</code> as an argument:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>, transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>, transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>           title <span class="op">=</span> <span class="st">"Log-Odds (Male instructor)"</span>, show.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">The log-odds of age for male instructors.</figcaption></figure>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>The log-odds of age for male instructors.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -382,22 +608,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <li>
 <code>vline.color</code>: colour of the vertical “zero effect” line.</li>
 </ul>
-<p>Further details on using <code>plot_model</code> can be found <a href="https://strengejacke.wordpress.com/2017/10/23/one-function-to-rule-them-all-visualization-of-regression-models-in-rstats-w-sjplot/">here</a>. Now, let’s add the estimates of the log-odds to our data set:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.gender</span> <span class="op">&lt;-</span> <span class="va">evals.gender</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>logodds.male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  gender   age logodds.male
-  &lt;fct&gt;  &lt;int&gt;        &lt;dbl&gt;
-1 female    36       -0.431
-2 female    36       -0.431
-3 female    36       -0.431
-4 female    36       -0.431
-5 male      59        1.02 
-6 male      59        1.02 </code></pre>
-</div>
-</div>
+<p>Further details on using <code>plot_model</code> can be found <a href="https://strengejacke.wordpress.com/2017/10/23/one-function-to-rule-them-all-visualization-of-regression-models-in-rstats-w-sjplot/">here</a>.</p>
 </section><section id="odds" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="odds">
 <span class="header-section-number">2.3</span> Odds</h2>
 <p>Typically we would like to work on the <strong>odds</strong> scale as it is easier to interpret an odds-ratio as opposed to the log-odds-ratio. To obtain the odds we simply exponentiate the log-odds, that is</p>
@@ -405,17 +616,43 @@ Number of Fisher Scoring iterations: 4</code></pre>
 \frac{p}{1-p} &amp;= \exp\left(\alpha + \beta \cdot \textrm{age} \right), \nonumber
 \end{align}\]</span>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">|&gt;</span></span>
-<span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)         age 
- 0.06734369  1.06498927 </code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">-5.27</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">1.06</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">5.95</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>On the odds scale, the value of the intercept (0.07) gives the odds of a teaching instructor being male given their <code>age = 0</code>, which is obviously not a viable age for a teaching instructor, and hence why this value is very close to zero. For <code>age</code> we have an odds of 1.06, which indicates that for every 1 unit increase in age, the odds of the teaching instructor being male increase by a factor of 1.06. So how is this calculated? Let’s look at the odds-ratio obtained from instructors aged 51 and 52 years old, that is, a one unit difference:</p>
+<p>On the odds scale, the value of the intercept (0.07) gives the odds of a teaching instructor being male given their <code>age = 0</code>, which is obviously not a viable age for a teaching instructor, and hence why this value is very close to zero. For <code>age</code> we have an odds of 1.06, which indicates that for every 1 unit increase in age, the odds of the teaching instructor being male increase by a factor of 1.06.</p>
+<p>So how is this calculated? Let’s look at the odds-ratio obtained from instructors aged 51 and 52 years old, that is, a one unit difference:</p>
 <span class="math display">\[\begin{align}
-\frac{\mbox{Odds}_{\mbox{age=52}}}{\mbox{Odds}_{\mbox{age=51}}} = \left(\frac{\frac{p_{\mbox{age=52}}}{1 - p_{\mbox{age=52}}}}{\frac{p_{\mbox{age=51}}}{1 - p_{\mbox{age=51}}}}\right) = \frac{\exp\left(\alpha + \beta \cdot 52\right)}{\exp\left(\alpha + \beta \cdot 51\right)} = \exp\left(\beta \cdot (52 - 51)\right) = \exp\left(0.06\right) = 1.06. \nonumber
+\frac{\mbox{Odds}_{\mbox{age=52}}}{\mbox{Odds}_{\mbox{age=51}}} &amp;= \left(\frac{\frac{p_{\mbox{age=52}}}{1 - p_{\mbox{age=52}}}}{\frac{p_{\mbox{age=51}}}{1 - p_{\mbox{age=51}}}}\right) \\
+&amp;= \frac{\exp\left(\alpha + \beta \cdot 52\right)}{\exp\left(\alpha + \beta \cdot 51\right)} = \exp\left(\beta \cdot (52 - 51)\right) \\
+&amp;= \exp\left(0.06\right) = 1.06. \nonumber
 \end{align}\]</span>
 <p>For example, the odds of a teaching instructor who is 45 years old being male is given by</p>
 <span class="math display">\[\begin{align}
@@ -423,136 +660,522 @@ Number of Fisher Scoring iterations: 4</code></pre>
 \end{align}\]</span>
 <p>This can be interpreted as the chances of an instructor who is 45 being male are 15% greater than them being female. We can obtain a 95% confidence interval for the odds by simply exponentiating the lower and upper bounds of our log-odds interval:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age.odds.lower</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">age.logodds.lower</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.043122</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">T</span>,conf.int <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<details><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age.odds.upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">age.logodds.upper</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.087315</code></pre>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 14%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">-5.27</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">1.06</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">5.95</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">1.09</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Hence the point estimate for the odds is 1.06, which has a corresponding 95% confidence interval of (1.04, 1.09). This can be displayed graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package by simply passing our <code>model</code> as an argument as well as removing <code>transform = NULL</code> (the default transformation is exponential):</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>           title <span class="op">=</span> <span class="st">"Odds (Male instructor)"</span>, show.p <span class="op">=</span> <span class="cn">FALSE</span>, axis.lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">The odds of age for male instructors.</figcaption></figure>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>The odds of age for male instructors.</figcaption></figure>
 </div>
 </div>
 </div>
-<p><strong>Note</strong>: <code>axis.lim</code> is used to zoom in on the 95% confidence interval. The <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> function can also be used to compute confidence intervals (<code>confint(model)</code> for example).</p>
-<p>Now, let’s add the estimates of the odds to our data set:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.gender</span> <span class="op">&lt;-</span> <span class="va">evals.gender</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>odds.male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">logodds.male</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  gender   age logodds.male odds.male
-  &lt;fct&gt;  &lt;int&gt;        &lt;dbl&gt;     &lt;dbl&gt;
-1 female    36       -0.431     0.650
-2 female    36       -0.431     0.650
-3 female    36       -0.431     0.650
-4 female    36       -0.431     0.650
-5 male      59        1.02      2.76 
-6 male      59        1.02      2.76 </code></pre>
-</div>
-</div>
+<p><strong>Note</strong>: <code>axis.lim</code> is used to zoom in on the 95% confidence interval.</p>
 </section><section id="probabilities" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="probabilities">
 <span class="header-section-number">2.4</span> Probabilities</h2>
-<p>We can obtain the probability <span class="math inline">\(p = \textrm{Prob}(\textrm{Male})\)</span> using the following transformation:</p>
+<p>Since we have used the logit link function to link the linear predictor <span class="math inline">\(\alpha + \beta \cdot \textrm{age}\)</span> to the probabilities of being a male, we can then obtain back the probability <span class="math inline">\(p = \textrm{Prob}(\textrm{Male})\)</span> by the using the inverse-logit transformation:</p>
 <span class="math display">\[\begin{align}
-p &amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)}. \nonumber
+p &amp;= \mathrm{logit}^{-1}\left(\alpha + \beta \cdot \textrm{age} \right)\\
+&amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)} . \nonumber
 \end{align}\]</span>
 <p>For example, the probability of a teaching instructor who is 52 years old being male is</p>
 <span class="math display">\[\begin{align}
 p &amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)}
-=\frac{\exp\left(-2.697946 + 0.0629647\cdot 52 \right)}{1 + \exp\left(-2.697946 + 0.0629647\cdot 52 \right)}
+=\frac{\exp\left(-2.7 + 0.06\cdot 52 \right)}{1 + \exp\left(-2.7 + 0.06\cdot 52 \right)}
 = 0.64, \nonumber
 \end{align}\]</span>
-<p>which can be computed in R as follows:</p>
+<p>which can be computed in R using the inverse logit <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> function from the <code>stats</code> library:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p.num</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"(Intercept)"</span>, <span class="st">"Estimate"</span><span class="op">]</span> </span>
-<span>              <span class="op">+</span> <span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"age"</span>, <span class="st">"Estimate"</span><span class="op">]</span> <span class="op">*</span> <span class="fl">52</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">p.denom</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">p.num</span></span>
-<span><span class="va">p.num</span> <span class="op">/</span> <span class="va">p.denom</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6401971</code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> </span>
+<span>              <span class="op">+</span> <span class="va">model</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span>  <span class="fl">52</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+  0.6401971 </code></pre>
 </div>
 </div>
-<p>The <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> function from the <code>stats</code> library can also be used to obtain probabilities from the log-odds:</p>
+<p>Finally, we can plot the probability of being male using <code>sjPlot</code> by specifying the following:</p>
+<ol type="1">
+<li><p>The model we have fitted</p></li>
+<li><p><code>type = "pred"</code> to plot predicted values (marginal effects) for specific model terms.</p></li>
+<li><p>The model terms of interest. Here, you can also plot the marginal effects at specific values ,e.g.&nbsp;selecting <code>age[30:60]</code> will plot the predictions based on age-values from 30 to 60, while <code>age[all]</code> will plot the predictions across all of the range of our independent variable.</p></li>
+</ol>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"(Intercept)"</span>, <span class="st">"Estimate"</span><span class="op">]</span> </span>
-<span>        <span class="op">+</span> <span class="va">mod.coef.logodds</span><span class="op">[</span><span class="st">"age"</span>, <span class="st">"Estimate"</span><span class="op">]</span> <span class="op">*</span> <span class="fl">52</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6401971</code></pre>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, </span>
+<span>           type <span class="op">=</span> <span class="st">"pred"</span>, </span>
+<span>           title <span class="op">=</span> <span class="st">""</span>, </span>
+<span>           terms<span class="op">=</span><span class="st">"age [all]"</span>, </span>
+<span>           axis.title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Prob. of instructor being male"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>Probability of teaching instructor being male by age.</figcaption></figure>
 </div>
 </div>
-<p>Let’s add the probabilities to our data, which is done using the <code><a href="https://rdrr.io/r/stats/fitted.values.html">fitted()</a></code> function:</p>
+</div>
+<p><a href="#tbl-odds_probs" class="quarto-xref">Table&nbsp;1</a> summarises the relationship between between Odds and Probabilities:</p>
+<div id="tbl-odds_probs" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-odds_probs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Relationship between Odds and Probabilities
+</figcaption><div aria-describedby="tbl-odds_probs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<thead><tr class="header">
+<th>Scale</th>
+<th>Equivalence</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Odds</td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                     Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                          
+                                                                                                                                                                     \]</span></td>
+</tr>
+<tr class="even">
+<td>Probability</td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                     P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                              
+                                                                                                                                                                     \]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section></section><section id="model-evaluation" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Model evaluation</h1>
+<section id="diagnostic-plots" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="diagnostic-plots">
+<span class="header-section-number">3.1</span> Diagnostic plots</h2>
+<p>As usual, now that we have fitted the model we need to assess how well the model fits the data and check whether our assumptions are met. Our assumptions can be checked as usual by using the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function in base R. However, we can visualize this with a much nicer and appropiate layout using the <code><a href="https://easystats.github.io/performance/reference/check_model.html">check_model()</a></code> function within the <code>performance</code> library.</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.gender</span> <span class="op">&lt;-</span> <span class="va">evals.gender</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>probs.male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">model</span>, panel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>GLM diagnostics for the gender of teaching instructors</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be aware that the <code>performance</code> library has quite a few dependencies so check whether any package needs to be updated when you install the package for the first time.</p>
+</div>
+</div>
+<p>By specifying <code>panel = TRUE</code> the output shows us 4 different diagnostic plots. These are:</p>
+<ol type="1">
+<li><p><strong>Posterior predictive check</strong> (Top-left):Compares the observed data (in this case the number of females and males) against the predicted number of males and females using simulated data. We can look for systematic discrepancies between real and simulated data to assess the goodness of fit (see. <span class="citation" data-cites="gabry2019">(<a href="#ref-gabry2019" role="doc-biblioref">Gabry et al. 2019</a>)</span> and <code><a href="https://easystats.github.io/performance/reference/check_predictions.html">check_predictions()</a></code> for further details)</p></li>
+<li><p><strong>Binned residuals</strong> (Top-right): Bin the observations based on their fitted values, and average the residual value in each bin. The plots shows the average residual values versus the average fitted value for each bin” <span class="citation" data-cites="gelman2006">(<a href="#ref-gelman2006" role="doc-biblioref">Gelman and Hill 2006</a>)</span>. If the model were true, one would expect about 95% of the residuals to fall inside the error bounds (see <code><a href="https://easystats.github.io/performance/reference/binned_residuals.html">?binned_residuals</a></code> for more details.)</p></li>
+<li><p><strong>Influential observations</strong> (Bottom-left): This plot is used to identify influential observations. If any points in this plot fall outside of Cook’s distance (the dashed lines) then it is considered an influential observation. See <code><a href="https://easystats.github.io/performance/reference/check_outliers.html">check_outliers()</a></code> for further details.</p></li>
+<li><p><strong>Uniformity of residuals</strong> (Bottom-right): Since our response is not normally distributed, residuals are not expected to be normally distributed either. Thus, we can use QQ plots to check the uniformity of residuals, i.e.&nbsp;the extent to which the observed values deviate from the model expectations using simulated residuals instead of the usual Pearson residuals</p></li>
+</ol></section><section id="predictive-performance-metrics" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="predictive-performance-metrics">
+<span class="header-section-number">3.2</span> Predictive performance metrics</h2>
+<p>Since our outcome of interest is a binary categorical variable, we can compute the predicted classes and evaluate how accurate our predictions are by comparing them against the observed values. To do so, we can add the predicted (fitted) values to our data with <code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code> and classify them based on a decision threshold.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that we can append either the logit-scaled fitted values (by setting <code>type.predict = c("link")</code> or the predicted probabilities (<code>type.predict = c("response")</code>).</p>
+</div>
+</div>
+<p>In the case of logistic regression, you typically classify these probabilities into discrete classes based on a cutoff (commonly 0.5 for binary classification). Here is an example where predicted probabilities outcomes of <span class="math inline">\(\hat{p} &gt; 0.5\)</span> are classified as <code>male</code> and as <code>female</code> if <span class="math inline">\(\hat{p} \leq 0.5\)</span> .</p>
+<div class="cell" data-layout-align="center">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pred_results</span> <span class="op">=</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span>type.predict <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"response"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>predicted_class <span class="op">=</span> </span>
+<span>           <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">.fitted</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"male"</span>, <span class="st">"female"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p><strong>Note</strong>: <code>predict(model, type = "response")</code> will also provide the estimated probabilities.</p>
-<p>Finally, we can plot the probability of being male using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> function by giving <code>method = "glm"</code> and <code>methods.args = list(family = "binomial")</code> as follows:</p>
-<!-- ```{r, echo = TRUE, eval = TRUE, fig.cap = "Probability of teaching instructor being male by age.", fig.align = "center", out.width = "60%"} -->
-<!-- ggplot(data = evals.gender, aes(x = age, y = probs.male)) + -->
-<!--   geom_dotplot(dotsize = 0.6, alpha = 0.2, aes(fill = gender), -->
-<!--                 binwidth = 1, stackgroups = TRUE) + -->
-<!--   geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) + -->
-<!--   labs(x = "Age", y = "Probability of instructor being male") -->
-<!-- ``` -->
-<!--  -->
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">evals.gender</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">probs.male</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"glm"</span>, method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"binomial"</span><span class="op">)</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Age"</span>, y <span class="op">=</span> <span class="st">"Probability of instructor being male"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 18%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">gender</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: right;">.fitted</th>
+<th style="text-align: right;">.resid</th>
+<th style="text-align: right;">.hat</th>
+<th style="text-align: right;">.sigma</th>
+<th style="text-align: right;">.cooksd</th>
+<th style="text-align: right;">.std.resid</th>
+<th style="text-align: left;">predicted_class</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.3938360</td>
+<td style="text-align: right;">-1.0006045</td>
+<td style="text-align: right;">0.0058192</td>
+<td style="text-align: right;">1.132909</td>
+<td style="text-align: right;">0.0019126</td>
+<td style="text-align: right;">-1.003529</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.3938360</td>
+<td style="text-align: right;">-1.0006045</td>
+<td style="text-align: right;">0.0058192</td>
+<td style="text-align: right;">1.132909</td>
+<td style="text-align: right;">0.0019126</td>
+<td style="text-align: right;">-1.003529</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.3938360</td>
+<td style="text-align: right;">-1.0006045</td>
+<td style="text-align: right;">0.0058192</td>
+<td style="text-align: right;">1.132909</td>
+<td style="text-align: right;">0.0019126</td>
+<td style="text-align: right;">-1.003529</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0.3938360</td>
+<td style="text-align: right;">-1.0006045</td>
+<td style="text-align: right;">0.0058192</td>
+<td style="text-align: right;">1.132909</td>
+<td style="text-align: right;">0.0019126</td>
+<td style="text-align: right;">-1.003529</td>
+<td style="text-align: left;">female</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.7343825</td>
+<td style="text-align: right;">0.7857803</td>
+<td style="text-align: right;">0.0047899</td>
+<td style="text-align: right;">1.133280</td>
+<td style="text-align: right;">0.0008746</td>
+<td style="text-align: right;">0.787669</td>
+<td style="text-align: left;">male</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We can use these predicted classes to compute different predictive performance/evaluation metrics. To do so we can compute a confusion matrix according to the true and predicted classes:</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<figcaption class="figure-caption">Probability of teaching instructor being male by age.</figcaption></figure>
+<figure class="figure"><p><img src="tikz__pictures-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="460"></p>
+</figure>
 </div>
-</div>
-</div>
-<!-- **Note**: the ages of all teaching instructors have been superimposed as a dotplot using `geom_dotplot()`. -->
-<div style="page-break-after: always;"></div>
-<p>The <code><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model()</a></code> function from the <code>sjPlot</code> package can also produce the estimated probabilities by <code>age</code> as follows:</p>
+<p>The table can be interpreted as follows:</p>
+<ul>
+<li><p>The <em>correct classification rate</em> (CCR) or <em>accuracy</em> describes the overall proportion of teaching instructors (males or females) that were classified correctly among all the <span class="math inline">\(S = 463\)</span> individuals.</p></li>
+<li><p>The <em>true positive rate</em> (TPR) or <em>sensitivity</em> (a.k.a. recall), denotes the proportion of actual female instructors that are correctly classified as females by the model.</p></li>
+<li><p>The <em>true negative rate</em> (TNR) or <em>specificity</em>, denotes the proportion of actual males that have been classified correctly as males by the model. <strong>Note</strong>: the <em>false positive rate</em> (FPR) computed as (1- <em>specificity</em>) is another popular metric that measures the proportion of actual negatives that are incorrectly predicted as positive.</p></li>
+<li><p>The model’s <em>precision</em> or <em>positive predictive value</em> (PPV) represents the proportion of predicted female instructors that were actually female, i.e.&nbsp;how many of the predicted positive cases were <strong>actually positive</strong>.</p></li>
+<li><p>The model’s <em>negative predictive value</em> (NPV) represents the proportion of predicted male instructors that were actually males, i.e.&nbsp;how many of the predicted negative cases were <strong>actually negative</strong>.</p></li>
+</ul>
+<p>To compute the confusion matrix we can use the <code>conf_mat()</code> function and use as input the data frame with the predicted and observed classes as follows:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="st">"pred"</span>, title <span class="op">=</span> <span class="st">""</span>, terms<span class="op">=</span><span class="st">"age [all]"</span>, axis.title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Prob. of instructor being male"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">conf_mat</span><span class="op">(</span><span class="va">pred_results</span>,truth <span class="op">=</span> <span class="va">gender</span>,estimate <span class="op">=</span> <span class="va">predicted_class</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Truth
+Prediction female male
+    female     76   60
+    male      119  208</code></pre>
+</div>
+</div>
+<p>Rather than computing these predictive performance metrics by hand, we can take advantage of the <code>metric_set()</code> function from the <code>yardstick</code> library (loaded as part of the <code>tidymodels</code> ecosystem) to combine multiple metric functions together into a new function that calculates all of them at once. Then we just simply need to supply the same arguments we used for computing the confusion matrix.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Step (1) create a set with classification metrics we want to compute</span></span>
+<span><span class="va">eval_metric</span> <span class="op">&lt;-</span> <span class="fu">metric_set</span><span class="op">(</span><span class="va">accuracy</span>,<span class="va">sensitivity</span>,<span class="va">specificity</span>,<span class="va">ppv</span>,<span class="va">npv</span><span class="op">)</span></span>
+<span><span class="co"># Step (2) call out the metric set and input the data containing the observed and predicted classes</span></span>
+<span><span class="fu">eval_metric</span><span class="op">(</span><span class="va">pred_results</span>,truth <span class="op">=</span> <span class="va">gender</span>,estimate <span class="op">=</span> <span class="va">predicted_class</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">.metric</th>
+<th style="text-align: left;">.estimator</th>
+<th style="text-align: right;">.estimate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">accuracy</td>
+<td style="text-align: left;">binary</td>
+<td style="text-align: right;">0.61</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sensitivity</td>
+<td style="text-align: left;">binary</td>
+<td style="text-align: right;">0.39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">specificity</td>
+<td style="text-align: left;">binary</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ppv</td>
+<td style="text-align: left;">binary</td>
+<td style="text-align: right;">0.56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">npv</td>
+<td style="text-align: left;">binary</td>
+<td style="text-align: right;">0.64</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We can see that our model is not doing a great job in predicting the outcome (accuracy of <span class="math inline">\(\approx\)</span> 60%).This is due due a particularly poor performance in terms of <em>sensitivity</em>, i.e.&nbsp;roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of <em>specificity</em> since almost 80% of the males are actually being predicted as such.</p>
+<p>Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity.</p>
+</section><section id="roc-curve" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="roc-curve">
+<span class="header-section-number">3.3</span> ROC Curve</h2>
+<p>Another way to assess how good the model is at separating the 2 classes of the outcome is through the Receiver Operating Characteristic (ROC) curve. The ROC curve is a graphical representation used to evaluate the performance of a binary classification model. It shows the trade-off between the true positive rate (sensitivity) and the false positive rate (1 - specificity) at various threshold settings.</p>
+<p>The threshold determines the cutoff probability for classifying a sample as positive or negative (male or female in our case).</p>
+<ul>
+<li><p>At a cutoff <span class="math inline">\(=0\)</span> , all the observations will be classified as positive (i.e.&nbsp;all the instructors are going to be classified as males since we are modelling the event <span class="math inline">\(P(male)\)</span>).</p></li>
+<li><p>At a cutoff <span class="math inline">\(=1\)</span> , all the observations will be classified as negative (i.e.&nbsp;all the instructors are going to be classified as females corresponding to <span class="math inline">\(1 - P(male)\)</span>).</p></li>
+</ul>
+<p>As the threshold moves between 0 and 1, the ROC curve traces out points that show the model’s performance for various balances between TPR and FPR.</p>
+<p>We can combine the <code>roc_curve()</code> function from the <code>performance</code> library and <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> function from <code>ggplot</code> to calculate and visualize the ROC curve. We just need to supply the true classes and the predicted <strong>probabilities</strong> (NOT the predicted <strong>classes</strong>!).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_curve</span><span class="op">(</span><span class="va">pred_results</span>,</span>
+<span>          truth <span class="op">=</span> <span class="va">gender</span>,</span>
+<span>          <span class="va">.fitted</span>,</span>
+<span>          event_level <span class="op">=</span> <span class="st">"second"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Probability of teaching instructor being male by age.</figcaption></figure>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>ROC curve for GLM fitted to the evaluation scores data set.</figcaption></figure>
 </div>
 </div>
 </div>
-</section></section><section id="logistic-regression-with-one-categorical-explanatory-variable" class="level1" data-number="3"><h1 data-number="3">
-<span class="header-section-number">3</span> Logistic regression with one categorical explanatory variable</h1>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice that we set <code>event_level = "second"</code> since the default behavior of the <code>roc_auc()</code> function is to consider the first class of the variable <code>gender</code>as the event. If you recall, <code>female</code> appears as first due alphabetical order, and hence is treated as our reference category in our model and thus we are modelling the event <span class="math inline">\(P(male)\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">pred_results</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "female" "male"  </code></pre>
+</div>
+</div>
+<p>However since <code>female</code> appear first, we need to tell the <code>roc_auc()</code> that we are interested in the second class of the variables <code>gender</code> , i.e.&nbsp;<code>male</code>, as the event and not the other way around.</p>
+</div>
+</div>
+<p>The closer the ROC curve is to the top-left corner, the better the model is at distinguishing between the positive and negative classes. This means high true positive rates (sensitivity) and low false positive rates. The closer the curve is to the diagonal line (i.e.&nbsp;when TPR = FPR) then the performance is no better than random guessing. We can see here that our model is doing a little bit better than just random guessing.</p>
+<p>We can also calculate the area under the ROC curve (AUC) as a single value to summarize the model’s performance:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_auc</span><span class="op">(</span><span class="va">pred_results</span>,</span>
+<span>        truth <span class="op">=</span> <span class="va">gender</span>,</span>
+<span>        <span class="va">.fitted</span>,</span>
+<span>        event_level <span class="op">=</span> <span class="st">"second"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">.metric</th>
+<th style="text-align: left;">.estimator</th>
+<th style="text-align: right;">.estimate</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">roc_auc</td>
+<td style="text-align: left;">binary</td>
+<td style="text-align: right;">0.66</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<p>The AUC ranges from 0 to 1:</p>
+<ul>
+<li><p><strong>AUC = 1</strong>: Perfect classifier.</p></li>
+<li><p><strong>AUC = 0.5</strong>: No better than random guessing.</p></li>
+<li><p><strong>AUC</strong> <span class="math inline">\(\leq\)</span> <strong>0.5</strong>: Worse than random guessing, meaning the model is consistently misclassifying.</p></li>
+</ul>
+<p>Again, the AUC of 0.6623804 indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi-pencil-square " style="color: #c8793c;" role="img" aria-hidden="true"></i> Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>Youden</strong> index (<em>Youden’s J statistics</em>) is a summary metric that helps to identify the optimal threshold that maximizes both sensitivity (true positive rate) and specificity (true negative rate) simultaneously. It is computed as follows:</p>
+<p><span class="math display">\[ J = \mathrm{sensitivity} + \mathrm{specificity} -1 \]</span></p>
+<p>Compute the Youden index and find the optimal threshold that maximizes both sensitivity and specificity in the logistic regression model fitted to the evaluation scores data set.</p>
+<div class="webex-solution">
+<button>
+Take hint
+</button>
+<p>You can use the <code>roc_curve()</code> function to compute the sensitivity and specificity values at different thresholds. Then use these values to compute Youden’s index and find the threshold value associated with the maximum value of Youden’s index.</p>
+</div>
+<div class="cell" data-layout-align="center" data-webex.hide="Click here to see the solution">
+<div class="webex-solution">
+<button>
+Click here to see the solution
+</button>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_curve</span><span class="op">(</span><span class="va">pred_results</span>,</span>
+<span>          truth <span class="op">=</span> <span class="va">gender</span>,</span>
+<span>          <span class="va">.fitted</span>,</span>
+<span>          event_level <span class="op">=</span> <span class="st">"second"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>youden_j <span class="op">=</span> <span class="va">sensitivity</span> <span class="op">+</span> <span class="va">specificity</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">youden_j</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">youden_j</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">.threshold</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  .threshold
+       &lt;dbl&gt;
+1      0.709</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="logistic-regression-with-one-categorical-explanatory-variable" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Logistic regression with one categorical explanatory variable</h1>
 <p>Instead of having a numerical explanatory variable such as <code>age</code>, let’s now use the binary categorical variable <code>ethnicity</code> as our explanatory variable.</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op">&lt;-</span> <span class="va">evals</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">ethnicity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-  gender ethnicity   
-  &lt;fct&gt;  &lt;fct&gt;       
-1 female minority    
-2 female minority    
-3 female minority    
-4 female minority    
-5 male   not minority
-6 male   not minority</code></pre>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op">&lt;-</span> <span class="va">evals</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>                  <span class="fu">select</span><span class="op">(</span><span class="va">gender</span>, <span class="va">ethnicity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">gender</th>
+<th style="text-align: left;">ethnicity</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">minority</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">minority</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">minority</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">minority</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">male</td>
+<td style="text-align: left;">not minority</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Now, let’s look at a barplot of the proportion of males and females by <code>ethnicity</code> to get an initial impression of the data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can also use the <code>tabyl</code> function from the <code>janitor</code> package to display percentage data in an organized way. See <code><a href="https://sfirke.github.io/janitor/reference/tabyl.html">?tabyl</a></code> for more details.</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/tabyl.html">tabyl</a></span><span class="op">(</span><span class="va">ethnicity</span>, <span class="va">gender</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/adorn_percentages.html">adorn_percentages</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/adorn_pct_formatting.html">adorn_pct_formatting</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/tabyl.html">tabyl</a></span><span class="op">(</span><span class="va">ethnicity</span>, <span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/adorn_percentages.html">adorn_percentages</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/adorn_pct_formatting.html">adorn_pct_formatting</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/adorn_ns.html">adorn_ns</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># To show original counts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>    ethnicity      female        male
@@ -560,247 +1183,314 @@ p &amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\lef
  not minority 39.8% (159) 60.2% (240)</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">R Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">evals.ethnic</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gender</span>, group <span class="op">=</span> <span class="va">ethnicity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">prop</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">ethnicity</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">"count"</span>, position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Proportion"</span>, fill <span class="op">=</span> <span class="st">"Ethnicity"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" style="width:48.0%"></p>
-<figcaption class="figure-caption">Barplot of teaching instructors’ gender by ethnicity.</figcaption></figure>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>Barplot of teaching instructors’ gender by ethnicity.</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">evals.ethnic</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gender</span>, group <span class="op">=</span> <span class="va">ethnicity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">prop</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">ethnicity</span><span class="op">)</span>, </span>
+<span>             stat <span class="op">=</span> <span class="st">"count"</span>, position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Proportion"</span>, fill <span class="op">=</span> <span class="st">"Ethnicity"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </div>
 <p>We can see that a larger proportion of instructors in the <code>minority</code> ethnic group are female (56.3% vs 43.8%), while the <code>not minority</code> ethnic group is comprised of more male instructors (60.2% vs 39.8%). Now we shall fit a logistic regression model to determine whether the gender of a teaching instructor can be predicted from their ethnicity.</p>
-<section id="log-odds-1" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="log-odds-1">
-<span class="header-section-number">3.1</span> Log-odds</h2>
+<section id="log-odds-1" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="log-odds-1">
+<span class="header-section-number">4.1</span> Log-odds</h2>
 <p>The logistic regression model is given by:</p>
+<span class="math display">\[\begin{align}
+y_i &amp;\sim \mathrm{Bernoulli}(p_i)\\
+\mathrm{logit}(p_i) &amp;= \alpha +  \beta_{\mbox{ethnicity}}  \times \mathbb{I}_{\mbox{ethnicity}}(\mathrm{not~  minority}).
+\end{align}\]</span>
+<p>Which can be fitted in R as follows:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op">&lt;-</span> <span class="fu">logistic_reg</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">set_engine</span><span class="op">(</span><span class="st">"glm"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">fit</span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">ethnicity</span>, data <span class="op">=</span> <span class="va">evals.ethnic</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">extract_fit_engine</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">ethnicity</span>,</span>
+<span>                    data <span class="op">=</span> <span class="va">evals.ethnic</span>,</span>
+<span>                    family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Here, <span class="math inline">\(y_i\)</span> denotes the <span class="math inline">\(i\)</span>th instructor’s gender, again, the baseline category for our binary response is <code>female</code>. Thus, <span class="math inline">\(p_i = \mathrm{Prob}(\mathrm{Male})\)</span> is linked to the linear predictor through the logit link function. This means that estimates we get from fitting the logistic regression model are for a change on the <strong>log-odds</strong> scale for <code>males</code> (<span class="math inline">\(p_i = \textrm{Prob}(\textrm{Males})\)</span>) in comparison to the response baseline <code>females</code>.</p>
+<p>Also, the baseline category for our explanatory variable is <code>minority</code>, which, like <code>gender</code>, is done alphabetically by default by R:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-stats::glm(formula = gender ~ ethnicity, family = stats::binomial, 
-    data = data)
-
-Coefficients:
-                      Estimate Std. Error z value Pr(&gt;|z|)  
-(Intercept)            -0.2513     0.2520  -0.997   0.3186  
-ethnicitynot minority   0.6630     0.2719   2.438   0.0148 *
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 630.30  on 462  degrees of freedom
-Residual deviance: 624.29  on 461  degrees of freedom
-AIC: 628.29
-
-Number of Fisher Scoring iterations: 4</code></pre>
-</div>
-</div>
-<p>Again, the baseline category for our binary response is <code>female</code>. Also, the baseline category for our explanatory variable is <code>minority</code>, which, like <code>gender</code>, is done alphabetically by default by R:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">evals.ethnic</span><span class="op">$</span><span class="va">ethnicity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">evals.ethnic</span><span class="op">$</span><span class="va">ethnicity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "minority"     "not minority"</code></pre>
 </div>
 </div>
-<p>This means that estimates from the logistic regression model are for a change on the <strong>log-odds</strong> scale for <code>males</code> (<span class="math inline">\(p = \textrm{Prob}(\textrm{Males})\)</span>) in comparison to the response baseline <code>females</code>. That is</p>
+<p>Thus, <span class="math inline">\(\alpha\)</span> correspond to the <strong>log-odds</strong> of the instructors being a males given that they are on the <code>minority</code> baseline category.</p>
+<p>Then, <span class="math inline">\(\mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority})\)</span> is an indicator function for those instructors in the <code>not minority</code> group and <span class="math inline">\(\beta_{\mbox{ethnicity}}\)</span> represent the change in the <strong>log-odds</strong> of a male instructor that is not on the minority group.</p>
+<p>Lets break this down. The model we have fitted is:</p>
+<p><span class="math display">\[
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\mbox{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\alpha\)</span> is the <strong>intercept</strong>, representing the <strong>log-odds</strong> when <span class="math inline">\(\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0\)</span> (i.e., when the instructor is in the minority group). When the instructor belongs to the reference category <code>minority</code> the models simplifies to: <span class="math display">\[\mathrm{log}\left(\frac{p_i}{1-p_i}\right) = \alpha \]</span></p></li>
+<li><p><span class="math inline">\(\beta_{\mathrm{ethnicity}}\)</span> is the <strong>coefficient</strong> for the predictor <span class="math inline">\(\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority})\)</span>, which shows how the log-odds change when moving from the reference category (<code>minority</code>) to the other level (<code>not minority</code>). When the instructor does <strong>not</strong> belong to reference category, i.e.&nbsp;<span class="math inline">\(\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 1\)</span>, the model becomes: <span class="math display">\[\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\mbox{ethnicity}}\]</span></p></li>
+</ul>
+<p>So, the <strong>log-odds</strong> of the instructors being male in the <code>not minority</code> group are <span class="math inline">\(\alpha +\beta_{\mbox{ethnicity}}\)</span>. Lets compute the model estimates and 95 % confidence intervals for the <strong>log-odds</strong>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>conf.int <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 12%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-0.25</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">-1.00</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">-0.75</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicitynot minority</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">2.44</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">1.20</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The fitted model is:</p>
 <span class="math display">\[\begin{align}
-\ln\left(\frac{p}{1-p}\right) &amp;= \alpha + \beta \cdot \textrm{ethnicity} = -0.25 + 0.66 \cdot \mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority}), \nonumber
+\ln\left(\frac{\hat{p_i}}{1-\hat{p_i}}\right) &amp;= -0.25 + 0.66 \cdot \mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority}), \nonumber
 \end{align}\]</span>
-<p>where <span class="math inline">\(\mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority})\)</span> is an indicator function. Hence, the <strong>log-odds</strong> of an instructor being male increase by 0.66 if they are in the ethnicity group <code>not minority</code>. This provides us with a point estimate of how the log-odds changes with ethnicity, however, we are also interested in producing a 95% confidence interval for these log-odds. This can be done as follows:</p>
+<p>Hence, the <strong>log-odds</strong> of an instructor being male increase by 0.66 if they are in the ethnicity group <code>not minority</code>, which has a corresponding 95% confidence interval of (0.13, 1.2).</p>
+<p>This can be displayed graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package by simply passing our <code>model</code> as an argument:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod.ethnic.coef.logodds</span> <span class="op">&lt;-</span> <span class="va">model.ethnic</span> <span class="op">|&gt;</span></span>
-<span>                            <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>                            <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ethnic.logodds.lower</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">mod.ethnic.coef.logodds</span><span class="op">[</span><span class="st">"ethnicitynot minority"</span>, <span class="st">"Estimate"</span><span class="op">]</span> </span>
-<span>                          <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span></span>
-<span>                           <span class="va">mod.ethnic.coef.logodds</span><span class="op">[</span><span class="st">"ethnicitynot minority"</span>, <span class="st">"Std. Error"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1300587</code></pre>
-</div>
-<details><summary>Code</summary><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ethnic.logodds.upper</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">mod.ethnic.coef.logodds</span><span class="op">[</span><span class="st">"ethnicitynot minority"</span>, <span class="st">"Estimate"</span><span class="op">]</span> </span>
-<span>                          <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span></span>
-<span>                           <span class="va">mod.ethnic.coef.logodds</span><span class="op">[</span><span class="st">"ethnicitynot minority"</span>, <span class="st">"Std. Error"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.19604</code></pre>
-</div>
-</div>
-<p>Hence the point estimate for the log-odds is 0.66, which has a corresponding 95% confidence interval of (0.13, 1.2). This can be displayed graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package by simply passing our <code>model</code> as an argument:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>, transform <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>, transform <span class="op">=</span> <span class="cn">NULL</span>, </span>
 <span>           title <span class="op">=</span> <span class="st">"Log-Odds (Male instructor)"</span>, show.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">The log-odds for male instructors by ethnicity (not a minority).</figcaption></figure>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>The log-odds for male instructors by ethnicity (not a minority).</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Now, let’s add the estimates of the log-odds to our data set:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op">&lt;-</span> <span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>logodds.male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model.ethnic</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  gender ethnicity    logodds.male
-  &lt;fct&gt;  &lt;fct&gt;               &lt;dbl&gt;
-1 female minority           -0.251
-2 female minority           -0.251
-3 female minority           -0.251
-4 female minority           -0.251
-5 male   not minority        0.412
-6 male   not minority        0.412</code></pre>
-</div>
-</div>
-</section><section id="odds-1" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="odds-1">
-<span class="header-section-number">3.2</span> Odds</h2>
+</section><section id="odds-1" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="odds-1">
+<span class="header-section-number">4.2</span> Odds</h2>
 <p>On the <strong>odds</strong> scale the regression coefficients are given by</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op">|&gt;</span></span>
-<span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>          (Intercept) ethnicitynot minority 
-            0.7777778             1.9407008 </code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model.ethnic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>conf.int <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>       exponentiate <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 12%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">-1.00</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">1.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicitynot minority</td>
+<td style="text-align: right;">1.94</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">2.44</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">1.14</td>
+<td style="text-align: right;">3.33</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>The <code>(Intercept)</code> gives us the odds of the instructor being male given that they are in the <code>minority</code> ethnic group, that is, 0.78 (the indicator function is zero in that case). The odds of the instructor being male given they are in the <code>not minority</code> ethnic group are 1.94 times greater than the odds if they were in the <code>minority</code> ethnic group.</p>
-<p>Before moving on, let’s take a look at how these values are computed. First, the odds of the instructor being male given that they are in the <code>minority</code> ethnic group can be obtained as follows:</p>
+<p>The <code>(Intercept)</code> gives us the odds of the instructor being male given that they are in the <code>minority</code> ethnic group, that is, 0.78 (the indicator function is zero in that case).</p>
+<p>The odds of the instructor being male given they are in the <code>not minority</code> ethnic group are 1.94 times greater than the odds if they were in the <code>minority</code> ethnic group.</p>
+<p>Before moving on, let’s break down how these values are computed. First, the odds of the instructor being male given that they are in the <code>minority</code> ethnic group (reference category) can be obtained as follows:</p>
 <span class="math display">\[\begin{align}
-\frac{p_{\mbox{minority}}}{1 - p_{\mbox{minority}}} = \exp\left(\alpha\right) = \exp\left(-0.25\right) = 0.78. \nonumber
+\mathrm{Odds}(\mathrm{male = 1} | \mathrm{minority} =1) &amp;= \dfrac{p_{(minority=1)}}{1 - p_{(minority=1)}}\\
+&amp;= \exp\left(\alpha\right) \\
+&amp;= \exp\left(-0.25\right) \\
+&amp;= 0.78. \nonumber
 \end{align}\]</span>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># the number of instructors in the minority</span></span>
-<span><span class="va">pmin</span> <span class="op">&lt;-</span> <span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ethnicity</span> <span class="op">==</span> <span class="st">"minority"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># the number of male instructors in the minority</span></span>
-<span><span class="va">pmin.male</span> <span class="op">&lt;-</span> <span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ethnicity</span> <span class="op">==</span> <span class="st">"minority"</span>, <span class="va">gender</span> <span class="op">==</span> <span class="st">"male"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># the proportion/probability of males in the minority</span></span>
-<span><span class="va">prob.min.male</span> <span class="op">&lt;-</span> <span class="va">pmin.male</span> <span class="op">/</span> <span class="va">pmin</span></span>
-<span><span class="va">odds.min.male</span> <span class="op">&lt;-</span> <span class="va">prob.min.male</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">prob.min.male</span><span class="op">)</span></span>
-<span><span class="va">odds.min.male</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7777778</code></pre>
-</div>
-</div>
-<p>Now, the odds-ratio of an instructor being male in the <code>not minority</code> compared to the <code>minority</code> ethnic group is found as follows:</p>
+<p>Here, <span class="math inline">\(p_{(minority=1)} = \mathrm{Prob}\left(\mathrm{Male}=1 | \mathrm{minority}=1\right)\)</span>. Thus, the odds of the instructor in the <code>minority</code> group being a male are 0.78 the odds of an instructor being a female in the same group.</p>
+<p>Slightly confusing right? Maybe it makes more sense to interpret this result in terms of the <code>female</code> group, i.e.&nbsp;<span class="math inline">\(\mathrm{Odds}(\mathrm{female} = 1 | \mathrm{minority} =1)\)</span>. However you must be aware that this is not a probability! so you can not simply compute <span class="math inline">\(1- \mathrm{exp}(\alpha)\)</span>. To compute this correctly, we should do as follows:</p>
 <span class="math display">\[\begin{align}
-\frac{\mbox{Odds}_{\mbox{not minority}}}{\mbox{Odds}_{\mbox{minority}}} = \frac{\frac{p_{\mbox{not minority}}}{1 - p_{\mbox{not minority}}}}{\frac{p_{\mbox{minority}}}{1 - p_{\mbox{minority}}}} &amp;= \frac{\exp\left(\alpha + \beta\right)}{\exp\left(\alpha\right)} = \exp\left(\alpha + \beta - \alpha\right) = \exp\left(\beta\right) = \exp\left(0.66 \right) = 1.93. \nonumber
+\mathrm{Odds}(\mathrm{female} = 1 | \mathrm{minority} =1) &amp;= \dfrac{P(\mathrm{female}=1 |\mathrm{minority}=1)}{P(\mathrm{male}= 1 |\mathrm{minority}=1)}\\
+&amp;= \left[\dfrac{P(\mathrm{male}=1 |\mathrm{minority}=1)}{P(\mathrm{female}= 1 |\mathrm{minority}=1)}\right]^{-1}\\
+&amp;= \mathrm{exp}(\alpha)^{-1} \\ &amp;= \exp\left(-0.25\right)^{-1} = 1.28
 \end{align}\]</span>
+<p>Thus, the odds of the instructor in the <code>minority</code> group being a female are 28% higher than the odds of an instructor being a male in the same group. However, by looking at the confidence intervals and p-value we can see that this difference is not statistically significant.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi-pencil-square " style="color: #c8793c;" role="img" aria-hidden="true"></i> Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the <code>relevel</code> function to fit a logistic regression that estimates the odds of the instructor being female given that they are in the <code>minority</code> ethnic group directly.</p>
+<div class="webex-solution">
+<button>
+Take hint
+</button>
+<p>The reference category in your data can be changed by using the <code><a href="https://rdrr.io/r/stats/relevel.html">relevel()</a></code> function. see <code><a href="https://rdrr.io/r/stats/relevel.html">?relevel</a></code> for further details.</p>
+</div>
+<div class="cell" data-layout-align="center" data-webex.hide="Click here to see the solution">
+<div class="webex-solution">
+<button>
+Click here to see the solution
+</button>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html">relevel</a></span><span class="op">(</span><span class="va">gender</span>,ref <span class="op">=</span> <span class="st">"male"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">~</span> <span class="va">ethnicity</span>, data <span class="op">=</span> <span class="va">.</span> ,family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  </span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span><span class="op">==</span><span class="st">"(Intercept)"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">pull</span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.285714</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Now, let’s look a the odds-ratio of an instructor being male in the <code>not minority</code> group compared to the <code>minority</code> ethnic group.</p>
+<ol type="1">
+<li>
+<p>First, the <strong>odds</strong> of an instructor being male given that they are in the minority ethnic group were:</p>
+<span class="math display">\[\begin{align}
+\mathrm{Odds}(\mathrm{male} = 1 | \mathrm{minority} = 1) =&amp;
+\dfrac{p_{(minority=1)}}{1 - p_{(minority=1)}} \\
+&amp;= \exp\left(\alpha\right) \\ &amp;= 0.78. \nonumber
+\end{align}\]</span>
+</li>
+<li>
+<p>Recall that the <strong>log-odds</strong> of an instructor <strong>not</strong> belonging to the minority group (i.e.&nbsp;<code>not minority</code>) being a male are <span class="math inline">\(\alpha +\beta_{\mbox{ethnicity}}\)</span>. On the odds scale this is:</p>
+<span class="math display">\[\begin{align}
+\mathrm{Odds}(\mathrm{male} = 1 | \mathrm{minority} = 0) =&amp; \dfrac{p_{(\mathrm{minority} = 0)}}{1- p_{(\mathrm{minority} = 0)}}\\
+&amp;= \mathrm{exp}( \alpha + \beta_{\mbox{ethnicity}}) \\
+&amp;= 1.51
+\end{align}\]</span>
+</li>
+<li>
+<p>Now, the odds of an instructor that is <strong>no</strong>t in the minority group being male against the odds of an instructor that comes from the <code>minority</code> group is given by the ratio of the odds we just calculated:</p>
+<span class="math display">\[\begin{align}
+\frac{\mathrm{Odds}(\mathrm{male} = 1| \mathrm{minority} = 0)}{\mathrm{Odds}(\mathrm{male} = 1| \mathrm{minority} = 1)} &amp;= \dfrac{\frac{p_{(\mathrm{minority} = 0)}}{1- p_{(\mathrm{minority} = 0)}}}{\frac{p_{(\mathrm{minority}=1)}}{1- p_{(\mathrm{minority}=1)}}} \\
+&amp;= \frac{\mathrm{exp}( \alpha + \beta_{\mbox{ethnicity}})}{\exp\left(\alpha\right)}\\
+&amp;= \exp\left(\alpha + \beta_{\mbox{ethnicity}} - \alpha\right) \\
+&amp;= \exp\left(\beta_{\mbox{ethnicity}}\right) = \exp\left(0.66 \right) \\
+&amp;= 1.93. \nonumber
+\end{align}\]</span>
+</li>
+</ol>
+<p>Which is the coefficient estimate we got from the <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code> summaries. This means that instructors that are not in the minority groups are significantly 1.93 times more likely to be males compared to instructors in the minority group.</p>
+<p>The corresponding 95% confidence interval of (1.14, 3.33). Again, we can display this graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># the number of instructors not in the minority</span></span>
-<span><span class="va">pnotmin</span> <span class="op">&lt;-</span> <span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ethnicity</span> <span class="op">==</span> <span class="st">"not minority"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># the number of male instructors not in the minority</span></span>
-<span><span class="va">pnotmin.male</span> <span class="op">&lt;-</span> <span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ethnicity</span> <span class="op">==</span> <span class="st">"not minority"</span>, <span class="va">gender</span> <span class="op">==</span> <span class="st">"male"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># the proportion/probability of males not in the minority</span></span>
-<span><span class="va">prob.notmin.male</span> <span class="op">&lt;-</span> <span class="va">pnotmin.male</span> <span class="op">/</span> <span class="va">pnotmin</span></span>
-<span><span class="va">odds.notmin.male</span> <span class="op">&lt;-</span> <span class="va">prob.notmin.male</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">prob.notmin.male</span><span class="op">)</span></span>
-<span><span class="va">odds.ratio.notmin</span> <span class="op">&lt;-</span> <span class="va">odds.notmin.male</span> <span class="op">/</span> <span class="va">odds.min.male</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.940701</code></pre>
-</div>
-</div>
-<p>We can obtain a 95% confidence interval for the odds by simply exponentiating the lower and upper bounds of the log-odds interval:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ethnic.odds.lower</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">ethnic.logodds.lower</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.138895</code></pre>
-</div>
-<details><summary>Code</summary><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ethnic.odds.upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">ethnic.logodds.upper</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.306994</code></pre>
-</div>
-</div>
-<p>Hence the point estimate for the odds-ratio is 1.94, which has a corresponding 95% confidence interval of (1.14, 3.31). Again, we can display this graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>           title <span class="op">=</span> <span class="st">"Odds (Male instructor)"</span>, show.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">The odds-ratio of a male instructor given they are in the <code>not minority</code> group.</figcaption></figure>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>The odds-ratio of a male instructor given they are in the <code>not minority</code> group.</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Now, let’s add the estimates of the odds to our data set:</p>
+</section><section id="probabilities-1" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="probabilities-1">
+<span class="header-section-number">4.3</span> Probabilities</h2>
+<p>You can also use the model to predict the probability of having an instructor being male for each ethnicity group.</p>
+<p>The probabilities of an instructor being male given they are in the <code>minority</code> and <code>not minority</code> groups are:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op">&lt;-</span> <span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>odds.male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">logodds.male</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  gender ethnicity    logodds.male odds.male
-  &lt;fct&gt;  &lt;fct&gt;               &lt;dbl&gt;     &lt;dbl&gt;
-1 female minority           -0.251     0.778
-2 female minority           -0.251     0.778
-3 female minority           -0.251     0.778
-4 female minority           -0.251     0.778
-5 male   not minority        0.412     1.51 
-6 male   not minority        0.412     1.51 </code></pre>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model.ethnic</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+     0.4375 </code></pre>
 </div>
-</div>
-</section><section id="probabilities-1" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="probabilities-1">
-<span class="header-section-number">3.3</span> Probabilities</h2>
-<p>The probabilities of an instructor being male given they are in the <code>minority</code> and <code>not minority</code> groups are</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">mod.ethnic.coef.logodds</span><span class="op">[</span><span class="st">"(Intercept)"</span>, <span class="st">"Estimate"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4375</code></pre>
-</div>
-<details><summary>Code</summary><div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">mod.ethnic.coef.logodds</span><span class="op">[</span><span class="st">"(Intercept)"</span>, <span class="st">"Estimate"</span><span class="op">]</span> <span class="op">+</span></span>
-<span>         <span class="va">mod.ethnic.coef.logodds</span><span class="op">[</span><span class="st">"ethnicitynot minority"</span>, <span class="st">"Estimate"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6015038</code></pre>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model.ethnic</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model.ethnic</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+  0.6015038 </code></pre>
 </div>
 </div>
 <p>Hence, the probabilities of an instructor being male given they are in the <code>minority</code> and <code>not minority</code> ethnic groups are 0.437 and 0.602, respectively.</p>
-<p>Let’s add the probabilities to our data:</p>
-<div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op">&lt;-</span> <span class="va">evals.ethnic</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>probs.male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">model.ethnic</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 <p>Finally, we can use the <code><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model()</a></code> function from the <code>sjPlot</code> package to produce the estimated probabilities by <code>ethnicity</code> as follows:</p>
 <div class="cell" data-layout-align="center">
-<details><summary>Code</summary><div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>, type <span class="op">=</span> <span class="st">"pred"</span>, terms <span class="op">=</span> <span class="st">"ethnicity"</span>, axis.title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ethnicity"</span>, <span class="st">"Prob. of instructor being male"</span><span class="op">)</span>, title <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>, type <span class="op">=</span> <span class="st">"pred"</span>, terms <span class="op">=</span> <span class="st">"ethnicity"</span>, axis.title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ethnicity"</span>, <span class="st">"Prob. of instructor being male"</span><span class="op">)</span>, title <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Probability of teaching instructor being male by ethnicity.</figcaption></figure>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>Probability of teaching instructor being male by ethnicity.</figcaption></figure>
 </div>
 </div>
 </div>
 
 
-</section></section></main><!-- /main --><script>
+
+</section></section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-gabry2019" class="csl-entry" role="listitem">
+Gabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. <span>“Visualization in Bayesian Workflow.”</span> <em>Journal of the Royal Statistical Society Series A: Statistics in Society</em> 182 (2): 389–402. <a href="https://doi.org/10.1111/rssa.12378">https://doi.org/10.1111/rssa.12378</a>.
+</div>
+<div id="ref-gelman2006" class="csl-entry" role="listitem">
+Gelman, Andrew, and Jennifer Hill. 2006. <span>“Data Analysis Using Regression and Multilevel/Hierarchical Models,”</span> December. <a href="https://doi.org/10.1017/cbo9780511790942">https://doi.org/10.1017/cbo9780511790942</a>.
+</div>
+</div></section></div></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -1025,6 +1715,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1135,10 +1969,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1148,8 +1999,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1161,7 +2021,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1205,6 +2188,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1230,6 +2214,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {

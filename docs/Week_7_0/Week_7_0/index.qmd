@@ -16,25 +16,12 @@ format:
 editor: visual
 editor_options: 
   chunk_output_type: console
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
-library(ggplot2)
-library(dplyr)
-library(moderndive)
-library(ISLR)
-library(skimr)
-library(plotly)
-library(tidyr)
-library(datasets)
 library(knitr)
-library(janitor)
-library(infer)
-library(sjPlot)
-library(stats)
-library(readr)
-library(janitor)
-
+library(webexercises)
 knitr::opts_chunk$set(echo = TRUE, comment = NA, out.width = '65%', fig.align = "center", fig.pos = 'H',
                       warning = FALSE, message = FALSE)
 ```
@@ -48,7 +35,7 @@ p.caption {
 ```
 # Introduction
 
-In Weeks 3 and 4 we looked at modelling data using linear regression models were we had:
+In previous weeks we looked at modelling data using linear regression models were we had:
 
 -   a **continuous response variable** $y$ and
 -   one or more **explanatory variables** $x_1, x_2,\ldots, x_p$, which were **numerical**/**categorical** variables.
@@ -71,7 +58,7 @@ where the mean $\alpha + \beta x_i$ is given by the deterministic part of the mo
 
 ## Generalised linear models
 
-The main objective this week is to introduce **Generalised Linear Models (GLMs)**, which extend the linear model framework to response variables that don't follow the normal distribution. GLMs can be used to model non-normal continuous response variables, but they are most frequently used to model binary, categorical or count data. Here we shall focus on binary/categorical response variables. The generalised linear model can be written as:
+The main objective this week is to introduce **Generalised Linear Models (GLMs)**, which extend the linear model framework to response variables that don't follow the normal distribution. GLMs can be used to model non-normal continuous response variables, but they are most frequently used to model binary, categorical or count data. The generalised linear model can be written as:
 
 \vspace{-0.5cm}
 
@@ -83,15 +70,17 @@ y_i &\sim f(g(\boldsymbol{\mu}_i)) \nonumber \\
 ```
 where the response $y_i$ is predicted through the linear combination $\boldsymbol{\mu}_i$ of explanatory variables by the link function $g(\cdot)$, assuming some distribution $f(\cdot)$ for $y_i$, and $\mathbf{x}_i^\top$ is the $i^{th}$ row of the design matrix $\boldsymbol{X}$. For example, the simple linear regression model above for a continuous response variable has the normal distribution distribution as $f(\cdot)$, with corresponding link function equal to the Identity function, that is, $g(\boldsymbol{\mu}_i) = \boldsymbol{\mu}_i$.
 
-What if our response variable $y$ is binary (e.g. yes/no, success/failure, alive/dead)? That is, the independent responses $y_i$ can either be:
+This week we will learn how to model outcomes of interest that take one of two categorical values (e.g. yes/no, success/failure, alive/dead).
 
 -   **binary**, taking the value 1 (say success, with probability $p_i$) or 0 (failure, with probability $1-p_i$) or
 
 -   **binomial**, where $y_i$ is the number of successes in a given number of trials $n_i$, with the probability of success being $p_i$ and the probability of failure being $1-p_i$.
 
-In both cases the distribution of $y_i$ is assumed to be binomial, but in the first case it is Bin$(1,p_i)$ and in the second case it is Bin$(n_i,p_i)$. Hence, a binary response variable $y_i$ has a binomial distribution with corresponding link function $g(\cdot)$ equal to the **logit link** function, that is
+In both cases the distribution of $y_i$ is assumed to be binomial, but in the first case it is Bin$(1,p_i)$ and in the second case it is Bin$(n_i,p_i)$. Hence, a binary response variable $y_i$ has a binomial distribution with corresponding link function $g(\cdot)$ , e.g. the **logit link** function, that is
 
-$$g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right),$$ which is also referred to as the **log-odds** (since $p_i ~ / ~ 1-p_i$ is an odds ratio). Why is such a transformation required when looking at a binary response variable? Well here we are interested in modelling the probability of success $p_i$, and as we know probabilities must be between 0 and 1 $\left(p_i \in [0, 1]\right)$. So if we want to model the probability of success using a linear model we need to ensure that the probabilities obtained are between 0 and 1. However, if we just use the identity link function, such that
+$$g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right),$$
+
+which is also referred to as the **log-odds** (since $p_i ~ / ~ 1-p_i$ is an odds ratio). Why is such a transformation required when looking at a binary response variable? Well here we are interested in modelling the probability of success $p_i$, and as we know probabilities must be between 0 and 1 $\left(p_i \in [0, 1]\right)$. So if we want to model the probability of success using a linear model we need to ensure that the probabilities obtained are between 0 and 1. However, if we just use the identity link function, such that
 
 $$p_i = \mathbf{x}_i^\top \boldsymbol{\beta},$$ we would need to ensure that in some way $\mathbf{x}_i^\top \boldsymbol{\beta} \in [0, 1]$, that is, the linear combination of the explanatory variables and their corresponding regression coefficients was between 0 and 1. Hence some restrictions of some sort would need to be put in place to ensure this was the case. However, if we use the logit link function, such that
 
@@ -99,10 +88,12 @@ $$\log \left(\frac{p_i}{1 - p_i} \right) = \mathbf{x}_i^\top \boldsymbol{\beta},
 
 no restrictions need to be in place on our estimates of the parameter vector $\boldsymbol{\beta}$, since the inverse of the logit link function will always gives us valid probabilities since
 
-$$p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].$$ This linear regression model with a binary response variable is referred to as **logistic regression**. As such, when it comes to looking at binary response variables we shall be looking at odds ratios and probabilities of success/failure. The table below is a reminder of the distribution and link function used for the normal model we have previously looked at as well as the logistic regression model we shall be examining for the rest of this week.
+$$p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].$$
+
+This linear regression model with a binary response variable and logit link function is referred to as **logistic regression**. As such, when it comes to looking at binary response variables we shall be looking at odds ratios and probabilities of success/failure. The table below is a reminder of the distribution and link function used for the normal model we have previously looked at as well as the logistic regression model we shall be examining for the rest of this week.
 
 | **Model** |                   **Random component**                    |                               **Systematic component**                                |                 **Link function**                  |
-|:--------------:|:--------------:|:----------------------:|:--------------:|
+|:----------------:|:----------------:|:-----------------:|:----------------:|
 |  Normal   | $y_i\overset{\text{indep}}\sim \mbox{N}(\mu_i,\sigma^2),$ | $\boldsymbol{x}_i^\top\boldsymbol{\beta} =\beta_0 + \beta_1x_i + \beta_2x_i + \ldots$ |                  $g(\mu_i)=\mu_i$                  |
 | Logistic  |    $y_i\overset{\text{indep}}\sim \mbox{Bin}(1,p_i),$     | $\boldsymbol{x}_i^\top\boldsymbol{\beta} =\beta_0+ \beta_1x_i + \beta_2x_i + \ldots$  | $g(\mu_i) = \log \left( \frac{p_i}{1-p_i} \right)$ |
 
@@ -110,21 +101,24 @@ $$p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\le
 
 Before we proceed, load all the packages needed for this week:
 
-```{r message=FALSE, warning=FALSE}
-library(dplyr)
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: show
+
+library(tidyr)
 library(ggplot2)
 library(moderndive)
-library(gapminder)
 library(sjPlot)
-library(stats)
-library(readr)
-library(janitor)
 library(tidymodels)
+library(broom)
+library(performance)
+library(janitor)
 ```
 
 # Logistic regression with one numerical explanatory variable
 
-Here we shall begin by fitting a logistic regression model with one numerical explanatory variable. Let's return to the `evals` data from the `moderndive` package that we examined in Week 3.
+Here we shall begin by fitting a logistic regression model with one numerical explanatory variable. Let's return to the `evals` data from the `moderndive` package that we examined in previous weeks.
 
 ## Teaching evaluation scores
 
@@ -134,40 +128,86 @@ Previously, we looked at **teaching score** as our continuous response variable 
 
 First, let's start by selecting the variables of interest from the `evals` data set:
 
-```{r evals1, echo = c(1), eval = TRUE}
-evals.gender <- evals |>
+```{r}
+#| code-fold: show
+evals.gender <- evals %>%
                   select(gender, age)
-head(evals.gender)
 ```
 
 Now, let's look at a boxplot of `age` by `gender` to get an initial impression of the data:
 
-```{r, fig.cap = "Teaching instructor age by gender.", fig.align = "center", out.width = "50%"}
+::: panel-tabset
+# R plot
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+#| fig-cap: "Teaching instructor age by gender."
+
 ggplot(data = evals.gender, aes(x = gender, y = age, fill = gender)) +
   geom_boxplot() +
   labs(x = "Gender", y = "Age") +
   theme(legend.position = "none")
+
 ```
+
+# R code
+
+```{r}
+#| eval: false
+#| code-fold: false
+
+ggplot(data = evals.gender,
+       aes(x = gender, y = age, fill = gender)) +
+  geom_boxplot() +
+  labs(x = "Gender", y = "Age") +
+  theme(legend.position = "none")
+
+```
+:::
 
 Here we can see that the age of male teaching instructors tends to be higher than that of their female counterparts. Now, let's fit a logistic regression model to see whether age is a significant predictor of the odds of a teaching instructor being male or female.
 
 ## Log-odds
 
-To fit a logistic regression model we will use the generalised linear model function `glm`, which acts in a very similar manner to the `lm` function we have used previously. The logistic regression model with **gender** as the response and **age** as the explanatory variable is given by:
+To fit a logistic regression model we will use the generalised linear model function `glm` and set the argument `family = binomial`. The logistic regression model with **gender** as the response and **age** as the explanatory variable is given by:
 
-```{r model1, echo = TRUE, eval = TRUE}
-model <- logistic_reg() |> 
-  set_engine("glm")
-model <- model |> 
-  fit(gender ~ age, data = evals.gender) |>
-  extract_fit_engine()
+```{r}
+#| code-fold: false
+
+model <- glm(gender ~ age, data = evals.gender,family = binomial)
 ```
 
-This model uses the **logit link** function. Now, let's take a look at the summary produced from our logistic regression model:
+This model uses the **logit link** function by default.
 
-```{r mod1sum, echo = TRUE, eval = TRUE}
-model |>
-  summary()
+::: callout-note
+To use a non-default or `link`, pass in as an argument to `binomial()`. For example if we wanted to use the probit link function we could specify the following argument:
+
+```{r}
+#| code-fold: false
+#| eval: false
+
+glm(gender ~ age,
+    data = evals.gender,
+    family = binomial(link = "probit"))
+
+
+```
+:::
+
+Now, let's take a look at the summary produced from our logistic regression model using the `tidy` function from the `broom` library:
+
+```{r}
+#| code-fold: false
+#| eval: false 
+model %>% broom::tidy()
+
+```
+
+```{r mod1sum, echo = FALSE, eval = TRUE}
+model %>%   broom::tidy() %>% knitr::kable()
 ```
 
 ```{r mod1coefs, echo = FALSE, eval = TRUE}
@@ -176,7 +216,8 @@ mod1coefs <- round(coef(model), 2)
 
 Firstly, the baseline category for our binary response is `female`. This is due to the default baseline in R being taken as the one which comes first alphabetically, which can be seen from the `levels` function:
 
-```{r levels, echo = TRUE, eval = TRUE}
+```{r}
+#| code-fold: false
 levels(evals.gender$gender)
 ```
 
@@ -184,29 +225,116 @@ This means that estimates from the logistic regression model are for a change on
 
 ```{=tex}
 \begin{align}
-\ln\left(\frac{p}{1-p}\right) &= \alpha + \beta \cdot \textrm{age} = `r mod1coefs[1]` + `r mod1coefs[2]` \cdot \textrm{age}, \nonumber
+\ln\left(\frac{p}{1-p}\right) &= \alpha + \beta \times \textrm{age} = `r mod1coefs[1]` + `r mod1coefs[2]` \times \textrm{age}, \nonumber
 \end{align}
 ```
-where $p = \textrm{Prob}\left(\textrm{Male}\right)$ and $1 - p = \textrm{Prob}\left(\textrm{Female}\right)$. Hence, the **log-odds** of the instructor being male increase by `r mod1coefs[2]` for every one unit increase in `age`. This provides us with a point estimate of how the log-odds changes with age, however, we are also interested in producing a 95% confidence interval for these log-odds. This can be done as follows:
+where $p = \textrm{Prob}\left(\textrm{Male}\right)$ and $1 - p = \textrm{Prob}\left(\textrm{Female}\right)$.
 
-```{r, echo = c(1, 2, 3, 5, 7), eval = TRUE}
-mod.coef.logodds <- model |>
-                      summary() |>
-                      coef()
+Hence, the **log-odds** of the instructor being male increase by `r mod1coefs[2]` for every one unit increase in `age`.
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+Suppose now that we are interested in the **log-odds** of the instructor being a female (i.e. treat male as our reference category), how can we calculate the log-odds of this alternative outcome?
+
+`r hide("Take hint")`
+
+Recall that the logistic regression model we fitted previously predicts the log-odds of being a male (since female is treated as our reference category), i.e.
+
+```{=tex}
+\begin{align}
+\mathrm{log}\left(\dfrac{P(male=1)}{P(male=0)}\right) &= \alpha + \beta \cdot \textrm{age} = `r mod1coefs[1]` + `r mod1coefs[2]` \cdot \textrm{age}
+\end{align}
+```
+Now we are interested in :
+
+```{=tex}
+\begin{align}
+\mathrm{log}\left(\dfrac{P(male=0)}{P(male=1)}\right) &= -\mathrm{log}\left(\dfrac{P(male=1)}{P(male=0)}\right) \\
+&= -[ \alpha + \beta \cdot \textrm{age}] = -[`r (mod1coefs[1])` + `r (mod1coefs[2])`] \cdot \textrm{age}
+\end{align}
+```
+**Note**: The reference category in your data can be changed by using the `relevel()` function. see `?relevel` for further details.
+
+`r unhide()`
+
+```{r, echo = TRUE, eval = TRUE}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: false
+
+evals.gender %>% 
+  mutate(gender = relevel(gender,ref = "male")) %>%
+  glm(gender ~ age, data = . ,family = binomial) %>% 
+  broom::tidy()
+
+```
+:::
+
+This provides us with a point estimate of how the log-odds changes with age, however, we are also interested in producing a 95% confidence interval for these log-odds. This can be done by setting the option `conf.int = TRUE` within the `tidy()` function:
+
+```{r}
+#| code-fold: false
+#| eval: false
+
+model %>% tidy(conf.int = TRUE, conf.level = 0.95)
+
 ```
 
-```{r, echo = c(1, 3), eval = TRUE}
-age.logodds.lower <- (mod.coef.logodds["age", "Estimate"] 
-                        - 1.96 * mod.coef.logodds["age", "Std. Error"])
-age.logodds.lower
-age.logodds.upper <- (mod.coef.logodds["age", "Estimate"] 
-                        + 1.96 * mod.coef.logodds["age", "Std. Error"])
-age.logodds.upper
+```{r}
+#| echo: false
+model %>% tidy(conf.int = TRUE) %>% knitr::kable()
 ```
 
-Hence the point estimate for the log-odds is `r mod1coefs[2]`, which has a corresponding 95% confidence interval of (`r round(age.logodds.lower, 2)`, `r round(age.logodds.upper, 2)`). This can be displayed graphically using the `plot_model` function from the `sjPlot` package by simply passing our `model` as an argument:
+::: callout-note
+Notice that we could have omitted the argument `conf.level = 0.95` since this is the default confidence level used in the `tidy()` function. Thus, unless you need a confidence level other than the 95% CI, you can leave this argument with the default setting as will do in the following exercises.
+:::
 
-```{r, fig.cap = "The log-odds of age for male instructors.", fig.align="center", out.width = "50%"}
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+Produce a 95% Wald confidence interval (i.e., based on asymptotic normality) for the age coefficient by "hand", i.e. using only the coefficient's estimate and std. error. Then compare this result with the confidence interval obtained in R.
+
+Notice that the `tidy` function will compute a confidence interval using the profile-likelihood by default. Thus, if you want the results to be comparable, you will need to use the `confint.default()` function.
+
+`r hide("I need a hint")`
+
+Recall that a 95% Wald CI for $\beta$ can be computed as $\hat{\beta} \pm z_{1-\alpha/2} \times SE(\hat{\beta})$, where $SE(\cdot)$ denotes the standard error of the estimate and $z_{1-\alpha/2}$ the quantile of the Normal density.
+
+`r unhide()`
+
+```{r}
+#| webex.hide: "See the solution"
+#| code-fold: false
+#| echo: true
+
+mod.coef.logodds <- model %>% tidy() %>% filter(term=="age")
+
+# Compute Wald 95% CI by hand
+mod.coef.logodds$estimate + (c(-1,1)*
+qnorm(0.975)) * mod.coef.logodds$std.error 
+
+# Compare with Wald 95% CI in R
+confint.default(model)[2,]
+```
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+age.logodds.lower <- round(confint(model)[2,1],2)
+age.logodds.upper <- round(confint(model)[2,2],2)
+```
+
+The point estimate for the log-odds is `r mod1coefs[2]`, which has a corresponding 95% confidence interval of (`r round(age.logodds.lower, 2)`, `r round(age.logodds.upper, 2)`). This can be displayed graphically using the `plot_model` function from the `sjPlot` package by simply passing our `model` as an argument:
+
+```{r}
+#| code-fold: show
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+#| fig-cap: "The log-odds of age for male instructors." 
 plot_model(model, show.values = TRUE, transform = NULL,
            title = "Log-Odds (Male instructor)", show.p = FALSE)
 ```
@@ -218,13 +346,7 @@ Some of the interesting arguments that can be passed to the `plot_model` functio
 -   `transform`: A character vector naming the function that will be applied to the estimates. The default transformation uses `exp` to display the odds ratios, while `transform = NULL` displays the log-odds; and
 -   `vline.color`: colour of the vertical "zero effect" line.
 
-Further details on using `plot_model` can be found [here](https://strengejacke.wordpress.com/2017/10/23/one-function-to-rule-them-all-visualization-of-regression-models-in-rstats-w-sjplot/). Now, let's add the estimates of the log-odds to our data set:
-
-```{r, echo = c(1)}
-evals.gender <- evals.gender |>
-                  mutate(logodds.male = predict(model))
-head(evals.gender)
-```
+Further details on using `plot_model` can be found [here](https://strengejacke.wordpress.com/2017/10/23/one-function-to-rule-them-all-visualization-of-regression-models-in-rstats-w-sjplot/).
 
 ## Odds
 
@@ -235,65 +357,74 @@ Typically we would like to work on the **odds** scale as it is easier to interpr
 \frac{p}{1-p} &= \exp\left(\alpha + \beta \cdot \textrm{age} \right), \nonumber
 \end{align}
 ```
-```{r, echo = TRUE, eval = TRUE}
-model |>
- coef() |>
-  exp()
+```{r}
+#| eval: false
+#| code-fold: false
+model %>% tidy(exponentiate = T)
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
-mod1.odds <- model |>
-              coef() |>
-              exp()
+mod1.odds <- model %>% tidy(exponentiate = T) 
+mod1.odds%>% knitr::kable(digits=2)
 ```
 
-On the odds scale, the value of the intercept (`r round(mod1.odds["(Intercept)"], 2)`) gives the odds of a teaching instructor being male given their `age = 0`, which is obviously not a viable age for a teaching instructor, and hence why this value is very close to zero. For `age` we have an odds of `r round(mod1.odds[("age")], 2)`, which indicates that for every 1 unit increase in age, the odds of the teaching instructor being male increase by a factor of `r round(mod1.odds[("age")], 2)`. So how is this calculated? Let's look at the odds-ratio obtained from instructors aged 51 and 52 years old, that is, a one unit difference:
+On the odds scale, the value of the intercept (`r round(mod1.odds$estimate[1], 2)`) gives the odds of a teaching instructor being male given their `age = 0`, which is obviously not a viable age for a teaching instructor, and hence why this value is very close to zero. For `age` we have an odds of `r round(mod1.odds$estimate[2], 2)`, which indicates that for every 1 unit increase in age, the odds of the teaching instructor being male increase by a factor of `r round(mod1.odds$estimate[2],2)`.
+
+So how is this calculated? Let's look at the odds-ratio obtained from instructors aged 51 and 52 years old, that is, a one unit difference:
 
 ```{=tex}
 \begin{align}
-\frac{\mbox{Odds}_{\mbox{age=52}}}{\mbox{Odds}_{\mbox{age=51}}} = \left(\frac{\frac{p_{\mbox{age=52}}}{1 - p_{\mbox{age=52}}}}{\frac{p_{\mbox{age=51}}}{1 - p_{\mbox{age=51}}}}\right) = \frac{\exp\left(\alpha + \beta \cdot 52\right)}{\exp\left(\alpha + \beta \cdot 51\right)} = \exp\left(\beta \cdot (52 - 51)\right) = \exp\left(`r mod1coefs[2]`\right) = `r round(exp(mod1coefs[2]), 2)`. \nonumber
+\frac{\mbox{Odds}_{\mbox{age=52}}}{\mbox{Odds}_{\mbox{age=51}}} &= \left(\frac{\frac{p_{\mbox{age=52}}}{1 - p_{\mbox{age=52}}}}{\frac{p_{\mbox{age=51}}}{1 - p_{\mbox{age=51}}}}\right) \\
+&= \frac{\exp\left(\alpha + \beta \cdot 52\right)}{\exp\left(\alpha + \beta \cdot 51\right)} = \exp\left(\beta \cdot (52 - 51)\right) \\
+&= \exp\left(`r mod1coefs[2]`\right) = `r round(exp(mod1coefs[2]), 2)`. \nonumber
 \end{align}
 ```
 For example, the odds of a teaching instructor who is 45 years old being male is given by
 
 ```{=tex}
 \begin{align}
-\frac{p}{1-p} &= \exp\left(\alpha + \beta \cdot \textrm{age}\right) = \exp\left(`r mod1coefs[1]` + `r mod1coefs[2]` \cdot 45\right) = `r round(exp(mod.coef.logodds["(Intercept)", "Estimate"] + mod.coef.logodds["age", "Estimate"] * 45), 2)`. \nonumber
+\frac{p}{1-p} &= \exp\left(\alpha + \beta \cdot \textrm{age}\right) = \exp\left(`r round(coef(model)[1],2)` + `r round(coef(model)[2],2)` \cdot 45\right) = `r round(exp(coef(model)[1] + coef(model)[2] * 45), 2)`. \nonumber
 \end{align}
 ```
 This can be interpreted as the chances of an instructor who is 45 being male are 15% greater than them being female. We can obtain a 95% confidence interval for the odds by simply exponentiating the lower and upper bounds of our log-odds interval:
 
-```{r, echo = c(1, 3), eval = TRUE}
-age.odds.lower <- exp(age.logodds.lower)
-age.odds.lower
-age.odds.upper <- exp(age.logodds.upper)
-age.odds.upper
+```{r}
+#| code-fold: false
+#| eval: false
+
+model %>% tidy(exponentiate = T,conf.int = T) 
 ```
 
-Hence the point estimate for the odds is `r round(mod1.odds["age"], 2)`, which has a corresponding 95% confidence interval of (`r round(age.odds.lower, 2)`, `r round(age.odds.upper, 2)`). This can be displayed graphically using the `plot_model` function from the `sjPlot` package by simply passing our `model` as an argument as well as removing `transform = NULL` (the default transformation is exponential):
+```{r}
+#| echo: false
+age.odds = model %>% tidy(exponentiate = T,conf.int = T) 
+age.odds %>% kable(digits=2)
 
-```{r, fig.cap = "The odds of age for male instructors.", fig.align = "center", out.width = "50%"}
+```
+
+Hence the point estimate for the odds is `r round(age.odds$estimate[2], 2)`, which has a corresponding 95% confidence interval of (`r round(age.odds$conf.low[2], 2)`, `r round(age.odds$conf.high[2], 2)`). This can be displayed graphically using the `plot_model` function from the `sjPlot` package by simply passing our `model` as an argument as well as removing `transform = NULL` (the default transformation is exponential):
+
+```{r}
+#| code-fold: show
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+#| fig-cap: "The odds of age for male instructors." 
+#| 
 plot_model(model, show.values = TRUE,
            title = "Odds (Male instructor)", show.p = FALSE, axis.lim = c(1, 1.5))
 ```
 
-**Note**: `axis.lim` is used to zoom in on the 95% confidence interval. The `confint()` function can also be used to compute confidence intervals (`confint(model)` for example).
-
-Now, let's add the estimates of the odds to our data set:
-
-```{r, echo = c(1)}
-evals.gender <- evals.gender |>
-                  mutate(odds.male = exp(logodds.male))
-head(evals.gender)
-```
+**Note**: `axis.lim` is used to zoom in on the 95% confidence interval.
 
 ## Probabilities
 
-We can obtain the probability $p = \textrm{Prob}(\textrm{Male})$ using the following transformation:
+Since we have used the logit link function to link the linear predictor $\alpha + \beta \cdot \textrm{age}$ to the probabilities of being a male, we can then obtain back the probability $p = \textrm{Prob}(\textrm{Male})$ by the using the inverse-logit transformation:
 
 ```{=tex}
 \begin{align}
-p &= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)}. \nonumber
+p &= \mathrm{logit}^{-1}\left(\alpha + \beta \cdot \textrm{age} \right)\\
+&= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)} . \nonumber
 \end{align}
 ```
 For example, the probability of a teaching instructor who is 52 years old being male is
@@ -301,94 +432,384 @@ For example, the probability of a teaching instructor who is 52 years old being 
 ```{=tex}
 \begin{align}
 p &= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)}
-=\frac{\exp\left(`r mod.coef.logodds["(Intercept)", "Estimate"]` + `r mod.coef.logodds["age", "Estimate"]`\cdot 52 \right)}{1 + \exp\left(`r mod.coef.logodds["(Intercept)", "Estimate"]` + `r mod.coef.logodds["age", "Estimate"]`\cdot 52 \right)} 
+=\frac{\exp\left(`r mod1coefs[1]` + `r mod1coefs[2]`\cdot 52 \right)}{1 + \exp\left(`r mod1coefs[1]` + `r mod1coefs[2]`\cdot 52 \right)} 
 = 0.64, \nonumber
 \end{align}
 ```
-which can be computed in R as follows:
+which can be computed in R using the inverse logit `plogis()` function from the `stats` library:
 
 ```{r}
-p.num <- (exp(mod.coef.logodds["(Intercept)", "Estimate"] 
-              + mod.coef.logodds["age", "Estimate"] * 52))
-p.denom <- 1 + p.num
-p.num / p.denom
+#| code-fold: false
+plogis(model$coefficients[1] 
+              + model$coefficients[2] *  52)
 ```
 
-The `plogis()` function from the `stats` library can also be used to obtain probabilities from the log-odds:
+Finally, we can plot the probability of being male using `sjPlot` by specifying the following:
+
+1.  The model we have fitted
+
+2.  `type = "pred"` to plot predicted values (marginal effects) for specific model terms.
+
+3.  The model terms of interest. Here, you can also plot the marginal effects at specific values ,e.g. selecting `age[30:60]` will plot the predictions based on age-values from 30 to 60, while `age[all]` will plot the predictions across all of the range of our independent variable.
 
 ```{r}
-plogis(mod.coef.logodds["(Intercept)", "Estimate"] 
-        + mod.coef.logodds["age", "Estimate"] * 52)
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+#| fig-cap: "Probability of teaching instructor being male by age."
+#| warning: false
+#| message: false
+#| code-fold: show
+plot_model(model, 
+           type = "pred", 
+           title = "", 
+           terms="age [all]", 
+           axis.title = c("Age", "Prob. of instructor being male"))
+
 ```
 
-Let's add the probabilities to our data, which is done using the `fitted()` function:
+@tbl-odds_probs summarises the relationship between between Odds and Probabilities:
 
-```{r, echo = c(1)}
-evals.gender <- evals.gender |>
-                  mutate(probs.male = fitted(model))
+| Scale       | Equivalence                                                                                                                                                                                                                                                                                |
+|-------------------------|-----------------------------------------------|
+| Odds        | $$                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                     Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                          
+                                                                                                                                                                     $$                                                                                                                                    |
+| Probability | $$                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                     P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                              
+                                                                                                                                                                     $$                                                                                                                                    |
+
+: Relationship between Odds and Probabilities {#tbl-odds_probs}
+
+# Model evaluation
+
+## Diagnostic plots
+
+As usual, now that we have fitted the model we need to assess how well the model fits the data and check whether our assumptions are met. Our assumptions can be checked as usual by using the `plot()` function in base R. However, we can visualize this with a much nicer and appropiate layout using the `check_model()` function within the `performance` library.
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: show
+#| fig-align: center
+#| fig-width: 18
+#| fig-height: 10
+#| fig-cap: "GLM diagnostics for the gender of teaching instructors"
+
+library(performance)
+check_model(model, panel = TRUE)
 ```
 
-**Note**: `predict(model, type = "response")` will also provide the estimated probabilities.
+::: callout-caution
+Be aware that the `performance` library has quite a few dependencies so check whether any package needs to be updated when you install the package for the first time.
+:::
 
-Finally, we can plot the probability of being male using the `geom_smooth()` function by giving `method = "glm"` and `methods.args = list(family = "binomial")` as follows:
+By specifying `panel = TRUE` the output shows us 4 different diagnostic plots. These are:
 
-<!-- ```{r, echo = TRUE, eval = TRUE, fig.cap = "Probability of teaching instructor being male by age.", fig.align = "center", out.width = "60%"} -->
+1.  **Posterior predictive check** (Top-left):Compares the observed data (in this case the number of females and males) against the predicted number of males and females using simulated data. We can look for systematic discrepancies between real and simulated data to assess the goodness of fit (see. [@gabry2019] and `check_predictions()` for further details)
 
-<!-- ggplot(data = evals.gender, aes(x = age, y = probs.male)) + -->
+2.  **Binned residuals** (Top-right): Bin the observations based on their fitted values, and average the residual value in each bin. The plots shows the average residual values versus the average fitted value for each bin" [@gelman2006]. If the model were true, one would expect about 95% of the residuals to fall inside the error bounds (see `?binned_residuals` for more details.)
 
-<!--   geom_dotplot(dotsize = 0.6, alpha = 0.2, aes(fill = gender), -->
+3.  **Influential observations** (Bottom-left): This plot is used to identify influential observations. If any points in this plot fall outside of Cook's distance (the dashed lines) then it is considered an influential observation. See `check_outliers()` for further details.
 
-<!--                 binwidth = 1, stackgroups = TRUE) + -->
+4.  **Uniformity of residuals** (Bottom-right): Since our response is not normally distributed, residuals are not expected to be normally distributed either. Thus, we can use QQ plots to check the uniformity of residuals, i.e. the extent to which the observed values deviate from the model expectations using simulated residuals instead of the usual Pearson residuals
 
-<!--   geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) + -->
+## Predictive performance metrics
 
-<!--   labs(x = "Age", y = "Probability of instructor being male") -->
+Since our outcome of interest is a binary categorical variable, we can compute the predicted classes and evaluate how accurate our predictions are by comparing them against the observed values. To do so, we can add the predicted (fitted) values to our data with `broom::augment()` and classify them based on a decision threshold.
 
-<!-- ``` -->
+::: callout-note
+Note that we can append either the logit-scaled fitted values (by setting `type.predict = c("link")` or the predicted probabilities (`type.predict = c("response")`).
+:::
 
-<!--  -->
+In the case of logistic regression, you typically classify these probabilities into discrete classes based on a cutoff (commonly 0.5 for binary classification). Here is an example where predicted probabilities outcomes of $\hat{p} > 0.5$ are classified as `male` and as `female` if $\hat{p} \leq 0.5$ .
 
-```{r, echo = TRUE, eval = TRUE, fig.cap = "Probability of teaching instructor being male by age.", fig.align = "center", out.width = "60%"}
-ggplot(data = evals.gender, aes(x = age, y = probs.male)) +
-  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
-  labs(x = "Age", y = "Probability of instructor being male")
+```{r}
+#| code-fold: show
+
+pred_results = model %>% 
+  augment(type.predict = c("response")) %>%
+  mutate(predicted_class = 
+           factor(ifelse(.fitted > 0.5, "male", "female")))
+
 ```
 
-<!-- **Note**: the ages of all teaching instructors have been superimposed as a dotplot using `geom_dotplot()`. -->
+```{r}
+#| echo: false
+pred_results %>% slice(1:5) %>% kable()
 
-\newpage
-
-The `plot_model()` function from the `sjPlot` package can also produce the estimated probabilities by `age` as follows:
-
-```{r, echo = TRUE, eval = TRUE, fig.cap = "Probability of teaching instructor being male by age.", fig.align = "center", results = FALSE, out.width = "50%"}
-plot_model(model, type = "pred", title = "", terms="age [all]", axis.title = c("Age", "Prob. of instructor being male"))
 ```
+
+We can use these predicted classes to compute different predictive performance/evaluation metrics. To do so we can compute a confusion matrix according to the true and predicted classes:
+
+![](tikz__pictures-1.png){fig-align="center" width="460"}
+
+The table can be interpreted as follows:
+
+-   The *correct classification rate* (CCR) or *accuracy* describes the overall proportion of teaching instructors (males or females) that were classified correctly among all the $S = 463$ individuals.
+
+-   The *true positive rate* (TPR) or *sensitivity* (a.k.a. recall), denotes the proportion of actual female instructors that are correctly classified as females by the model.
+
+-   The *true negative rate* (TNR) or *specificity*, denotes the proportion of actual males that have been classified correctly as males by the model. **Note**: the *false positive rate* (FPR) computed as (1- *specificity*) is another popular metric that measures the proportion of actual negatives that are incorrectly predicted as positive.
+
+-   The model's *precision* or *positive predictive value* (PPV) represents the proportion of predicted female instructors that were actually female, i.e. how many of the predicted positive cases were **actually positive**.
+
+-   The model's *negative predictive value* (NPV) represents the proportion of predicted male instructors that were actually males, i.e. how many of the predicted negative cases were **actually negative**.
+
+To compute the confusion matrix we can use the `conf_mat()` function and use as input the data frame with the predicted and observed classes as follows:
+
+```{r}
+#| code-fold: false
+conf_mat(pred_results,truth = gender,estimate = predicted_class)
+```
+
+Rather than computing these predictive performance metrics by hand, we can take advantage of the `metric_set()` function from the `yardstick` library (loaded as part of the `tidymodels` ecosystem) to combine multiple metric functions together into a new function that calculates all of them at once. Then we just simply need to supply the same arguments we used for computing the confusion matrix.
+
+```{r}
+#| code-fold: false
+#| eval: false
+
+# Step (1) create a set with classification metrics we want to compute
+eval_metric <- metric_set(accuracy,sensitivity,specificity,ppv,npv)
+# Step (2) call out the metric set and input the data containing the observed and predicted classes
+eval_metric(pred_results,truth = gender,estimate = predicted_class)
+```
+
+```{r}
+#| echo: false
+#| eval: true
+
+# Step (1) create a set with classification metrics we want to compute
+eval_metric <- metric_set(accuracy,sensitivity,specificity,ppv,npv)
+# Step (2) call out the metric set and input the data contianing the observed and predicted classes
+eval_metric(pred_results,truth = gender,estimate = predicted_class) %>%
+  kable(digits = 2)
+
+```
+
+We can see that our model is not doing a great job in predicting the outcome (accuracy of $\approx$ 60%).This is due due a particularly poor performance in terms of *sensitivity*, i.e. roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of *specificity* since almost 80% of the males are actually being predicted as such.
+
+Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity.
+
+```{r}
+#| echo: false
+#| eval: false
+
+# For example, we can compute sensitivity and sensitivity values for different thresholds and identify the threshold where both sensitivity and specificity are at balance.
+
+#We can use the roc_curve() function (we will see the details of this function in the next section) to find specificity and sensitivity values at different thresholds. We just need to supply the true classes and the predicted probabilities, and then we identify the threshold value where the absolute difference between these two metrics gets minimized.
+
+roc_curve(pred_results,
+          truth = gender,
+          .fitted,event_level = "second") %>%
+  filter(abs(sensitivity - specificity) ==
+           min(abs(sensitivity - specificity)))
+
+```
+
+```{r}
+#| echo: false
+#| eval: false
+
+thresh = roc_curve(pred_results, truth = gender,.fitted,event_level = "second") %>%
+  filter(abs(sensitivity - specificity) == min(abs(sensitivity - specificity))) %>%pull(.threshold)%>%round(2)
+# The suggested threshold of r thresh is not that different from the 0.5 threshold we used before. 
+
+```
+
+```{r}
+#| echo: false
+#| eval: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 6
+#| fig-cap: "Sensitivity and specificiy values at different thresholds. The red dot indiciates the approximate intersection where both metrics are at balance."
+
+#Graphically this is represented in the next plot:
+ROC <- roc_curve(pred_results, truth = gender,.fitted,event_level = "second")
+
+intersection = ROC %>%
+  filter(abs(sensitivity - specificity) == min(abs(sensitivity - specificity)))
+
+plot_sensvsspec = ROC %>% pivot_longer(cols = c(sensitivity,specificity),names_to = "metric",values_to = "value") %>%
+  filter(is.finite(.threshold))
+  
+ggplot()+geom_line(data= plot_sensvsspec,aes(x=value,y=.threshold,colour=metric))+
+  geom_point(data = data.frame(x=0.62,y=0.580),aes(x=x,y=y),col=2,size=1.5)+
+  geom_segment(aes(x =  0.62, y = 0.3, xend =  0.62, yend = 0.580 ),col="grey20",lty=2)
+
+```
+
+## ROC Curve
+
+Another way to assess how good the model is at separating the 2 classes of the outcome is through the Receiver Operating Characteristic (ROC) curve. The ROC curve is a graphical representation used to evaluate the performance of a binary classification model. It shows the trade-off between the true positive rate (sensitivity) and the false positive rate (1 - specificity) at various threshold settings.
+
+The threshold determines the cutoff probability for classifying a sample as positive or negative (male or female in our case).
+
+-   At a cutoff $=0$ , all the observations will be classified as positive (i.e. all the instructors are going to be classified as males since we are modelling the event $P(male)$).
+
+-   At a cutoff $=1$ , all the observations will be classified as negative (i.e. all the instructors are going to be classified as females corresponding to $1 - P(male)$).
+
+As the threshold moves between 0 and 1, the ROC curve traces out points that show the model's performance for various balances between TPR and FPR.
+
+We can combine the `roc_curve()` function from the `performance` library and `autoplot()` function from `ggplot` to calculate and visualize the ROC curve. We just need to supply the true classes and the predicted **probabilities** (NOT the predicted **classes**!).
+
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+#| fig-cap: "ROC curve for GLM fitted to the evaluation scores data set."
+#| code-fold: false
+
+roc_curve(pred_results,
+          truth = gender,
+          .fitted,
+          event_level = "second") %>%
+  autoplot()
+
+```
+
+::: callout-important
+Notice that we set `event_level = "second"` since the default behavior of the `roc_auc()` function is to consider the first class of the variable `gender`as the event. If you recall, `female` appears as first due alphabetical order, and hence is treated as our reference category in our model and thus we are modelling the event $P(male)$.
+
+```{r}
+#| code-fold: false
+levels(pred_results$gender)
+```
+
+However since `female` appear first, we need to tell the `roc_auc()` that we are interested in the second class of the variables `gender` , i.e. `male`, as the event and not the other way around.
+:::
+
+The closer the ROC curve is to the top-left corner, the better the model is at distinguishing between the positive and negative classes. This means high true positive rates (sensitivity) and low false positive rates. The closer the curve is to the diagonal line (i.e. when TPR = FPR) then the performance is no better than random guessing. We can see here that our model is doing a little bit better than just random guessing.
+
+We can also calculate the area under the ROC curve (AUC) as a single value to summarize the model's performance:
+
+```{r}
+#| code-fold: false
+#| eval: false
+roc_auc(pred_results,
+        truth = gender,
+        .fitted,
+        event_level = "second")
+```
+
+```{r}
+#| echo: false
+
+roc_res = roc_auc(pred_results,
+        truth = gender,
+        .fitted,
+        event_level = "second") 
+roc_res %>%
+  kable(digits = 2)
+
+```
+
+The AUC ranges from 0 to 1:
+
+-   **AUC = 1**: Perfect classifier.
+
+-   **AUC = 0.5**: No better than random guessing.
+
+-   **AUC** $\leq$ **0.5**: Worse than random guessing, meaning the model is consistently misclassifying.
+
+Again, the AUC of `r roc_res$.estimate` indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+The **Youden** index (*Youden's J statistics*) is a summary metric that helps to identify the optimal threshold that maximizes both sensitivity (true positive rate) and specificity (true negative rate) simultaneously. It is computed as follows:
+
+$$ J = \mathrm{sensitivity} + \mathrm{specificity} -1 $$
+
+Compute the Youden index and find the optimal threshold that maximizes both sensitivity and specificity in the logistic regression model fitted to the evaluation scores data set.
+
+`r hide("Take hint")`
+
+You can use the `roc_curve()` function to compute the sensitivity and specificity values at different thresholds. Then use these values to compute Youden's index and find the threshold value associated with the maximum value of Youden's index.
+
+`r unhide()`
+
+```{r}
+#| webex.hide: "Click here to see the solution" 
+#| code-fold: false  
+
+roc_curve(pred_results,
+          truth = gender,
+          .fitted,
+          event_level = "second") %>% 
+  mutate(youden_j = sensitivity + specificity - 1) %>% 
+  filter(youden_j == max(youden_j)) %>% 
+  select(.threshold)
+```
+:::
 
 # Logistic regression with one categorical explanatory variable
 
 Instead of having a numerical explanatory variable such as `age`, let's now use the binary categorical variable `ethnicity` as our explanatory variable.
 
-```{r evals2, echo = c(1), eval = TRUE}
-evals.ethnic <- evals |>
+```{r}
+#| code-fold: show
+evals.ethnic <- evals %>%
                   select(gender, ethnicity)
-head(evals.ethnic)
+
+```
+
+```{r}
+#| echo: false
+
+head(evals.ethnic) %>% slice(1:5) %>% kable(digits= 2)
+
 ```
 
 Now, let's look at a barplot of the proportion of males and females by `ethnicity` to get an initial impression of the data.
 
+::: callout-note
+We can also use the `tabyl` function from the `janitor` package to display percentage data in an organized way. See `?tabyl` for more details.
+
 ```{r}
-evals.ethnic |>
-  tabyl(ethnicity, gender) |>
-  adorn_percentages() |>
-  adorn_pct_formatting() |>
+#| code-fold: show
+
+evals.ethnic %>%
+  tabyl(ethnicity, gender) %>%
+  adorn_percentages() %>%
+  adorn_pct_formatting() %>%
   adorn_ns() # To show original counts
 ```
+:::
 
-```{r, fig.cap = "Barplot of teaching instructors' gender by ethnicity.", fig.align = "center", out.width = "48%"}
+::: panel-tabset
+# R plot
+
+```{r}
+#| fig-align: center
+#| fig-width: 4
+#| fig-height: 4
+#| fig-cap: "Barplot of teaching instructors' gender by ethnicity."
+#| echo: false
 ggplot(evals.ethnic, aes(x = gender, group = ethnicity)) +
-    geom_bar(aes(y = after_stat(prop), fill = ethnicity), stat = "count", position = "dodge") +
+    geom_bar(aes(y = after_stat(prop), fill = ethnicity), 
+             stat = "count", position = "dodge") +
     labs(y = "Proportion", fill = "Ethnicity")
 ```
+
+# R Code
+
+```{r}
+#| fig-align: center
+#| fig-width: 4
+#| fig-height: 4
+#| fig-cap: "Barplot of teaching instructors' gender by ethnicity."
+#| eval: false
+#| code-fold: false
+ggplot(evals.ethnic, aes(x = gender, group = ethnicity)) +
+    geom_bar(aes(y = after_stat(prop), fill = ethnicity), 
+             stat = "count", position = "dodge") +
+    labs(y = "Proportion", fill = "Ethnicity")
+```
+:::
 
 We can see that a larger proportion of instructors in the `minority` ethnic group are female (56.3% vs 43.8%), while the `not minority` ethnic group is comprised of more male instructors (60.2% vs 39.8%). Now we shall fit a logistic regression model to determine whether the gender of a teaching instructor can be predicted from their ethnicity.
 
@@ -396,136 +817,213 @@ We can see that a larger proportion of instructors in the `minority` ethnic grou
 
 The logistic regression model is given by:
 
-```{r model2, echo = TRUE, eval = TRUE}
-model.ethnic <- logistic_reg() |> 
-  set_engine("glm") |> 
-  fit(gender ~ ethnicity, data = evals.ethnic) |>
-  extract_fit_engine()
+```{=tex}
+\begin{align}
+y_i &\sim \mathrm{Bernoulli}(p_i)\\
+\mathrm{logit}(p_i) &= \alpha +  \beta_{\mbox{ethnicity}}  \times \mathbb{I}_{\mbox{ethnicity}}(\mathrm{not~  minority}).
+\end{align}
+```
+Which can be fitted in R as follows:
+
+```{r}
+#| code-fold: false
+model.ethnic <- glm(gender ~ ethnicity,
+                    data = evals.ethnic,
+                    family = binomial) 
+
 ```
 
-```{r mod2sum, echo = TRUE, eval = TRUE}
-model.ethnic |>
-  summary()
+Here, $y_i$ denotes the $i$th instructor's gender, again, the baseline category for our binary response is `female`. Thus, $p_i = \mathrm{Prob}(\mathrm{Male})$ is linked to the linear predictor through the logit link function. This means that estimates we get from fitting the logistic regression model are for a change on the **log-odds** scale for `males` ($p_i = \textrm{Prob}(\textrm{Males})$) in comparison to the response baseline `females`.
+
+Also, the baseline category for our explanatory variable is `minority`, which, like `gender`, is done alphabetically by default by R:
+
+```{r}
+#| code-fold: false 
+levels(evals.ethnic$ethnicity)
+```
+
+Thus, $\alpha$ correspond to the **log-odds** of the instructors being a males given that they are on the `minority` baseline category.
+
+Then, $\mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority})$ is an indicator function for those instructors in the `not minority` group and $\beta_{\mbox{ethnicity}}$ represent the change in the **log-odds** of a male instructor that is not on the minority group.
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\mbox{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$ (i.e., when the instructor is in the minority group). When the instructor belongs to the reference category `minority` the models simplifies to: $$\mathrm{log}\left(\frac{p_i}{1-p_i}\right) = \alpha $$
+
+-   $\beta_{\mathrm{ethnicity}}$ is the **coefficient** for the predictor $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority})$, which shows how the log-odds change when moving from the reference category (`minority`) to the other level (`not minority`). When the instructor does **not** belong to reference category, i.e. $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 1$, the model becomes: $$\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\mbox{ethnicity}}$$
+
+So, the **log-odds** of the instructors being male in the `not minority` group are $\alpha +\beta_{\mbox{ethnicity}}$. Lets compute the model estimates and 95 % confidence intervals for the **log-odds**:
+
+```{r}
+#| eval: false 
+#| code-fold: false
+model.ethnic %>%
+  tidy(conf.int = T)
 ```
 
 ```{r mod2coefs, echo = FALSE, eval = TRUE}
 mod2coefs <- round(coef(model.ethnic), 2)
+mode.ethnic_res = model.ethnic %>%
+  tidy(conf.int = T) 
+
+ethnic.logodds.lower = mode.ethnic_res$conf.low[2]
+ethnic.logodds.upper = mode.ethnic_res$conf.high[2]
+
+mode.ethnic_res %>% kable(digits=2)
+
 ```
 
-Again, the baseline category for our binary response is `female`. Also, the baseline category for our explanatory variable is `minority`, which, like `gender`, is done alphabetically by default by R:
-
-```{r}
-levels(evals.ethnic$ethnicity)
-```
-
-This means that estimates from the logistic regression model are for a change on the **log-odds** scale for `males` ($p = \textrm{Prob}(\textrm{Males})$) in comparison to the response baseline `females`. That is
+The fitted model is:
 
 ```{=tex}
 \begin{align}
-\ln\left(\frac{p}{1-p}\right) &= \alpha + \beta \cdot \textrm{ethnicity} = `r mod2coefs[1]` + `r mod2coefs[2]` \cdot \mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority}), \nonumber
+\ln\left(\frac{\hat{p_i}}{1-\hat{p_i}}\right) &= `r mod2coefs[1]` + `r mod2coefs[2]` \cdot \mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority}), \nonumber
 \end{align}
 ```
-where $\mathbb{I}_{\mbox{ethnicity}}(\mbox{not minority})$ is an indicator function. Hence, the **log-odds** of an instructor being male increase by `r mod2coefs[2]` if they are in the ethnicity group `not minority`. This provides us with a point estimate of how the log-odds changes with ethnicity, however, we are also interested in producing a 95% confidence interval for these log-odds. This can be done as follows:
+Hence, the **log-odds** of an instructor being male increase by `r mod2coefs[2]` if they are in the ethnicity group `not minority`, which has a corresponding 95% confidence interval of (`r round(ethnic.logodds.lower, 2)`, `r round(ethnic.logodds.upper, 2)`).
 
-```{r, echo = c(1, 2, 3, 5, 7), eval = TRUE}
-mod.ethnic.coef.logodds <- model.ethnic |>
-                            summary() |>
-                            coef()
-```
+This can be displayed graphically using the `plot_model` function from the `sjPlot` package by simply passing our `model` as an argument:
 
-```{r, echo = c(1, 3), eval = TRUE}
-ethnic.logodds.lower <- (mod.ethnic.coef.logodds["ethnicitynot minority", "Estimate"] 
-                          - 1.96 *
-                           mod.ethnic.coef.logodds["ethnicitynot minority", "Std. Error"])
-ethnic.logodds.lower
-ethnic.logodds.upper <- (mod.ethnic.coef.logodds["ethnicitynot minority", "Estimate"] 
-                          + 1.96 *
-                           mod.ethnic.coef.logodds["ethnicitynot minority", "Std. Error"])
-ethnic.logodds.upper
-```
+```{r}
+#| code-fold: show
+#| fig-height: 4
+#| fig-width: 4
+#| fig-align: center
+#| fig-cap: "The log-odds for male instructors by ethnicity (not a minority)."
 
-Hence the point estimate for the log-odds is `r mod2coefs[2]`, which has a corresponding 95% confidence interval of (`r round(ethnic.logodds.lower, 2)`, `r round(ethnic.logodds.upper, 2)`). This can be displayed graphically using the `plot_model` function from the `sjPlot` package by simply passing our `model` as an argument:
-
-```{r, fig.cap = "The log-odds for male instructors by ethnicity (not a minority).", fig.align="center", out.width = "50%"}
 plot_model(model.ethnic, show.values = TRUE, transform = NULL, 
            title = "Log-Odds (Male instructor)", show.p = FALSE)
-```
-
-Now, let's add the estimates of the log-odds to our data set:
-
-```{r, echo = c(1)}
-evals.ethnic <- evals.ethnic |>
-                  mutate(logodds.male = predict(model.ethnic))
-head(evals.ethnic)
 ```
 
 ## Odds
 
 On the **odds** scale the regression coefficients are given by
 
+```{r}
+#| eval: false
+#| code-fold: false 
+model.ethnic %>%
+  tidy(conf.int = T,
+       exponentiate = T)
+```
+
+```{r}
+#| echo: false 
+mod.ethnic.odds = model.ethnic %>%
+  tidy(conf.int = T, exponentiate = T) 
+
+ethnic.odds.lower = mod.ethnic.odds$conf.low[2]
+ethnic.odds.upper = mod.ethnic.odds$conf.high[2]
+
+mod.ethnic.odds %>% kable(digits=2)
+```
+
+The `(Intercept)` gives us the odds of the instructor being male given that they are in the `minority` ethnic group, that is, `r round(mod.ethnic.odds$estimate[1], 2)` (the indicator function is zero in that case).
+
+The odds of the instructor being male given they are in the `not minority` ethnic group are `r round(mod.ethnic.odds$estimate[2], 2)` times greater than the odds if they were in the `minority` ethnic group.
+
+Before moving on, let's break down how these values are computed. First, the odds of the instructor being male given that they are in the `minority` ethnic group (reference category) can be obtained as follows:
+
+```{=tex}
+\begin{align}
+\mathrm{Odds}(\mathrm{male = 1} | \mathrm{minority} =1) &= \dfrac{p_{(minority=1)}}{1 - p_{(minority=1)}}\\
+&= \exp\left(\alpha\right) \\ 
+&= \exp\left(`r round(mod2coefs[1], 2)`\right) \\
+&= `r round(exp(mod2coefs[1]), 2)`. \nonumber
+\end{align}
+```
+Here, $p_{(minority=1)} = \mathrm{Prob}\left(\mathrm{Male}=1 | \mathrm{minority}=1\right)$. Thus, the odds of the instructor in the `minority` group being a male are 0.78 the odds of an instructor being a female in the same group.
+
+Slightly confusing right? Maybe it makes more sense to interpret this result in terms of the `female` group, i.e. $\mathrm{Odds}(\mathrm{female} = 1 | \mathrm{minority} =1)$. However you must be aware that this is not a probability! so you can not simply compute $1- \mathrm{exp}(\alpha)$. To compute this correctly, we should do as follows:
+
+```{=tex}
+\begin{align}
+\mathrm{Odds}(\mathrm{female} = 1 | \mathrm{minority} =1) &= \dfrac{P(\mathrm{female}=1 |\mathrm{minority}=1)}{P(\mathrm{male}= 1 |\mathrm{minority}=1)}\\
+&= \left[\dfrac{P(\mathrm{male}=1 |\mathrm{minority}=1)}{P(\mathrm{female}= 1 |\mathrm{minority}=1)}\right]^{-1}\\
+&= \mathrm{exp}(\alpha)^{-1} \\ &= \exp\left(`r round(mod2coefs[1], 2)`\right)^{-1} = `r round(1/exp(mod2coefs[1]), 2)`
+\end{align}
+```
+Thus, the odds of the instructor in the `minority` group being a female are 28% higher than the odds of an instructor being a male in the same group. However, by looking at the confidence intervals and p-value we can see that this difference is not statistically significant.
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+Use the `relevel` function to fit a logistic regression that estimates the odds of the instructor being female given that they are in the `minority` ethnic group directly.
+
+`r hide("Take hint")`
+
+The reference category in your data can be changed by using the `relevel()` function. see `?relevel` for further details.
+
+`r unhide()`
+
 ```{r, echo = TRUE, eval = TRUE}
-model.ethnic |>
- coef() |>
-  exp()
+#| webex.hide: "Click here to see the solution"
+#| code-fold: false  
+
+evals.ethnic %>%
+  mutate(gender = relevel(gender,ref = "male")) %>% 
+  glm(gender ~ ethnicity, data = . ,family = binomial) %>%  
+  broom::tidy(exponentiate = T) %>% 
+  filter(term=="(Intercept)") %>%
+  pull(estimate) 
 ```
+:::
 
-```{r, echo = FALSE, eval = TRUE}
-mod.ethnic.odds <- model.ethnic |>
-                    coef() |>
-                    exp()
-```
+Now, let's look a the odds-ratio of an instructor being male in the `not minority` group compared to the `minority` ethnic group.
 
-The `(Intercept)` gives us the odds of the instructor being male given that they are in the `minority` ethnic group, that is, `r round(mod.ethnic.odds["(Intercept)"], 2)` (the indicator function is zero in that case). The odds of the instructor being male given they are in the `not minority` ethnic group are `r round(mod.ethnic.odds["ethnicitynot minority"], 2)` times greater than the odds if they were in the `minority` ethnic group.
+1.  First, the **odds** of an instructor being male given that they are in the minority ethnic group were:
 
-Before moving on, let's take a look at how these values are computed. First, the odds of the instructor being male given that they are in the `minority` ethnic group can be obtained as follows:
+    ```{=tex}
+    \begin{align}
+    \mathrm{Odds}(\mathrm{male} = 1 | \mathrm{minority} = 1) =& 
+    \dfrac{p_{(minority=1)}}{1 - p_{(minority=1)}} \\
+    &= \exp\left(\alpha\right) \\ &= `r round(exp(mod2coefs[1]), 2)`. \nonumber
+    \end{align}
+    ```
 
-\vspace{-0.6cm}
+2.  Recall that the **log-odds** of an instructor **not** belonging to the minority group (i.e. `not minority`) being a male are $\alpha +\beta_{\mbox{ethnicity}}$. On the odds scale this is:
 
-```{=tex}
-\begin{align}
-\frac{p_{\mbox{minority}}}{1 - p_{\mbox{minority}}} = \exp\left(\alpha\right) = \exp\left(`r round(mod2coefs[1], 2)`\right) = `r round(exp(round(mod2coefs[1], 2)), 2)`. \nonumber
-\end{align}
-```
-```{r, echo = c(1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 13), eval = TRUE}
-# the number of instructors in the minority
-pmin <- evals.ethnic |>
-              filter(ethnicity == "minority") |>
-              summarize(n()) |>
-              pull()
+    ```{=tex}
+    \begin{align}
+    \mathrm{Odds}(\mathrm{male} = 1 | \mathrm{minority} = 0) =& \dfrac{p_{(\mathrm{minority} = 0)}}{1- p_{(\mathrm{minority} = 0)}}\\
+    &= \mathrm{exp}( \alpha + \beta_{\mbox{ethnicity}}) \\
+    &= `r round(exp(sum(mod2coefs)),2)`
+    \end{align}
+    ```
 
-# the number of male instructors in the minority
-pmin.male <- evals.ethnic |>
-              filter(ethnicity == "minority", gender == "male") |>
-              summarize(n()) |>
-              pull()
+3.  Now, the odds of an instructor that is **no**t in the minority group being male against the odds of an instructor that comes from the `minority` group is given by the ratio of the odds we just calculated:
 
-# the proportion/probability of males in the minority
-prob.min.male <- pmin.male / pmin
-# the odds of an instructor being male given they are in the minority
-odds.min.male <- prob.min.male / (1 - prob.min.male)
-odds.min.male
-```
+    ```{=tex}
+    \begin{align}
+    \frac{\mathrm{Odds}(\mathrm{male} = 1| \mathrm{minority} = 0)}{\mathrm{Odds}(\mathrm{male} = 1| \mathrm{minority} = 1)} &= \dfrac{\frac{p_{(\mathrm{minority} = 0)}}{1- p_{(\mathrm{minority} = 0)}}}{\frac{p_{(\mathrm{minority}=1)}}{1- p_{(\mathrm{minority}=1)}}} \\
+    &= \frac{\mathrm{exp}( \alpha + \beta_{\mbox{ethnicity}})}{\exp\left(\alpha\right)}\\ 
+    &= \exp\left(\alpha + \beta_{\mbox{ethnicity}} - \alpha\right) \\
+    &= \exp\left(\beta_{\mbox{ethnicity}}\right) = \exp\left(`r round(mod2coefs[2], 2)` \right) \\
+    &= `r round(exp(mod2coefs[2]), 2)`. \nonumber 
+    \end{align}
+    ```
 
-Now, the odds-ratio of an instructor being male in the `not minority` compared to the `minority` ethnic group is found as follows:
+Which is the coefficient estimate we got from the `tidy()` summaries. This means that instructors that are not in the minority groups are significantly 1.93 times more likely to be males compared to instructors in the minority group.
 
-\vspace{-0.6cm}
+The corresponding 95% confidence interval of (`r round(ethnic.odds.lower, 2)`, `r round(ethnic.odds.upper, 2)`). Again, we can display this graphically using the `plot_model` function from the `sjPlot` package:
 
-```{=tex}
-\begin{align}
-\frac{\mbox{Odds}_{\mbox{not minority}}}{\mbox{Odds}_{\mbox{minority}}} = \frac{\frac{p_{\mbox{not minority}}}{1 - p_{\mbox{not minority}}}}{\frac{p_{\mbox{minority}}}{1 - p_{\mbox{minority}}}} &= \frac{\exp\left(\alpha + \beta\right)}{\exp\left(\alpha\right)} = \exp\left(\alpha + \beta - \alpha\right) = \exp\left(\beta\right) = \exp\left(`r round(mod2coefs[2], 2)` \right) = `r round(exp(round(mod2coefs[2], 2)), 2)`. \nonumber 
-\end{align}
-```
-```{r, echo = c(1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 13), eval = TRUE}
+```{r}
+#| echo: false
+#| eval: false
 # the number of instructors not in the minority
-pnotmin <- evals.ethnic |>
-              filter(ethnicity == "not minority") |>
-              summarize(n()) |>
+pnotmin <- evals.ethnic %>%
+              filter(ethnicity == "not minority") %>%
+              summarize(n()) %>%
               pull()
 
 # the number of male instructors not in the minority
-pnotmin.male <- evals.ethnic |>
-              filter(ethnicity == "not minority", gender == "male") |>
-              summarize(n()) |>
+pnotmin.male <- evals.ethnic %>%
+              filter(ethnicity == "not minority", gender == "male") %>%
+              summarize(n()) %>%
               pull()
 
 # the proportion/probability of males not in the minority
@@ -536,57 +1034,42 @@ odds.ratio.notmin <- odds.notmin.male / odds.min.male
 odds.ratio.notmin
 ```
 
-We can obtain a 95% confidence interval for the odds by simply exponentiating the lower and upper bounds of the log-odds interval:
-
-```{r, echo = c(1, 3), eval = TRUE}
-ethnic.odds.lower <- exp(ethnic.logodds.lower)
-ethnic.odds.lower
-ethnic.odds.upper <- exp(ethnic.logodds.upper)
-ethnic.odds.upper
-```
-
-Hence the point estimate for the odds-ratio is `r round(mod.ethnic.odds["ethnicitynot minority"], 2)`, which has a corresponding 95% confidence interval of (`r round(ethnic.odds.lower, 2)`, `r round(ethnic.odds.upper, 2)`). Again, we can display this graphically using the `plot_model` function from the `sjPlot` package:
-
-```{r, fig.cap = "The odds-ratio of a male instructor given they are in the `not minority` group.", fig.align="center", out.width = "50%"}
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+#| fig-cap: "The odds-ratio of a male instructor given they are in the `not minority` group."
+#| code-fold: show
 plot_model(model.ethnic, show.values = TRUE,
            title = "Odds (Male instructor)", show.p = FALSE)
 ```
 
-Now, let's add the estimates of the odds to our data set:
-
-```{r, echo = c(1)}
-evals.ethnic <- evals.ethnic |>
-                  mutate(odds.male = exp(logodds.male))
-head(evals.ethnic)
-```
-
 ## Probabilities
 
-The probabilities of an instructor being male given they are in the `minority` and `not minority` groups are
+You can also use the model to predict the probability of having an instructor being male for each ethnicity group.
+
+The probabilities of an instructor being male given they are in the `minority` and `not minority` groups are:
 
 ```{r}
-plogis(mod.ethnic.coef.logodds["(Intercept)", "Estimate"])
-plogis(mod.ethnic.coef.logodds["(Intercept)", "Estimate"] +
-         mod.ethnic.coef.logodds["ethnicitynot minority", "Estimate"])
+#| code-fold: false
+plogis(coef(model.ethnic)[1])
+plogis(coef(model.ethnic)[1]+coef(model.ethnic)[2])
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
-ps <- c(plogis(mod.ethnic.coef.logodds["(Intercept)", "Estimate"]),
-          plogis(mod.ethnic.coef.logodds["(Intercept)", "Estimate"] +
-                   mod.ethnic.coef.logodds["ethnicitynot minority", "Estimate"]))
+ps <- c(plogis(coef(model.ethnic)[1]),
+          plogis(coef(model.ethnic)[1]+coef(model.ethnic)[2]))
 ```
 
 Hence, the probabilities of an instructor being male given they are in the `minority` and `not minority` ethnic groups are `r round(ps[1], 3)` and `r round(ps[2], 3)`, respectively.
 
-Let's add the probabilities to our data:
-
-```{r, echo = c(1)}
-evals.ethnic <- evals.ethnic |>
-                  mutate(probs.male = fitted(model.ethnic))
-```
-
 Finally, we can use the `plot_model()` function from the `sjPlot` package to produce the estimated probabilities by `ethnicity` as follows:
 
-```{r, echo = TRUE, eval = TRUE, fig.cap = "Probability of teaching instructor being male by ethnicity.", fig.align = "center", results = FALSE, out.width = "50%"}
+```{r}
+#| fig-height: 4
+#| fig-width: 4
+#| fig-align: center
+#| fig-cap: "Probability of teaching instructor being male by ethnicity."
+#| code-fold: show
 plot_model(model.ethnic, type = "pred", terms = "ethnicity", axis.title = c("Ethnicity", "Prob. of instructor being male"), title = " ")
 ```

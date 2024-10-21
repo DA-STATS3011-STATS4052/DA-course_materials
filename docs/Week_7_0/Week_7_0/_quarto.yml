@@ -1,20 +1,26 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "index.qmd"
+    - "about.qmd"
 website:
-  title: "Week 7: Generalised Linear Models"
+  title: 'Week 7: Generalised Linear Models'
+  favicon: UofG_Coat_of_Arms.png
   navbar:
+    logo: UofG.png
     left:
     - href: index.qmd
-      text: Home
+      text: Notes
     - about.qmd
 format:
   html:
-    theme: cosmo
+    theme:
+      light: flatly
+      dark: darkly
     css:
     - styles.css
     - include/webex.css
     toc: true
     include-after-body: include/webex.js
 editor: visual
-
