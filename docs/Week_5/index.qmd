@@ -1,5 +1,5 @@
 ---
-title: "Week 5: Introduction to Quarto "
+title: "Week 6: Introduction to Quarto "
 toc: true
 toc-location: left
 toc-title: Contents

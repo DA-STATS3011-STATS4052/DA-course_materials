@@ -1,0 +1,210 @@
+---
+title: "Week 8: Generalised Linear Models part 2"
+format:
+  pdf:
+    latex-auto-install: true
+  html:    
+    code-link: true
+    code-fold: true
+    code-tools:
+      source: false
+      toggle: true
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    number-sections: true
+editor: visual
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(webexercises)
+library(knitr)
+```
+
+
+
+# Introduction
+
+Last week we introduced **Generalised Linear Models** (GLMs). Particularly, we looked at **logistic regression** to model outcomes of interest that take one of two categorical values (e.g. yes/no, success/failure, alive/dead). This week we will continue reviewing logistic regression to model grouped binary outcomes (e.g. number of successes out of a fixed number of trials) and then we we will generalise this to situations where the response variable is categorical with more than two categories. First lets look at the framework for modelling categorical data with only two categories, i.e.
+
+-   **binary**, taking the value 1 (say success, with probability $p$) or 0 (failure, with probability $1-p$) or
+
+-   **binomial**, where $y_i$ is the number of events (successes) in a given number of trials $n_i$, with the probability of success being $p_i$ and the probability of failure being $1-p_i$.
+
+In both cases the distribution of $y_i$ is assumed to be binomial, but in the first case it is $\mathrm{Bin}(1,p_i)$ and in the second case it is $\mathrm{Bin}(n_i,p_i)$. The first case was covered last week, so now lets focus on the second case.
+
+
+Before we proceed, load all the packages needed for this week:
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: show
+
+library(tidyr)
+library(ggplot2)
+library(moderndive)
+library(sjPlot)
+library(tidymodels)
+library(broom)
+library(performance)
+library(faraway)
+```
+
+# Logistic regression with grouped binary data
+
+Suppose that our binary outcome $y_i$ is grouped across $n_i$ number of trials, e.g. number of times a head landed when a coin was tossed on multiple occasions or the proportion of beetles that were killed after being exposed to an insecticide.
+
+In such cases $y_i \sim \mathrm{Bin}(n_i,p_i)$, often referred to as proportional data, since our dependent variables are expressed as percentages or fractions of a whole. Lets look at a an example.
+
+It is known that the incubation temperature can affect the sex determination of turtles. Data from an experiment where turtle eggs were incubated at various temperatures and the proportion of male hatchlings was recorded are used to examine the link between incubation temperature and the chance of hatchlings being a male.
+
+![](turtles.jpg){fig-align="center" width="473"}
+
+The `turtle` data set within the `faraway` library contains the number of hatched male and female turtles across different temperatures, with 3 independent replicates for each temperature.
+
+```{r}
+#| code-fold: false
+#| 
+turtles = faraway::turtle 
+turtles%>% glimpse()
+```
+
+Lets investigate whether the probability of a male hatching increases or decrease with the temperature. First, we need to compute the proportion of males that hatched on each replicate per temperature. To do this, we obtain the ratio between the total number of male hatchlings and total number hatchlings (males+females):
+
+```{r}
+#| code-fold: false
+
+turtles = turtles %>% 
+  mutate(totals = male+female,
+         male_props = male/totals)
+
+```
+
+We can see on the next plot, that the proportion of males hatchling seems to increase as the temperature as the incubuation period rises.
+
+```{r}
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+#| code-fold: show
+ggplot(turtles,aes(y= male_props,x=temp))+
+  geom_point()+ 
+  labs(y="proportion of male hatchlings",x = "temperature")
+
+```
+
+To corroborate this result, we can fit a GLM to the data.
+
+```{=tex}
+\begin{align}
+y_i &\sim \mathrm{Binomial}(n_i,p_i)\\
+\mathrm{logit}(p_i) &= \beta_0 +\beta_1 \times \mathrm{temperature}.
+\end{align}
+```
+Here, $y_i$ denotes the number of hatched males on the $i$th replicate, $n_i$ is the fixed total number of hatched eggs per replicate ($i = 1,\ldots,N$), $p_i$ is the probability of a male turtle being hatched and $\beta_0$ and $\beta_1$ are our unknown parameters to be estimated.
+
+Proportions can be modelled by providing an $N \times 2$ matrix of the number of success (num. of males hatchlings) and the number of failures (number of female hatchlings):
+
+```{r}
+#| eval: false
+#| code-fold: false
+
+model_turtles <- glm(cbind(male,female) ~ temp,
+                     data = turtles,
+                     family = binomial)
+```
+
+or by providing the proportion of males hatchlings and `weights` totals in the function (i.e the number of trials):
+
+```{r}
+#| code-fold: false
+
+model_turtles <- glm(male_props ~ temp,
+                     data = turtles,
+                     weights =  totals,
+                     family = binomial)
+```
+
+These two formulation are valid and will yield to the same following result:
+
+```{r}
+#| eval: false
+#| code-fold: false
+
+model_turtles %>% tidy(conf.int = T) 
+```
+
+```{r}
+#| echo: false
+
+model_turtles %>% tidy(conf.int = T) %>% kable(digits=2)
+
+```
+
+The interpretation goes as follows:
+
+-   For every unit increase (celsius degrees presumably) in *Temperature,* the log-odds of a male being hatched increase by 2.21 i.e. the chances of a hatching a male increases as the temperature during the incubation increases.
+
+-   Given $p_{val} < 0.05$, we can **reject the null hypothesis** $\beta_1 = 0$ that one unit increase in temperature does not affect chances of a male being hatched.
+
+-   For every unit increase in *Temperature*, the **odds** of hatching a male are 9.13 times the odds of those with one *temperature* unit less.
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+If an egg is incubated at a temperature of 27.5 degrees, what at the chances (odds) of a **female** being hatched.
+
+`r hide("I need a hint")`
+
+Recall that $log~Odds ~ (male) = \mathrm{log}\left(\dfrac{P(male)}{1-P(male)}\right) = \hat{\beta_0} +\hat{\beta_1} \times temperature$, but we are interested in $\dfrac{P(female)}{1-P(female)}$, thus $Odds ~ (female) = \mathrm{exp}\left[- \mathrm{log}\left(\dfrac{P(male)}{1-P(male)} \right)\right] = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right)$
+
+`r unhide()`
+
+```{r}
+#| echo: false
+
+opts_p <- c(
+"The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees",
+"The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees",
+  answer = "The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees", "The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees"
+)
+
+```
+
+`r longmcq(opts_p)`
+:::
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+What is the probability of a turtle egg that is incubated in a temperature of 28.5 degrees to become a male?
+
+`r hide("I need a hint")`
+
+Recall that $P~ (male) = \dfrac{Odds(male)}{1 + Odds(male)} = \dfrac{\mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}{1 + \mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}$
+
+`r unhide()`
+
+`r mcq(c(0.45, 0.18 , answer = 0.85, 0.15))`
+:::
+
+Besides our usual model checks and model evaluation metrics, when dealing with proportional data sometimes we find that the observed variability in the data is greater than the one expected by the model, i.e. $Var(Y) = n ~p~ (1-p)$.
+
+This excess of variance is called **overdispersion** and its an indicator that our model is missing some important variability in the data (e.g. unaccounted factors affecting the probability of an event, non-independent trials, clustering within the data, among others).
+
+To check for overdispersion we can use the built-in `check_overdispersion()` function from the performance package (to learn more about overdispersion see [@gelman2006]):
+
+```{r}
+#| code-fold: false
+check_overdispersion(model_turtles)
+```
+
+In this example its seems we don't have to worry about it. But what about the binary case (i.e. ungrouped data)? well overdispersion is usually not a concern here because the variance cannot exceed the range for a binary response where each observation represents a single outcome (0 or 1) and the variance of the model is constrained since $Var(Y) = p(1-p)$.

@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Week 7: Generalised Linear Models part 2",
+    "section": "",
+    "text": "Before we proceed, load all the packages needed for this week:\n\nCodelibrary(tidyr)\nlibrary(ggplot2)\nlibrary(moderndive)\nlibrary(sjPlot)\nlibrary(tidymodels)\nlibrary(broom)\nlibrary(performance)\nlibrary(faraway)"
+  },
+  {
+    "objectID": "index.html#required-r-packages",
+    "href": "index.html#required-r-packages",
+    "title": "Week 7: Generalised Linear Models part 2",
+    "section": "",
+    "text": "Before we proceed, load all the packages needed for this week:\n\nCodelibrary(tidyr)\nlibrary(ggplot2)\nlibrary(moderndive)\nlibrary(sjPlot)\nlibrary(tidymodels)\nlibrary(broom)\nlibrary(performance)\nlibrary(faraway)"
+  }
+]

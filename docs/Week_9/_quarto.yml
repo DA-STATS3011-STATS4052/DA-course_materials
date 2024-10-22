@@ -2,15 +2,15 @@ project:
   type: website
   output-dir: docs
   render:
-    - "notes_24_25.qmd"
-    - "tutorial.qmd"
+  - index.qmd
+  - aboud.qmd
 website:
-  title: 'Data Analysis'
+  title: Data Analysis Week 1
   favicon: UofG_Coat_of_Arms.png
   navbar:
     logo: UofG.png
     left:
-    - href: notes_24_25.qmd
+    - href: index.qmd
       text: Notes
     - about.qmd
 format:

@@ -70,13 +70,11 @@ y_i &\sim f(g(\boldsymbol{\mu}_i)) \nonumber \\
 ```
 where the response $y_i$ is predicted through the linear combination $\boldsymbol{\mu}_i$ of explanatory variables by the link function $g(\cdot)$, assuming some distribution $f(\cdot)$ for $y_i$, and $\mathbf{x}_i^\top$ is the $i^{th}$ row of the design matrix $\boldsymbol{X}$. For example, the simple linear regression model above for a continuous response variable has the normal distribution distribution as $f(\cdot)$, with corresponding link function equal to the Identity function, that is, $g(\boldsymbol{\mu}_i) = \boldsymbol{\mu}_i$.
 
-This week we will learn how to model outcomes of interest that take one of two categorical values (e.g. yes/no, success/failure, alive/dead).
+This week we will learn how to model outcomes of interest that take one of two categorical values (e.g. yes/no, success/failure, alive/dead), i.e.
 
 -   **binary**, taking the value 1 (say success, with probability $p_i$) or 0 (failure, with probability $1-p_i$) or
 
--   **binomial**, where $y_i$ is the number of successes in a given number of trials $n_i$, with the probability of success being $p_i$ and the probability of failure being $1-p_i$.
-
-In both cases the distribution of $y_i$ is assumed to be binomial, but in the first case it is Bin$(1,p_i)$ and in the second case it is Bin$(n_i,p_i)$. Hence, a binary response variable $y_i$ has a binomial distribution with corresponding link function $g(\cdot)$ , e.g. the **logit link** function, that is
+In this case, the distribution of $y_i$ is assumed to be binomial Bin$(1,p_i)$. Hence, a binary response variable $y_i$ has a binomial distribution with corresponding link function $g(\cdot)$ , e.g. the **logit link** function, that is
 
 $$g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right),$$
 
@@ -469,14 +467,14 @@ plot_model(model,
 
 @tbl-odds_probs summarises the relationship between between Odds and Probabilities:
 
-| Scale       | Equivalence                                                                                                                                                                                                                                                                                                 |
-|-------------------------|----------------------------------------------|
-| Odds        | $$                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                    Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                            
-                                                                                                                                                                                    $$                                                                                                                                      |
-| Probability | $$                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                    P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                
-                                                                                                                                                                                    $$                                                                                                                                      |
+| Scale       | Equivalence                                                                                                                                                                                                                                                                                                                  |
+|--------------------------|----------------------------------------------|
+| Odds        | $$                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                   Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                              
+                                                                                                                                                                                                   $$                                                                                                                                        |
+| Probability | $$                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                   P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                  
+                                                                                                                                                                                                   $$                                                                                                                                        |
 
 : Relationship between Odds and Probabilities {#tbl-odds_probs}
 

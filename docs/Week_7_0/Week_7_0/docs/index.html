@@ -272,12 +272,12 @@ y_i &amp;\sim f(g(\boldsymbol{\mu}_i)) \nonumber \\
 \boldsymbol{\mu}_i &amp;= \mathbf{x}_i^\top \boldsymbol{\beta}, \nonumber
 \end{align}\]</span>
 <p>where the response <span class="math inline">\(y_i\)</span> is predicted through the linear combination <span class="math inline">\(\boldsymbol{\mu}_i\)</span> of explanatory variables by the link function <span class="math inline">\(g(\cdot)\)</span>, assuming some distribution <span class="math inline">\(f(\cdot)\)</span> for <span class="math inline">\(y_i\)</span>, and <span class="math inline">\(\mathbf{x}_i^\top\)</span> is the <span class="math inline">\(i^{th}\)</span> row of the design matrix <span class="math inline">\(\boldsymbol{X}\)</span>. For example, the simple linear regression model above for a continuous response variable has the normal distribution distribution as <span class="math inline">\(f(\cdot)\)</span>, with corresponding link function equal to the Identity function, that is, <span class="math inline">\(g(\boldsymbol{\mu}_i) = \boldsymbol{\mu}_i\)</span>.</p>
-<p>This week we will learn how to model outcomes of interest that take one of two categorical values (e.g.&nbsp;yes/no, success/failure, alive/dead).</p>
+<p>This week we will learn how to model outcomes of interest that take one of two categorical values (e.g.&nbsp;yes/no, success/failure, alive/dead), i.e.</p>
 <ul>
-<li><p><strong>binary</strong>, taking the value 1 (say success, with probability <span class="math inline">\(p_i\)</span>) or 0 (failure, with probability <span class="math inline">\(1-p_i\)</span>) or</p></li>
-<li><p><strong>binomial</strong>, where <span class="math inline">\(y_i\)</span> is the number of successes in a given number of trials <span class="math inline">\(n_i\)</span>, with the probability of success being <span class="math inline">\(p_i\)</span> and the probability of failure being <span class="math inline">\(1-p_i\)</span>.</p></li>
+<li>
+<strong>binary</strong>, taking the value 1 (say success, with probability <span class="math inline">\(p_i\)</span>) or 0 (failure, with probability <span class="math inline">\(1-p_i\)</span>) or</li>
 </ul>
-<p>In both cases the distribution of <span class="math inline">\(y_i\)</span> is assumed to be binomial, but in the first case it is Bin<span class="math inline">\((1,p_i)\)</span> and in the second case it is Bin<span class="math inline">\((n_i,p_i)\)</span>. Hence, a binary response variable <span class="math inline">\(y_i\)</span> has a binomial distribution with corresponding link function <span class="math inline">\(g(\cdot)\)</span> , e.g.&nbsp;the <strong>logit link</strong> function, that is</p>
+<p>In this case, the distribution of <span class="math inline">\(y_i\)</span> is assumed to be binomial Bin<span class="math inline">\((1,p_i)\)</span>. Hence, a binary response variable <span class="math inline">\(y_i\)</span> has a binomial distribution with corresponding link function <span class="math inline">\(g(\cdot)\)</span> , e.g.&nbsp;the <strong>logit link</strong> function, that is</p>
 <p><span class="math display">\[g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right),\]</span></p>
 <p>which is also referred to as the <strong>log-odds</strong> (since <span class="math inline">\(p_i ~ / ~ 1-p_i\)</span> is an odds ratio). Why is such a transformation required when looking at a binary response variable? Well here we are interested in modelling the probability of success <span class="math inline">\(p_i\)</span>, and as we know probabilities must be between 0 and 1 <span class="math inline">\(\left(p_i \in [0, 1]\right)\)</span>. So if we want to model the probability of success using a linear model we need to ensure that the probabilities obtained are between 0 and 1. However, if we just use the identity link function, such that</p>
 <p><span class="math display">\[p_i = \mathbf{x}_i^\top \boldsymbol{\beta},\]</span> we would need to ensure that in some way <span class="math inline">\(\mathbf{x}_i^\top \boldsymbol{\beta} \in [0, 1]\)</span>, that is, the linear combination of the explanatory variables and their corresponding regression coefficients was between 0 and 1. Hence some restrictions of some sort would need to be put in place to ensure this was the case. However, if we use the logit link function, such that</p>
@@ -765,8 +765,8 @@ Table&nbsp;1: Relationship between Odds and Probabilities
 </figcaption><div aria-describedby="tbl-odds_probs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table">
 <colgroup>
-<col style="width: 35%">
-<col style="width: 64%">
+<col style="width: 36%">
+<col style="width: 63%">
 </colgroup>
 <thead><tr class="header">
 <th>Scale</th>
@@ -775,15 +775,15 @@ Table&nbsp;1: Relationship between Odds and Probabilities
 <tbody>
 <tr class="odd">
 <td>Odds</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                    Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                            
-                                                                                                                                                                                    \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                   Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                              
+                                                                                                                                                                                                   \]</span></td>
 </tr>
 <tr class="even">
 <td>Probability</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                    P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                
-                                                                                                                                                                                    \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                   P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                  
+                                                                                                                                                                                                   \]</span></td>
 </tr>
 </tbody>
 </table>
