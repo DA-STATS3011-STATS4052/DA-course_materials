@@ -221,8 +221,6 @@ flights_dt %>%
 We can see there is a peak of flights around 8am, a dip in flights from 10am-12pm, and then a drop off in number of flights past 7pm.
 :::
 
-
-
 ::: {.callout-warning icon="false"}
 ## Task
 
