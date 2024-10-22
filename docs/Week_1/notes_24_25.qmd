@@ -558,10 +558,9 @@ flights %>%
 
 Here is an explanation of what we've just did:
 
-
-  -   Take the data frame `flights` **then**
-  -   `filter` the data frame so that only those where the `carrier` equals `AS` are included. (recall that the double equals sign `==` tests equality, and not a single equals sign `=`).
-  -   pass the filtered data to the ggplot function and add a point layer and then modify axis labels.
+-   Take the data frame `flights` **then**
+-   `filter` the data frame so that only those where the `carrier` equals `AS` are included. (recall that the double equals sign `==` tests equality, and not a single equals sign `=`).
+-   pass the filtered data to the ggplot function and add a point layer and then modify axis labels.
 
 You can combine multiple criteria together using operators that make comparisons:
 
@@ -583,8 +582,6 @@ In addition, you can use other mathematical checks (similar to `==`):
 
 -   `!=` corresponds to **not equal to**
 :::
-
-
 
 To see many of these in action, let's select all flights that left JFK airport heading to Burlington, Vermont (`BTV`) or Seattle, Washington (`SEA`) in the months of October, November, or December. Run the following:
 
@@ -673,9 +670,7 @@ As a rough rule of thumb, as long as you are not losing information that you mig
 `r unhide()`
 :::
 
-
 Let's look at visualize this `gain` variable in the form of a histogram:
-
 
 ```{r}
 #| message: false
@@ -770,40 +765,50 @@ summary_temp <- weather %>%
 summary_temp
 ```
 
-
 <!-- ::: {.callout-tip icon="false"} -->
+
 <!-- ## {{< bi question-octagon color=#6dc83c >}} Question -->
 
 <!-- Modify `summary_temp` from above to also use the `n` summary function: `summarize(count = n())`. What does the returned value correspond to? -->
 
 <!-- `r mcq(c("Number of weather stations", "Number of columns in the data", answer = "Sample size"))` -->
+
 <!-- ::: -->
 
 <!-- Another very useful function that allows you to summarise multiple columns is the `summarise_at()` function. Here, we can supply a vector of variables we want to summarise and a list of functions that we want to apply to each of the variables. See the following example where we compute the minimum and maximum values of temperature and relative humidity (notice that we also specified the argument `na.rm=T` to remove missing values - this arguments gets passed on to all the functions in the list): -->
 
 <!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| eval: false -->
-<!-- weather %>% -->
-<!--   summarise_at(.vars = c("temp","humid"), -->
-<!--                .funs = list(min = min, max = max), -->
-<!--                na.rm = TRUE) -->
-<!-- ``` -->
 
+<!-- #| echo: false -->
+
+<!-- #| eval: false -->
+
+<!-- weather %>% -->
+
+<!--   summarise_at(.vars = c("temp","humid"), -->
+
+<!--                .funs = list(min = min, max = max), -->
+
+<!--                na.rm = TRUE) -->
+
+<!-- ``` -->
 
 ::: callout-important
 It is **not** good practice to include `na.rm = TRUE` in your summary commands by default; you should attempt to run code first without this argument as this will alert you to the presence of missing data. Only after you have identified where missing values occur and have thought about the potential issues of these should you consider using `na.rm = TRUE`.
 :::
 
-
-
 <!-- What other summary functions can we use inside the `summarize` verb? Any function in R that takes a vector of values and returns just one. Here are just a few: -->
 
 <!-- -   `mean`: the mean (or average) -->
+
 <!-- -   `sd`: the standard deviation, which is a measure of spread -->
+
 <!-- -   `min` and `max`: the minimum and maximum values, respectively -->
+
 <!-- -   `IQR`: the interquartile range -->
+
 <!-- -   `sum`: the sum -->
+
 <!-- -   `n`: a count of the number of rows/observations in each group. This particular summary function will make more sense when **grouping** is used in the next section. -->
 
 ::: {.callout-tip icon="false"}
@@ -823,19 +828,22 @@ opts_p <- c(
 `r longmcq(opts_p)`
 :::
 
-
-
 <!-- ::: {.callout-tip icon="false"} -->
+
 <!-- ## {{< bi question-octagon color=#6dc83c >}} Question -->
 
 <!-- Why does the code below not work? -->
 
 <!-- ```{r} -->
+
 <!-- #| error: true -->
+
 <!-- #| code-fold: show -->
 
 <!-- summary_temp <- weather %>% -->
+
 <!--   summarize(mean = mean(temp, na.rm = TRUE)) %>% -->
+
 <!--   summarize(std_dev = sd(temp, na.rm = TRUE)) -->
 
 <!-- ``` -->
@@ -851,6 +859,7 @@ opts_p <- c(
 <!-- The first line of code computes the temperature mean for the weather data set. Then, the output gets passed on to `weather %>% summarize(std_dev= sd(temp, na.rm = TRUE))`. However, the temperature value is no longer present in the first result, hence the error: `! object 'temp' not found` -->
 
 <!-- `r unhide()` -->
+
 <!-- ::: -->
 
 ## Using grouping structures {#groupby}
@@ -993,21 +1002,18 @@ by_origin_monthly <- flights %>%
 by_origin_monthly
 ```
 
-
-
 We see there are 36 rows for `by_origin_monthly` because there are 12 months times 3 airports (`EWR`, `JFK`, and `LGA`). How can we visualize this information? Lets look now into different techniques for manipulation and visualizing categorical data.
 
 # Working with categorical data
 
 ## Visualizing categorical data
 
-
 Recall that barplots, or barcharts, are used to visualise the distributions of categorical variables. This essentially provides us with the frequencies of categories within a categorical variable. You can use either the raw data (e.g. the original `flights` data set) or the summarised data set (e.g. the `by_origin_monthly` data set we just created) to create barplots in `ggplot.`
 
 ::: panel-tabset
 # Raw data and geom_bar()
 
-Here we can use a data set with variable(s) representing the categories. We can add a `geom_bar()` layer to create a barplot layer by counting the number of cases for each level of a categorical variable and use the `fill=origin` option to assign a different color to the counts based on the origin. 
+Here we can use a data set with variable(s) representing the categories. We can add a `geom_bar()` layer to create a barplot layer by counting the number of cases for each level of a categorical variable and use the `fill=origin` option to assign a different color to the counts based on the origin.
 
 ```{r}
 #| fig-width: 5
@@ -1045,20 +1051,19 @@ Note that the month variable in our data set is an integer. Thus, we convert thi
 
 This is what is referred to as a *Stacked barplot* since the bars for each `origin` are simply stacked on top of one another for each of the carriers. This provides us with a visually nice barplot to present the monthly number of flights by airport of origin. However, there are also alternative barplots to the stacked barplot.
 
-- One alternative to a stacked barplot is the **side-by-side** (or **dodged**) **barplot**, which, as suggested by its name, places the bars next to each other instead of on top of one another. This can be produced by including `position = 'dodge'` within the `geom_col` or `geom_bar` layer.
+-   One alternative to a stacked barplot is the **side-by-side** (or **dodged**) **barplot**, which, as suggested by its name, places the bars next to each other instead of on top of one another. This can be produced by including `position = 'dodge'` within the `geom_col` or `geom_bar` layer.
 
 ::: {.callout-tip icon="false"}
 ## {{< bi question-octagon color=#6dc83c >}} Question
 
-How would you modify the code above to produced a *dodged* barplot?
-`r hide("Answer")`
+How would you modify the code above to produced a *dodged* barplot? `r hide("Answer")`
 
 Depending on the structure of your data you could change the column/bar layer to `geom_col(position = "dodge")` or `geom_bar(position = "dodge")` respectively.
 
 `r unhide()`
 :::
 
-- A second alternative is to use a **faceted barplot**. This can be produced by adding a `facet_wrap()` layer to ggplot. E.g. try adding `facet_wrap(~ origin, ncol = 1)` to any of the previous barplots you have produced. The `facet_wrap` function tells ggplot that we want to separate out barplots by `origin`, and hence we use `~ origin`. 
+-   A second alternative is to use a **faceted barplot**. This can be produced by adding a `facet_wrap()` layer to ggplot. E.g. try adding `facet_wrap(~ origin, ncol = 1)` to any of the previous barplots you have produced. The `facet_wrap` function tells ggplot that we want to separate out barplots by `origin`, and hence we use `~ origin`.
 
 ::: {.callout-warning icon="false"}
 ## Task
@@ -1111,10 +1116,7 @@ flights %>%
 
 ## Vectorised if-else thru `case_when`
 
-
-In many situations, we may want to represent continuous variables as discrete categories (e.g., grouping temperatures into "cold," "warm," and "hot" ranges).
-The `case_when` function provides an efficient way to handle multiple if-else statements by vectorizing them, allowing us to evaluate conditions and assign categories more cleanly and concisely. In this session, we will use `case_when` to categorize weather conditions based on meteorological data from the `weather` dataset.
-Let suppose that we want to categorize the temperature variable into three categories:
+In many situations, we may want to represent continuous variables as discrete categories (e.g., grouping temperatures into "cold," "warm," and "hot" ranges). The `case_when` function provides an efficient way to handle multiple if-else statements by vectorizing them, allowing us to evaluate conditions and assign categories more cleanly and concisely. In this session, we will use `case_when` to categorize weather conditions based on meteorological data from the `weather` dataset. Let suppose that we want to categorize the temperature variable into three categories:
 
 -   **low** for temperatures $<39.9$
 
@@ -1152,6 +1154,7 @@ weather %>%
   ) %>%
   relocate(temp,temp_cat) %>% slice(1:5) %>% kable()
 ```
+
 Here we use the `mutate` command to create new variable named `temp_cat`. The `case_when` will then set to `NA` those values in the original `temp` variable that are missing. Then if the values of `temp` are $< 30.9$ it will assign them the label of `low`. If they lie between $39.9$ and $70$ it will assign them the label of `medium` and finally set to `large` any of the values that do not meet any of the aforementioned conditions. We can also use the function `relocate` to change the columns position so that the `temp` and `temp_cat` appears first on the data frame.
 
 ::: {.callout-warning icon="false"}
@@ -1181,7 +1184,6 @@ weather %>%
 ```
 :::
 
-
 # Joining data frames {#joins}
 
 Another common task is joining (merging) two different data sets. For example, in the `flights` data, the variable `carrier` lists the carrier code for the different flights. While `UA` and `AA` might be somewhat easy to guess for some (United and American Airlines), what are VX, HA, and B6? This information is provided in a separate data frame `airlines`.
@@ -1199,7 +1201,7 @@ airlines %>% slice(1:5) %>% kable()
 
 ```
 
-We see that in `airports`, `carrier` is the carrier code while `name` is the full name of the airline. Using this table, we can map the carrier in the `flights` data set to its corresponding full name stored in the `airlines` data. However, will we have to continually look up the carrier's name for each flight in the `airlines` data set? 
+We see that in `airports`, `carrier` is the carrier code while `name` is the full name of the airline. Using this table, we can map the carrier in the `flights` data set to its corresponding full name stored in the `airlines` data. However, will we have to continually look up the carrier's name for each flight in the `airlines` data set?
 
 No! Instead of having to do this manually, we can have R automatically do the "looking up" for us.
 
@@ -1273,7 +1275,6 @@ flights %>%
 We can read the code out loud as:
 
 "*Take the flights data frame and inner join it to the airports data frame by the entries where the variable* `dest` *is equal to* `faa`"
-
 
 Let's construct the sequence of commands that computes the number of flights from NYC to each destination, but also includes information about each destination airport:
 
@@ -1359,7 +1360,6 @@ Compute the mean arrival delay from each destination. You can then join the resu
 ```
 :::
 
-# The end?{-}
+# The end? {.unnumbered}
 
 Congratulations! You have reached the end of today's session. But wait, there's still more! To further enhance your skills in Data analysis, check out the additional material provided on handling date-time data. This will help you learn how to manage and manipulate date-time variables within the framework of tidy data, enabling you to perform more precise and effective analyses.
-
