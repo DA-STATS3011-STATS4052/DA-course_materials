@@ -289,35 +289,6 @@ model %>% tidy(conf.int = TRUE) %>% knitr::kable()
 Notice that we could have omitted the argument `conf.level = 0.95` since this is the default confidence level used in the `tidy()` function. Thus, unless you need a confidence level other than the 95% CI, you can leave this argument with the default setting as will do in the following exercises.
 :::
 
-::: {.callout-warning icon="false"}
-## {{< bi pencil-square color=#c8793c >}} Task
-
-Produce a 95% Wald confidence interval (i.e., based on asymptotic normality) for the age coefficient by "hand", i.e. using only the coefficient's estimate and std. error. Then compare this result with the confidence interval obtained in R.
-
-Notice that the `tidy` function will compute a confidence interval using the profile-likelihood by default. Thus, if you want the results to be comparable, you will need to use the `confint.default()` function.
-
-`r hide("I need a hint")`
-
-Recall that a 95% Wald CI for $\beta$ can be computed as $\hat{\beta} \pm z_{1-\alpha/2} \times SE(\hat{\beta})$, where $SE(\cdot)$ denotes the standard error of the estimate and $z_{1-\alpha/2}$ the quantile of the Normal density.
-
-`r unhide()`
-
-```{r}
-#| webex.hide: "See the solution"
-#| code-fold: false
-#| echo: true
-
-mod.coef.logodds <- model %>% tidy() %>% filter(term=="age")
-
-# Compute Wald 95% CI by hand
-mod.coef.logodds$estimate + (c(-1,1)*
-qnorm(0.975)) * mod.coef.logodds$std.error 
-
-# Compare with Wald 95% CI in R
-confint.default(model)[2,]
-```
-:::
-
 ```{r}
 #| echo: false
 #| message: false
@@ -347,6 +318,35 @@ Some of the interesting arguments that can be passed to the `plot_model` functio
 -   `vline.color`: colour of the vertical "zero effect" line.
 
 Further details on using `plot_model` can be found [here](https://strengejacke.wordpress.com/2017/10/23/one-function-to-rule-them-all-visualization-of-regression-models-in-rstats-w-sjplot/).
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+Produce a 95% Wald confidence interval (i.e., based on asymptotic normality) for the age coefficient by "hand", i.e. using only the coefficient's estimate and std. error. Then compare this result with the confidence interval obtained in R.
+
+Notice that the `tidy` function will compute a confidence interval using the profile-likelihood by default. Thus, if you want the results to be comparable, you will need to use the `confint.default()` function.
+
+`r hide("I need a hint")`
+
+Recall that a 95% Wald CI for $\beta$ can be computed as $\hat{\beta} \pm z_{1-\alpha/2} \times SE(\hat{\beta})$, where $SE(\cdot)$ denotes the standard error of the estimate and $z_{1-\alpha/2}$ the quantile of the Normal density.
+
+`r unhide()`
+
+```{r}
+#| webex.hide: "See the solution"
+#| code-fold: false
+#| echo: true
+
+mod.coef.logodds <- model %>% tidy() %>% filter(term=="age")
+
+# Compute Wald 95% CI by hand
+mod.coef.logodds$estimate + (c(-1,1)*
+qnorm(0.975)) * mod.coef.logodds$std.error 
+
+# Compare with Wald 95% CI in R
+confint.default(model)[2,]
+```
+:::
 
 ## Odds
 
@@ -419,12 +419,11 @@ plot_model(model, show.values = TRUE,
 
 ## Probabilities
 
-Since we have used the logit link function to link the linear predictor $\alpha + \beta \cdot \textrm{age}$ to the probabilities of being a male, we can then obtain back the probability $p = \textrm{Prob}(\textrm{Male})$ by the using the inverse-logit transformation:
+Since we have used the logit link function to link the linear predictor $\alpha + \beta \cdot \textrm{age}$ to the probabilities of being a male, we can then obtain back the probability $p = \textrm{Prob}(\textrm{Male})$ by using the inverse-logit transformation:
 
 ```{=tex}
 \begin{align}
-p &= \mathrm{logit}^{-1}\left(\alpha + \beta \cdot \textrm{age} \right)\\
-&= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)} . \nonumber
+p &= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)} . \nonumber
 \end{align}
 ```
 For example, the probability of a teaching instructor who is 52 years old being male is
@@ -470,14 +469,14 @@ plot_model(model,
 
 @tbl-odds_probs summarises the relationship between between Odds and Probabilities:
 
-| Scale       | Equivalence                                                                                                                                                                                                                                                                                |
-|-------------------------|-----------------------------------------------|
-| Odds        | $$                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                     Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                          
-                                                                                                                                                                     $$                                                                                                                                    |
-| Probability | $$                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                     P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                              
-                                                                                                                                                                     $$                                                                                                                                    |
+| Scale       | Equivalence                                                                                                                                                                                                                                                                                                 |
+|-------------------------|----------------------------------------------|
+| Odds        | $$                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                    Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                            
+                                                                                                                                                                                    $$                                                                                                                                      |
+| Probability | $$                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                    P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                
+                                                                                                                                                                                    $$                                                                                                                                      |
 
 : Relationship between Odds and Probabilities {#tbl-odds_probs}
 
@@ -587,9 +586,9 @@ eval_metric(pred_results,truth = gender,estimate = predicted_class) %>%
 
 ```
 
-We can see that our model is not doing a great job in predicting the outcome (accuracy of $\approx$ 60%).This is due due a particularly poor performance in terms of *sensitivity*, i.e. roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of *specificity* since almost 80% of the males are actually being predicted as such.
+We can see that our model is not doing a great job in predicting the outcome (accuracy of $\approx$ 60%).This is due to a particularly poor performance in terms of *sensitivity*, i.e. roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of *specificity* since almost 80% of the males are actually being predicted as such.
 
-Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity.
+Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity (we will see an example of such in the next task).
 
 ```{r}
 #| echo: false
@@ -715,7 +714,7 @@ The AUC ranges from 0 to 1:
 
 -   **AUC** $\leq$ **0.5**: Worse than random guessing, meaning the model is consistently misclassifying.
 
-Again, the AUC of `r roc_res$.estimate` indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).
+Again, the AUC of `r round(roc_res$.estimate,2)` indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).
 
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task
@@ -766,12 +765,14 @@ head(evals.ethnic) %>% slice(1:5) %>% kable(digits= 2)
 
 Now, let's look at a barplot of the proportion of males and females by `ethnicity` to get an initial impression of the data.
 
-::: callout-note
+::: callout-tip
 We can also use the `tabyl` function from the `janitor` package to display percentage data in an organized way. See `?tabyl` for more details.
 
 ```{r}
 #| code-fold: show
-
+#| message: false
+#| warning: false 
+library(janitor)
 evals.ethnic %>%
   tabyl(ethnicity, gender) %>%
   adorn_percentages() %>%
@@ -944,6 +945,7 @@ Slightly confusing right? Maybe it makes more sense to interpret this result in 
 \begin{align}
 \mathrm{Odds}(\mathrm{female} = 1 | \mathrm{minority} =1) &= \dfrac{P(\mathrm{female}=1 |\mathrm{minority}=1)}{P(\mathrm{male}= 1 |\mathrm{minority}=1)}\\
 &= \left[\dfrac{P(\mathrm{male}=1 |\mathrm{minority}=1)}{P(\mathrm{female}= 1 |\mathrm{minority}=1)}\right]^{-1}\\
+&= \left[\mathrm{Odds}(\mathrm{male}=1|\mathrm{minority}=1)\right]^{-1}\\
 &= \mathrm{exp}(\alpha)^{-1} \\ &= \exp\left(`r round(mod2coefs[1], 2)`\right)^{-1} = `r round(1/exp(mod2coefs[1]), 2)`
 \end{align}
 ```

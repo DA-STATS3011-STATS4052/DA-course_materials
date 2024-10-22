@@ -545,6 +545,29 @@ Note
 <p>Notice that we could have omitted the argument <code>conf.level = 0.95</code> since this is the default confidence level used in the <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code> function. Thus, unless you need a confidence level other than the 95% CI, you can leave this argument with the default setting as will do in the following exercises.</p>
 </div>
 </div>
+<p>The point estimate for the log-odds is 0.06, which has a corresponding 95% confidence interval of (0.04, 0.08). This can be displayed graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package by simply passing our <code>model</code> as an argument:</p>
+<div class="cell" data-layout-align="center">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>, transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>           title <span class="op">=</span> <span class="st">"Log-Odds (Male instructor)"</span>, show.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>The log-odds of age for male instructors.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Some of the interesting arguments that can be passed to the <code>plot_model</code> function are:</p>
+<ul>
+<li>
+<code>show.values = TRUE/FALSE</code>: Whether the log-odds/odds values should be displayed;</li>
+<li>
+<code>show.p = TRUE/FALSE</code>: Adds asterisks that indicate the significance level of estimates to the value labels;</li>
+<li>
+<code>transform</code>: A character vector naming the function that will be applied to the estimates. The default transformation uses <code>exp</code> to display the odds ratios, while <code>transform = NULL</code> displays the log-odds; and</li>
+<li>
+<code>vline.color</code>: colour of the vertical “zero effect” line.</li>
+</ul>
+<p>Further details on using <code>plot_model</code> can be found <a href="https://strengejacke.wordpress.com/2017/10/23/one-function-to-rule-them-all-visualization-of-regression-models-in-rstats-w-sjplot/">here</a>.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -568,7 +591,7 @@ I need a hint
 <button>
 See the solution
 </button>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod.coef.logodds</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span><span class="op">==</span><span class="st">"age"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod.coef.logodds</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span><span class="op">==</span><span class="st">"age"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Compute Wald 95% CI by hand</span></span>
 <span><span class="va">mod.coef.logodds</span><span class="op">$</span><span class="va">estimate</span> <span class="op">+</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">*</span></span>
@@ -576,7 +599,7 @@ See the solution
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04221815 0.08371129</code></pre>
 </div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare with Wald 95% CI in R</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare with Wald 95% CI in R</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint.default</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     2.5 %     97.5 % 
@@ -586,29 +609,6 @@ See the solution
 </div>
 </div>
 </div>
-<p>The point estimate for the log-odds is 0.06, which has a corresponding 95% confidence interval of (0.04, 0.08). This can be displayed graphically using the <code>plot_model</code> function from the <code>sjPlot</code> package by simply passing our <code>model</code> as an argument:</p>
-<div class="cell" data-layout-align="center">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, show.values <span class="op">=</span> <span class="cn">TRUE</span>, transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>           title <span class="op">=</span> <span class="st">"Log-Odds (Male instructor)"</span>, show.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
-<figcaption>The log-odds of age for male instructors.</figcaption></figure>
-</div>
-</div>
-</div>
-<p>Some of the interesting arguments that can be passed to the <code>plot_model</code> function are:</p>
-<ul>
-<li>
-<code>show.values = TRUE/FALSE</code>: Whether the log-odds/odds values should be displayed;</li>
-<li>
-<code>show.p = TRUE/FALSE</code>: Adds asterisks that indicate the significance level of estimates to the value labels;</li>
-<li>
-<code>transform</code>: A character vector naming the function that will be applied to the estimates. The default transformation uses <code>exp</code> to display the odds ratios, while <code>transform = NULL</code> displays the log-odds; and</li>
-<li>
-<code>vline.color</code>: colour of the vertical “zero effect” line.</li>
-</ul>
-<p>Further details on using <code>plot_model</code> can be found <a href="https://strengejacke.wordpress.com/2017/10/23/one-function-to-rule-them-all-visualization-of-regression-models-in-rstats-w-sjplot/">here</a>.</p>
 </section><section id="odds" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="odds">
 <span class="header-section-number">2.3</span> Odds</h2>
 <p>Typically we would like to work on the <strong>odds</strong> scale as it is easier to interpret an odds-ratio as opposed to the log-odds-ratio. To obtain the odds we simply exponentiate the log-odds, that is</p>
@@ -720,10 +720,9 @@ See the solution
 <p><strong>Note</strong>: <code>axis.lim</code> is used to zoom in on the 95% confidence interval.</p>
 </section><section id="probabilities" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="probabilities">
 <span class="header-section-number">2.4</span> Probabilities</h2>
-<p>Since we have used the logit link function to link the linear predictor <span class="math inline">\(\alpha + \beta \cdot \textrm{age}\)</span> to the probabilities of being a male, we can then obtain back the probability <span class="math inline">\(p = \textrm{Prob}(\textrm{Male})\)</span> by the using the inverse-logit transformation:</p>
+<p>Since we have used the logit link function to link the linear predictor <span class="math inline">\(\alpha + \beta \cdot \textrm{age}\)</span> to the probabilities of being a male, we can then obtain back the probability <span class="math inline">\(p = \textrm{Prob}(\textrm{Male})\)</span> by using the inverse-logit transformation:</p>
 <span class="math display">\[\begin{align}
-p &amp;= \mathrm{logit}^{-1}\left(\alpha + \beta \cdot \textrm{age} \right)\\
-&amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)} . \nonumber
+p &amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\left(\alpha + \beta \cdot \textrm{age} \right)} . \nonumber
 \end{align}\]</span>
 <p>For example, the probability of a teaching instructor who is 52 years old being male is</p>
 <span class="math display">\[\begin{align}
@@ -766,8 +765,8 @@ Table&nbsp;1: Relationship between Odds and Probabilities
 </figcaption><div aria-describedby="tbl-odds_probs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table">
 <colgroup>
-<col style="width: 34%">
-<col style="width: 65%">
+<col style="width: 35%">
+<col style="width: 64%">
 </colgroup>
 <thead><tr class="header">
 <th>Scale</th>
@@ -776,15 +775,15 @@ Table&nbsp;1: Relationship between Odds and Probabilities
 <tbody>
 <tr class="odd">
 <td>Odds</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                     Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                          
-                                                                                                                                                                     \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                    Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                            
+                                                                                                                                                                                    \]</span></td>
 </tr>
 <tr class="even">
 <td>Probability</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                     P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                              
-                                                                                                                                                                     \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                    P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                
+                                                                                                                                                                                    \]</span></td>
 </tr>
 </tbody>
 </table>
@@ -1002,8 +1001,8 @@ Prediction female male
 </table>
 </div>
 </div>
-<p>We can see that our model is not doing a great job in predicting the outcome (accuracy of <span class="math inline">\(\approx\)</span> 60%).This is due due a particularly poor performance in terms of <em>sensitivity</em>, i.e.&nbsp;roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of <em>specificity</em> since almost 80% of the males are actually being predicted as such.</p>
-<p>Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity.</p>
+<p>We can see that our model is not doing a great job in predicting the outcome (accuracy of <span class="math inline">\(\approx\)</span> 60%).This is due to a particularly poor performance in terms of <em>sensitivity</em>, i.e.&nbsp;roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of <em>specificity</em> since almost 80% of the males are actually being predicted as such.</p>
+<p>Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity (we will see an example of such in the next task).</p>
 </section><section id="roc-curve" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="roc-curve">
 <span class="header-section-number">3.3</span> ROC Curve</h2>
 <p>Another way to assess how good the model is at separating the 2 classes of the outcome is through the Receiver Operating Characteristic (ROC) curve. The ROC curve is a graphical representation used to evaluate the performance of a binary classification model. It shows the trade-off between the true positive rate (sensitivity) and the false positive rate (1 - specificity) at various threshold settings.</p>
@@ -1077,7 +1076,7 @@ Important
 <li><p><strong>AUC = 0.5</strong>: No better than random guessing.</p></li>
 <li><p><strong>AUC</strong> <span class="math inline">\(\leq\)</span> <strong>0.5</strong>: Worse than random guessing, meaning the model is consistently misclassifying.</p></li>
 </ul>
-<p>Again, the AUC of 0.6623804 indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).</p>
+<p>Again, the AUC of 0.66 indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1160,19 +1159,20 @@ Click here to see the solution
 </div>
 </div>
 <p>Now, let’s look at a barplot of the proportion of males and females by <code>ethnicity</code> to get an initial impression of the data.</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>We can also use the <code>tabyl</code> function from the <code>janitor</code> package to display percentage data in an organized way. See <code><a href="https://sfirke.github.io/janitor/reference/tabyl.html">?tabyl</a></code> for more details.</p>
 <div class="cell" data-layout-align="center">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">evals.ethnic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
+<span><span class="va">evals.ethnic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/tabyl.html">tabyl</a></span><span class="op">(</span><span class="va">ethnicity</span>, <span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/adorn_percentages.html">adorn_percentages</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/adorn_pct_formatting.html">adorn_pct_formatting</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1374,6 +1374,7 @@ y_i &amp;\sim \mathrm{Bernoulli}(p_i)\\
 <span class="math display">\[\begin{align}
 \mathrm{Odds}(\mathrm{female} = 1 | \mathrm{minority} =1) &amp;= \dfrac{P(\mathrm{female}=1 |\mathrm{minority}=1)}{P(\mathrm{male}= 1 |\mathrm{minority}=1)}\\
 &amp;= \left[\dfrac{P(\mathrm{male}=1 |\mathrm{minority}=1)}{P(\mathrm{female}= 1 |\mathrm{minority}=1)}\right]^{-1}\\
+&amp;= \left[\mathrm{Odds}(\mathrm{male}=1|\mathrm{minority}=1)\right]^{-1}\\
 &amp;= \mathrm{exp}(\alpha)^{-1} \\ &amp;= \exp\left(-0.25\right)^{-1} = 1.28
 \end{align}\]</span>
 <p>Thus, the odds of the instructor in the <code>minority</code> group being a female are 28% higher than the odds of an instructor being a male in the same group. However, by looking at the confidence intervals and p-value we can see that this difference is not statistically significant.</p>
