@@ -28,8 +28,6 @@ library(webexercises)
 library(knitr)
 ```
 
-
-
 # Introduction
 
 Last week we introduced **Generalised Linear Models** (GLMs). Particularly, we looked at **logistic regression** to model outcomes of interest that take one of two categorical values (e.g. yes/no, success/failure, alive/dead). This week we will continue reviewing logistic regression to model grouped binary outcomes (e.g. number of successes out of a fixed number of trials) and then we we will generalise this to situations where the response variable is categorical with more than two categories. First lets look at the framework for modelling categorical data with only two categories, i.e.
@@ -40,8 +38,7 @@ Last week we introduced **Generalised Linear Models** (GLMs). Particularly, we l
 
 In both cases the distribution of $y_i$ is assumed to be binomial, but in the first case it is $\mathrm{Bin}(1,p_i)$ and in the second case it is $\mathrm{Bin}(n_i,p_i)$. The first case was covered last week, so now lets focus on the second case.
 
-
-Before we proceed, load all the packages needed for this week:
+Before we proceed, we will load all the packages needed for this week:
 
 ```{r}
 #| message: false
@@ -64,7 +61,7 @@ Suppose that our binary outcome $y_i$ is grouped across $n_i$ number of trials, 
 
 In such cases $y_i \sim \mathrm{Bin}(n_i,p_i)$, often referred to as proportional data, since our dependent variables are expressed as percentages or fractions of a whole. Lets look at a an example.
 
-It is known that the incubation temperature can affect the sex determination of turtles. Data from an experiment where turtle eggs were incubated at various temperatures and the proportion of male hatchlings was recorded are used to examine the link between incubation temperature and the chance of hatchlings being a male.
+It is known that the incubation temperature can affect the sex determination of turtles. An experiment was conducted where turtle eggs were incubated at various temperatures and the number of male and female hatchlings was recorded. The goal of the experiment was to examine the link between incubation temperature and the chance of hatchlings being a male.
 
 ![](turtles.jpg){fig-align="center" width="473"}
 
@@ -77,7 +74,7 @@ turtles = faraway::turtle
 turtles%>% glimpse()
 ```
 
-Lets investigate whether the probability of a male hatching increases or decrease with the temperature. First, we need to compute the proportion of males that hatched on each replicate per temperature. To do this, we obtain the ratio between the total number of male hatchlings and total number hatchlings (males+females):
+Lets investigate whether the probability of a male being hatched increases or decrease with the temperature. First, we need to compute the proportion of males that hatched on each replicate per temperature. To do this, we obtain the ratio between the total number of male hatchlings and total number hatchlings (males+females):
 
 ```{r}
 #| code-fold: false
@@ -88,7 +85,7 @@ turtles = turtles %>%
 
 ```
 
-We can see on the next plot, that the proportion of males hatchling seems to increase as the temperature as the incubuation period rises.
+We can see on the next plot, that the proportion of males hatchlings seems to increase as the incubation temperature rises.
 
 ```{r}
 #| fig-width: 4
@@ -101,7 +98,7 @@ ggplot(turtles,aes(y= male_props,x=temp))+
 
 ```
 
-To corroborate this result, we can fit a GLM to the data.
+To corroborate this result, we can fit a logistic regression to the data.
 
 ```{=tex}
 \begin{align}
@@ -109,9 +106,9 @@ y_i &\sim \mathrm{Binomial}(n_i,p_i)\\
 \mathrm{logit}(p_i) &= \beta_0 +\beta_1 \times \mathrm{temperature}.
 \end{align}
 ```
-Here, $y_i$ denotes the number of hatched males on the $i$th replicate, $n_i$ is the fixed total number of hatched eggs per replicate ($i = 1,\ldots,N$), $p_i$ is the probability of a male turtle being hatched and $\beta_0$ and $\beta_1$ are our unknown parameters to be estimated.
+Here, $y_i$ denotes the number of hatched males on the $i$th experiment replicate, $n_i$ is the fixed total number of hatched eggs per replicate, $p_i$ is the probability of a male turtle being hatched, and $\beta_0$ and $\beta_1$ are our unknown parameters to be estimated.
 
-Proportions can be modelled by providing an $N \times 2$ matrix of the number of success (num. of males hatchlings) and the number of failures (number of female hatchlings):
+Proportions can be modelled by providing an $N \times 2$ matrix of the number of positive events (num. of males hatchlings) and the number of negative events (number of female hatchlings):
 
 ```{r}
 #| eval: false
@@ -122,7 +119,7 @@ model_turtles <- glm(cbind(male,female) ~ temp,
                      family = binomial)
 ```
 
-or by providing the proportion of males hatchlings and `weights` totals in the function (i.e the number of trials):
+or by providing the proportion of males hatchlings and `weights` totals, i.e the number of trials (number of eggs in each replicate), in the `glm` function:
 
 ```{r}
 #| code-fold: false
@@ -133,7 +130,7 @@ model_turtles <- glm(male_props ~ temp,
                      family = binomial)
 ```
 
-These two formulation are valid and will yield to the same following result:
+These two formulations are valid and will yield to the same following result:
 
 ```{r}
 #| eval: false
@@ -151,11 +148,11 @@ model_turtles %>% tidy(conf.int = T) %>% kable(digits=2)
 
 The interpretation goes as follows:
 
--   For every unit increase (celsius degrees presumably) in *Temperature,* the log-odds of a male being hatched increase by 2.21 i.e. the chances of a hatching a male increases as the temperature during the incubation increases.
+-   For every unit increase (celsius degrees presumably) in *Temperature,* the log-odds of a male being hatched increase by 2.21 i.e. the chances of hatching a male increases as the incubation temperature increases.
 
 -   Given $p_{val} < 0.05$, we can **reject the null hypothesis** $\beta_1 = 0$ that one unit increase in temperature does not affect chances of a male being hatched.
 
--   For every unit increase in *Temperature*, the **odds** of hatching a male are 9.13 times the odds of those with one *temperature* unit less.
+-   For every unit increase in *Temperature*, the **odds** of hatching a male are $\mathrm{exp}(\beta_1) = 9.13$ times the odds of those with one *temperature* unit less.
 
 ::: {.callout-tip icon="false"}
 ## {{< bi question-octagon color=#6dc83c >}} Question
@@ -164,7 +161,7 @@ If an egg is incubated at a temperature of 27.5 degrees, what at the chances (od
 
 `r hide("I need a hint")`
 
-Recall that $log~Odds ~ (male) = \mathrm{log}\left(\dfrac{P(male)}{1-P(male)}\right) = \hat{\beta_0} +\hat{\beta_1} \times temperature$, but we are interested in $\dfrac{P(female)}{1-P(female)}$, thus $Odds ~ (female) = \mathrm{exp}\left[- \mathrm{log}\left(\dfrac{P(male)}{1-P(male)} \right)\right] = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right)$
+Recall that $log~Odds ~ (male) = \mathrm{log}\left(\dfrac{P(male)}{1-P(male)}\right) = \hat{\beta_0} +\hat{\beta_1} \times temperature$, but we are interested in $\dfrac{P(female)}{1-P(female)}$, thus $Odds ~ (female) = \mathrm{exp}\left[- \mathrm{log}\left(\dfrac{P(male)}{1-P(male)} \right)\right] = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right)$.
 
 `r unhide()`
 
@@ -182,6 +179,26 @@ opts_p <- c(
 `r longmcq(opts_p)`
 :::
 
+We can now plot the predicted probabilities of a hatchling being male. However, notice that the number of unique temperature values in the `turtles` data set is not very large:
+
+```{r}
+#| code-fold: false 
+ turtles %>% select(temp) %>% unique() 
+```
+
+Thus, we can create a coarser grid of temperature values to make our predictions and then use the `plot_model()` function as follows:
+
+```{r}
+#| code-fold: show 
+temp_pred = seq(27,30,by=0.01)
+plot_model(model_turtles, 
+           type = "eff", 
+           title = "", 
+           terms="temp[temp_pred]", 
+           axis.title = c("Temperature", "Prob. of a hatchling being male"))
+
+```
+
 ::: {.callout-tip icon="false"}
 ## {{< bi question-octagon color=#6dc83c >}} Question
 
@@ -189,7 +206,7 @@ What is the probability of a turtle egg that is incubated in a temperature of 28
 
 `r hide("I need a hint")`
 
-Recall that $P~ (male) = \dfrac{Odds(male)}{1 + Odds(male)} = \dfrac{\mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}{1 + \mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}$
+Recall that $P~ (male) = \dfrac{Odds(male)}{1 + Odds(male)} = \dfrac{\mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}{1 + \mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}$. In R, the inverse logit transformation can be achieved using the `plogis()` function.
 
 `r unhide()`
 
@@ -200,7 +217,7 @@ Besides our usual model checks and model evaluation metrics, when dealing with p
 
 This excess of variance is called **overdispersion** and its an indicator that our model is missing some important variability in the data (e.g. unaccounted factors affecting the probability of an event, non-independent trials, clustering within the data, among others).
 
-To check for overdispersion we can use the built-in `check_overdispersion()` function from the performance package (to learn more about overdispersion see [@gelman2006]):
+To check for overdispersion we can use the built-in `check_overdispersion()` function from the `performance` package (to learn more about overdispersion see @gelman2006):
 
 ```{r}
 #| code-fold: false
@@ -208,3 +225,141 @@ check_overdispersion(model_turtles)
 ```
 
 In this example its seems we don't have to worry about it. But what about the binary case (i.e. ungrouped data)? well overdispersion is usually not a concern here because the variance cannot exceed the range for a binary response where each observation represents a single outcome (0 or 1) and the variance of the model is constrained since $Var(Y) = p(1-p)$.
+
+## Modelling grouped binary data and a categorical covariate
+
+In the last section we reviewed the case when the explanatory variable was continuous., lets look now at the case when the explanatory variable is categorical.
+
+To illustrate how the previous model works with categorical predictors we can discretized the temperature values into arbitrary categories as follows:
+
+$$
+\mathrm{temperature~ category} =\begin{cases} \mathrm{temperature} > 29^\circ C  &  \text{high} \\ \mathrm{temperature} > 28^\circ C& \text{medium} \\ \text{else} & \text{low}\end{cases}
+$$
+
+In R we can use the `case_when()` function to accomplish this:
+
+```{r}
+#| code-fold: show
+#| 
+turtles = turtles  %>% mutate(
+  temp_fct = case_when(
+    temp > 29 ~ "high",
+    temp > 28 ~ "medium",
+    .default = "low"
+  ) %>% as.factor()
+) 
+```
+
+Now, recall that as usual, R will set the baseline category for our explanatory variable in alphabetical order, i.e. the `high` temperature level will be treated as reference for the dicretized variable. However, we already know that the chances of a male being hatched increases with higher incubation temperatures.
+
+Thus, it makes sense to assess how the chances of a male being hatched are affected by comparing higher temperature categories against lower ones. This implies that we will set `low` to be our reference category. Luckily, we have seen in previous tasks how to do this using the `relevel()` function:
+
+```{r}
+#| code-fold: false
+turtles = turtles %>%
+  mutate(temp_fct = relevel(temp_fct,ref = "low")) 
+
+```
+
+We can now fit a logistic regression using the `low` temperature level as the reference category for our dicretized temperature covariate. The model is then given by:
+
+```{=tex}
+\begin{align}
+y_i &\sim \mathrm{Binomial}(n_ip_i)\\
+\mathrm{logit}(p_i) &= \alpha +  \beta_{1}  \times \mathbb{I}_{\mathrm{temperature}}(\mathrm{high}) + \beta_{2}  \times \mathbb{I}_{\mathrm{temperature}}(\mathrm{medium}).
+\end{align}
+```
+-   $\alpha$ represent the **log-odds** of a male turtle being hatched in `low` incubation temperature.
+
+-   $\beta_1$ are the change int the **log-odds** of a male turtle being hatched given it was incubated in a `high` temperature condition compared to a `low` one.
+
+-   $\mathbb{I}_{\mathrm{temperature}}(\mathrm{high})$ is an indicator variable that takes the value of 1 if the $i$th experiment replicate was conducted on a `high` temperature.
+
+-   $\beta_2$ are the change int the **log-odds** of a male turtle being hatched given it was incubated in a `medium` condition compared to a `low` one.
+
+-   $\mathbb{I}_{\mathrm{temperature}}(\mathrm{medium})$ is an indicator variable that takes the value of 1 if the $i$th experiment replicate was conducted on a `medium` temperature.
+
+In R, the model can be fitted as follows:
+
+```{r}
+#| code-fold: false
+model_turtles_2 <- glm(cbind(male,female) ~ temp_fct,
+                     data = turtles,
+                     family = binomial)
+
+```
+
+Lets print the model estimates odds scale and 95% confidence intervals (remember we can achieve this by setting `conf.int=TRUE` and `exponentiate=TRUE` within the `tidy` function):
+
+```{r}
+#| eval: false
+#| code-fold: false
+
+model_turtles_2 %>% broom::tidy(conf.int = T,exponentiate = T)
+```
+
+```{r}
+#| echo: false
+
+model_2_summary= model_turtles_2 %>% broom::tidy(conf.int=T,exponentiate = T) 
+model_2_summary %>% kable(digits = 2)
+
+```
+
+We can see that the odds of a male being hacthed if it was incubated on a `low` temperature condition are `r round(model_2_summary$estimate[1],2)` the odds of a female being hatched if it was incubated on the same condition.
+
+Alternatively, we could interpret this as the odds of female being hatched in a `low` temperature incubation settings being $\mathrm{exp}(\alpha)^{-1} =$ `r round(1/model_2_summary$estimate[1],2)` higher than the odds of a male being hatched under the same setting. However, there is not enough evidence to support that the change in the odds is statistically significant since the confidence interval ( `r round(model_2_summary$conf.low[1],2)` , `r round(model_2_summary$conf.high[1],2)`) contains 1 (remember we are in the odds scale).
+
+On the other hand, the odds of a male being hatched are `r round(model_2_summary$estimate[2],2)`! significantly higher in a `high` temperature setting compared to a `low` temperature. Likewise, the odds of a male being hatched are `r round(model_2_summary$estimate[3],2)` higher in a `medium` temperature contidion compared to a `low` one.
+
+What if we want to compare the odds of a male being hatched if the egg was incubate on a `high` temperture conditon against a `medium` one?
+
+In that case, we we will be looking at the following odds ratio:
+
+```{=tex}
+\begin{align}
+\dfrac{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=high)}{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=medium)} &= \dfrac{\frac{p_{\mathrm{temperature}=high}}{1-p_{\mathrm{temperature}=high}}}{\frac{p_{\mathrm{temperature}=medium}}{1-p_{\mathrm{temperature}=medium}}}\\
+&= \dfrac{\mathrm{exp}(\alpha+\beta_1)}{\mathrm{exp}(\alpha+\beta_2)} \\
+&= \mathrm{exp}(\alpha+\beta_1 - \alpha - \beta_2) \\
+&= \mathrm{exp}(\beta_1 - \beta_2) = \frac{\mathrm{exp}(\beta_1)}{ \mathrm{exp}(\beta_2)}
+\end{align}
+```
+Where $\beta_1$ and $\beta_2$ are the coefficients in the **log-odd** scale. However since we already have $\mathrm{exp}(\beta_1)=$ `r round(model_2_summary$estimate[2],2)` and $\mathrm{exp}(\beta_2)=$ `r round(model_2_summary$estimate[3],2)`, then the odds of male being hatched from an egg that was incubated on a `high` temperature condition are $\frac{45.47}{6.32}=$ `r round(model_2_summary$estimate[2]/model_2_summary$estimate[3],2)` greater than the one that was incubate on a `medium` temperature condition.
+
+Finally, we can calculate the probabilities of a male being hatched in each temperature condition as follows:
+
+-   $P(\mathrm{male}=1|\mathrm{temperature}=low) = \dfrac{\mathrm{\mathrm{exp}(\alpha})}{1 + \mathrm{exp}(\alpha)}$ In R this is:
+
+    ```{r}
+    #| code-fold: false  
+    plogis(coef(model_turtles_2)[1])
+
+    ```
+
+-   $P(\mathrm{male}=1|\mathrm{temperature}=medium) = \dfrac{\mathrm{\mathrm{exp}(\alpha + \beta_1})}{1 + \mathrm{exp}(\alpha + \beta_1)}$ . In R this is equivalent to:
+
+    ```{r}
+    #| code-fold: false  
+
+    plogis(coef(model_turtles_2)[1] + coef(model_turtles_2)[3])
+    ```
+
+-   $P(\mathrm{male}=1|\mathrm{temperature}=high) = \dfrac{\mathrm{\mathrm{exp}(\alpha + \beta_2})}{1 + \mathrm{exp}(\alpha + \beta_2)}$. In R this is computed as:
+
+    ```{r}
+    #| code-fold: false  
+
+    plogis(coef(model_turtles_2)[1] + coef(model_turtles_2)[2])
+    ```
+
+We can visualize this probabilities using the `plot_model()` function as follows:
+
+```{r}
+#| code-fold: show
+plot_model(type = "pred",
+           model_turtles_2,
+           terms = "temp_fct",
+           axis.title = c("Temperature Category",
+                          "Prob. of a hatchling being male"),
+           title = " ")
+```

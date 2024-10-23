@@ -447,7 +447,7 @@ Finally, we can plot the probability of being male using `sjPlot` by specifying 
 
 2.  `type = "pred"` to plot predicted values (marginal effects) for specific model terms.
 
-3.  The model terms of interest. Here, you can also plot the marginal effects at specific values ,e.g. selecting `age[30:60]` will plot the predictions based on age-values from 30 to 60, while `age[all]` will plot the predictions across all of the range of our independent variable.
+3.  The model terms of interest. Here, you can also plot the marginal effects at specific values ,e.g. selecting `age[30:60]` will plot the predictions based on age-values from 30 to 60, while `age[all]` will plot the predictions across all of the range of our independent variable (You can also provide a custom grid to evaluate you predictions, we will this cover next week).
 
 ```{r}
 #| fig-width: 4
@@ -1071,5 +1071,10 @@ Finally, we can use the `plot_model()` function from the `sjPlot` package to pro
 #| fig-align: center
 #| fig-cap: "Probability of teaching instructor being male by ethnicity."
 #| code-fold: show
-plot_model(model.ethnic, type = "pred", terms = "ethnicity", axis.title = c("Ethnicity", "Prob. of instructor being male"), title = " ")
+plot_model(model.ethnic,
+           type = "pred",
+           terms = "ethnicity",
+           axis.title = c("Ethnicity", 
+                          "Prob. of instructor being male"),
+           title = " ")
 ```

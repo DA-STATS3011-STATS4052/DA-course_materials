@@ -5,7 +5,7 @@ project:
   - index.qmd
   - aboud.qmd
 website:
-  title: Data Analysis Week 1
+  title: Data Analysis Week 8
   favicon: UofG_Coat_of_Arms.png
   navbar:
     logo: UofG.png

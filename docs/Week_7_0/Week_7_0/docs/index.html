@@ -743,7 +743,7 @@ p &amp;= \frac{\exp\left(\alpha + \beta \cdot \textrm{age} \right)}{1 + \exp\lef
 <ol type="1">
 <li><p>The model we have fitted</p></li>
 <li><p><code>type = "pred"</code> to plot predicted values (marginal effects) for specific model terms.</p></li>
-<li><p>The model terms of interest. Here, you can also plot the marginal effects at specific values ,e.g.&nbsp;selecting <code>age[30:60]</code> will plot the predictions based on age-values from 30 to 60, while <code>age[all]</code> will plot the predictions across all of the range of our independent variable.</p></li>
+<li><p>The model terms of interest. Here, you can also plot the marginal effects at specific values ,e.g.&nbsp;selecting <code>age[30:60]</code> will plot the predictions based on age-values from 30 to 60, while <code>age[all]</code> will plot the predictions across all of the range of our independent variable (You can also provide a custom grid to evaluate you predictions, we will this cover next week).</p></li>
 </ol>
 <div class="cell" data-layout-align="center">
 <details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model</span>, </span>
@@ -1473,7 +1473,12 @@ Click here to see the solution
 <p>Hence, the probabilities of an instructor being male given they are in the <code>minority</code> and <code>not minority</code> ethnic groups are 0.437 and 0.602, respectively.</p>
 <p>Finally, we can use the <code><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model()</a></code> function from the <code>sjPlot</code> package to produce the estimated probabilities by <code>ethnicity</code> as follows:</p>
 <div class="cell" data-layout-align="center">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>, type <span class="op">=</span> <span class="st">"pred"</span>, terms <span class="op">=</span> <span class="st">"ethnicity"</span>, axis.title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ethnicity"</span>, <span class="st">"Prob. of instructor being male"</span><span class="op">)</span>, title <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">model.ethnic</span>,</span>
+<span>           type <span class="op">=</span> <span class="st">"pred"</span>,</span>
+<span>           terms <span class="op">=</span> <span class="st">"ethnicity"</span>,</span>
+<span>           axis.title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ethnicity"</span>, </span>
+<span>                          <span class="st">"Prob. of instructor being male"</span><span class="op">)</span>,</span>
+<span>           title <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
