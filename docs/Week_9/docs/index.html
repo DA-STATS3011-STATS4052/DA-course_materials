@@ -369,8 +369,8 @@ I need a hint
 </button>
 <p>Recall that <span class="math inline">\(log~Odds ~ (male) = \mathrm{log}\left(\dfrac{P(male)}{1-P(male)}\right) = \hat{\beta_0} +\hat{\beta_1} \times temperature\)</span>, but we are interested in <span class="math inline">\(\dfrac{P(female)}{1-P(female)}\)</span>, thus <span class="math inline">\(Odds ~ (female) = \mathrm{exp}\left[- \mathrm{log}\left(\dfrac{P(male)}{1-P(male)} \right)\right] = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right)\)</span>.</p>
 </div>
-<div id="radio_EZXLSXTBPC" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
+<div id="radio_MLZCIAFTJH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
 </div>
 </div>
 </div>
@@ -542,7 +542,7 @@ y_i &amp;\sim \mathrm{Binomial}(n_ip_i)\\
 </div>
 <p>We can see that the odds of a male being hacthed if it was incubated on a <code>low</code> temperature condition are 0.59 the odds of a female being hatched if it was incubated on the same condition.</p>
 <p>Alternatively, we could interpret this as the odds of female being hatched in a <code>low</code> temperature incubation settings being <span class="math inline">\(\mathrm{exp}(\alpha)^{-1} =\)</span> 1.68 higher than the odds of a male being hatched under the same setting. However, there is not enough evidence to support that the change in the odds is statistically significant since the confidence interval ( 0.33 , 1.04) contains 1 (remember we are in the odds scale).</p>
-<p>On the other hand, the odds of a male being hatched are 45.47! significantly higher in a <code>high</code> temperature setting compared to a <code>low</code> temperature. Likewise, the odds of a male being hatched are 6.32 higher in a <code>medium</code> temperature contidion compared to a <code>low</code> one.</p>
+<p>On the other hand, the odds of a male being hatched are 45.47! significantly higher in a <code>high</code> temperature setting compared to a <code>low</code> temperature. Likewise, the odds of a male being hatched are 6.32 higher in a <code>medium</code> temperature condition compared to a <code>low</code> one.</p>
 <p>What if we want to compare the odds of a male being hatched if the egg was incubate on a <code>high</code> temperture conditon against a <code>medium</code> one?</p>
 <p>In that case, we we will be looking at the following odds ratio:</p>
 <span class="math display">\[\begin{align}
@@ -685,7 +685,7 @@ f(\mathbf{y}|n)&amp;= \dfrac{n!}{y_1!y_2!\ldots y_J!} \prod_{j=1}^J
 <li>Type of pet: Dog, Cat, Rodent, Fish, Bird</li>
 <li>Genotype: AA, Aa, aa</li>
 </ul>
-<p>The goal is to estimate the probabilities for each class <span class="math inline">\(j\)</span> (where <span class="math inline">\(j \in \{1,2,\ldots,K\}\)</span>) based on the independent variables <span class="math inline">\(\mathbf{x}\)</span>. The probability of the <span class="math inline">\(j\)</span>th class is then given by:</p>
+<p>The goal is to estimate the probabilities for each class <span class="math inline">\(j\)</span> (where <span class="math inline">\(j \in \{1,2,\ldots,J\}\)</span>) based on the independent variables <span class="math inline">\(\mathbf{x}\)</span>. The probability of the <span class="math inline">\(j\)</span>th class is then given by:</p>
 <p><span class="math display">\[
 P(Y=j|\mathbf{x})= \dfrac{\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_j)}{\sum_{k=1}^J\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_k)}
 \]</span></p>
@@ -921,7 +921,7 @@ P(Y=j|\mathbf{x})= \dfrac{\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_j
 <li>
 <span class="math inline">\(x_2=1\)</span> for age 24-40 years and 0 otherwise</li>
 <li>
-<span class="math inline">\(x_3=1\)</span> for age $&gt;$40 years and 0 otherwise.</li>
+<span class="math inline">\(x_3=1\)</span> for age <span class="math inline">\(&gt;\)</span> 40 years and 0 otherwise.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">nnet</a></span><span class="op">)</span></span>
@@ -1160,8 +1160,8 @@ converged</code></pre>
 </table>
 </div>
 </div>
-<p>From this table, we can see that the odds of considering the features important (versus <code>no/little importance</code>) for over 40 year-olds are <strong>4.89</strong> times the odds for 18-23 year olds (which is the baseline category for the <code>age</code> group). In general, a positive coefficient (or greater than 1 odds multiplier) tells us that older people are more likely to consider the features important than young people, which is consistent with what we observed in the exploratory plots. Similarly, we can see that women are more likely than men to consider the features important, specifically the chances a woman finds these features <code>important</code> are 47% greater than men and more than twice consider these features as <code>very important</code> compared to men. However, in the first case, this difference between women and men is not statistically significant since the 95% CI contains 1.</p>
-<p>In the table below we have a summary of the coefficients, odds ratios and confidence intervals for the <strong>log-odds</strong> corresponding to <code>important</code> versus <code>no/little importance</code>. The odds ratio comparing women to men is not significant, but all the odds ratios comparing age groups are.</p>
+<p>From this table, we can see that the odds of considering the features important (versus <code>no/little importance</code>) for over 40 year-olds are <strong>4.89</strong> times the odds for 18-23 year olds (which is the baseline category for the <code>age</code> group). In general, a positive coefficient (or greater than 1 odds multiplier) tells us that older people are more likely to consider the features important than young people, which is consistent with what we observed in the exploratory plots. Similarly, we can see that women are more likely than men to consider the features important, specifically the chances a woman finds these features <code>important</code> are 47% greater than men and more than twice consider these features as <code>very important</code> compared to men. However, in the first case, the difference between women and men is not statistically significant since the 95% CI contains 1.</p>
+<p>In the table below we have a summary of the coefficients, odds ratios and confidence intervals for the <strong>log-odds</strong> corresponding to <code>important</code> versus <code>no/little importance</code>.</p>
 </section><section id="model-checking-and-model-comparisons" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="model-checking-and-model-comparisons">
 <span class="header-section-number">3.4</span> Model checking and model comparisons</h2>
 <p>Summary statistics can be used to assess the adequacy of a model and also to compare models. Some of the statistics we can consider are:</p>
@@ -1207,11 +1207,16 @@ converged</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.59159</code></pre>
 </div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># pval</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span><span class="fl">77.844</span>,df<span class="op">=</span><span class="fl">6</span>,lower.tail <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.955365e-15</code></pre>
+</div>
 </div>
 <p>Overall, the explanatory variables are descriptive of car preferences.</p>
 <p>We can also compare this model with the saturated (full) model, which includes an interaction between <code>age</code> and <code>sex</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">response</span> <span class="op">~</span> <span class="va">age</span> <span class="op">*</span> <span class="va">sex</span>, weight <span class="op">=</span> <span class="va">frequency</span>, data <span class="op">=</span> <span class="va">dcars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">response</span> <span class="op">~</span> <span class="va">age</span> <span class="op">*</span> <span class="va">sex</span>, weight <span class="op">=</span> <span class="va">frequency</span>, data <span class="op">=</span> <span class="va">dcars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># weights:  21 (12 variable)
 initial  value 329.583687 
@@ -1219,7 +1224,7 @@ iter  10 value 288.541004
 final  value 288.381742 
 converged</code></pre>
 </div>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">model_full</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">model_full</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
     edf deviance   AIC  nobs
@@ -1229,14 +1234,19 @@ converged</code></pre>
 </div>
 <p>The difference in deviance between the additive and the saturated model is <span class="math inline">\(580.70-576.76=3.94\)</span>. This is not significant when compared with a <span class="math inline">\(\chi^2(12-8)\)</span>, so the additive model appears to fit the data well.</p>
 <div class="cell">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">4</span>, p<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">4</span>, p<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.487729</code></pre>
+</div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># pval</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span><span class="fl">3.94</span>,df<span class="op">=</span><span class="fl">6</span>,lower.tail <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6847959</code></pre>
 </div>
 </div>
 <p>The same conclusion is supported when comparing the AIC for these models:</p>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://easystats.github.io/performance/reference/compare_performance.html">compare_performance</a></span><span class="op">(</span><span class="va">model_full</span>,<span class="va">model_cars</span>,<span class="va">model_null</span>,metrics <span class="op">=</span> <span class="st">"AIC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -1296,7 +1306,7 @@ Take hint
 See solution
 </button>
 <div class="cell">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m.iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">Sepal.Length</span>, data<span class="op">=</span><span class="va">iris</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m.iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">Sepal.Length</span>, data<span class="op">=</span><span class="va">iris</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># weights:  9 (4 variable)
 initial  value 164.791843 
@@ -1305,7 +1315,7 @@ iter  20 value 91.035008
 final  value 91.033971 
 converged</code></pre>
 </div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">iris</span>,<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m.iris</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">iris</span>,<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m.iris</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species predict(m.iris)
 1          5.1         3.5          1.4         0.2  setosa          setosa

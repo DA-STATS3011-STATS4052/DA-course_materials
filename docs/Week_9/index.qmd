@@ -311,7 +311,7 @@ We can see that the odds of a male being hacthed if it was incubated on a `low` 
 
 Alternatively, we could interpret this as the odds of female being hatched in a `low` temperature incubation settings being $\mathrm{exp}(\alpha)^{-1} =$ `r round(1/model_2_summary$estimate[1],2)` higher than the odds of a male being hatched under the same setting. However, there is not enough evidence to support that the change in the odds is statistically significant since the confidence interval ( `r round(model_2_summary$conf.low[1],2)` , `r round(model_2_summary$conf.high[1],2)`) contains 1 (remember we are in the odds scale).
 
-On the other hand, the odds of a male being hatched are `r round(model_2_summary$estimate[2],2)`! significantly higher in a `high` temperature setting compared to a `low` temperature. Likewise, the odds of a male being hatched are `r round(model_2_summary$estimate[3],2)` higher in a `medium` temperature contidion compared to a `low` one.
+On the other hand, the odds of a male being hatched are `r round(model_2_summary$estimate[2],2)`! significantly higher in a `high` temperature setting compared to a `low` temperature. Likewise, the odds of a male being hatched are `r round(model_2_summary$estimate[3],2)` higher in a `medium` temperature condition compared to a `low` one.
 
 What if we want to compare the odds of a male being hatched if the egg was incubate on a `high` temperture conditon against a `medium` one?
 
@@ -443,7 +443,7 @@ Nominal logistic regression, also known as *multinomial logistic regression* is 
 -   Type of pet: Dog, Cat, Rodent, Fish, Bird
 -   Genotype: AA, Aa, aa
 
-The goal is to estimate the probabilities for each class $j$ (where $j \in \{1,2,\ldots,K\}$) based on the independent variables $\mathbf{x}$. The probability of the $j$th class is then given by:
+The goal is to estimate the probabilities for each class $j$ (where $j \in \{1,2,\ldots,J\}$) based on the independent variables $\mathbf{x}$. The probability of the $j$th class is then given by:
 
 $$
 P(Y=j|\mathbf{x})= \dfrac{\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_j)}{\sum_{k=1}^J\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_k)}
@@ -588,7 +588,7 @@ where
 -   $j=3$ for "very important"
 -   $x_1=1$ for women and 0 for men,
 -   $x_2=1$ for age 24-40 years and 0 otherwise
--   $x_3=1$ for age \$\>\$40 years and 0 otherwise.
+-   $x_3=1$ for age $>$ 40 years and 0 otherwise.
 
 ```{r}
 #| code-fold: false
@@ -629,26 +629,10 @@ tidy(model_cars,conf.int=T,exponentiate = T)
 tidy(model_cars,conf.int=T,exponentiate = T) %>% kable(digits=2)
 ```
 
-From this table, we can see that the odds of considering the features important (versus `no/little importance`) for over 40 year-olds are **4.89** times the odds for 18-23 year olds (which is the baseline category for the `age` group). In general, a positive coefficient (or greater than 1 odds multiplier) tells us that older people are more likely to consider the features important than young people, which is consistent with what we observed in the exploratory plots. Similarly, we can see that women are more likely than men to consider the features important, specifically the chances a woman finds these features `important` are 47% greater than men and more than twice consider these features as `very important` compared to men. However, in the first case, this difference between women and men is not statistically significant since the 95% CI contains 1.
+From this table, we can see that the odds of considering the features important (versus `no/little importance`) for over 40 year-olds are **4.89** times the odds for 18-23 year olds (which is the baseline category for the `age` group). In general, a positive coefficient (or greater than 1 odds multiplier) tells us that older people are more likely to consider the features important than young people, which is consistent with what we observed in the exploratory plots. Similarly, we can see that women are more likely than men to consider the features important, specifically the chances a woman finds these features `important` are 47% greater than men and more than twice consider these features as `very important` compared to men. However, in the first case, the difference between women and men is not statistically significant since the 95% CI contains 1.
 
-In the table below we have a summary of the coefficients, odds ratios and confidence intervals for the **log-odds** corresponding to `important` versus `no/little importance`. The odds ratio comparing women to men is not significant, but all the odds ratios comparing age groups are.
+In the table below we have a summary of the coefficients, odds ratios and confidence intervals for the **log-odds** corresponding to `important` versus `no/little importance`.
 
-```{=tex}
-\begin{center}
- \begin{tabular}{lrcc}
- \hline
- Parameter, $\beta$ & Estimate, $\hat{\beta}$ & \multicolumn{2}{c}{$OR=e^{\hat{\beta}}$} \\
- & (std. error) &\multicolumn{2}{c}{ (95\% confidence interval)}\\
- \hline
- \multicolumn{4}{l}{$\log(p_2/p_1)$: important vs. no/little importance}\\
- $\beta_{02}$: constant & -0.979 (0.256) & & \\
-  $\beta_{12}$: women & 0.388 (0.301) &1.47 & (0.82, 2.66) \\
-    $\beta_{22}$: 24-40 & 1.128 (0.342) &3.09 & (1.58, 6.04)\\
- $\beta_{32}$: >40 & 1.590 (0.403) &4.90 & (2.22, 10.78)\\
-    \hline
- \end{tabular}
-\end{center}
-```
 ## Model checking and model comparisons
 
 Summary statistics can be used to assess the adequacy of a model and also to compare models. Some of the statistics we can consider are:
@@ -686,6 +670,8 @@ The difference in deviance is $658.54-580.70=77.84$ which is significant when co
 #| code-fold: false
 
 qchisq(df=6, p=0.95)
+# pval
+pchisq(77.844,df=6,lower.tail = F)
 ```
 
 Overall, the explanatory variables are descriptive of car preferences.
@@ -705,6 +691,8 @@ The difference in deviance between the additive and the saturated model is $580.
 #| code-fold: false
 
 qchisq(df=4, p=0.95)
+# pval
+pchisq(3.94,df=6,lower.tail = F)
 ```
 
 The same conclusion is supported when comparing the AIC for these models:
