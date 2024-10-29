@@ -167,9 +167,9 @@ window.Quarto = {
     <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Notes</span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="./about.qmd"> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Week 8: Extra material</span></a>
   </li>  
 </ul>
 </div> <!-- /navcollapse -->
@@ -186,7 +186,16 @@ window.Quarto = {
   <li>
 <a href="#logistic-regression-with-grouped-binary-data" id="toc-logistic-regression-with-grouped-binary-data" class="nav-link" data-scroll-target="#logistic-regression-with-grouped-binary-data"><span class="header-section-number">2</span> Logistic regression with grouped binary data</a>
   <ul class="collapse">
-<li><a href="#modelling-grouped-binary-data-and-a-categorical-covariate" id="toc-modelling-grouped-binary-data-and-a-categorical-covariate" class="nav-link" data-scroll-target="#modelling-grouped-binary-data-and-a-categorical-covariate"><span class="header-section-number">2.1</span> Modelling grouped binary data and a categorical covariate</a></li>
+<li><a href="#modelling-grouped-binary-data-with-a-categorical-covariate" id="toc-modelling-grouped-binary-data-with-a-categorical-covariate" class="nav-link" data-scroll-target="#modelling-grouped-binary-data-with-a-categorical-covariate"><span class="header-section-number">2.1</span> Modelling grouped binary data with a categorical covariate</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#models-for-multiple-categorical-responses" id="toc-models-for-multiple-categorical-responses" class="nav-link" data-scroll-target="#models-for-multiple-categorical-responses"><span class="header-section-number">3</span> Models for multiple categorical responses</a>
+  <ul class="collapse">
+<li><a href="#nominal-logistic-regression" id="toc-nominal-logistic-regression" class="nav-link" data-scroll-target="#nominal-logistic-regression"><span class="header-section-number">3.1</span> Nominal logistic regression</a></li>
+  <li><a href="#parameter-estimation-and-fitted-values" id="toc-parameter-estimation-and-fitted-values" class="nav-link" data-scroll-target="#parameter-estimation-and-fitted-values"><span class="header-section-number">3.2</span> Parameter estimation and fitted values</a></li>
+  <li><a href="#example-fitting-a-nominal-logistic-regression-in-r" id="toc-example-fitting-a-nominal-logistic-regression-in-r" class="nav-link" data-scroll-target="#example-fitting-a-nominal-logistic-regression-in-r"><span class="header-section-number">3.3</span> Example: Fitting a nominal logistic regression in R</a></li>
+  <li><a href="#model-checking-and-model-comparisons" id="toc-model-checking-and-model-comparisons" class="nav-link" data-scroll-target="#model-checking-and-model-comparisons"><span class="header-section-number">3.4</span> Model checking and model comparisons</a></li>
   </ul>
 </li>
   </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -212,7 +221,7 @@ window.Quarto = {
 
 </header><section id="introduction" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> Introduction</h1>
-<p>Last week we introduced <strong>Generalised Linear Models</strong> (GLMs). Particularly, we looked at <strong>logistic regression</strong> to model outcomes of interest that take one of two categorical values (e.g.&nbsp;yes/no, success/failure, alive/dead). This week we will continue reviewing logistic regression to model grouped binary outcomes (e.g.&nbsp;number of successes out of a fixed number of trials) and then we we will generalise this to situations where the response variable is categorical with more than two categories. First lets look at the framework for modelling categorical data with only two categories, i.e.</p>
+<p>Last week we introduced <strong>Generalised Linear Models</strong> (GLMs). Particularly, we looked at <strong>logistic regression</strong> to model outcomes of interest that take one of two categorical values (e.g.yes/no, success/failure, alive/dead). This week we will continue reviewing logistic regression to model grouped binary outcomes (e.g.&nbsp;number of successes out of a fixed number of trials) and then we we will generalise this to situations where the response variable is categorical with more than two categories. First lets look at the framework for modelling categorical data with only two categories, i.e.</p>
 <ul>
 <li><p><strong>binary</strong>, taking the value 1 (say success, with probability <span class="math inline">\(p\)</span>) or 0 (failure, with probability <span class="math inline">\(1-p\)</span>) or</p></li>
 <li><p><strong>binomial</strong>, where <span class="math inline">\(y_i\)</span> is the number of events (successes) in a given number of trials <span class="math inline">\(n_i\)</span>, with the probability of success being <span class="math inline">\(p_i\)</span> and the probability of failure being <span class="math inline">\(1-p_i\)</span>.</p></li>
@@ -227,14 +236,15 @@ window.Quarto = {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/julianfaraway/faraway">faraway</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/julianfaraway/faraway">faraway</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section><section id="logistic-regression-with-grouped-binary-data" class="level1" data-number="2"><h1 data-number="2">
 <span class="header-section-number">2</span> Logistic regression with grouped binary data</h1>
 <p>Suppose that our binary outcome <span class="math inline">\(y_i\)</span> is grouped across <span class="math inline">\(n_i\)</span> number of trials, e.g.&nbsp;number of times a head landed when a coin was tossed on multiple occasions or the proportion of beetles that were killed after being exposed to an insecticide.</p>
 <p>In such cases <span class="math inline">\(y_i \sim \mathrm{Bin}(n_i,p_i)\)</span>, often referred to as proportional data, since our dependent variables are expressed as percentages or fractions of a whole. Lets look at a an example.</p>
-<p>It is known that the incubation temperature can affect the sex determination of turtles. An experiment was conducted where turtle eggs were incubated at various temperatures and the number of male and female hatchlings was recorded. The goal of the experiment was to examine the link between incubation temperature and the chance of hatchlings being a male.</p>
+<p>It is known that the incubation temperature can affect the sex determination of turtles. An experiment was conducted where turtle eggs were incubated at various temperatures and the number of male and female hatchlings was recorded. The goal of the experiment was to examine the link between incubation temperature and the chance of hatchling being a male.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="turtles.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="473"></p>
 </figure>
@@ -359,8 +369,8 @@ I need a hint
 </button>
 <p>Recall that <span class="math inline">\(log~Odds ~ (male) = \mathrm{log}\left(\dfrac{P(male)}{1-P(male)}\right) = \hat{\beta_0} +\hat{\beta_1} \times temperature\)</span>, but we are interested in <span class="math inline">\(\dfrac{P(female)}{1-P(female)}\)</span>, thus <span class="math inline">\(Odds ~ (female) = \mathrm{exp}\left[- \mathrm{log}\left(\dfrac{P(male)}{1-P(male)} \right)\right] = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right)\)</span>.</p>
 </div>
-<div id="radio_KDHYOAGNFY" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_KDHYOAGNFY" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KDHYOAGNFY" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KDHYOAGNFY" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KDHYOAGNFY" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
+<div id="radio_EZXLSXTBPC" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EZXLSXTBPC" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
 </div>
 </div>
 </div>
@@ -431,8 +441,8 @@ I need a hint
 </div>
 </div>
 <p>In this example its seems we don’t have to worry about it. But what about the binary case (i.e.&nbsp;ungrouped data)? well overdispersion is usually not a concern here because the variance cannot exceed the range for a binary response where each observation represents a single outcome (0 or 1) and the variance of the model is constrained since <span class="math inline">\(Var(Y) = p(1-p)\)</span>.</p>
-<section id="modelling-grouped-binary-data-and-a-categorical-covariate" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="modelling-grouped-binary-data-and-a-categorical-covariate">
-<span class="header-section-number">2.1</span> Modelling grouped binary data and a categorical covariate</h2>
+<section id="modelling-grouped-binary-data-with-a-categorical-covariate" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="modelling-grouped-binary-data-with-a-categorical-covariate">
+<span class="header-section-number">2.1</span> Modelling grouped binary data with a categorical covariate</h2>
 <p>In the last section we reviewed the case when the explanatory variable was continuous., lets look now at the case when the explanatory variable is categorical.</p>
 <p>To illustrate how the previous model works with categorical predictors we can discretized the temperature values into arbitrary categories as follows:</p>
 <p><span class="math display">\[
@@ -536,8 +546,7 @@ y_i &amp;\sim \mathrm{Binomial}(n_ip_i)\\
 <p>What if we want to compare the odds of a male being hatched if the egg was incubate on a <code>high</code> temperture conditon against a <code>medium</code> one?</p>
 <p>In that case, we we will be looking at the following odds ratio:</p>
 <span class="math display">\[\begin{align}
-\dfrac{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=high)}{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=medium)} &amp;= \dfrac{\frac{p_{\mathrm{temperature}=high}}{1-p_{\mathrm{temperature}=high}}}{\frac{p_{\mathrm{temperature}=medium}}{1-p_{\mathrm{temperature}=medium}}}\\
-&amp;= \dfrac{\mathrm{exp}(\alpha+\beta_1)}{\mathrm{exp}(\alpha+\beta_2)} \\
+\dfrac{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=high)}{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=medium)} &amp;= \dfrac{\mathrm{exp}(\alpha+\beta_1)}{\mathrm{exp}(\alpha+\beta_2)} \\
 &amp;= \mathrm{exp}(\alpha+\beta_1 - \alpha - \beta_2) \\
 &amp;= \mathrm{exp}(\beta_1 - \beta_2) = \frac{\mathrm{exp}(\beta_1)}{ \mathrm{exp}(\beta_2)}
 \end{align}\]</span>
@@ -545,7 +554,7 @@ y_i &amp;\sim \mathrm{Binomial}(n_ip_i)\\
 <p>Finally, we can calculate the probabilities of a male being hatched in each temperature condition as follows:</p>
 <ul>
 <li>
-<p><span class="math inline">\(P(\mathrm{male}=1|\mathrm{temperature}=low) = \dfrac{\mathrm{\mathrm{exp}(\alpha})}{1 + \mathrm{exp}(\alpha)}\)</span> In R this is:</p>
+<p><span class="math inline">\(P(\mathrm{male}=1|\mathrm{temperature}=low) = \dfrac{\mathrm{\mathrm{exp}(\alpha})}{1 + \mathrm{exp}(\alpha)}.\)</span> In R this is:</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_turtles_2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -555,7 +564,7 @@ y_i &amp;\sim \mathrm{Binomial}(n_ip_i)\\
 </div>
 </li>
 <li>
-<p><span class="math inline">\(P(\mathrm{male}=1|\mathrm{temperature}=medium) = \dfrac{\mathrm{\mathrm{exp}(\alpha + \beta_1})}{1 + \mathrm{exp}(\alpha + \beta_1)}\)</span> . In R this is equivalent to:</p>
+<p><span class="math inline">\(P(\mathrm{male}=1|\mathrm{temperature}=medium) = \dfrac{\mathrm{\mathrm{exp}(\alpha + \beta_1})}{1 + \mathrm{exp}(\alpha + \beta_1)}.\)</span> In R this is equivalent to:</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_turtles_2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_turtles_2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -590,12 +599,736 @@ y_i &amp;\sim \mathrm{Binomial}(n_ip_i)\\
 </div>
 </div>
 </div>
+</section></section><section id="models-for-multiple-categorical-responses" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Models for multiple categorical responses</h1>
+<p>Now that we have covered GLMs for categorical responses with two possible outcomes, we will generalise this to situations where the response variable is categorical with more than two categories. More specifically, we will look at logistic regression models applied to <strong>nominal</strong> (unordered) responses with <strong>more than two categories</strong>.</p>
+<p>The basis for modelling categorical data with more than two categories is the <strong>multinomial distribution</strong>.</p>
+<p>Consider a random variable <span class="math inline">\(Y\)</span> with <span class="math inline">\(J\)</span> categories. Let <span class="math inline">\(p_1,p_2,\dots, p_J\)</span> be the respective probabilities associated with each of the <span class="math inline">\(J\)</span> categories, with <span class="math inline">\(\sum_j^J p_j = 1\)</span>. Suppose there are <span class="math inline">\(n\)</span> independent observations which result in <span class="math inline">\(y_1\)</span> outcomes in category 1, <span class="math inline">\(y_2\)</span> outcomes in category 2, and so on. Let <span class="math inline">\(\mathbf{y}=(y_1,y_2,\dots,y_J)^\intercal\)</span> with <span class="math inline">\(\sum_{j=1}^J y_j = n\)</span>. We say that <span class="math inline">\(\mathbf{y}\)</span> follows a <strong>multinomial distribution</strong> with probability mass function (p.m.f.)</p>
+<p><span id="eq-multinomial"><span class="math display">\[
+f(\mathbf{y} | n)=\frac{n!}{y_1! y_2! \dots y_J!}p_1^{y_1}p_2^{y_2}\dots p_J^{y_J}.
+\tag{1}\]</span></span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(J=2\)</span> then <span class="math inline">\(p_2=1-p_1\)</span> and <span class="math inline">\(y_2=n-y_1\)</span> so the expression above reduces to the p.m.f. of the binomial distribution:</p>
+<p><span class="math display">\[
+f(\mathbf{y} | n)=\frac{n!}{y_1! (n-y_1)!} p_1^{y_1}p_2^{n-y_1}
+\]</span></p>
+</div>
+</div>
+<p>For the multinomial distribution, we have the following expressions for the mean, variance and covariance:</p>
+<span class="math display">\[\begin{align*}
+\textrm{E}(Y_j)&amp;=np_j\\
+\textrm{Var}(Y_j)&amp;=np_j(1-p_j)\\
+\textrm{Cov}(Y_j,Y_k)&amp;= -n p_jp_k
+\end{align*}\]</span>
+<p>Notice also the negative covariance between <span class="math inline">\(Y_j\)</span> and <span class="math inline">\(Y_k\)</span> due to the sum constraint <span class="math inline">\(\sum_{j=1}^J y_j = n\)</span>.</p>
+<p>In general, the multinomial model does not satisfy the exponential family distribution requirement for the response in a GLM, but we can still fit GLMs to multinomial responses thanks to its relationship with the Poisson distribution, which is a member of the exponential family.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi-pencil-square " style="color: #c8793c;" role="img" aria-hidden="true"></i> Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(Y_j \sim \text{Po}(\mu_j)\)</span> where the <span class="math inline">\(Y_j\)</span> are independent for <span class="math inline">\(j=1,\dots,J\)</span> with <span class="math inline">\(\mu_j\)</span> the expected number of events. Their joint p.m.f. is: <span class="math display">\[ f(\mathbf{y})=\prod_{j=1}^J \frac{\mu_j^{y_j}e^{-\mu_j}}{y_j!}.\]</span></p>
+<p>The random variable <span class="math inline">\(N=Y_1+Y_2+\dots+Y_J\)</span> follows a <span class="math inline">\(\mathrm{Poisson}(\mu_1+\mu_2+\dots+\mu_J)\)</span> density , i.e.&nbsp;<span class="math display">\[f(n) = \dfrac{\left(\sum_{j=1}^J\mu_j\right)^ne^{-\sum_{j=1}^J\mu_j}}{n!}.\]</span></p>
+Conditional on <span class="math inline">\(N\)</span>, show that <span class="math inline">\(\mathbf{y}\)</span> follows a multinomial distribution.
+<div class="webex-solution">
+<button>
+Take hint
+</button>
+<p>When we condition on the observed total number of events <span class="math inline">\(N=n\)</span>, the conditional probability <span class="math inline">\(f(\mathbf{y}|n) = \dfrac{f(\mathbf{y},n)}{f(n)} = \dfrac{f(y_1,y_2,\ldots,y_n)}{f(n)}\)</span> since <span class="math inline">\(N = \sum_{j=1}^J Y_j\)</span>. Thus, conditional on <span class="math inline">\(N=n\)</span>, <span class="math inline">\(\mathbf{y}\)</span> has the following distribution:</p>
+<p><span class="math display">\[
+f(\mathbf{y} |n ) =\frac{\prod_{j=1}^J \mu_j^{y_j}e^{-\mu_j}/y_j!}{(\mu_1+\mu_2+\dots+\mu_J)^ne^{-(\mu_1+\mu_2+\dots+\mu_J)}/n!}
+\]</span></p>
+</div>
+<div class="webex-solution">
+<button>
+See solution
+</button>
+<p>Conditional on <span class="math inline">\(N=n\)</span>, <span class="math inline">\(\mathbf{y}\)</span> has the following distribution:</p>
+<p><span class="math display">\[
+f(\mathbf{y} |n ) =\frac{\prod_{j=1}^J \mu_j^{y_j}e^{-\mu_j}/y_j!}{(\mu_1+\mu_2+\dots+\mu_J)^ne^{-(\mu_1+\mu_2+\dots+\mu_J)}/n!}
+\]</span></p>
+<p>which can be simplified as:</p>
+<span class="math display">\[\begin{align}
+f(\mathbf{y} |n ) &amp;=\dfrac{\left(\prod_{j=1}^J \frac{\mu_j^{y_j}}{y_j!}\right)\color{red}{e^{-\sum_{j=1}^J \mu_j}}}{ \frac{(\mu_1+\mu_2+\dots+\mu_J)^n\color{red}{e^{-\sum_{j=1}^J \mu_j}}}{n!}} \\
+&amp;= \dfrac{n!}{y_1!y_2!\ldots y_J!}\dfrac{\prod_{j=1}^J\mu_j^{y_j}}{(\mu_1+\mu_2+\dots+\mu_J)^n}
+\end{align}\]</span>
+<p>Letting <span class="math inline">\(n= \sum_{j=1}^J y_j\)</span> and <span class="math inline">\(p_j = \dfrac{\mu_j}{\mu_1+\ldots+\mu_J}\)</span>, s.t. <span class="math inline">\(\sum_{j=1}^J p_j=1\)</span></p>
+<span class="math display">\[\begin{align}
+f(\mathbf{y}|n)&amp;= \dfrac{n!}{y_1!y_2!\ldots y_J!} \prod_{j=1}^J
+\left(\dfrac{\mu_j}{\mu_1+\ldots+\mu_J}\right)^{y_j} \\
+&amp;= \dfrac{n!}{y_1!y_2!\ldots y_J!} \prod_{j=1}^Jp _j^{y_j}
+\end{align}\]</span>
+<p>which is the same as the expression for the multinomial p.m.f. in <a href="#eq-multinomial" class="quarto-xref">Equation&nbsp;1</a></p>
+</div>
+</div>
+</div>
+<section id="nominal-logistic-regression" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="nominal-logistic-regression">
+<span class="header-section-number">3.1</span> Nominal logistic regression</h2>
+<p>Nominal logistic regression, also known as <em>multinomial logistic regression</em> is used when there is no natural order among the response categories, for example:</p>
+<ul>
+<li>Eye colour: Blue, Green, Brown, Hazel</li>
+<li>House types: Bungalow, Duplex, Terrace</li>
+<li>Type of pet: Dog, Cat, Rodent, Fish, Bird</li>
+<li>Genotype: AA, Aa, aa</li>
+</ul>
+<p>The goal is to estimate the probabilities for each class <span class="math inline">\(j\)</span> (where <span class="math inline">\(j \in \{1,2,\ldots,K\}\)</span>) based on the independent variables <span class="math inline">\(\mathbf{x}\)</span>. The probability of the <span class="math inline">\(j\)</span>th class is then given by:</p>
+<p><span class="math display">\[
+P(Y=j|\mathbf{x})= \dfrac{\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_j)}{\sum_{k=1}^J\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_k)}
+\]</span></p>
+<p>Typically, one category is arbitrarily chosen as the reference category, and all other categories are compared with it. Suppose category <span class="math inline">\(J\)</span> is chosen as the reference category. The <strong>log-odds</strong> for the other categories relative to the reference are:</p>
+<p><span id="eq-nominalresp"><span class="math display">\[
+\mathrm{log}\left(\dfrac{P(Y=j|\mathbf{x})}{P(Y=J|\mathbf{x})}\right) = \mathrm{log}\left(\dfrac{p_j}{p_J}\right) =\mathbf{x}^\intercal\boldsymbol{\beta}_j, ~~\text{for } j=1,\dots,J-1.
+\tag{2}\]</span></span></p>
+</section><section id="parameter-estimation-and-fitted-values" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="parameter-estimation-and-fitted-values">
+<span class="header-section-number">3.2</span> Parameter estimation and fitted values</h2>
+<p>The <span class="math inline">\(J-1\)</span> log-odds in <a href="#eq-nominalresp" class="quarto-xref">Equation&nbsp;2</a> are solved simultaneously to estimate the parameters <span class="math inline">\(\boldsymbol{\beta}_j\)</span>.</p>
+<p>Given parameter estimates <span class="math inline">\(\hat{\boldsymbol{\beta}}_j\)</span>, the linear predictors <span class="math inline">\(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j\)</span> can be calculated.</p>
+<p>From <a href="#eq-nominalresp" class="quarto-xref">Equation&nbsp;2</a>, we derive:</p>
+<p><span id="eq-pj"><span class="math display">\[
+\hat{p}_j=\hat{p}_J\mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)
+\tag{3}\]</span></span></p>
+<p>Now we can express <span class="math inline">\(\hat{p}_J\)</span> in terms of the other probabilities by using the fact that <span class="math inline">\(\sum_{j=1}^{J-1} \hat{p}_j + \hat{p}_J = \hat{p}_1+\hat{p}_2+\dots+\hat{p}_J= 1.\)</span> For instance, substituting <a href="#eq-pj" class="quarto-xref">Equation&nbsp;3</a> for <span class="math inline">\(j = 1,\ldots,J-1\)</span> in the sumation above yields to:</p>
+<p><span class="math display">\[
+\sum_{j=1}^{J-1} \hat{p}_J\mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j) + \hat{p}_J = 1.
+\]</span></p>
+<p>Solving for <span class="math inline">\(\hat{p}_J\)</span> yields to</p>
+<p><span id="eq-p1hat"><span class="math display">\[
+\hat{p}_J\left(\sum_{j=1}^{J-1} \mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j) + 1\right) = 1 \\ \Rightarrow\hat{p}_J = \dfrac{1}{1+\sum_{j=1}^{J-1} \mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}
+\tag{4}\]</span></span></p>
+<p>Hence, the probabilities for each class are:</p>
+<ul>
+<li><p>For the reference class <span class="math inline">\(J:\)</span><span class="math display">\[
+    \hat{p}_J = \dfrac{1}{1+\sum_{j=1}^{J-1} \mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}
+    \]</span></p></li>
+<li><p>By substituting <span class="math inline">\(\hat{p}_J\)</span> in <a href="#eq-pj" class="quarto-xref">Equation&nbsp;3</a> we find <span class="math inline">\(\hat{p}_j\)</span> for class <span class="math inline">\(j = 1,2,\ldots,J-1:\)</span> <span id="eq-pjhat"><span class="math display">\[\hat{p}_j=\dfrac{\exp(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}{1+\sum_{j=1}^{J-1}\exp(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}. \tag{5}\]</span></span></p></li>
+</ul>
+<p>Fitted values (expected frequencies) can be calculated for each covariate pattern by multiplying the estimated probabilities <span class="math inline">\(\hat{p}_j\)</span> by the total frequency of the covariate pattern. Parameter estimates <span class="math inline">\(\hat{\boldsymbol{\beta}}_j\)</span> depend on the choice of reference category, but estimated probabilities and hence, fitted values (predicted counts), don’t.</p>
+</section><section id="example-fitting-a-nominal-logistic-regression-in-r" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="example-fitting-a-nominal-logistic-regression-in-r">
+<span class="header-section-number">3.3</span> Example: Fitting a nominal logistic regression in R</h2>
+<p>In this example we look at data on subjects that were interviewed about the importance of various features when buying a car<span class="citation" data-cites="mcfadden2000">(<a href="#ref-mcfadden2000" role="doc-biblioref">McFadden et al. 2000</a>)</span>.</p>
+<p>We focus in particular on the importance of power steering and air conditioning. The variables available in this dataset are:</p>
+<ul>
+<li>
+<code>sex</code>: woman/man</li>
+<li>
+<code>age</code>: 18-23, 24-40, &gt;40</li>
+<li>
+<code>response</code>: no/little, important, very important</li>
+<li>
+<code>frequency</code>: number of interviewed people on each group</li>
+</ul>
+<p>The data set is available on the <code>dobson</code> R package. Lets begin loading it and produce some exploratory plots.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dcars</span> <span class="op">=</span> <span class="fu">dobson</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dobson/man/Cars.html">Cars</a></span></span>
+<span></span>
+<span><span class="va">dcars</span><span class="op">$</span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">dcars</span><span class="op">$</span><span class="va">response</span>, </span>
+<span>                         levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"no/little"</span>, <span class="st">"important"</span>, <span class="st">"very important"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="va">dcars</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">dcars</span><span class="op">$</span><span class="va">age</span>, </span>
+<span>                         levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"18-23"</span>, <span class="st">"24-40"</span>, <span class="st">"&gt; 40"</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">age</th>
+<th style="text-align: left;">response</th>
+<th style="text-align: right;">frequency</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">18-23</td>
+<td style="text-align: left;">no/little</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">18-23</td>
+<td style="text-align: left;">important</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">18-23</td>
+<td style="text-align: left;">very important</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">24-40</td>
+<td style="text-align: left;">no/little</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">24-40</td>
+<td style="text-align: left;">important</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">24-40</td>
+<td style="text-align: left;">very important</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">&gt; 40</td>
+<td style="text-align: left;">no/little</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">&gt; 40</td>
+<td style="text-align: left;">important</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">women</td>
+<td style="text-align: left;">&gt; 40</td>
+<td style="text-align: left;">very important</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">18-23</td>
+<td style="text-align: left;">no/little</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">18-23</td>
+<td style="text-align: left;">important</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">18-23</td>
+<td style="text-align: left;">very important</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">24-40</td>
+<td style="text-align: left;">no/little</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">24-40</td>
+<td style="text-align: left;">important</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">24-40</td>
+<td style="text-align: left;">very important</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">&gt; 40</td>
+<td style="text-align: left;">no/little</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">&gt; 40</td>
+<td style="text-align: left;">important</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">men</td>
+<td style="text-align: left;">&gt; 40</td>
+<td style="text-align: left;">very important</td>
+<td style="text-align: right;">18</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>From the plots of the data below, we can see that quite a large proportion of people – a little over 58% in the over 40 category considered the features <em>very important</em> and, similarly 60% of young people (18-23 years old) considered these features as having <em>no or little importance</em>. Sex also seems to have an impact on car feature preferences, with over 40% of men considering the features of <em>no or little importance</em> and over 40% of women considering them <em>very important</em>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R Plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">R Code</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>Preferences for air conditioning and power steering in cars by gender and age.</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>,</span>
+<span>                   y <span class="op">=</span> <span class="va">frequency</span>, </span>
+<span>                   fill <span class="op">=</span> <span class="va">response</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>               position <span class="op">=</span> <span class="st">"dodge"</span> <span class="op">)</span><span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Age groups"</span>,y <span class="op">=</span><span class="st">"Frequency"</span><span class="op">)</span><span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Response category"</span>,</span>
+<span>                     values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkorange"</span>,<span class="st">"purple"</span>,<span class="st">"cyan4"</span><span class="op">)</span><span class="op">)</span> </span>
+<span> </span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>                   y <span class="op">=</span> <span class="va">frequency</span>, </span>
+<span>                   fill <span class="op">=</span> <span class="va">response</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>               position <span class="op">=</span> <span class="st">"dodge"</span> <span class="op">)</span><span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Sex"</span>,y <span class="op">=</span><span class="st">"Frequency"</span><span class="op">)</span><span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Response category"</span>,</span>
+<span>                        values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkorange"</span>,<span class="st">"purple"</span>,<span class="st">"cyan4"</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Although the response is really an ordinal variable, we will treat it as nominal with “no/little importance” as the reference category (also occasionally referred to as “unimportant” in the rest for brevity.). Similarly we will initially regard <code>age</code> as nominal.</p>
+<p>We can fit the following <strong>nominal logistic regression model</strong> using the <code><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom()</a></code> function from <code><a href="http://www.stats.ox.ac.uk/pub/MASS4/">library(nnet)</a></code>:</p>
+<p><span class="math display">\[
+\mathrm{log}\left(\frac{p_j}{p_1} \right) = \beta_{0j}+\beta_{1j}x_1+\beta_{2j}x_2+\beta_{3j}x_3, ~~ j=2,3
+\]</span></p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(j=1\)</span> for “no/little importance” (the reference category)</li>
+<li>
+<span class="math inline">\(j=2\)</span> for “important”</li>
+<li>
+<span class="math inline">\(j=3\)</span> for “very important”</li>
+<li>
+<span class="math inline">\(x_1=1\)</span> for women and 0 for men,</li>
+<li>
+<span class="math inline">\(x_2=1\)</span> for age 24-40 years and 0 otherwise</li>
+<li>
+<span class="math inline">\(x_3=1\)</span> for age $&gt;$40 years and 0 otherwise.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">nnet</a></span><span class="op">)</span></span>
+<span><span class="va">model_cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">response</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">sex</span>, weight <span class="op">=</span> <span class="va">frequency</span>, data <span class="op">=</span> <span class="va">dcars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  15 (8 variable)
+initial  value 329.583687 
+iter  10 value 290.566455
+final  value 290.351098 
+converged</code></pre>
+</div>
+</div>
+<p>Notice that model converged after 10 iterations, the default number of iteration is set to 100 but you can modify this by setting <code>maxit=X</code> where <code>X</code> is the number of iterations after which the algorithm will stop.</p>
+<p>Let look at model summaries and interpret the coefficients.</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">model_cars</span>,conf.int<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 12%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">y.level</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-0.98</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">-3.82</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-1.48</td>
+<td style="text-align: right;">-0.48</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">age24-40</td>
+<td style="text-align: right;">1.13</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">3.30</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">1.80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">age&gt; 40</td>
+<td style="text-align: right;">1.59</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">3.94</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">2.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">sexwomen</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">1.29</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">-0.20</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-1.85</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">-5.60</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-2.50</td>
+<td style="text-align: right;">-1.20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">age24-40</td>
+<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">3.69</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">2.26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">age&gt; 40</td>
+<td style="text-align: right;">2.92</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2.09</td>
+<td style="text-align: right;">3.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">sexwomen</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">1.44</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Notice the two sets of coefficients, for the categories <code>important</code> and <code>very important</code> that correspond to the two log-odds equations comparing these to the baseline, which is <code>no/little importance</code>.</p>
+<p>We can interpret these coefficients in terms of odds for each logit equation. For example:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">model_cars</span>,conf.int<span class="op">=</span><span class="cn">T</span>,exponentiate <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 12%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">y.level</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">-3.82</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">0.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">age24-40</td>
+<td style="text-align: right;">3.09</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">3.30</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.58</td>
+<td style="text-align: right;">6.04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">age&gt; 40</td>
+<td style="text-align: right;">4.89</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">3.94</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2.22</td>
+<td style="text-align: right;">10.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">important</td>
+<td style="text-align: left;">sexwomen</td>
+<td style="text-align: right;">1.47</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">1.29</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">2.66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">-5.60</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">age24-40</td>
+<td style="text-align: right;">4.38</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">3.69</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">9.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">age&gt; 40</td>
+<td style="text-align: right;">18.48</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">8.07</td>
+<td style="text-align: right;">42.34</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">very important</td>
+<td style="text-align: left;">sexwomen</td>
+<td style="text-align: right;">2.25</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">1.20</td>
+<td style="text-align: right;">4.23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>From this table, we can see that the odds of considering the features important (versus <code>no/little importance</code>) for over 40 year-olds are <strong>4.89</strong> times the odds for 18-23 year olds (which is the baseline category for the <code>age</code> group). In general, a positive coefficient (or greater than 1 odds multiplier) tells us that older people are more likely to consider the features important than young people, which is consistent with what we observed in the exploratory plots. Similarly, we can see that women are more likely than men to consider the features important, specifically the chances a woman finds these features <code>important</code> are 47% greater than men and more than twice consider these features as <code>very important</code> compared to men. However, in the first case, this difference between women and men is not statistically significant since the 95% CI contains 1.</p>
+<p>In the table below we have a summary of the coefficients, odds ratios and confidence intervals for the <strong>log-odds</strong> corresponding to <code>important</code> versus <code>no/little importance</code>. The odds ratio comparing women to men is not significant, but all the odds ratios comparing age groups are.</p>
+</section><section id="model-checking-and-model-comparisons" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="model-checking-and-model-comparisons">
+<span class="header-section-number">3.4</span> Model checking and model comparisons</h2>
+<p>Summary statistics can be used to assess the adequacy of a model and also to compare models. Some of the statistics we can consider are:</p>
+<ul>
+<li>the <strong>deviance</strong> <span class="math inline">\(D=2[l(\hat{\boldsymbol{\beta}}_{\max})-l(\hat{\boldsymbol{\beta}})]\)</span> (also referred to as <em>residual deviance</em>), where <span class="math inline">\(l(\hat{\boldsymbol{\beta}}_{\max})\)</span> is the maximised log-likelihood for the saturated (full) model and <span class="math inline">\(l(\hat{\boldsymbol{\beta}})\)</span> is the maximised log-likelihood for the model of interest;</li>
+<li>the <strong>likelihood ratio statistic</strong>, which is equal to the difference between the null deviance (deviance of the model with no predictors included) and the residual deviance for the model of interest;</li>
+<li>the <strong>Akaike information criterion</strong> <span class="math inline">\(AIC=-2l(\hat{\boldsymbol{\beta}};\mathbf{y})+2p\)</span>, which equals the maximised log-likelihood of the model of interest plus a penalty term equal to twice the number of parameters in the model. The reason for this is that we can keep adding predictors to the model to improve the log-likelihood, but the cost is increased model complexity. The penalty term attempts to strike a balance between model complexity and how well the model fits.</li>
+</ul>
+<p>If the model fits well, the deviance will be asymptotically <span class="math inline">\(\chi^2(N-p)\)</span>, where <span class="math inline">\(N\)</span> is <span class="math inline">\(J-1\)</span> times the number of distinct covariate patterns in the data, and <span class="math inline">\(p\)</span> is the number of parameters estimated.</p>
+<p>The likelihood ratio statistic will be asymptotically <span class="math inline">\(\chi^2[p-(J-1)]\)</span> because the null (minimal) model will have one parameter for each logit defined in <a href="#eq-nominalresp" class="quarto-xref">Equation&nbsp;2</a>.</p>
+<p>The AIC can be used for model selection: calculate the criterion for each model and choose the one with the smallest value of the AIC.</p>
+<p>We can compare the nominal logistic regression model with additive terms for <code>age</code> and <code>sex</code> with the null model by taking the difference in deviances (likelihood ratio test).</p>
+<p>The null model can be fit as follows:</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_null</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">response</span> <span class="op">~</span> <span class="fl">1</span>, data<span class="op">=</span><span class="va">dcars</span>, weights<span class="op">=</span><span class="va">frequency</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  6 (2 variable)
+initial  value 329.583687 
+final  value 329.272024 
+converged</code></pre>
+</div>
+</div>
+<p>To see some model comparisson metrics we can use the <code><a href="https://generics.r-lib.org/reference/glance.html">glance()</a></code> function from the <code>broom</code> package:</p>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">model_null</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+    edf deviance   AIC  nobs
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1     2     659.  663.    18</code></pre>
+</div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">model_cars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+    edf deviance   AIC  nobs
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1     8     581.  597.    18</code></pre>
+</div>
+</div>
+<p>The difference in deviance is <span class="math inline">\(658.54-580.70=77.84\)</span> which is significant when compared with a <span class="math inline">\(\chi^2(8-2)\)</span>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">6</span>, p<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12.59159</code></pre>
+</div>
+</div>
+<p>Overall, the explanatory variables are descriptive of car preferences.</p>
+<p>We can also compare this model with the saturated (full) model, which includes an interaction between <code>age</code> and <code>sex</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">response</span> <span class="op">~</span> <span class="va">age</span> <span class="op">*</span> <span class="va">sex</span>, weight <span class="op">=</span> <span class="va">frequency</span>, data <span class="op">=</span> <span class="va">dcars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  21 (12 variable)
+initial  value 329.583687 
+iter  10 value 288.541004
+final  value 288.381742 
+converged</code></pre>
+</div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">model_full</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+    edf deviance   AIC  nobs
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1    12     577.  601.    18</code></pre>
+</div>
+</div>
+<p>The difference in deviance between the additive and the saturated model is <span class="math inline">\(580.70-576.76=3.94\)</span>. This is not significant when compared with a <span class="math inline">\(\chi^2(12-8)\)</span>, so the additive model appears to fit the data well.</p>
+<div class="cell">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">4</span>, p<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.487729</code></pre>
+</div>
+</div>
+<p>The same conclusion is supported when comparing the AIC for these models:</p>
+<div class="cell">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://easystats.github.io/performance/reference/compare_performance.html">compare_performance</a></span><span class="op">(</span><span class="va">model_full</span>,<span class="va">model_cars</span>,<span class="va">model_null</span>,metrics <span class="op">=</span> <span class="st">"AIC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Model</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">AIC_wt</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">model_full</td>
+<td style="text-align: left;">multinom</td>
+<td style="text-align: right;">600.76</td>
+<td style="text-align: right;">0.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">model_cars</td>
+<td style="text-align: left;">multinom</td>
+<td style="text-align: right;">596.70</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">model_null</td>
+<td style="text-align: left;">multinom</td>
+<td style="text-align: right;">662.54</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>the additive model has a smaller AIC of 596.7 compared to the interaction model which has AIC of 600.7.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi-pencil-square " style="color: #c8793c;" role="img" aria-hidden="true"></i> Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>iris</code> data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of three species of iris: setosa, versicolor, and virginica. Suppose that we have these measurements from an iris and we wish to classify it into one of the three species.</p>
+<p>Fit a nominal logistic regression model to the data and predict the probability of each species from the fitted model using sepal length as the only predictor.</p>
+<p>Note that you can use the predicted probabilities from a nominal logistic regression model to classify an observation to the category with the highest predicted probability.</p>
+<div class="webex-solution">
+<button>
+Take hint
+</button>
+<p>We can get a list which assigns each observation to the category with the highest predicted probability using <code>predict(your_model)</code>.</p>
+</div>
+<div class="webex-solution">
+<button>
+See solution
+</button>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m.iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">Sepal.Length</span>, data<span class="op">=</span><span class="va">iris</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  9 (4 variable)
+initial  value 164.791843 
+iter  10 value 91.337114
+iter  20 value 91.035008
+final  value 91.033971 
+converged</code></pre>
+</div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">iris</span>,<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m.iris</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species predict(m.iris)
+1          5.1         3.5          1.4         0.2  setosa          setosa
+2          4.9         3.0          1.4         0.2  setosa          setosa
+3          4.7         3.2          1.3         0.2  setosa          setosa
+4          4.6         3.1          1.5         0.2  setosa          setosa
+5          5.0         3.6          1.4         0.2  setosa          setosa
+6          5.4         3.9          1.7         0.4  setosa          setosa</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>In the car preferences example there was a natural ordering among the response categories that we have not accounted for. This ordering can be taken into account in the model specification. Unfortunately, we don’t have time to cover all of this in a single session. But please have a look at the extra material where we introduce the basis of <strong>ordinal logistic regression</strong> for ordered categorical responses.</p>
 
 
 
 </section></section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-gelman2006" class="csl-entry" role="listitem">
 Gelman, Andrew, and Jennifer Hill. 2006. <span>“Data Analysis Using Regression and Multilevel/Hierarchical Models,”</span> December. <a href="https://doi.org/10.1017/cbo9780511790942">https://doi.org/10.1017/cbo9780511790942</a>.
+</div>
+<div id="ref-mcfadden2000" class="csl-entry" role="listitem">
+McFadden, Michael, Jennifer Powers, Wendy Brown, and Michelle Walker. 2000. <span>“Vehicle and Driver Attributes Affecting Distance from the Steering Wheel in Motor Vehicles.”</span> <em>Human Factors: The Journal of the Human Factors and Ergonomics Society</em> 42 (4): 676–82. <a href="https://doi.org/10.1518/001872000779697971">https://doi.org/10.1518/001872000779697971</a>.
 </div>
 </div></section></div></main><!-- /main --><script>
 

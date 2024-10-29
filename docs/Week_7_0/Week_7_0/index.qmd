@@ -467,14 +467,14 @@ plot_model(model,
 
 @tbl-odds_probs summarises the relationship between between Odds and Probabilities:
 
-| Scale       | Equivalence                                                                                                                                                                                                                                                                                                                  |
+| Scale       | Equivalence                                                                                                                                                                                                                                                                                                                                   |
 |--------------------------|----------------------------------------------|
-| Odds        | $$                                                                                                                                                                                                                                                                                                                           
-                                                                                                                                                                                                   Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                              
-                                                                                                                                                                                                   $$                                                                                                                                        |
-| Probability | $$                                                                                                                                                                                                                                                                                                                           
-                                                                                                                                                                                                   P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                  
-                                                                                                                                                                                                   $$                                                                                                                                        |
+| Odds        | $$                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                  Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                
+                                                                                                                                                                                                                  $$                                                                                                                                          |
+| Probability | $$                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                  P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                    
+                                                                                                                                                                                                                  $$                                                                                                                                          |
 
 : Relationship between Odds and Probabilities {#tbl-odds_probs}
 
@@ -587,6 +587,10 @@ eval_metric(pred_results,truth = gender,estimate = predicted_class) %>%
 We can see that our model is not doing a great job in predicting the outcome (accuracy of $\approx$ 60%).This is due to a particularly poor performance in terms of *sensitivity*, i.e. roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of *specificity* since almost 80% of the males are actually being predicted as such.
 
 Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity (we will see an example of such in the next task).
+
+::: callout-note
+For this course we have been using only our data to assess the preditcitve performance of our models. In reality, if we were to properly assess the classification performance of our models, we should look at out-of-sample prediction by first splitting the data into a training and a test set, then fitting the model to the training data and finally predicting the class of the each observation in the test data. Otherwise we run the risk of overstating the classification accuracy of the model.
+:::
 
 ```{r}
 #| echo: false

@@ -775,15 +775,15 @@ Table&nbsp;1: Relationship between Odds and Probabilities
 <tbody>
 <tr class="odd">
 <td>Odds</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                           
-                                                                                                                                                                                                   Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                              
-                                                                                                                                                                                                   \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                  Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                
+                                                                                                                                                                                                                  \]</span></td>
 </tr>
 <tr class="even">
 <td>Probability</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                           
-                                                                                                                                                                                                   P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                  
-                                                                                                                                                                                                   \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                  P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                    
+                                                                                                                                                                                                                  \]</span></td>
 </tr>
 </tbody>
 </table>
@@ -1003,6 +1003,19 @@ Prediction female male
 </div>
 <p>We can see that our model is not doing a great job in predicting the outcome (accuracy of <span class="math inline">\(\approx\)</span> 60%).This is due to a particularly poor performance in terms of <em>sensitivity</em>, i.e.&nbsp;roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of <em>specificity</em> since almost 80% of the males are actually being predicted as such.</p>
 <p>Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity (we will see an example of such in the next task).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For this course we have been using only our data to assess the preditcitve performance of our models. In reality, if we were to properly assess the classification performance of our models, we should look at out-of-sample prediction by first splitting the data into a training and a test set, then fitting the model to the training data and finally predicting the class of the each observation in the test data. Otherwise we run the risk of overstating the classification accuracy of the model.</p>
+</div>
+</div>
 </section><section id="roc-curve" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="roc-curve">
 <span class="header-section-number">3.3</span> ROC Curve</h2>
 <p>Another way to assess how good the model is at separating the 2 classes of the outcome is through the Receiver Operating Characteristic (ROC) curve. The ROC curve is a graphical representation used to evaluate the performance of a binary classification model. It shows the trade-off between the true positive rate (sensitivity) and the false positive rate (1 - specificity) at various threshold settings.</p>
