@@ -467,14 +467,14 @@ plot_model(model,
 
 @tbl-odds_probs summarises the relationship between between Odds and Probabilities:
 
-| Scale       | Equivalence                                                                                                                                                                                                                                                                                                                                   |
+| Scale       | Equivalence                                                                                                                                                                                                                                                                                                                                                    |
 |--------------------------|----------------------------------------------|
-| Odds        | $$                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                  Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                
-                                                                                                                                                                                                                  $$                                                                                                                                          |
-| Probability | $$                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                  P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                    
-                                                                                                                                                                                                                  $$                                                                                                                                          |
+| Odds        | $$                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                 Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                  
+                                                                                                                                                                                                                                 $$                                                                                                                                            |
+| Probability | $$                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                 P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                      
+                                                                                                                                                                                                                                 $$                                                                                                                                            |
 
 : Relationship between Odds and Probabilities {#tbl-odds_probs}
 
@@ -545,13 +545,13 @@ The table can be interpreted as follows:
 
 -   The *correct classification rate* (CCR) or *accuracy* describes the overall proportion of teaching instructors (males or females) that were classified correctly among all the $S = 463$ individuals.
 
--   The *true positive rate* (TPR) or *sensitivity* (a.k.a. recall), denotes the proportion of actual female instructors that are correctly classified as females by the model.
+-   The *true positive rate* (TPR) or *sensitivity* (a.k.a. recall), denotes the proportion of actual male instructors that are correctly classified as males by the model.
 
--   The *true negative rate* (TNR) or *specificity*, denotes the proportion of actual males that have been classified correctly as males by the model. **Note**: the *false positive rate* (FPR) computed as (1- *specificity*) is another popular metric that measures the proportion of actual negatives that are incorrectly predicted as positive.
+-   The *true negative rate* (TNR) or *specificity*, denotes the proportion of actual females that have been classified correctly as females by the model. **Note**: the *false positive rate* (FPR) computed as (1- *specificity*) is another popular metric that measures the proportion of actual negatives that are incorrectly predicted as positive.
 
--   The model's *precision* or *positive predictive value* (PPV) represents the proportion of predicted female instructors that were actually female, i.e. how many of the predicted positive cases were **actually positive**.
+-   The model's *precision* or *positive predictive value* (PPV) represents the proportion of predicted male instructors that were actually male, i.e. how many of the predicted positive cases were **actually positive**.
 
--   The model's *negative predictive value* (NPV) represents the proportion of predicted male instructors that were actually males, i.e. how many of the predicted negative cases were **actually negative**.
+-   The model's *negative predictive value* (NPV) represents the proportion of predicted female instructors that were actually females, i.e. how many of the predicted negative cases were **actually negative**.
 
 To compute the confusion matrix we can use the `conf_mat()` function and use as input the data frame with the predicted and observed classes as follows:
 
@@ -569,7 +569,10 @@ Rather than computing these predictive performance metrics by hand, we can take 
 # Step (1) create a set with classification metrics we want to compute
 eval_metric <- metric_set(accuracy,sensitivity,specificity,ppv,npv)
 # Step (2) call out the metric set and input the data containing the observed and predicted classes
-eval_metric(pred_results,truth = gender,estimate = predicted_class)
+eval_metric(pred_results,
+            truth = gender,
+            estimate = predicted_class,  
+            event_level = "second")
 ```
 
 ```{r}
@@ -584,12 +587,23 @@ eval_metric(pred_results,truth = gender,estimate = predicted_class) %>%
 
 ```
 
-We can see that our model is not doing a great job in predicting the outcome (accuracy of $\approx$ 60%).This is due to a particularly poor performance in terms of *sensitivity*, i.e. roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of *specificity* since almost 80% of the males are actually being predicted as such.
+::: callout-important
+Notice that we passed on the argument `event_level = "second"` since the default behavior of the `eval_metric()` function created via `metric_set()` is to consider the first class of the variable `gender`as the event. If you recall, `female` appears as first due alphabetical order, and hence is treated as our reference category in our model and thus we are modelling the event $\mathbb{Pr}(male)$
+
+```{r}
+#| code-fold: false 
+levels(pred_results$gender)
+```
+
+However since `female` appear first, we need to tell our function that we are interested in the second class of the variables `gender` , i.e. `male`, as the event and not the other way around.
+:::
+
+We can see that our model is not doing a great job in predicting the outcome (accuracy of $\approx$ 60%).This is due to a particularly poor performance in terms of *specificity*, i.e. roughly only 40% of truly male instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of *sensitivity* since almost 80% of the females are actually being predicted as such.
 
 Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity (we will see an example of such in the next task).
 
 ::: callout-note
-For this course we have been using only our data to assess the preditcitve performance of our models. In reality, if we were to properly assess the classification performance of our models, we should look at out-of-sample prediction by first splitting the data into a training and a test set, then fitting the model to the training data and finally predicting the class of the each observation in the test data. Otherwise we run the risk of overstating the classification accuracy of the model.
+For this course we have been using only our data to assess the predicative performance of our models. In reality, if we were to properly assess the classification performance of our models, we should look at out-of-sample prediction by first splitting the data into a training and a test set, then fitting the model to the training data and finally predicting the class of the each observation in the test data that has been held back. Otherwise we run the risk of overstating the classification accuracy of the model.
 :::
 
 ```{r}
@@ -673,14 +687,7 @@ roc_curve(pred_results,
 ```
 
 ::: callout-important
-Notice that we set `event_level = "second"` since the default behavior of the `roc_auc()` function is to consider the first class of the variable `gender`as the event. If you recall, `female` appears as first due alphabetical order, and hence is treated as our reference category in our model and thus we are modelling the event $P(male)$.
-
-```{r}
-#| code-fold: false
-levels(pred_results$gender)
-```
-
-However since `female` appear first, we need to tell the `roc_auc()` that we are interested in the second class of the variables `gender` , i.e. `male`, as the event and not the other way around.
+Similarly to the the evaluation metric function we had before, we set `event_level = "second"` since the default behavior of the `roc_auc()` function is also to consider the first class of the variable `gender`as the event. Thus, we need to tell the `roc_auc()` that we are interested in the `male` level as our event, which is the second class of the variable `gender`.
 :::
 
 The closer the ROC curve is to the top-left corner, the better the model is at distinguishing between the positive and negative classes. This means high true positive rates (sensitivity) and low false positive rates. The closer the curve is to the diagonal line (i.e. when TPR = FPR) then the performance is no better than random guessing. We can see here that our model is doing a little bit better than just random guessing.
@@ -716,7 +723,7 @@ The AUC ranges from 0 to 1:
 
 -   **AUC** $\leq$ **0.5**: Worse than random guessing, meaning the model is consistently misclassifying.
 
-Again, the AUC of `r round(roc_res$.estimate,2)` indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).
+Again, the AUC of `r round(roc_res$.estimate,2)` indicates a moderate-poor fit to the data (mainly due to miss-classifications of male instructors as we saw previously).
 
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task

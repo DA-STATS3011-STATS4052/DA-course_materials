@@ -775,15 +775,15 @@ Table&nbsp;1: Relationship between Odds and Probabilities
 <tbody>
 <tr class="odd">
 <td>Odds</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                  Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                
-                                                                                                                                                                                                                  \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                 Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                  
+                                                                                                                                                                                                                                 \]</span></td>
 </tr>
 <tr class="even">
 <td>Probability</td>
-<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                  P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                    
-                                                                                                                                                                                                                  \]</span></td>
+<td><span class="math display">\[                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                 P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                      
+                                                                                                                                                                                                                                 \]</span></td>
 </tr>
 </tbody>
 </table>
@@ -941,10 +941,10 @@ Note
 <p>The table can be interpreted as follows:</p>
 <ul>
 <li><p>The <em>correct classification rate</em> (CCR) or <em>accuracy</em> describes the overall proportion of teaching instructors (males or females) that were classified correctly among all the <span class="math inline">\(S = 463\)</span> individuals.</p></li>
-<li><p>The <em>true positive rate</em> (TPR) or <em>sensitivity</em> (a.k.a. recall), denotes the proportion of actual female instructors that are correctly classified as females by the model.</p></li>
-<li><p>The <em>true negative rate</em> (TNR) or <em>specificity</em>, denotes the proportion of actual males that have been classified correctly as males by the model. <strong>Note</strong>: the <em>false positive rate</em> (FPR) computed as (1- <em>specificity</em>) is another popular metric that measures the proportion of actual negatives that are incorrectly predicted as positive.</p></li>
-<li><p>The model’s <em>precision</em> or <em>positive predictive value</em> (PPV) represents the proportion of predicted female instructors that were actually female, i.e.&nbsp;how many of the predicted positive cases were <strong>actually positive</strong>.</p></li>
-<li><p>The model’s <em>negative predictive value</em> (NPV) represents the proportion of predicted male instructors that were actually males, i.e.&nbsp;how many of the predicted negative cases were <strong>actually negative</strong>.</p></li>
+<li><p>The <em>true positive rate</em> (TPR) or <em>sensitivity</em> (a.k.a. recall), denotes the proportion of actual male instructors that are correctly classified as males by the model.</p></li>
+<li><p>The <em>true negative rate</em> (TNR) or <em>specificity</em>, denotes the proportion of actual females that have been classified correctly as females by the model. <strong>Note</strong>: the <em>false positive rate</em> (FPR) computed as (1- <em>specificity</em>) is another popular metric that measures the proportion of actual negatives that are incorrectly predicted as positive.</p></li>
+<li><p>The model’s <em>precision</em> or <em>positive predictive value</em> (PPV) represents the proportion of predicted male instructors that were actually male, i.e.&nbsp;how many of the predicted positive cases were <strong>actually positive</strong>.</p></li>
+<li><p>The model’s <em>negative predictive value</em> (NPV) represents the proportion of predicted female instructors that were actually females, i.e.&nbsp;how many of the predicted negative cases were <strong>actually negative</strong>.</p></li>
 </ul>
 <p>To compute the confusion matrix we can use the <code>conf_mat()</code> function and use as input the data frame with the predicted and observed classes as follows:</p>
 <div class="cell" data-layout-align="center">
@@ -961,7 +961,10 @@ Prediction female male
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Step (1) create a set with classification metrics we want to compute</span></span>
 <span><span class="va">eval_metric</span> <span class="op">&lt;-</span> <span class="fu">metric_set</span><span class="op">(</span><span class="va">accuracy</span>,<span class="va">sensitivity</span>,<span class="va">specificity</span>,<span class="va">ppv</span>,<span class="va">npv</span><span class="op">)</span></span>
 <span><span class="co"># Step (2) call out the metric set and input the data containing the observed and predicted classes</span></span>
-<span><span class="fu">eval_metric</span><span class="op">(</span><span class="va">pred_results</span>,truth <span class="op">=</span> <span class="va">gender</span>,estimate <span class="op">=</span> <span class="va">predicted_class</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">eval_metric</span><span class="op">(</span><span class="va">pred_results</span>,</span>
+<span>            truth <span class="op">=</span> <span class="va">gender</span>,</span>
+<span>            estimate <span class="op">=</span> <span class="va">predicted_class</span>,  </span>
+<span>            event_level <span class="op">=</span> <span class="st">"second"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1001,7 +1004,27 @@ Prediction female male
 </table>
 </div>
 </div>
-<p>We can see that our model is not doing a great job in predicting the outcome (accuracy of <span class="math inline">\(\approx\)</span> 60%).This is due to a particularly poor performance in terms of <em>sensitivity</em>, i.e.&nbsp;roughly only 40% of truly female instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of <em>specificity</em> since almost 80% of the males are actually being predicted as such.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice that we passed on the argument <code>event_level = "second"</code> since the default behavior of the <code>eval_metric()</code> function created via <code>metric_set()</code> is to consider the first class of the variable <code>gender</code>as the event. If you recall, <code>female</code> appears as first due alphabetical order, and hence is treated as our reference category in our model and thus we are modelling the event <span class="math inline">\(\mathbb{Pr}(male)\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">pred_results</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "female" "male"  </code></pre>
+</div>
+</div>
+<p>However since <code>female</code> appear first, we need to tell our function that we are interested in the second class of the variables <code>gender</code> , i.e.&nbsp;<code>male</code>, as the event and not the other way around.</p>
+</div>
+</div>
+<p>We can see that our model is not doing a great job in predicting the outcome (accuracy of <span class="math inline">\(\approx\)</span> 60%).This is due to a particularly poor performance in terms of <em>specificity</em>, i.e.&nbsp;roughly only 40% of truly male instructors are correctly classified as such by our mode. Despite this, our model is not doing a terrible job in terms of <em>sensitivity</em> since almost 80% of the females are actually being predicted as such.</p>
 <p>Note that the threshold of 0.5 is common but may not always be optimal. You can adjust it based on your specific application and the desired balance between sensitivity and specificity (we will see an example of such in the next task).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1013,7 +1036,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For this course we have been using only our data to assess the preditcitve performance of our models. In reality, if we were to properly assess the classification performance of our models, we should look at out-of-sample prediction by first splitting the data into a training and a test set, then fitting the model to the training data and finally predicting the class of the each observation in the test data. Otherwise we run the risk of overstating the classification accuracy of the model.</p>
+<p>For this course we have been using only our data to assess the predicative performance of our models. In reality, if we were to properly assess the classification performance of our models, we should look at out-of-sample prediction by first splitting the data into a training and a test set, then fitting the model to the training data and finally predicting the class of the each observation in the test data that has been held back. Otherwise we run the risk of overstating the classification accuracy of the model.</p>
 </div>
 </div>
 </section><section id="roc-curve" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="roc-curve">
@@ -1027,14 +1050,14 @@ Note
 <p>As the threshold moves between 0 and 1, the ROC curve traces out points that show the model’s performance for various balances between TPR and FPR.</p>
 <p>We can combine the <code>roc_curve()</code> function from the <code>performance</code> library and <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> function from <code>ggplot</code> to calculate and visualize the ROC curve. We just need to supply the true classes and the predicted <strong>probabilities</strong> (NOT the predicted <strong>classes</strong>!).</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_curve</span><span class="op">(</span><span class="va">pred_results</span>,</span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_curve</span><span class="op">(</span><span class="va">pred_results</span>,</span>
 <span>          truth <span class="op">=</span> <span class="va">gender</span>,</span>
 <span>          <span class="va">.fitted</span>,</span>
 <span>          event_level <span class="op">=</span> <span class="st">"second"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
 <figcaption>ROC curve for GLM fitted to the evaluation scores data set.</figcaption></figure>
 </div>
 </div>
@@ -1049,14 +1072,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Notice that we set <code>event_level = "second"</code> since the default behavior of the <code>roc_auc()</code> function is to consider the first class of the variable <code>gender</code>as the event. If you recall, <code>female</code> appears as first due alphabetical order, and hence is treated as our reference category in our model and thus we are modelling the event <span class="math inline">\(P(male)\)</span>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">pred_results</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "female" "male"  </code></pre>
-</div>
-</div>
-<p>However since <code>female</code> appear first, we need to tell the <code>roc_auc()</code> that we are interested in the second class of the variables <code>gender</code> , i.e.&nbsp;<code>male</code>, as the event and not the other way around.</p>
+<p>Similarly to the the evaluation metric function we had before, we set <code>event_level = "second"</code> since the default behavior of the <code>roc_auc()</code> function is also to consider the first class of the variable <code>gender</code>as the event. Thus, we need to tell the <code>roc_auc()</code> that we are interested in the <code>male</code> level as our event, which is the second class of the variable <code>gender</code>.</p>
 </div>
 </div>
 <p>The closer the ROC curve is to the top-left corner, the better the model is at distinguishing between the positive and negative classes. This means high true positive rates (sensitivity) and low false positive rates. The closer the curve is to the diagonal line (i.e.&nbsp;when TPR = FPR) then the performance is no better than random guessing. We can see here that our model is doing a little bit better than just random guessing.</p>
@@ -1089,7 +1105,7 @@ Important
 <li><p><strong>AUC = 0.5</strong>: No better than random guessing.</p></li>
 <li><p><strong>AUC</strong> <span class="math inline">\(\leq\)</span> <strong>0.5</strong>: Worse than random guessing, meaning the model is consistently misclassifying.</p></li>
 </ul>
-<p>Again, the AUC of 0.66 indicates a moderate-poor fit to the data (mainly due to miss-classifications of female instructors as we saw previously).</p>
+<p>Again, the AUC of 0.66 indicates a moderate-poor fit to the data (mainly due to miss-classifications of male instructors as we saw previously).</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
