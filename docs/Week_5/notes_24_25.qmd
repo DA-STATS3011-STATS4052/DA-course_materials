@@ -56,9 +56,7 @@ download_link(
 
 The following sections will take you through the different steps required to produce this report in Quarto. For creating a new Quarto file from scratch see Section 1.1, otherwise move onto Section 2.
 
-## Creating a new Quarto document from scratch
-
-If you want to create a new R Markdown document from scratch within RStudio you can go to:
+If you want to create a new R Markdown document from scratch within RStudio you can click on on the `New File` icon ![](images/new_doc.png){width="23"} or go to:
 
 `File -> New File -> Quarto  Document...`
 
@@ -70,7 +68,7 @@ This will open the following window within RStudio:
 Before creating your first Quarto document, be sure that you have the latest RStudio [version](https://posit.co/download/rstudio-desktop/) installed.
 :::
 
-From here select **Document** and the **Default Output Format** as **PDF** or **HTML**. Give your document a title and select OK. This will open within RStudio an empty `.qmd` file.
+From here select **Document** and the **Default Output Format** as **HTML** (**PDF** output is also possible but you need the latest version of `MikTex` to be installed if you are a Windows user). Give your document a title and select OK. This will open within RStudio an empty `.qmd` file.
 
 ::: callout-note
 You can download this [template](https://quarto.org/docs/get-started/hello/rstudio/_hello.qmd) containing simple instructions on how to do some basic stuff using Quarto . To see what the HTML/PDF of the template document looks like click on the ![](images/rstudio-render-button.png){width="16" height="13"} `Render` button at the top of the document window.
@@ -78,11 +76,11 @@ You can download this [template](https://quarto.org/docs/get-started/hello/rstud
 
 # Title
 
-The title of the document can be found at the top of the `.qmd` file within its **preamble**, which is shown below. When titling your document, ensure the title is within inverted commas.
+The title of the document can be found at the top of the `.qmd` file within its **preamble** (YAML heading), which is shown below. When titling your document, ensure the title is within inverted commas.
 
 ``` r
 ---
-title: "Example Report"
+title: "Data Analysis: Example Report"
 ---
 ```
 
@@ -104,10 +102,53 @@ If you want section to be numbered you can set `number_sections: true` within th
 
 ``` r
 ---
-title: "My title"
+title: "Data Analysis: Example Report"
 number-sections: true
 ---
 ```
+
+::: {.callout-warning icon="false"}
+## Task
+
+Create a new quarto document by clicking on the `New File` icon ![](images/new_doc.png){width="23"} , chage the title to *"Data Analysis: Example Report"* and add numbered-level 1 headings for each of the following project sections to the Quarto document you just created:
+
+-   Introduction
+
+-   Exploratory data analysis
+
+-   Formal data analysis
+
+-   Conclusions
+
+-   References
+
+Then, click the ![](images/rstudio-render-button.png){width="24" height="20"}`Render` button and compile your Quarto document to make sure that your markdown formatting produces the expected output in your HTML document.
+
+Tip: Try typing `/` symbol on your main document while using the visual mode and then use the drop menu to add a new section to your document (you can type the letter `h` to search for the different header types while the drop menu is being displayed).
+
+`r hide("See solution")`
+
+Your quarto document should look like this if you go to the `source mode`:
+
+``` r
+---
+title: "Data Analysis: Example Report"
+number-sections: true
+---
+
+# Introduction
+
+# Exploratory data analysis
+
+# Formal data analysis
+
+# Conclusions
+
+# References
+```
+
+`r unhide()`
+:::
 
 Each section can be assigned labels so that they can be referred to within the text.
 
@@ -136,7 +177,7 @@ It is a good idea to label your sections appropriately so that it is easy to ref
 The section can now be referred to within the text of the document using the `@`sec- command. That is
 
 ``` r
-Section @sec-intro ...
+@sec-intro ...
 ```
 
 will produce
@@ -147,7 +188,7 @@ Section 1 ...
 
 where the 1 is a clickable hyperlink that will take you to the beginning of that section within the document. If you are using the `visual` mode, you can also easily include cross-references by typing `@` and then scroll through the different hyperlinks you created, or by clicking on `Insert▾➠ Cross Reference`
 
-Note that for section labels to appear on the references list, you must save your document first (click on `File ➠ Save as…` and save your document with a proper name). Then all the labels (i.e., labels of sections, figures, equations, etc.) will appear on the Insert Cross Reference pop up window. Then simply click on `Insert▾` to add the selected reference to your document.
+Note that for section labels to appear on the references list, you must save your document first (click on `File ➠ Save as…` and save your document with a proper name). Then all the labels (i.e., labels of sections, figures, equations, etc.) will appear on the Insert Cross Reference pop up window. Then simply click on `Insert▾` to add the selected reference to your document:
 
 ![](images/quarto5.png){fig-align="center" width="528"}
 
@@ -155,10 +196,67 @@ Note that for section labels to appear on the references list, you must save you
 Subsections can be added to a document in a similar fashion using either `##` (such that `## Subsection {#sec-sub}` will create a subsection with the label `sec-sub` and title **Subsection**) or by clicking on the `Block format ➠ Header X` menu on the toolbar on the `visual` mode.
 :::
 
-::: {.callout-warning icon="false"}
-## {{< bi pencil-square color=#c8793c >}} Task
+# Adding references
 
-Try typing `/` symbol on your main document while using the visual mode and then use the drop menu to add a new section to your document ( Tip: you can type the letter `h` to search for the different header types while the drop menu is being displayed).
+References can be included by clicking on `Insert▾➠ @Citation` then on the pop-up window you can look up for a reference, add the citation for an R package that is installed in your local computer or add a citation based on the DOI code of a paper or book:
+
+![](images/referencing.png){fig-align="center" width="495"}
+
+The reference you add will be saved to a `*.bib` that you can access at the location where your `.qmd` file is stored. Once a reference is added to your document, the YAML heading will display the option `bibliography: references.bib` which is the source file where your references are being managed.
+
+::: {.callout-warning icon="false"}
+## Task
+
+Add the following level 2 headings (subsections) underneath the `Formal data analysis` heading:
+
+-   Statistical model
+
+-   Results
+
+-   Model diagnostics
+
+Then, add appropriate labels for each section. Copy and paste the following text under the `Introduction` section:
+
+``` {.latex .code-overflow-wrap}
+There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [CITE]. The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the setosa, versicolor, and virginica. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
+
+Section 2 consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. Section 3 contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in Section 4 .
+```
+
+Then, change the species names to *italics* format and add a citation `[CITE]` for the iris data set using the following doi: `10.24432/C56C76` . Lastly, change the text refering to to Section 2, 3 and 4 with clickable hyperlinks to each of these sections. Render ![](images/rstudio-render-button.png){width="21" height="17"} your Quarto document and check the HTML output.
+
+`r hide("see solution")`
+
+Your quarto document should look like this if you go to the `source mode:`
+
+``` {.latex .code-overflow-wrap}
+---
+title: "Data Analysis: Example Report"
+number-sections: true
+---
+
+# Introduction {#sec-intro}
+
+There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [@r.a.fisher1936] . The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the *setosa*, *versicolor*, and *virginica*. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
+
+@sec-eda consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. @sec-fda contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in @sec-con .
+
+# Exploratory data analysis {#sec-eda}
+
+## Statistical model
+
+## Results
+
+## Model diagnostics
+
+# Formal data analysis {#sec-fda}
+
+# Conclusions {#sec-con}
+
+# References
+```
+
+`r unhide()`
 :::
 
 # Embedding R code
@@ -189,10 +287,12 @@ If you are on visual mode the R chunks will appear as follow:
 
 If you are in the source mode the R chunks will appear as follow:
 
-```{{r}}
+```` r
+```{r}
 #| 
 
 ```
+````
 :::
 
 Some of the most common arguments you will use in your R Chunks are:
@@ -208,7 +308,6 @@ For example, let's say we wanted to select the `score` and `bty_avg` variables f
 #| echo: false
 #| message: false
 #| warning: false
-
 
 library(tidyverse)
 library(moderndive)
@@ -228,17 +327,17 @@ evals.scores <- evals |>
   select(score, bty_avg)
 ```
 
-Setting `echo: false` will tell the R to evaluate the code while hiding the R chunk from the main document. In this example, we will store the subsetted data set as the object `evals.scores` so that it can be used later . If you want to embed the code within the Quarto document then you would simply set `echo: true`.
+Setting `echo: false` will tell the R to evaluate the code while hiding the R chunk from the main document. In this example, we will store the subsetted data set as the object `evals.scores` so that it can be used in later chunks. If you want to embed the source code within the Quarto document then you would simply set `echo: true`.
 
 ::: callout-important
 R chunk options are case sensitive! so `echo: TRUE` or `echo: FALSE` won't work! You can use R Studio autocomplete feature the see the available options by pressing the tab key.
 :::
 
-Note that by default Quarto will set `echo: true` . Alternatively, you can edit the Quarto preamble and change the global output options to show or hide all R chunks. You can do this within the `execute` options as follows (you can manually override this by changing the `echo` option in each individual chunk) :
+Note that by default, and unless otherwise specified, chunk codes in Quarto will be set to `echo: true` . Alternatively, you can edit the Quarto YAML preamble and change the global output options to show or hide all R chunks. You can do this within the `execute` options as follows (you can manually override this by changing the `echo` option in each individual chunk) :
 
 ``` r
 ---
-title: "My title"
+title: "Data Analysis: Example Report"
 number-sections: true
 execute:
   echo: false
@@ -259,11 +358,10 @@ library(skimr)
 library(ggplot2)
 ```
 
-In this case, we set `warning` and `message` to `false` to indicate that we want to suppress any warnings or messages (e.g., the ones that you usually get when loading R packages). Another useful option is `eval.` If we set `eval: false` then we indicate that we don't want the chunk output to be included in the rendered document (this is useful for example if we just want to show our R code without rendering its output):
+In this case, we set `warning` and `message` to `false` to indicate that we want to suppress any warnings or messages (e.g., the ones that you usually get when loading R packages). Another useful option is `eval.` If we set `eval: false` then we indicate that we don't want the chunk output to be included in the rendered document (this is useful for example if we just want to show our R code without rendering its output). For example the following chunk will only show the code for creating `ggplot` object without actually evaluating it:
 
 ``` r
 #| eval: false
-
 ggplot(data=evals.scores,aes(y=score,x=bty_avg)) +
   geom_point()
 ```
@@ -273,6 +371,52 @@ Note that we can still run the code in each individual chunk (even if we set `ev
 :::
 
 Additional arguments can be passed to code chunks other than those displayed above. The most useful ones other than those relate to figure sizing and positioning and are discussed in the upcoming sections.
+
+::: {.callout-warning icon="false"}
+## Task
+
+Add a new chunk at the beginning of your document that loads the following R packages:
+
+```{r}
+#| eval: false
+#| code-fold: false 
+library(ggplot2) 
+library(tidyverse)
+library(gt) 
+library(MASS) 
+library(patchwork) 
+library(moderndive) 
+```
+
+Make sure that the source code and messages/warnings outputs from loading these libraries are hidden from your rendered document. Then, add another chunk beneath the exploratory analysis section where you create a subset of the `iris` data set containing the variables `Sepal.Width`, `Sepal.Length` and `Species`. Make sure that the source code for this chunk is also hidden in the final document.
+
+Then, click the ![](images/rstudio-render-button.png){width="24" height="20"}`Render` button and compile your Quarto document to make sure that your markdown formatting produces the expected output in your HTML document.
+
+`r hide("See solution")`
+
+The two chunks you have created should look as follows:
+
+``` r
+#| echo: false
+#| warning: false 
+#| message: false 
+
+library(ggplot2) 
+library(tidyverse) 
+library(gt) 
+library(MASS) l
+library(patchwork) 
+library(moderndive)
+```
+
+``` r
+#| echo: false
+ Irs <- iris %>%
+   dplyr::select(Sepal.Width, Sepal.Length, Species) 
+```
+
+`r unhide()`
+:::
 
 ## Inline code
 
@@ -284,7 +428,7 @@ R code can be included within text by enclosing the code with `` `r ` ``. This a
 
 # Tables
 
-There are several ways to produce tables in Quarto . Here, a couple of different approaches will be presented. The first approach uses the `gt()` function from the `gt` package and essentially puts a wrapper around the tables produced in R in order to make them more visually appealing within the Quarto document. Here we will just cover the basics, but if you want to learn more about creating eye-catching tables with `gt` visit [here](https://gt.rstudio.com/articles/intro-creating-gt-tables.html).
+There are several ways to produce tables in Quarto . Here, a couple of different approaches will be presented. The first approach uses the `gt()` function from the `gt` package and essentially recieves a data frame as input and then puts a wrapper around the tables produced in R in order to make them more visually appealing within the Quarto document. Here we will just cover the basics, but if you want to learn more about creating eye-catching tables with `gt` visit [here](https://gt.rstudio.com/articles/intro-creating-gt-tables.html).
 
 Let's say we wanted to create a table of the first 5 rows of the `iris` data from the `datasets` library. We can create the table using the `gt` function as follows:
 
@@ -302,7 +446,7 @@ iris %>%
 
 ```
 
-Lets customize this table a bit by (1) adding a table caption and number (2) modifying the labels of the columns and (3) create a grouping structure for the petals and sepals width and length columns:
+Lets customize this table a bit by (1) adding a table caption and a cross-referencing number (2) modifying the labels of the columns and (3) create a grouping structure for the petals and sepals width and length columns:
 
 ```{r}
 #| echo: fenced
@@ -329,41 +473,87 @@ iris %>%
   )
 ```
 
-The first thing we've done is to add a table label using `label: tbl-planets` .This will allow us to add cross-reference in the text (remember to use the `tbl-` prefix to make them cross-referenceable). For example we can write `@tbl-iris` in our document to reference and create an hyperlink directed to the @tbl-iris (you can also use the tool bar `Insert▾➠ Cross Reference` to do this). Then, the option `tbl-cap:` allow us to add caption to the table. Finally, we set the number of decimals to 2 with the `fmt_number` function and then we use the `tab_spanner` and `cols_label` functions to change some features of our `gt` table.
+The first thing we've done is to add a table label using `label: tbl-iris` .This will allow us to add cross-reference in the text (remember to use the `tbl-` prefix to make them cross-referenceable). For example we can write `@tbl-iris` in our document to reference and create an hyperlink directed to the @tbl-iris (you can also use the tool bar `Insert▾➠ Cross Reference` to do this). Then, the option `tbl-cap:` allow us to add caption to the table. Finally, we can make the table more appealing by setting the number of decimals to 2 with the `fmt_number` function and then we use the `tab_spanner` and `cols_label` functions to change some features of our `gt` table.
 
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task
 
-Produce a table that computes the mean and the standard deviation of the petal length grouped by species. Round each value to 2 decimals and use appropriate column headings.
+Add two separate chunks in your exploratory analysis that produce the following tables:
+
+1.  A table displaying the mean, median and standard deviation for sepal width and length for each of the three different species of iris.
+
+2.  A table displaying the Pearson correlation between sepal width and length by species.
+
+Round each value to 2 decimals and use appropriate column headings for each table. Then add a sensible table caption and a cross-referencing number. Comment on this output in the main body of your document while using clickable hyperlinks whenever referencing each table.
+
+Before you render your document make sure that the source code for these chunks is hidden.
 
 `r hide("Take hint")`
 
-Use the `summarise` function to compute the mean and standard deviation of the `Petal.Length` variable grouped `.by` the `Sepcies` variable. Then use the `gt()` function to produce the table using `fmt_number` and `cols_label` to modify the number of decimals and column labels accordingly.
+Use the `summarise` function to compute the mean, median and standard deviation of the `Petal.Length` and `Sepal.Length`variables grouped `.by` the `Sepcies` variable. Then use the `gt()` function to produce the table using `fmt_number` and `cols_label` to modify the number of decimals and column labels accordingly.
 
 `r unhide()`
 
-```{r, echo = TRUE, eval = TRUE}
-#| webex.hide: "Click here to see the solution"
-#| code-fold: show
+`r hide("See solution")`
 
-iris %>% 
-  summarise( mean.petal = mean(Petal.Length),
-             sd.petal = sd(Petal.Length),
-                    .by=Species) %>% 
-  gt() %>%
-  fmt_number(decimals = 2) %>%
+Your chunks should look something like this:
+
+``` {.r .code-overflow-wrap style=".code-overflow-wrap"}
+#| echo: false
+#| label: tbl-summary
+#| tbl-cap:  Mean, median and standard deviation (sd) sepal width and length by species of iris.
+
+Irs |>
+   summarize('Width.Mean' = mean(Sepal.Width),
+             'Width.Median' = median(Sepal.Width),
+             'Width.sd' = sd(Sepal.Width),
+             'Length.Mean' = mean(Sepal.Length),
+             'Length.Median' = median(Sepal.Length),
+             'Length.sd' = sd(Sepal.Length),
+             .by = Species) |>
+ gt() |> 
+  fmt_number(decimals=2) |>
+  tab_spanner(
+    label = "Width",
+    columns = c(Width.Mean, Width.Median,Width.sd)
+  ) |>
+  tab_spanner(
+    label = "Length",
+    columns = c(Length.Mean, Length.Median,Length.sd)
+  ) |>
   cols_label(
-    mean.petal = html("Mean petal length (cm)"),
-    sd.petal = html("Std. Dev. petal length (cm)")
-    )
-  
-  
+    Width.Mean = html("Mean"),
+    Width.Median = html("Median"),
+    Width.sd = html("Std.Dev"),
+    Length.Mean = html("Mean"),
+    Length.Median = html("Median"),
+    Length.sd = html("Std.Dev")
+  )
 ```
+
+``` {.r .code-overflow-wrap}
+#| echo: false
+#| label: tbl-cor
+#| tbl-cap: Correlation between sepal width and length by species.
+
+Cors <- Irs |>
+        summarize('Correlation' = cor(Sepal.Width, Sepal.Length),
+                  .by = Species)
+Cors |> 
+  gt() |>
+  fmt_number(decimals=2) |>
+  tab_style(style = cell_text(weight = "bold"),
+            locations = cells_column_labels())
+```
+
+Then, `@tbl-summary` and `@tbl-cor` should be used in the text to reference the corresponding table.
+
+`r unhide()`
 :::
 
 ## Tables 'by hand'
 
-Tables can also be produced 'by hand' in Quarto. Here is an example of how we can recreatethe table above corresponding to the first 5 rows of the `iris` data.
+Tables can also be produced 'by hand' in Quarto. Here is an example of how we can recreate the table above corresponding to the first 5 rows of the `iris` data.
 
 ::: panel-tabset
 # `visual` mode view
@@ -406,6 +596,72 @@ For example, the table above corresponding to the first 5 rows of the `iris` dat
 
 ::: callout-note
 You can read more about authoring Quarto tables [here](https://quarto.org/docs/authoring/tables.html).
+:::
+
+::: callout-tip
+You can use the `kable()` function from the [kableExtra](https://haozhu233.github.io/kableExtra/) library to output a markdown formatted table using as input a data frame or matrix. Then you can copy-paste this in your quarto document. For example try the following code and paste its output yo your quarto document:
+
+```{r}
+#| eval: false
+#| code-fold: false
+library(kableExtra)
+iris %>%
+  slice_head(n=5)  %>% kable(digits = 2)
+```
+
+Of course, you can use the `kable` function instead of `gt` within a chunk. The html output will be rendered the same way in Quarto. `kable` might be more straightforward and easier to implement while gt will give you more control and customization over the layout of your tables. Ultimately, it's a matter of personal preference and which one you feel more comfortable using.
+:::
+
+## **Summary of Regression Models as HTML Tables**
+
+In this section we briefly introduce the package `sjPlot` to create HTML-tables that will be displayed nicely in your Quarto document. We will focus on the `tab_model()` function, which receives as argument a single or multiple models fitted with the `lm` or `glm` engine (other models, like hurdle- or zero-inflated models, also work with this function).
+
+::: callout-important
+HTML is the only output-format, you can\'t (directly) create a LaTex or PDF output from [`tab_model()`](https://strengejacke.github.io/sjPlot/reference/tab_model.html) and related table-functions. 
+:::
+
+For example, say we want to create a nice html table of a linear model fitted to the `evals` data set:
+
+```{r}
+#| code-fold: false
+#| message: false
+#| warning: false
+
+library(sjPlot)
+model_evals <- lm(score~bty_avg,evals.scores)
+```
+
+Then we can simply add the following chunk to display the @tbl-lm_eval_scores below:
+
+``` r
+#| tbl-cap: "Summaries of the linear model fitted to the evaluation scores data set.
+#| label: tbl-lm_eval_scores
+tab_model(model_evals)
+```
+
+```{r}
+#| tbl-cap: "Summaries of the linear model fitted to the evaluation scores data set."
+#| label: tbl-lm_eval_scores
+#| echo: false
+tab_model(model_evals)
+```
+
+[`tab_model()`](https://strengejacke.github.io/sjPlot/reference/tab_model.html) has some argument that allow to show or hide specific columns from the output:
+
+-   `show.ci` to show/hide the column with confidence intervals.
+
+-   `show.se` to show/hide the column with standard errors.
+
+-   `show.p` to show/hide the column with p-values.
+
+-   `show.r2` to show/hide $R^2$ values.
+
+-   `show.obs` to show/hide the number of observation.
+
+Other useful arguments are `collapse.ci` and `collapse.se` which collapse the columns for confidence intervals and standard errors one column together with the estimates. You can use the `pred.labels` argument to change the names of the coefficients in the *Predictors* column (note that the length of `pred.labels` must exactly match the amount of predictors in the *Predictor* column). Finally, you ca use the `dv.labels` to change the names of the model columns, which are labelled with the variable labels / names from the dependent variables. Will we check an example in an upcoming task.
+
+::: callout-note
+You can read more about `sjPlot` html regression model tables [here](https://strengejacke.github.io/sjPlot/articles/tab_model_estimates.html).
 :::
 
 # Figures
@@ -479,6 +735,37 @@ What other argument would you need to include if you wish to show the chunk plot
 `r mcq(c("eval: false","echo: true",answer="echo: false","eval: true"))`
 :::
 
+::: {.callout-warning icon="false"}
+## Task
+
+Create a new chunk in your exploratory analysis section that displays a scatter plot showing the relationship between sepal width and length by species. Re-size and align the plot accordingly, add a caption and a cross-reference label. Finally write some comments in the main body while cross-referencing the plot you created.
+
+`r hide("see solution")`
+
+Your new chunk should look something like this:
+
+``` {.r .code-overflow-wrap}
+#| echo: false
+#| fig-cap: Relationship between sepal width and sepal length by species.
+#| label: fig-scat
+#| fig-align: center
+#| fig-width: 4.5
+#| fig-height: 3.5
+
+ggplot(Irs, aes(x = Sepal.Length,
+                y = Sepal.Width,
+                color = Species)) +
+  geom_point() +
+  labs(x = "Sepal length (in centimetres)", 
+       y = "Sepal width (in centimetres)",
+       color = "Species") 
+```
+
+Then, `@fig-scat` should be used in the text description to refer to this plot.
+
+`r unhide()`
+:::
+
 ::: callout-note
 You can read more about authoring Quarto figures [here](https://quarto.org/docs/authoring/figures.html).
 :::
@@ -489,7 +776,7 @@ Mathematical and statistical equations can be presented nicely within a Quarto d
 
 $$y_i = \alpha + \beta x_i + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2),$$ can be specified using the following:
 
-``` latex
+``` {.latex .code-overflow-wrap}
 $$ y_i = \alpha + \beta x_i + \epsilon_i, ~~~~~ \``epsilon_i``\sim N(0, \sigma^2), $$
 ```
 
@@ -504,26 +791,30 @@ If you have a categorical variable then you would write it using an indicator fu
 
 $$y_i = \alpha + \beta_{\mbox{Male}} \cdot \mathbb{I}_{\mbox{Male}}(x),$$
 
-``` latex
+``` {.latex .code-overflow-wrap}
 $$y_i = \alpha + \beta_{\mathrm{Male}} \cdot \mathbb{I}_{\mathrm{Male}}(x),$$
 ```
 
-where $\mathbb{I}_{\mbox{Male}}(x)$ `$\mathbb{I}_{\mathrm{Male}}(x)$` is an indicator function such that
+where $\mathbb{I}_{\mbox{Male}}(x)$ (`$\mathbb{I}_{\mathrm{Male}}(x)$`) is an indicator function such that
 
-$$\mathbb{I}_{\mbox{Male}}(x)=\left\{
-                \begin{array}{ll}
-                  1 ~~~ \mbox{if the gender of} ~ x \mbox{th observation is Male},\\
-                  0 ~~~ \mbox{Otherwise}.\\
-                \end{array}
-              \right.$$
+$$
+\mathbb{I}_{\mathrm{Male}}(x) =
+\begin{cases} 
+1 ~ \text{if the gender of the }x\text{th observation is Male},\\
+0 ~ \text{otherwise}
+\end{cases}
+$$
+
+We can use the `\begin{cases}` from the `amsmath` Latex package (available already in Quarto) to replicate this expression:
 
 ``` latex
-    $$\mathbb{I}_{\mathrm{Male}}(x)=\left\{
-                \begin{array}{ll}
-                  1 ~~~ \mathrm{if Gender of} ~ x \mathrm{th observation is Male},\\
-                  0 ~~~ \mathrm{Otherwise}.\\
-                \end{array}
-              \right.$$
+$$
+\mathbb{I}_{\mathrm{Male}}(x) =
+\begin{cases} 
+1 ~ \text{if the gender of the }x\text{th observation is Male},\\
+0 ~ \text{otherwise}
+\end{cases}
+$$
 ```
 
 For LaTeX more experienced users, you might find easier to use a `raw Tex Block` instead. This allows you write more complex mathematical expressions using standard LaTeX commands. However, you will only be able to see the compiled expressions in you rendered document. Here is an example of a mathematical expression using the LaTeX align environment:
@@ -563,13 +854,14 @@ To insert a raw tex block in source mode simply type:
 
 and then fill in with your mathematical expressions e.g.,
 
-``` latex
+```` latex
 ```{=tex}
 \begin{align}
 y_i &\sim \mathrm{Normal}(\mu_i,\sigma^2) \\
 \mu_i &= \beta_0 + \beta_1 x_i
-\end{a
+\end{align}
 ```
+````
 
 When rendered, this will produce:
 
@@ -598,11 +890,59 @@ You can use the `dfrac{}{}` command to write a fraction in display mode. The`\ba
 
 `r hide("See Solution")`
 
-``` r
+``` {.r .code-overflow-wrap}
 $$
 \rho (x,y) = \dfrac{\sum_{i=1}^n (x_i -\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n (y_i-\bar{y})^2}}
 $$
 ```
+
+`r unhide()`
+:::
+
+::: {.callout-warning icon="false"}
+## Task
+
+In the formal analysis section, underneath the Statistical model sub-section, write the expression of a saturated model that explores the relationship sepal width and sepal length for each iris species (i.e. separate regression lines for each species). Then add a bullet list explaining each of the parameters of the model.
+
+`r hide("see solution")`
+
+The display math for the full model would look something like this:
+
+``` tex
+$$
+y_{i} = \alpha + \beta_{\mbox{length}} \cdot \mbox{length} + \beta_{\mbox{species}} \cdot \mathbb{I}_{\mbox{species}}(x) + \beta_{\mbox{length, species}} \cdot \mbox{length} \cdot \mathbb{I}_{\mbox{species}}(x) + \epsilon_i
+$$
+```
+
+Or if you want using a slightly more complex Raw Tex Block:
+
+``` latex
+\begin{align}
+y_{i} &= \alpha + \beta_1 \cdot x_{1i} + \beta_2 \cdot x_{2i} + \beta_3 \cdot x_{1i} \cdot x_{2i} + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2), ~~~~ i=1,\ldots,150 \nonumber \\
+&= \alpha + \beta_{\mbox{length}} \cdot \mbox{length} + \beta_{\mbox{species}} \cdot \mathbb{I}_{\mbox{species}}(x) + \beta_{\mbox{length, species}} \cdot \mbox{length} \cdot \mathbb{I}_{\mbox{species}}(x) + \epsilon_i, \nonumber
+\end{align}
+```
+
+When compile it should appeared as:
+
+-   <div>
+
+    ```{=tex}
+    \begin{align}
+    y_{i} &= \alpha + \beta_1 \cdot x_{1i} + \beta_2 \cdot x_{2i} + \beta_3 \cdot x_{1i} \cdot x_{2i} + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2), ~~~~ i=1,\ldots,150 \nonumber \\
+    &= \alpha + \beta_{\mbox{length}} \cdot \mbox{length} + \beta_{\mbox{species}} \cdot \mathbb{I}_{\mbox{species}}(x) + \beta_{\mbox{length, species}} \cdot \mbox{length} \cdot \mathbb{I}_{\mbox{species}}(x) + \epsilon_i, \nonumber
+    \end{align}
+    ```
+
+    </div>
+
+To add the description of each parameter you can click on the bullet list icon ![](images/bullets.png){width="27" height="24"} and use the appropiate math symbol, e.g.
+
+-   `$\alpha$` is the intercept of the regression line for the baseline species (setosa);
+
+which gets compiled as:
+
+-   $\alpha$ is the intercept of the regression line for the baseline species (setosa);
 
 `r unhide()`
 :::
@@ -623,11 +963,11 @@ When you render a Quarto document, the R code in you chunks is executed by the [
 
 ![](images/rstudio-qmd-how-it-works.png){fig-align="center"}
 
-Note that HTML rendered documents will typically have a number of external dependencies (e.g. images, CSS style sheets, JavaScript, etc.) which are contained in an external `_files` directory alongside your document. If you share youe HTML rendered file without the external files, it will lose all of its previous formatting and style. Alternatively, you can create a self-contained HTML document using the the `embed-resources` option in quarto as follows:
+Note that HTML rendered documents will typically have a number of external dependencies (e.g. images, CSS style sheets, JavaScript, etc.) which are contained in an external `_files` directory alongside your document. If you share your HTML rendered file without the external files, it will lose all of its previous formatting and style. Alternatively, you can create a self-contained HTML document using the the `embed-resources` option in quarto as follows:
 
 ``` r
 ---
-title: "My document"
+title: "Data Analysis: Example Report"
 format:
   html:
     embed-resources: true
@@ -638,6 +978,27 @@ This will create standalone HTML file with no external dependencies that you can
 
 ::: callout-important
 For your upcoming class test you want to make sure this option is set to `true` so your work can be displayed properly by a browser.
+:::
+
+::: {.callout-warning icon="false"}
+## Task
+
+Complete your Quarto report by fitting the full model describing the relationship between Sepal lenght and Sepal Width for each the iris species and then compared this to a parallel lines model. Interpret your results and check your final model assumption. Finalise with some conclusions (you can use the `Example report` as reference).
+
+`r hide("take hint")`
+
+In the original `Example report` we used stepwise selection analysis based on AIC to find the model with the lowest AIC. However, since we do not have a large number of candidate models, you can simply use the `tab_model()` function to compare the two nested models and display the results in one single output:
+
+``` r
+full.model <- lm(Sepal.Width ~ Sepal.Length * Species, data = Irs)
+par.model <- lm(Sepal.Width ~ Sepal.Length + Species, data = Irs)
+tab_model(full.model,par.model,
+          show.aic = T,
+          show.obs = F,
+          dv.labels = c("Interaction model","Pararell lines model"))
+```
+
+`r unhide()`
 :::
 
 # Quarto Presentations

@@ -164,37 +164,34 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
    
   <ul>
-<li>
-<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
-  <ul class="collapse">
-<li><a href="#creating-a-new-quarto-document-from-scratch" id="toc-creating-a-new-quarto-document-from-scratch" class="nav-link" data-scroll-target="#creating-a-new-quarto-document-from-scratch"><span class="header-section-number">1.1</span> Creating a new Quarto document from scratch</a></li>
-  </ul>
-</li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#title" id="toc-title" class="nav-link" data-scroll-target="#title"><span class="header-section-number">2</span> Title</a></li>
   <li><a href="#sec-sections" id="toc-sec-sections" class="nav-link" data-scroll-target="#sec-sections"><span class="header-section-number">3</span> Sections</a></li>
+  <li><a href="#adding-references" id="toc-adding-references" class="nav-link" data-scroll-target="#adding-references"><span class="header-section-number">4</span> Adding references</a></li>
   <li>
-<a href="#embedding-r-code" id="toc-embedding-r-code" class="nav-link" data-scroll-target="#embedding-r-code"><span class="header-section-number">4</span> Embedding R code</a>
+<a href="#embedding-r-code" id="toc-embedding-r-code" class="nav-link" data-scroll-target="#embedding-r-code"><span class="header-section-number">5</span> Embedding R code</a>
   <ul class="collapse">
-<li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="header-section-number">4.1</span> Code chunks</a></li>
-  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code"><span class="header-section-number">4.2</span> Inline code</a></li>
+<li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="header-section-number">5.1</span> Code chunks</a></li>
+  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code"><span class="header-section-number">5.2</span> Inline code</a></li>
   </ul>
 </li>
   <li>
-<a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables"><span class="header-section-number">5</span> Tables</a>
+<a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables"><span class="header-section-number">6</span> Tables</a>
   <ul class="collapse">
-<li><a href="#tables-by-hand" id="toc-tables-by-hand" class="nav-link" data-scroll-target="#tables-by-hand"><span class="header-section-number">5.1</span> Tables ‘by hand’</a></li>
+<li><a href="#tables-by-hand" id="toc-tables-by-hand" class="nav-link" data-scroll-target="#tables-by-hand"><span class="header-section-number">6.1</span> Tables ‘by hand’</a></li>
+  <li><a href="#summary-of-regression-models-as-html-tables" id="toc-summary-of-regression-models-as-html-tables" class="nav-link" data-scroll-target="#summary-of-regression-models-as-html-tables"><span class="header-section-number">6.2</span> <strong>Summary of Regression Models as HTML Tables</strong></a></li>
   </ul>
 </li>
   <li>
-<a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures"><span class="header-section-number">6</span> Figures</a>
+<a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures"><span class="header-section-number">7</span> Figures</a>
   <ul class="collapse">
-<li><a href="#embedding-external-images" id="toc-embedding-external-images" class="nav-link" data-scroll-target="#embedding-external-images"><span class="header-section-number">6.1</span> Embedding external images</a></li>
-  <li><a href="#embedding-r-generated-figures" id="toc-embedding-r-generated-figures" class="nav-link" data-scroll-target="#embedding-r-generated-figures"><span class="header-section-number">6.2</span> Embedding R generated figures</a></li>
+<li><a href="#embedding-external-images" id="toc-embedding-external-images" class="nav-link" data-scroll-target="#embedding-external-images"><span class="header-section-number">7.1</span> Embedding external images</a></li>
+  <li><a href="#embedding-r-generated-figures" id="toc-embedding-r-generated-figures" class="nav-link" data-scroll-target="#embedding-r-generated-figures"><span class="header-section-number">7.2</span> Embedding R generated figures</a></li>
   </ul>
 </li>
-  <li><a href="#mathematics" id="toc-mathematics" class="nav-link" data-scroll-target="#mathematics"><span class="header-section-number">7</span> Mathematics</a></li>
-  <li><a href="#rendering" id="toc-rendering" class="nav-link" data-scroll-target="#rendering"><span class="header-section-number">8</span> Rendering</a></li>
-  <li><a href="#quarto-presentations" id="toc-quarto-presentations" class="nav-link" data-scroll-target="#quarto-presentations"><span class="header-section-number">9</span> Quarto Presentations</a></li>
+  <li><a href="#mathematics" id="toc-mathematics" class="nav-link" data-scroll-target="#mathematics"><span class="header-section-number">8</span> Mathematics</a></li>
+  <li><a href="#rendering" id="toc-rendering" class="nav-link" data-scroll-target="#rendering"><span class="header-section-number">9</span> Rendering</a></li>
+  <li><a href="#quarto-presentations" id="toc-quarto-presentations" class="nav-link" data-scroll-target="#quarto-presentations"><span class="header-section-number">10</span> Quarto Presentations</a></li>
   </ul></nav>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -228,9 +225,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The following sections will take you through the different steps required to produce this report in Quarto. For creating a new Quarto file from scratch see Section 1.1, otherwise move onto Section 2.</p>
-<section id="creating-a-new-quarto-document-from-scratch" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="creating-a-new-quarto-document-from-scratch">
-<span class="header-section-number">1.1</span> Creating a new Quarto document from scratch</h2>
-<p>If you want to create a new R Markdown document from scratch within RStudio you can go to:</p>
+<p>If you want to create a new R Markdown document from scratch within RStudio you can click on on the <code>New File</code> icon <img src="images/new_doc.png" class="img-fluid" width="23"> or go to:</p>
 <p><code>File -&gt; New File -&gt; Quarto  Document...</code></p>
 <p>This will open the following window within RStudio:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -250,7 +245,7 @@ Important
 <p>Before creating your first Quarto document, be sure that you have the latest RStudio <a href="https://posit.co/download/rstudio-desktop/">version</a> installed.</p>
 </div>
 </div>
-<p>From here select <strong>Document</strong> and the <strong>Default Output Format</strong> as <strong>PDF</strong> or <strong>HTML</strong>. Give your document a title and select OK. This will open within RStudio an empty <code>.qmd</code> file.</p>
+<p>From here select <strong>Document</strong> and the <strong>Default Output Format</strong> as <strong>HTML</strong> (<strong>PDF</strong> output is also possible but you need the latest version of <code>MikTex</code> to be installed if you are a Windows user). Give your document a title and select OK. This will open within RStudio an empty <code>.qmd</code> file.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -264,11 +259,11 @@ Note
 <p>You can download this <a href="https://quarto.org/docs/get-started/hello/rstudio/_hello.qmd">template</a> containing simple instructions on how to do some basic stuff using Quarto . To see what the HTML/PDF of the template document looks like click on the <img src="images/rstudio-render-button.png" width="16" height="13"><code>Render</code> button at the top of the document window.</p>
 </div>
 </div>
-</section></section><section id="title" class="level1" data-number="2"><h1 data-number="2">
+</section><section id="title" class="level1" data-number="2"><h1 data-number="2">
 <span class="header-section-number">2</span> Title</h1>
-<p>The title of the document can be found at the top of the <code>.qmd</code> file within its <strong>preamble</strong>, which is shown below. When titling your document, ensure the title is within inverted commas.</p>
+<p>The title of the document can be found at the top of the <code>.qmd</code> file within its <strong>preamble</strong> (YAML heading), which is shown below. When titling your document, ensure the title is within inverted commas.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Example Report"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Data Analysis: Example Report"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A Quarto document can be edited in the two modes of the RStudio editor: visual (on the left) and source (on the right). The visual mode offers a more friendly interface for editing you document (it includes a toolbar for quick edit options), while the source mode allows you to see and edit the underlying markdown text code.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -286,9 +281,51 @@ Note
 </div>
 <p>If you want section to be numbered you can set <code>number_sections: true</code> within the preamble of the document:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Data Analysis: Example Report"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>number<span class="sc">-</span>sections<span class="sc">:</span> true</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a new quarto document by clicking on the <code>New File</code> icon <img src="images/new_doc.png" class="img-fluid" width="23"> , chage the title to <em>“Data Analysis: Example Report”</em> and add numbered-level 1 headings for each of the following project sections to the Quarto document you just created:</p>
+<ul>
+<li><p>Introduction</p></li>
+<li><p>Exploratory data analysis</p></li>
+<li><p>Formal data analysis</p></li>
+<li><p>Conclusions</p></li>
+<li><p>References</p></li>
+</ul>
+<p>Then, click the <img src="images/rstudio-render-button.png" width="24" height="20"><code>Render</code> button and compile your Quarto document to make sure that your markdown formatting produces the expected output in your HTML document.</p>
+<p>Tip: Try typing <code>/</code> symbol on your main document while using the visual mode and then use the drop menu to add a new section to your document (you can type the letter <code>h</code> to search for the different header types while the drop menu is being displayed).</p>
+<div class="webex-solution">
+<button>
+See solution
+</button>
+<p>Your quarto document should look like this if you go to the <code>source mode</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Data Analysis: Example Report"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>number<span class="sc">-</span>sections<span class="sc">:</span> true</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Introduction</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Exploratory data analysis</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal data analysis</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Conclusions</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># References</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 <p>Each section can be assigned labels so that they can be referred to within the text.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -305,7 +342,7 @@ Note
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>To reference a section, add a&nbsp;<code>#sec-</code>&nbsp;identifier to any heading. For example, to give our <strong>Introduction</strong> section a label we simply add the label <code>{#sec-intro}</code> to the section title as follows:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Introduction {#sec-intro}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Introduction {#sec-intro}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where <code>sec-intro</code> is the label chosen for this particular section.</p>
 </div>
 </div>
@@ -324,11 +361,11 @@ Important
 </div>
 </div>
 <p>The section can now be referred to within the text of the document using the <code>@</code>sec- command. That is</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Section <span class="sc">@</span>sec<span class="sc">-</span>intro ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">@</span>sec<span class="sc">-</span>intro ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>will produce</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Section <span class="dv">1</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Section <span class="dv">1</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where the 1 is a clickable hyperlink that will take you to the beginning of that section within the document. If you are using the <code>visual</code> mode, you can also easily include cross-references by typing <code>@</code> and then scroll through the different hyperlinks you created, or by clicking on <code>Insert▾➠ Cross Reference</code></p>
-<p>Note that for section labels to appear on the references list, you must save your document first (click on <code>File ➠ Save as…</code> and save your document with a proper name). Then all the labels (i.e., labels of sections, figures, equations, etc.) will appear on the Insert Cross Reference pop up window. Then simply click on <code>Insert▾</code> to add the selected reference to your document.</p>
+<p>Note that for section labels to appear on the references list, you must save your document first (click on <code>File ➠ Save as…</code> and save your document with a proper name). Then all the labels (i.e., labels of sections, figures, equations, etc.) will appear on the Insert Cross Reference pop up window. Then simply click on <code>Insert▾</code> to add the selected reference to your document:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/quarto5.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="528"></p>
 </figure>
@@ -346,26 +383,74 @@ Note
 <p>Subsections can be added to a document in a similar fashion using either <code>##</code> (such that <code>## Subsection {#sec-sub}</code> will create a subsection with the label <code>sec-sub</code> and title <strong>Subsection</strong>) or by clicking on the <code>Block format ➠ Header X</code> menu on the toolbar on the <code>visual</code> mode.</p>
 </div>
 </div>
+</section><section id="adding-references" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Adding references</h1>
+<p>References can be included by clicking on <code>Insert▾➠ @Citation</code> then on the pop-up window you can look up for a reference, add the citation for an R package that is installed in your local computer or add a citation based on the DOI code of a paper or book:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/referencing.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="495"></p>
+</figure>
+</div>
+<p>The reference you add will be saved to a <code>*.bib</code> that you can access at the location where your <code>.qmd</code> file is stored. Once a reference is added to your document, the YAML heading will display the option <code>bibliography: references.bib</code> which is the source file where your references are being managed.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<i class="bi-pencil-square " style="color: #c8793c;" role="img" aria-hidden="true"></i> Task
+Task
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Try typing <code>/</code> symbol on your main document while using the visual mode and then use the drop menu to add a new section to your document ( Tip: you can type the letter <code>h</code> to search for the different header types while the drop menu is being displayed).</p>
+<p>Add the following level 2 headings (subsections) underneath the <code>Formal data analysis</code> heading:</p>
+<ul>
+<li><p>Statistical model</p></li>
+<li><p>Results</p></li>
+<li><p>Model diagnostics</p></li>
+</ul>
+<p>Then, add appropriate labels for each section. Copy and paste the following text under the <code>Introduction</code> section:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode latex code-overflow-wrap code-with-copy"><code class="sourceCode latex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [CITE]. The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the setosa, versicolor, and virginica. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Section 2 consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. Section 3 contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in Section 4 .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, change the species names to <em>italics</em> format and add a citation <code>[CITE]</code> for the iris data set using the following doi: <code>10.24432/C56C76</code> . Lastly, change the text refering to to Section 2, 3 and 4 with clickable hyperlinks to each of these sections. Render <img src="images/rstudio-render-button.png" width="21" height="17"> your Quarto document and check the HTML output.</p>
+<div class="webex-solution">
+<button>
+see solution
+</button>
+<p>Your quarto document should look like this if you go to the <code>source mode:</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode latex code-overflow-wrap code-with-copy"><code class="sourceCode latex"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>title: "Data Analysis: Example Report"</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>number-sections: true</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a># Introduction {#sec-intro}</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [@r.a.fisher1936] . The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the *setosa*, *versicolor*, and *virginica*. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>@sec-eda consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. @sec-fda contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in @sec-con .</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a># Exploratory data analysis {#sec-eda}</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>## Statistical model</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>## Results</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>## Model diagnostics</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a># Formal data analysis {#sec-fda}</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a># Conclusions {#sec-con}</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a># References</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section><section id="embedding-r-code" class="level1" data-number="4"><h1 data-number="4">
-<span class="header-section-number">4</span> Embedding R code</h1>
-<section id="code-chunks" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="code-chunks">
-<span class="header-section-number">4.1</span> Code chunks</h2>
+</div>
+</section><section id="embedding-r-code" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> Embedding R code</h1>
+<section id="code-chunks" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="code-chunks">
+<span class="header-section-number">5.1</span> Code chunks</h2>
 <p>Code chunks allow for R code to be embedded within a document. Not only can the code be easily included within a document, the code can also be evaluated. Hence, you can produce an entire report based on an analysis that is contained within a single file instead of having separate files containing your R code, plot images and comments.</p>
 <p>R Code can be evaluated directly on the Quarto document or in the R console (the latter would be similar to run your code from an R script). To select where you want your code to be evaluated click on the setting options <img src="images/settings.png" class="img-fluid" width="19"> (next to the Render button <img src="images/rstudio-render-button.png" class="img-fluid" width="22"> ) and choose between <code>Chunk Output Inline</code> (default) if you want your code to be evaluated within the Quarto document or <code>Chunk Output in Console</code> to evaluate your code directly on the R console. If you select the latter, the following options will be added to the document preamble:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">editor_options</span><span class="op">:</span> </span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">editor_options</span><span class="op">:</span> </span>
 <span>  <span class="va">chunk_output_type</span><span class="op">:</span> <span class="va">inline</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To add an R Code Chunk you can simply click on the <img src="images/chunk.png" class="img-fluid" width="29"> symbol (or using keyboard shortcut <code>cmd+alt+i</code> or <code>ctrl+alt+i</code> for windows users) on either <code>visual</code> or <code>source</code> modes.</p>
 <p>R code chunks are identified with&nbsp;<code>{r}</code> with multiple (optional) chunk options which we can access by typing <code>#|</code>&nbsp;at the beginning of the line.</p>
@@ -384,10 +469,9 @@ Note
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>If you are in the source mode the R chunks will appear as follow:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">:::</span> {.cell}</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="sc">:::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -403,13 +487,13 @@ Note
 <strong>message</strong>: suppress messages from R (true/false).</li>
 </ul>
 <p>For example, let’s say we wanted to select the <code>score</code> and <code>bty_avg</code> variables from the <code>evals</code> data set to be used later, we can do that using the following code chunk:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">{</span><span class="va">r</span><span class="op">}</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">{</span><span class="va">r</span><span class="op">}</span></span>
 <span><span class="co">#| echo: false</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://moderndive.github.io/moderndive/">moderndive</a></span><span class="op">)</span></span>
 <span><span class="va">evals.scores</span> <span class="op">&lt;-</span> <span class="va">evals</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">score</span>, <span class="va">bty_avg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Setting <code>echo: false</code> will tell the R to evaluate the code while hiding the R chunk from the main document. In this example, we will store the subsetted data set as the object <code>evals.scores</code> so that it can be used later . If you want to embed the code within the Quarto document then you would simply set <code>echo: true</code>.</p>
+<p>Setting <code>echo: false</code> will tell the R to evaluate the code while hiding the R chunk from the main document. In this example, we will store the subsetted data set as the object <code>evals.scores</code> so that it can be used in later chunks. If you want to embed the source code within the Quarto document then you would simply set <code>echo: true</code>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -423,13 +507,13 @@ Important
 <p>R chunk options are case sensitive! so <code>echo: TRUE</code> or <code>echo: FALSE</code> won’t work! You can use R Studio autocomplete feature the see the available options by pressing the tab key.</p>
 </div>
 </div>
-<p>Note that by default Quarto will set <code>echo: true</code> . Alternatively, you can edit the Quarto preamble and change the global output options to show or hide all R chunks. You can do this within the <code>execute</code> options as follows (you can manually override this by changing the <code>echo</code> option in each individual chunk) :</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>number<span class="sc">-</span>sections<span class="sc">:</span> true</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>execute<span class="sc">:</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  echo<span class="sc">:</span> false</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that by default, and unless otherwise specified, chunk codes in Quarto will be set to <code>echo: true</code> . Alternatively, you can edit the Quarto YAML preamble and change the global output options to show or hide all R chunks. You can do this within the <code>execute</code> options as follows (you can manually override this by changing the <code>echo</code> option in each individual chunk) :</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Data Analysis: Example Report"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>number<span class="sc">-</span>sections<span class="sc">:</span> true</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>execute<span class="sc">:</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  echo<span class="sc">:</span> false</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -444,14 +528,13 @@ Important
 </div>
 </div>
 <p>Lets look at another example:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| message: false</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| message: false</span></span>
 <span><span class="co">#| warning: false</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jennybc/gapminder">gapminder</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/skimr/">skimr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In this case, we set <code>warning</code> and <code>message</code> to <code>false</code> to indicate that we want to suppress any warnings or messages (e.g., the ones that you usually get when loading R packages). Another useful option is <code>eval.</code> If we set <code>eval: false</code> then we indicate that we don’t want the chunk output to be included in the rendered document (this is useful for example if we just want to show our R code without rendering its output):</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| eval: false</span></span>
-<span></span>
+<p>In this case, we set <code>warning</code> and <code>message</code> to <code>false</code> to indicate that we want to suppress any warnings or messages (e.g., the ones that you usually get when loading R packages). Another useful option is <code>eval.</code> If we set <code>eval: false</code> then we indicate that we don’t want the chunk output to be included in the rendered document (this is useful for example if we just want to show our R code without rendering its output). For example the following chunk will only show the code for creating <code>ggplot</code> object without actually evaluating it:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| eval: false</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">evals.scores</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">score</span>,x<span class="op">=</span><span class="va">bty_avg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -468,37 +551,79 @@ Note
 </div>
 </div>
 <p>Additional arguments can be passed to code chunks other than those displayed above. The most useful ones other than those relate to figure sizing and positioning and are discussed in the upcoming sections.</p>
-</section><section id="inline-code" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="inline-code">
-<span class="header-section-number">4.2</span> Inline code</h2>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add a new chunk at the beginning of your document that loads the following R packages:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://moderndive.github.io/moderndive/">moderndive</a></span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Make sure that the source code and messages/warnings outputs from loading these libraries are hidden from your rendered document. Then, add another chunk beneath the exploratory analysis section where you create a subset of the <code>iris</code> data set containing the variables <code>Sepal.Width</code>, <code>Sepal.Length</code> and <code>Species</code>. Make sure that the source code for this chunk is also hidden in the final document.</p>
+<p>Then, click the <img src="images/rstudio-render-button.png" width="24" height="20"><code>Render</code> button and compile your Quarto document to make sure that your markdown formatting produces the expected output in your HTML document.</p>
+<div class="webex-solution">
+<button>
+See solution
+</button>
+<p>The two chunks you have created should look as follows:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false </span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false </span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt) </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) l</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: false</span></span>
+<span> <span class="va">Irs</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span>, <span class="va">Species</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section><section id="inline-code" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="inline-code">
+<span class="header-section-number">5.2</span> Inline code</h2>
 <p>R code can be included within text by enclosing the code with <code>`r `</code>. This allows for expressions to be evaluated by R and not be hardwired by the user. For example, if you wanted to convey the number of observations within <code>evals.scores</code> then we can enclose <code>nrow(evals.scores)</code> within <code>`r `</code> to obtain the number of observations, rather than hardwiring 463 into the text. This can help to prevent potential human error when presenting information. It can also help with consistency and ease-of-use, since <code>n = nrow(evals.scores)</code> could be stored as an R object and referred to whenever necessary within the text using inline R code.</p>
-</section></section><section id="tables" class="level1" data-number="5"><h1 data-number="5">
-<span class="header-section-number">5</span> Tables</h1>
-<p>There are several ways to produce tables in Quarto . Here, a couple of different approaches will be presented. The first approach uses the <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code> function from the <code>gt</code> package and essentially puts a wrapper around the tables produced in R in order to make them more visually appealing within the Quarto document. Here we will just cover the basics, but if you want to learn more about creating eye-catching tables with <code>gt</code> visit <a href="https://gt.rstudio.com/articles/intro-creating-gt-tables.html">here</a>.</p>
+</section></section><section id="tables" class="level1" data-number="6"><h1 data-number="6">
+<span class="header-section-number">6</span> Tables</h1>
+<p>There are several ways to produce tables in Quarto . Here, a couple of different approaches will be presented. The first approach uses the <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code> function from the <code>gt</code> package and essentially recieves a data frame as input and then puts a wrapper around the tables produced in R in order to make them more visually appealing within the Quarto document. Here we will just cover the basics, but if you want to learn more about creating eye-catching tables with <code>gt</code> visit <a href="https://gt.rstudio.com/articles/intro-creating-gt-tables.html">here</a>.</p>
 <p>Let’s say we wanted to create a table of the first 5 rows of the <code>iris</code> data from the <code>datasets</code> library. We can create the table using the <code>gt</code> function as follows:</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<div id="tgaakqzceg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tgaakqzceg table {
+<div id="uihfkjadgw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uihfkjadgw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tgaakqzceg thead, #tgaakqzceg tbody, #tgaakqzceg tfoot, #tgaakqzceg tr, #tgaakqzceg td, #tgaakqzceg th {
+#uihfkjadgw thead, #uihfkjadgw tbody, #uihfkjadgw tfoot, #uihfkjadgw tr, #uihfkjadgw td, #uihfkjadgw th {
   border-style: none;
 }
 
-#tgaakqzceg p {
+#uihfkjadgw p {
   margin: 0;
   padding: 0;
 }
 
-#tgaakqzceg .gt_table {
+#uihfkjadgw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -524,12 +649,12 @@ Note
   border-left-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_caption {
+#uihfkjadgw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tgaakqzceg .gt_title {
+#uihfkjadgw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -541,7 +666,7 @@ Note
   border-bottom-width: 0;
 }
 
-#tgaakqzceg .gt_subtitle {
+#uihfkjadgw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -553,7 +678,7 @@ Note
   border-top-width: 0;
 }
 
-#tgaakqzceg .gt_heading {
+#uihfkjadgw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -565,13 +690,13 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_bottom_border {
+#uihfkjadgw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_col_headings {
+#uihfkjadgw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -586,7 +711,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_col_heading {
+#uihfkjadgw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -606,7 +731,7 @@ Note
   overflow-x: hidden;
 }
 
-#tgaakqzceg .gt_column_spanner_outer {
+#uihfkjadgw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -618,15 +743,15 @@ Note
   padding-right: 4px;
 }
 
-#tgaakqzceg .gt_column_spanner_outer:first-child {
+#uihfkjadgw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tgaakqzceg .gt_column_spanner_outer:last-child {
+#uihfkjadgw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tgaakqzceg .gt_column_spanner {
+#uihfkjadgw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -638,11 +763,11 @@ Note
   width: 100%;
 }
 
-#tgaakqzceg .gt_spanner_row {
+#uihfkjadgw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tgaakqzceg .gt_group_heading {
+#uihfkjadgw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -668,7 +793,7 @@ Note
   text-align: left;
 }
 
-#tgaakqzceg .gt_empty_group_heading {
+#uihfkjadgw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -683,15 +808,15 @@ Note
   vertical-align: middle;
 }
 
-#tgaakqzceg .gt_from_md > :first-child {
+#uihfkjadgw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tgaakqzceg .gt_from_md > :last-child {
+#uihfkjadgw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tgaakqzceg .gt_row {
+#uihfkjadgw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -710,7 +835,7 @@ Note
   overflow-x: hidden;
 }
 
-#tgaakqzceg .gt_stub {
+#uihfkjadgw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -723,7 +848,7 @@ Note
   padding-right: 5px;
 }
 
-#tgaakqzceg .gt_stub_row_group {
+#uihfkjadgw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -737,15 +862,15 @@ Note
   vertical-align: top;
 }
 
-#tgaakqzceg .gt_row_group_first td {
+#uihfkjadgw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tgaakqzceg .gt_row_group_first th {
+#uihfkjadgw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tgaakqzceg .gt_summary_row {
+#uihfkjadgw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -755,16 +880,16 @@ Note
   padding-right: 5px;
 }
 
-#tgaakqzceg .gt_first_summary_row {
+#uihfkjadgw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_first_summary_row.thick {
+#uihfkjadgw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tgaakqzceg .gt_last_summary_row {
+#uihfkjadgw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -774,7 +899,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_grand_summary_row {
+#uihfkjadgw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -784,7 +909,7 @@ Note
   padding-right: 5px;
 }
 
-#tgaakqzceg .gt_first_grand_summary_row {
+#uihfkjadgw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -794,7 +919,7 @@ Note
   border-top-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_last_grand_summary_row_top {
+#uihfkjadgw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -804,11 +929,11 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_striped {
+#uihfkjadgw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tgaakqzceg .gt_table_body {
+#uihfkjadgw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -817,7 +942,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_footnotes {
+#uihfkjadgw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -831,7 +956,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_footnote {
+#uihfkjadgw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -840,7 +965,7 @@ Note
   padding-right: 5px;
 }
 
-#tgaakqzceg .gt_sourcenotes {
+#uihfkjadgw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -854,7 +979,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#tgaakqzceg .gt_sourcenote {
+#uihfkjadgw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -862,72 +987,72 @@ Note
   padding-right: 5px;
 }
 
-#tgaakqzceg .gt_left {
+#uihfkjadgw .gt_left {
   text-align: left;
 }
 
-#tgaakqzceg .gt_center {
+#uihfkjadgw .gt_center {
   text-align: center;
 }
 
-#tgaakqzceg .gt_right {
+#uihfkjadgw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tgaakqzceg .gt_font_normal {
+#uihfkjadgw .gt_font_normal {
   font-weight: normal;
 }
 
-#tgaakqzceg .gt_font_bold {
+#uihfkjadgw .gt_font_bold {
   font-weight: bold;
 }
 
-#tgaakqzceg .gt_font_italic {
+#uihfkjadgw .gt_font_italic {
   font-style: italic;
 }
 
-#tgaakqzceg .gt_super {
+#uihfkjadgw .gt_super {
   font-size: 65%;
 }
 
-#tgaakqzceg .gt_footnote_marks {
+#uihfkjadgw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tgaakqzceg .gt_asterisk {
+#uihfkjadgw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tgaakqzceg .gt_indent_1 {
+#uihfkjadgw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tgaakqzceg .gt_indent_2 {
+#uihfkjadgw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tgaakqzceg .gt_indent_3 {
+#uihfkjadgw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tgaakqzceg .gt_indent_4 {
+#uihfkjadgw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tgaakqzceg .gt_indent_5 {
+#uihfkjadgw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#tgaakqzceg .katex-display {
+#uihfkjadgw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#tgaakqzceg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uihfkjadgw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -981,54 +1106,54 @@ Note
 </div>
 </div>
 </div>
-<p>Lets customize this table a bit by (1) adding a table caption and number (2) modifying the labels of the columns and (3) create a grouping structure for the petals and sepals width and length columns:</p>
+<p>Lets customize this table a bit by (1) adding a table caption and a cross-referencing number (2) modifying the labels of the columns and (3) create a grouping structure for the petals and sepals width and length columns:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: tbl-iris</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| tbl-cap: First five entries of the iris Data set</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="in">iris %&gt;%</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="in">  slice_head(n=5)  %&gt;%</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="in">  gt()  %&gt;%</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="in">   fmt_number(decimals=2)  %&gt;%</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="in"> tab_spanner(</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="in">    label = "Sepals",</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="in">    columns = c(Sepal.Length, Sepal.Width)</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="in">  )  %&gt;%</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="in">  tab_spanner(</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="in">    label = "Petals",</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="in">    columns = c(Petal.Length, Petal.Width)</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="in">  )  %&gt;%</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="in">  cols_label(</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="in">    Sepal.Length = html("Length (cm)"),</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="in">    Sepal.Width = html("Width (cm)"),</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="in">    Petal.Length = html("Length (cm)"),</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="in">    Petal.Width = html("Width (cm)")</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: tbl-iris</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| tbl-cap: First five entries of the iris Data set</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="in">iris %&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="in">  slice_head(n=5)  %&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="in">  gt()  %&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="in">   fmt_number(decimals=2)  %&gt;%</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="in"> tab_spanner(</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="in">    label = "Sepals",</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="in">    columns = c(Sepal.Length, Sepal.Width)</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="in">  )  %&gt;%</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="in">  tab_spanner(</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="in">    label = "Petals",</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="in">    columns = c(Petal.Length, Petal.Width)</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="in">  )  %&gt;%</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="in">  cols_label(</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="in">    Sepal.Length = html("Length (cm)"),</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="in">    Sepal.Width = html("Width (cm)"),</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="in">    Petal.Length = html("Length (cm)"),</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="in">    Petal.Width = html("Width (cm)")</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div id="tbl-iris" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-iris-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: First five entries of the iris Data set
 </figcaption><div aria-describedby="tbl-iris-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="kpmheaovik" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kpmheaovik table {
+<div id="atcsbiuuuc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#atcsbiuuuc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kpmheaovik thead, #kpmheaovik tbody, #kpmheaovik tfoot, #kpmheaovik tr, #kpmheaovik td, #kpmheaovik th {
+#atcsbiuuuc thead, #atcsbiuuuc tbody, #atcsbiuuuc tfoot, #atcsbiuuuc tr, #atcsbiuuuc td, #atcsbiuuuc th {
   border-style: none;
 }
 
-#kpmheaovik p {
+#atcsbiuuuc p {
   margin: 0;
   padding: 0;
 }
 
-#kpmheaovik .gt_table {
+#atcsbiuuuc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1054,12 +1179,12 @@ Table&nbsp;1: First five entries of the iris Data set
   border-left-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_caption {
+#atcsbiuuuc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kpmheaovik .gt_title {
+#atcsbiuuuc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1071,7 +1196,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-bottom-width: 0;
 }
 
-#kpmheaovik .gt_subtitle {
+#atcsbiuuuc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1083,7 +1208,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-top-width: 0;
 }
 
-#kpmheaovik .gt_heading {
+#atcsbiuuuc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1095,13 +1220,13 @@ Table&nbsp;1: First five entries of the iris Data set
   border-right-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_bottom_border {
+#atcsbiuuuc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_col_headings {
+#atcsbiuuuc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1116,7 +1241,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-right-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_col_heading {
+#atcsbiuuuc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1136,7 +1261,7 @@ Table&nbsp;1: First five entries of the iris Data set
   overflow-x: hidden;
 }
 
-#kpmheaovik .gt_column_spanner_outer {
+#atcsbiuuuc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1148,15 +1273,15 @@ Table&nbsp;1: First five entries of the iris Data set
   padding-right: 4px;
 }
 
-#kpmheaovik .gt_column_spanner_outer:first-child {
+#atcsbiuuuc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kpmheaovik .gt_column_spanner_outer:last-child {
+#atcsbiuuuc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kpmheaovik .gt_column_spanner {
+#atcsbiuuuc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1168,11 +1293,11 @@ Table&nbsp;1: First five entries of the iris Data set
   width: 100%;
 }
 
-#kpmheaovik .gt_spanner_row {
+#atcsbiuuuc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kpmheaovik .gt_group_heading {
+#atcsbiuuuc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1198,7 +1323,7 @@ Table&nbsp;1: First five entries of the iris Data set
   text-align: left;
 }
 
-#kpmheaovik .gt_empty_group_heading {
+#atcsbiuuuc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1213,15 +1338,15 @@ Table&nbsp;1: First five entries of the iris Data set
   vertical-align: middle;
 }
 
-#kpmheaovik .gt_from_md > :first-child {
+#atcsbiuuuc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kpmheaovik .gt_from_md > :last-child {
+#atcsbiuuuc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kpmheaovik .gt_row {
+#atcsbiuuuc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1240,7 +1365,7 @@ Table&nbsp;1: First five entries of the iris Data set
   overflow-x: hidden;
 }
 
-#kpmheaovik .gt_stub {
+#atcsbiuuuc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1253,7 +1378,7 @@ Table&nbsp;1: First five entries of the iris Data set
   padding-right: 5px;
 }
 
-#kpmheaovik .gt_stub_row_group {
+#atcsbiuuuc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1267,15 +1392,15 @@ Table&nbsp;1: First five entries of the iris Data set
   vertical-align: top;
 }
 
-#kpmheaovik .gt_row_group_first td {
+#atcsbiuuuc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kpmheaovik .gt_row_group_first th {
+#atcsbiuuuc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kpmheaovik .gt_summary_row {
+#atcsbiuuuc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1285,16 +1410,16 @@ Table&nbsp;1: First five entries of the iris Data set
   padding-right: 5px;
 }
 
-#kpmheaovik .gt_first_summary_row {
+#atcsbiuuuc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_first_summary_row.thick {
+#atcsbiuuuc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kpmheaovik .gt_last_summary_row {
+#atcsbiuuuc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1304,7 +1429,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-bottom-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_grand_summary_row {
+#atcsbiuuuc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1314,7 +1439,7 @@ Table&nbsp;1: First five entries of the iris Data set
   padding-right: 5px;
 }
 
-#kpmheaovik .gt_first_grand_summary_row {
+#atcsbiuuuc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1324,7 +1449,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-top-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_last_grand_summary_row_top {
+#atcsbiuuuc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1334,11 +1459,11 @@ Table&nbsp;1: First five entries of the iris Data set
   border-bottom-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_striped {
+#atcsbiuuuc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kpmheaovik .gt_table_body {
+#atcsbiuuuc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1347,7 +1472,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-bottom-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_footnotes {
+#atcsbiuuuc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1361,7 +1486,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-right-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_footnote {
+#atcsbiuuuc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1370,7 +1495,7 @@ Table&nbsp;1: First five entries of the iris Data set
   padding-right: 5px;
 }
 
-#kpmheaovik .gt_sourcenotes {
+#atcsbiuuuc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1384,7 +1509,7 @@ Table&nbsp;1: First five entries of the iris Data set
   border-right-color: #D3D3D3;
 }
 
-#kpmheaovik .gt_sourcenote {
+#atcsbiuuuc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1392,72 +1517,72 @@ Table&nbsp;1: First five entries of the iris Data set
   padding-right: 5px;
 }
 
-#kpmheaovik .gt_left {
+#atcsbiuuuc .gt_left {
   text-align: left;
 }
 
-#kpmheaovik .gt_center {
+#atcsbiuuuc .gt_center {
   text-align: center;
 }
 
-#kpmheaovik .gt_right {
+#atcsbiuuuc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kpmheaovik .gt_font_normal {
+#atcsbiuuuc .gt_font_normal {
   font-weight: normal;
 }
 
-#kpmheaovik .gt_font_bold {
+#atcsbiuuuc .gt_font_bold {
   font-weight: bold;
 }
 
-#kpmheaovik .gt_font_italic {
+#atcsbiuuuc .gt_font_italic {
   font-style: italic;
 }
 
-#kpmheaovik .gt_super {
+#atcsbiuuuc .gt_super {
   font-size: 65%;
 }
 
-#kpmheaovik .gt_footnote_marks {
+#atcsbiuuuc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kpmheaovik .gt_asterisk {
+#atcsbiuuuc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kpmheaovik .gt_indent_1 {
+#atcsbiuuuc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kpmheaovik .gt_indent_2 {
+#atcsbiuuuc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kpmheaovik .gt_indent_3 {
+#atcsbiuuuc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kpmheaovik .gt_indent_4 {
+#atcsbiuuuc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kpmheaovik .gt_indent_5 {
+#atcsbiuuuc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kpmheaovik .katex-display {
+#atcsbiuuuc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kpmheaovik div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#atcsbiuuuc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1520,7 +1645,7 @@ Table&nbsp;1: First five entries of the iris Data set
 </figure>
 </div>
 </div>
-<p>The first thing we’ve done is to add a table label using <code>label: tbl-planets</code> .This will allow us to add cross-reference in the text (remember to use the <code>tbl-</code>&nbsp;prefix to make them cross-referenceable). For example we can write <code>@tbl-iris</code> in our document to reference and create an hyperlink directed to the <a href="#tbl-iris" class="quarto-xref">Table&nbsp;1</a> (you can also use the tool bar <code>Insert▾➠ Cross Reference</code> to do this). Then, the option <code>tbl-cap:</code> allow us to add caption to the table. Finally, we set the number of decimals to 2 with the <code>fmt_number</code> function and then we use the <code>tab_spanner</code> and <code>cols_label</code> functions to change some features of our <code>gt</code> table.</p>
+<p>The first thing we’ve done is to add a table label using <code>label: tbl-iris</code> .This will allow us to add cross-reference in the text (remember to use the <code>tbl-</code>&nbsp;prefix to make them cross-referenceable). For example we can write <code>@tbl-iris</code> in our document to reference and create an hyperlink directed to the <a href="#tbl-iris" class="quarto-xref">Table&nbsp;1</a> (you can also use the tool bar <code>Insert▾➠ Cross Reference</code> to do this). Then, the option <code>tbl-cap:</code> allow us to add caption to the table. Finally, we can make the table more appealing by setting the number of decimals to 2 with the <code>fmt_number</code> function and then we use the <code>tab_spanner</code> and <code>cols_label</code> functions to change some features of our <code>gt</code> table.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1531,513 +1656,73 @@ Table&nbsp;1: First five entries of the iris Data set
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Produce a table that computes the mean and the standard deviation of the petal length grouped by species. Round each value to 2 decimals and use appropriate column headings.</p>
+<p>Add two separate chunks in your exploratory analysis that produce the following tables:</p>
+<ol type="1">
+<li><p>A table displaying the mean, median and standard deviation for sepal width and length for each of the three different species of iris.</p></li>
+<li><p>A table displaying the Pearson correlation between sepal width and length by species.</p></li>
+</ol>
+<p>Round each value to 2 decimals and use appropriate column headings for each table. Then add a sensible table caption and a cross-referencing number. Comment on this output in the main body of your document while using clickable hyperlinks whenever referencing each table.</p>
+<p>Before you render your document make sure that the source code for these chunks is hidden.</p>
 <div class="webex-solution">
 <button>
 Take hint
 </button>
-<p>Use the <code>summarise</code> function to compute the mean and standard deviation of the <code>Petal.Length</code> variable grouped <code>.by</code> the <code>Sepcies</code> variable. Then use the <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code> function to produce the table using <code>fmt_number</code> and <code>cols_label</code> to modify the number of decimals and column labels accordingly.</p>
+<p>Use the <code>summarise</code> function to compute the mean, median and standard deviation of the <code>Petal.Length</code> and <code>Sepal.Length</code>variables grouped <code>.by</code> the <code>Sepcies</code> variable. Then use the <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code> function to produce the table using <code>fmt_number</code> and <code>cols_label</code> to modify the number of decimals and column labels accordingly.</p>
 </div>
-<div class="cell" data-webex.hide="Click here to see the solution">
 <div class="webex-solution">
 <button>
-Click here to see the solution
+See solution
 </button>
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span> mean.petal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span>,</span>
-<span>             sd.petal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span>,</span>
-<span>                    .by<span class="op">=</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<p>Your chunks should look something like this:</p>
+<div class="sourceCode" id="cb20" style=".code-overflow-wrap"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: false</span></span>
+<span><span class="co">#| label: tbl-summary</span></span>
+<span><span class="co">#| tbl-cap:  Mean, median and standard deviation (sd) sepal width and length by species of iris.</span></span>
+<span></span>
+<span><span class="va">Irs</span> <span class="op">|&gt;</span></span>
+<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="st">'Width.Mean'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Sepal.Width</span><span class="op">)</span>,</span>
+<span>             <span class="st">'Width.Median'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">Sepal.Width</span><span class="op">)</span>,</span>
+<span>             <span class="st">'Width.sd'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Sepal.Width</span><span class="op">)</span>,</span>
+<span>             <span class="st">'Length.Mean'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span>,</span>
+<span>             <span class="st">'Length.Median'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span>,</span>
+<span>             <span class="st">'Length.sd'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span>,</span>
+<span>             .by <span class="op">=</span> <span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html">fmt_number</a></span><span class="op">(</span>decimals<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="st">"Width"</span>,</span>
+<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Width.Mean</span>, <span class="va">Width.Median</span>,<span class="va">Width.sd</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="st">"Length"</span>,</span>
+<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Length.Mean</span>, <span class="va">Length.Median</span>,<span class="va">Length.sd</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span></span>
-<span>    mean.petal <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Mean petal length (cm)"</span><span class="op">)</span>,</span>
-<span>    sd.petal <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Std. Dev. petal length (cm)"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div>
-<div id="jtmxhoxdwt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jtmxhoxdwt table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#jtmxhoxdwt thead, #jtmxhoxdwt tbody, #jtmxhoxdwt tfoot, #jtmxhoxdwt tr, #jtmxhoxdwt td, #jtmxhoxdwt th {
-  border-style: none;
-}
-
-#jtmxhoxdwt p {
-  margin: 0;
-  padding: 0;
-}
-
-#jtmxhoxdwt .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#jtmxhoxdwt .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#jtmxhoxdwt .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#jtmxhoxdwt .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#jtmxhoxdwt .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#jtmxhoxdwt .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#jtmxhoxdwt .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#jtmxhoxdwt .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#jtmxhoxdwt .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#jtmxhoxdwt .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#jtmxhoxdwt .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#jtmxhoxdwt .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#jtmxhoxdwt .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#jtmxhoxdwt .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#jtmxhoxdwt .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jtmxhoxdwt .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#jtmxhoxdwt .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#jtmxhoxdwt .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#jtmxhoxdwt .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jtmxhoxdwt .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#jtmxhoxdwt .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jtmxhoxdwt .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#jtmxhoxdwt .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jtmxhoxdwt .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jtmxhoxdwt .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jtmxhoxdwt .gt_left {
-  text-align: left;
-}
-
-#jtmxhoxdwt .gt_center {
-  text-align: center;
-}
-
-#jtmxhoxdwt .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#jtmxhoxdwt .gt_font_normal {
-  font-weight: normal;
-}
-
-#jtmxhoxdwt .gt_font_bold {
-  font-weight: bold;
-}
-
-#jtmxhoxdwt .gt_font_italic {
-  font-style: italic;
-}
-
-#jtmxhoxdwt .gt_super {
-  font-size: 65%;
-}
-
-#jtmxhoxdwt .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#jtmxhoxdwt .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#jtmxhoxdwt .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#jtmxhoxdwt .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#jtmxhoxdwt .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#jtmxhoxdwt .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#jtmxhoxdwt .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#jtmxhoxdwt .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#jtmxhoxdwt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="header gt_col_headings">
-<th id="Species" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Species</th>
-<th id="Mean petal length (cm)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean petal length (cm)</th>
-<th id="Std. Dev. petal length (cm)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Std. Dev. petal length (cm)</th>
-</tr></thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_center" headers="Species">setosa</td>
-<td class="gt_row gt_right" headers="mean.petal">1.46</td>
-<td class="gt_row gt_right" headers="sd.petal">0.17</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="Species">versicolor</td>
-<td class="gt_row gt_right" headers="mean.petal">4.26</td>
-<td class="gt_row gt_right" headers="sd.petal">0.47</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="Species">virginica</td>
-<td class="gt_row gt_right" headers="mean.petal">5.55</td>
-<td class="gt_row gt_right" headers="sd.petal">0.55</td>
-</tr>
-</tbody>
-</table>
+<span>    Width.Mean <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Mean"</span><span class="op">)</span>,</span>
+<span>    Width.Median <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Median"</span><span class="op">)</span>,</span>
+<span>    Width.sd <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Std.Dev"</span><span class="op">)</span>,</span>
+<span>    Length.Mean <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Mean"</span><span class="op">)</span>,</span>
+<span>    Length.Median <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Median"</span><span class="op">)</span>,</span>
+<span>    Length.sd <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="st">"Std.Dev"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: false</span></span>
+<span><span class="co">#| label: tbl-cor</span></span>
+<span><span class="co">#| tbl-cap: Correlation between sepal width and length by species.</span></span>
+<span></span>
+<span><span class="va">Cors</span> <span class="op">&lt;-</span> <span class="va">Irs</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="st">'Correlation'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span><span class="op">)</span>,</span>
+<span>                  .by <span class="op">=</span> <span class="va">Species</span><span class="op">)</span></span>
+<span><span class="va">Cors</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html">fmt_number</a></span><span class="op">(</span>decimals<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>            locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, <code>@tbl-summary</code> and <code>@tbl-cor</code> should be used in the text to reference the corresponding table.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<section id="tables-by-hand" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="tables-by-hand">
-<span class="header-section-number">5.1</span> Tables ‘by hand’</h2>
-<p>Tables can also be produced ‘by hand’ in Quarto. Here is an example of how we can recreatethe table above corresponding to the first 5 rows of the <code>iris</code> data.</p>
+<section id="tables-by-hand" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="tables-by-hand">
+<span class="header-section-number">6.1</span> Tables ‘by hand’</h2>
+<p>Tables can also be produced ‘by hand’ in Quarto. Here is an example of how we can recreate the table above corresponding to the first 5 rows of the <code>iris</code> data.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true"><code>visual</code> mode view</a></li>
@@ -2127,10 +1812,122 @@ Note
 <p>You can read more about authoring Quarto tables <a href="https://quarto.org/docs/authoring/tables.html">here</a>.</p>
 </div>
 </div>
-</section></section><section id="figures" class="level1" data-number="6"><h1 data-number="6">
-<span class="header-section-number">6</span> Figures</h1>
-<section id="embedding-external-images" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="embedding-external-images">
-<span class="header-section-number">6.1</span> Embedding external images</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use the <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable()</a></code> function from the <a href="https://haozhu233.github.io/kableExtra/">kableExtra</a> library to output a markdown formatted table using as input a data frame or matrix. Then you can copy-paste this in your quarto document. For example try the following code and paste its output yo your quarto document:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></span>
+<span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Of course, you can use the <code>kable</code> function instead of <code>gt</code> within a chunk. The html output will be rendered the same way in Quarto. <code>kable</code> might be more straightforward and easier to implement while gt will give you more control and customization over the layout of your tables. Ultimately, it’s a matter of personal preference and which one you feel more comfortable using.</p>
+</div>
+</div>
+</section><section id="summary-of-regression-models-as-html-tables" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="summary-of-regression-models-as-html-tables">
+<span class="header-section-number">6.2</span> <strong>Summary of Regression Models as HTML Tables</strong>
+</h2>
+<p>In this section we briefly introduce the package <code>sjPlot</code> to create HTML-tables that will be displayed nicely in your Quarto document. We will focus on the <code><a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html">tab_model()</a></code> function, which receives as argument a single or multiple models fitted with the <code>lm</code> or <code>glm</code> engine (other models, like hurdle- or zero-inflated models, also work with this function).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>HTML is the only output-format, you can't (directly) create a LaTex or PDF output from&nbsp;<a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html"><code>tab_model()</code></a>&nbsp;and related table-functions.&nbsp;</p>
+</div>
+</div>
+<p>For example, say we want to create a nice html table of a linear model fitted to the <code>evals</code> data set:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/sjPlot/">sjPlot</a></span><span class="op">)</span></span>
+<span><span class="va">model_evals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span><span class="op">~</span><span class="va">bty_avg</span>,<span class="va">evals.scores</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can simply add the following chunk to display the <a href="#tbl-lm_eval_scores" class="quarto-xref">Table&nbsp;2</a> below:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| tbl-cap: "Summaries of the linear model fitted to the evaluation scores data set.</span></span>
+<span><span class="co">#| label: tbl-lm_eval_scores</span></span>
+<span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html">tab_model</a></span><span class="op">(</span><span class="va">model_evals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div id="tbl-lm_eval_scores" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lm_eval_scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Summaries of the linear model fitted to the evaluation scores data set.
+</figcaption><div aria-describedby="tbl-lm_eval_scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">score</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.88</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.73&nbsp;–&nbsp;4.03</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">bty avg</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.07</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.03&nbsp;–&nbsp;0.10</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">463</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.035 / 0.033</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html"><code>tab_model()</code></a> has some argument that allow to show or hide specific columns from the output:</p>
+<ul>
+<li><p><code>show.ci</code> to show/hide the column with confidence intervals.</p></li>
+<li><p><code>show.se</code> to show/hide the column with standard errors.</p></li>
+<li><p><code>show.p</code> to show/hide the column with p-values.</p></li>
+<li><p><code>show.r2</code> to show/hide <span class="math inline">\(R^2\)</span> values.</p></li>
+<li><p><code>show.obs</code> to show/hide the number of observation.</p></li>
+</ul>
+<p>Other useful arguments are <code>collapse.ci</code>&nbsp;and&nbsp;<code>collapse.se</code> which collapse the columns for confidence intervals and standard errors one column together with the estimates. You can use the <code>pred.labels</code> argument to change the names of the coefficients in the <em>Predictors</em> column (note that the length of <code>pred.labels</code> must exactly match the amount of predictors in the <em>Predictor</em> column). Finally, you ca use the <code>dv.labels</code> to change the names of the model columns, which are labelled with the variable labels / names from the dependent variables. Will we check an example in an upcoming task.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can read more about <code>sjPlot</code> html regression model tables <a href="https://strengejacke.github.io/sjPlot/articles/tab_model_estimates.html">here</a>.</p>
+</div>
+</div>
+</section></section><section id="figures" class="level1" data-number="7"><h1 data-number="7">
+<span class="header-section-number">7</span> Figures</h1>
+<section id="embedding-external-images" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="embedding-external-images">
+<span class="header-section-number">7.1</span> Embedding external images</h2>
 <p>Including plots and figures within a Quarto document is straightforward. To include an external figure you can use the <code>visual</code> mode tool bar and click on <code>Insert▾➠ Figure/Image...</code> and then browse to the path where you image is, or alternatively write the <em>url</em> from which the image should be obtained. The pop-up windows allows you also to write a caption and also to modify the image alignment with respect the main text.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/quarto8.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
@@ -2142,9 +1939,9 @@ Note
 </figure>
 </div>
 <p>The source code would then look something like:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[](images<span class="sc">/</span>myimage.png){<span class="co">#fig-image1}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="embedding-r-generated-figures" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="embedding-r-generated-figures">
-<span class="header-section-number">6.2</span> Embedding R generated figures</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[](images<span class="sc">/</span>myimage.png){<span class="co">#fig-image1}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="embedding-r-generated-figures" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="embedding-r-generated-figures">
+<span class="header-section-number">7.2</span> Embedding R generated figures</h2>
 <p>Very often we would like to use the R plots generated from your analysis instead of using external figures. To achieve this, the R code for the plot is simply included within a code chunk including additional arguments for plot size and positioning. For example, to include the scatterplot of teaching and beauty:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -2167,7 +1964,7 @@ Figure&nbsp;1: Relationship between teaching and beauty scores. The best-fitting
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: fig-scatterplot1</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: fig-scatterplot1</span></span>
 <span><span class="co">#| fig-cap: Relationship between teaching and beauty scores. The best-fitting line has been superimposed.</span></span>
 <span><span class="co">#| fig-width: 4</span></span>
 <span><span class="co">#| fig-height: 3</span></span>
@@ -2208,6 +2005,40 @@ Figure&nbsp;1: Relationship between teaching and beauty scores. The best-fitting
 <option value="">eval: true</option></select></p>
 </div>
 </div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a new chunk in your exploratory analysis section that displays a scatter plot showing the relationship between sepal width and length by species. Re-size and align the plot accordingly, add a caption and a cross-reference label. Finally write some comments in the main body while cross-referencing the plot you created.</p>
+<div class="webex-solution">
+<button>
+see solution
+</button>
+<p>Your new chunk should look something like this:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: false</span></span>
+<span><span class="co">#| fig-cap: Relationship between sepal width and sepal length by species.</span></span>
+<span><span class="co">#| label: fig-scat</span></span>
+<span><span class="co">#| fig-align: center</span></span>
+<span><span class="co">#| fig-width: 4.5</span></span>
+<span><span class="co">#| fig-height: 3.5</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">Irs</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
+<span>                y <span class="op">=</span> <span class="va">Sepal.Width</span>,</span>
+<span>                color <span class="op">=</span> <span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Sepal length (in centimetres)"</span>, </span>
+<span>       y <span class="op">=</span> <span class="st">"Sepal width (in centimetres)"</span>,</span>
+<span>       color <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, <code>@fig-scat</code> should be used in the text description to refer to this plot.</p>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2221,11 +2052,11 @@ Note
 <p>You can read more about authoring Quarto figures <a href="https://quarto.org/docs/authoring/figures.html">here</a>.</p>
 </div>
 </div>
-</section></section><section id="mathematics" class="level1" data-number="7"><h1 data-number="7">
-<span class="header-section-number">7</span> Mathematics</h1>
+</section></section><section id="mathematics" class="level1" data-number="8"><h1 data-number="8">
+<span class="header-section-number">8</span> Mathematics</h1>
 <p>Mathematical and statistical equations can be presented nicely within a Quarto document. For example, the following equation referring to a linear regression model:</p>
 <p><span class="math display">\[y_i = \alpha + \beta x_i + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2),\]</span> can be specified using the following:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$$ y_i = </span><span class="sc">\alpha</span><span class="ss"> + </span><span class="sc">\beta</span><span class="ss"> x_i + </span><span class="sc">\epsilon</span><span class="ss">_i, ~~~~~ </span><span class="sc">\`</span><span class="ss">`epsilon_i``</span><span class="sc">\sim</span><span class="ss"> N(0, </span><span class="sc">\sigma</span><span class="ss">^2), $$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode latex code-overflow-wrap code-with-copy"><code class="sourceCode latex"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$$ y_i = </span><span class="sc">\alpha</span><span class="ss"> + </span><span class="sc">\beta</span><span class="ss"> x_i + </span><span class="sc">\epsilon</span><span class="ss">_i, ~~~~~ </span><span class="sc">\`</span><span class="ss">`epsilon_i``</span><span class="sc">\sim</span><span class="ss"> N(0, </span><span class="sc">\sigma</span><span class="ss">^2), $$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>That is, we use:</p>
 <ul>
 <li>
@@ -2237,20 +2068,23 @@ Note
 </ul>
 <p>If you have a categorical variable then you would write it using an indicator function. For example, if we have gender as a categorical variable, where females are the baseline category, then we could write our model as follows:</p>
 <p><span class="math display">\[y_i = \alpha + \beta_{\mbox{Male}} \cdot \mathbb{I}_{\mbox{Male}}(x),\]</span></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$$y_i = </span><span class="sc">\alpha</span><span class="ss"> + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mathrm</span><span class="ss">{Male}} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mathrm</span><span class="ss">{Male}}(x),$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>where <span class="math inline">\(\mathbb{I}_{\mbox{Male}}(x)\)</span> <code>$\mathbb{I}_{\mathrm{Male}}(x)$</code> is an indicator function such that</p>
-<p><span class="math display">\[\mathbb{I}_{\mbox{Male}}(x)=\left\{
-                \begin{array}{ll}
-                  1 ~~~ \mbox{if the gender of} ~ x \mbox{th observation is Male},\\
-                  0 ~~~ \mbox{Otherwise}.\\
-                \end{array}
-              \right.\]</span></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="ss">$$</span><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mathrm</span><span class="ss">{Male}}(x)=</span><span class="sc">\left\{</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ss">                </span><span class="kw">\begin</span>{<span class="ex">array</span>}<span class="ss">{ll}</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ss">                  1 ~~~ </span><span class="sc">\mathrm</span><span class="ss">{if Gender of} ~ x </span><span class="sc">\mathrm</span><span class="ss">{th observation is Male},</span><span class="sc">\\</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ss">                  0 ~~~ </span><span class="sc">\mathrm</span><span class="ss">{Otherwise}.</span><span class="sc">\\</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ss">                </span><span class="kw">\end</span>{<span class="ex">array</span>}</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="ss">              </span><span class="sc">\right</span><span class="ss">.$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode latex code-overflow-wrap code-with-copy"><code class="sourceCode latex"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$$y_i = </span><span class="sc">\alpha</span><span class="ss"> + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mathrm</span><span class="ss">{Male}} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mathrm</span><span class="ss">{Male}}(x),$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where <span class="math inline">\(\mathbb{I}_{\mbox{Male}}(x)\)</span> (<code>$\mathbb{I}_{\mathrm{Male}}(x)$</code>) is an indicator function such that</p>
+<p><span class="math display">\[
+\mathbb{I}_{\mathrm{Male}}(x) =
+\begin{cases}
+1 ~ \text{if the gender of the }x\text{th observation is Male},\\
+0 ~ \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>We can use the <code>\begin{cases}</code> from the <code>amsmath</code> Latex package (available already in Quarto) to replicate this expression:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$$</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mathrm</span><span class="ss">{Male}}(x) =</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">cases</span>}<span class="ss"> </span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="ss">1 ~ </span><span class="sc">\text</span>{if the gender of the }<span class="ss">x</span><span class="sc">\text</span><span class="ss">{th observation is Male},</span><span class="sc">\\</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="ss">0 ~ </span><span class="sc">\text</span>{otherwise}</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">cases</span>}</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="ss">$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For LaTeX more experienced users, you might find easier to use a <code>raw Tex Block</code> instead. This allows you write more complex mathematical expressions using standard LaTeX commands. However, you will only be able to see the compiled expressions in you rendered document. Here is an example of a mathematical expression using the LaTeX align environment:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -2261,10 +2095,10 @@ Note
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>To insert a raw Tex Block go to <code>Format ▾  ➠ Raw ▸ Tex Block</code></p>
 <p>This will add a text box that can fill in with your mathematical expression, e.g.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">align</span>}</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ss">y_i &amp;</span><span class="sc">\sim</span><span class="ss"> </span><span class="sc">\mathrm</span><span class="ss">{Normal}(</span><span class="sc">\mu</span><span class="ss">_i,</span><span class="sc">\sigma</span><span class="ss">^2) </span><span class="sc">\\</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="sc">\mu</span><span class="ss">_i &amp;= </span><span class="sc">\beta</span><span class="ss">_0 + </span><span class="sc">\beta</span><span class="ss">_1 x_i</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">align</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">align</span>}</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ss">y_i &amp;</span><span class="sc">\sim</span><span class="ss"> </span><span class="sc">\mathrm</span><span class="ss">{Normal}(</span><span class="sc">\mu</span><span class="ss">_i,</span><span class="sc">\sigma</span><span class="ss">^2) </span><span class="sc">\\</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="sc">\mu</span><span class="ss">_i &amp;= </span><span class="sc">\beta</span><span class="ss">_0 + </span><span class="sc">\beta</span><span class="ss">_1 x_i</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">align</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When rendered, this will produce:</p>
 <span class="math display">\[\begin{align}
 y_i &amp;\sim \mathrm{Normal}(\mu_i,\sigma^2) \\
@@ -2273,16 +2107,17 @@ y_i &amp;\sim \mathrm{Normal}(\mu_i,\sigma^2) \\
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <p>To insert a raw tex block in source mode simply type:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>```{=tex}</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>```{=tex}</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>and then fill in with your mathematical expressions e.g.,</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>```{=tex}</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">align</span>}</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ss">y_i &amp;</span><span class="sc">\sim</span><span class="ss"> </span><span class="sc">\mathrm</span><span class="ss">{Normal}(</span><span class="sc">\mu</span><span class="ss">_i,</span><span class="sc">\sigma</span><span class="ss">^2) </span><span class="sc">\\</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="sc">\mu</span><span class="ss">_i &amp;= </span><span class="sc">\beta</span><span class="ss">_0 + </span><span class="sc">\beta</span><span class="ss">_1 x_i</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>```{=tex}</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">align</span>}</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="ss">y_i &amp;</span><span class="sc">\sim</span><span class="ss"> </span><span class="sc">\mathrm</span><span class="ss">{Normal}(</span><span class="sc">\mu</span><span class="ss">_i,</span><span class="sc">\sigma</span><span class="ss">^2) </span><span class="sc">\\</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="sc">\mu</span><span class="ss">_i &amp;= </span><span class="sc">\beta</span><span class="ss">_0 + </span><span class="sc">\beta</span><span class="ss">_1 x_i</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">align</span>}</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When rendered, this will produce:</p>
 <span class="math display">\[\begin{align}
 y_i &amp;\sim \mathrm{Normal}(\mu_i,\sigma^2) \\
@@ -2315,9 +2150,55 @@ Take hint
 <button>
 See Solution
 </button>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>\<span class="fu">rho</span> (x,y) <span class="ot">=</span> \dfrac{\sum_{i<span class="ot">=</span><span class="dv">1</span>}<span class="sc">^</span><span class="fu">n</span> (x_i <span class="sc">-</span>\bar{x})(y_i<span class="sc">-</span>\bar{y})}{\sqrt{\sum_{i<span class="ot">=</span><span class="dv">1</span>}<span class="sc">^</span><span class="fu">n</span> (x_i<span class="sc">-</span>\bar{x})<span class="sc">^</span><span class="dv">2</span>}\sqrt{\sum_{i<span class="ot">=</span><span class="dv">1</span>}<span class="sc">^</span><span class="fu">n</span> (y_i<span class="sc">-</span>\bar{y})<span class="sc">^</span><span class="dv">2</span>}}</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>\<span class="fu">rho</span> (x,y) <span class="ot">=</span> \dfrac{\sum_{i<span class="ot">=</span><span class="dv">1</span>}<span class="sc">^</span><span class="fu">n</span> (x_i <span class="sc">-</span>\bar{x})(y_i<span class="sc">-</span>\bar{y})}{\sqrt{\sum_{i<span class="ot">=</span><span class="dv">1</span>}<span class="sc">^</span><span class="fu">n</span> (x_i<span class="sc">-</span>\bar{x})<span class="sc">^</span><span class="dv">2</span>}\sqrt{\sum_{i<span class="ot">=</span><span class="dv">1</span>}<span class="sc">^</span><span class="fu">n</span> (y_i<span class="sc">-</span>\bar{y})<span class="sc">^</span><span class="dv">2</span>}}</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the formal analysis section, underneath the Statistical model sub-section, write the expression of a saturated model that explores the relationship sepal width and sepal length for each iris species (i.e.&nbsp;separate regression lines for each species). Then add a bullet list explaining each of the parameters of the model.</p>
+<div class="webex-solution">
+<button>
+see solution
+</button>
+<p>The display math for the full model would look something like this:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$$</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ss">y_{i} = </span><span class="sc">\alpha</span><span class="ss"> + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mbox</span>{length}<span class="ss">} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mbox</span>{length}<span class="ss"> + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mbox</span>{species}<span class="ss">} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mbox</span>{species}<span class="ss">}(x) + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mbox</span>{length, species}<span class="ss">} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mbox</span>{length}<span class="ss"> </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mbox</span>{species}<span class="ss">}(x) + </span><span class="sc">\epsilon</span><span class="ss">_i</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="ss">$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or if you want using a slightly more complex Raw Tex Block:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">align</span>}</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="ss">y_{i} &amp;= </span><span class="sc">\alpha</span><span class="ss"> + </span><span class="sc">\beta</span><span class="ss">_1 </span><span class="sc">\cdot</span><span class="ss"> x_{1i} + </span><span class="sc">\beta</span><span class="ss">_2 </span><span class="sc">\cdot</span><span class="ss"> x_{2i} + </span><span class="sc">\beta</span><span class="ss">_3 </span><span class="sc">\cdot</span><span class="ss"> x_{1i} </span><span class="sc">\cdot</span><span class="ss"> x_{2i} + </span><span class="sc">\epsilon</span><span class="ss">_i, ~~~~ </span><span class="sc">\epsilon</span><span class="ss">_i </span><span class="sc">\sim</span><span class="ss"> N(0, </span><span class="sc">\sigma</span><span class="ss">^2), ~~~~ i=1,</span><span class="sc">\ldots</span><span class="ss">,150 </span><span class="sc">\nonumber</span><span class="ss"> </span><span class="sc">\\</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="ss">&amp;= </span><span class="sc">\alpha</span><span class="ss"> + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mbox</span>{length}<span class="ss">} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mbox</span>{length}<span class="ss"> + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mbox</span>{species}<span class="ss">} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mbox</span>{species}<span class="ss">}(x) + </span><span class="sc">\beta</span><span class="ss">_{</span><span class="sc">\mbox</span>{length, species}<span class="ss">} </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mbox</span>{length}<span class="ss"> </span><span class="sc">\cdot</span><span class="ss"> </span><span class="sc">\mathbb</span><span class="ss">{I}_{</span><span class="sc">\mbox</span>{species}<span class="ss">}(x) + </span><span class="sc">\epsilon</span><span class="ss">_i, </span><span class="sc">\nonumber</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">align</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When compile it should appeared as:</p>
+<ul>
+<li><div>
+<span class="math display">\[\begin{align}
+y_{i} &amp;= \alpha + \beta_1 \cdot x_{1i} + \beta_2 \cdot x_{2i} + \beta_3 \cdot x_{1i} \cdot x_{2i} + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2), ~~~~ i=1,\ldots,150 \nonumber \\
+&amp;= \alpha + \beta_{\mbox{length}} \cdot \mbox{length} + \beta_{\mbox{species}} \cdot \mathbb{I}_{\mbox{species}}(x) + \beta_{\mbox{length, species}} \cdot \mbox{length} \cdot \mathbb{I}_{\mbox{species}}(x) + \epsilon_i, \nonumber
+\end{align}\]</span>
+</div></li>
+</ul>
+<p>To add the description of each parameter you can click on the bullet list icon <img src="images/bullets.png" width="27" height="24"> and use the appropiate math symbol, e.g.</p>
+<ul>
+<li>
+<code>$\alpha$</code> is the intercept of the regression line for the baseline species (setosa);</li>
+</ul>
+<p>which gets compiled as:</p>
+<ul>
+<li>
+<span class="math inline">\(\alpha\)</span> is the intercept of the regression line for the baseline species (setosa);</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2334,8 +2215,8 @@ Note
 <p>For additional tricks inserting mathematics into documents see <a href="https://quarto.org/docs/visual-editor/technical.html">here</a>. For a complete tutorial on using LaTeX please see <a href="https://latex-tutorial.com/">here</a>.</p>
 </div>
 </div>
-</section><section id="rendering" class="level1" data-number="8"><h1 data-number="8">
-<span class="header-section-number">8</span> Rendering</h1>
+</section><section id="rendering" class="level1" data-number="9"><h1 data-number="9">
+<span class="header-section-number">9</span> Rendering</h1>
 <p>You can render a Quarto document or a presentation (see next section) by clicking the Render button <img src="images/rstudio-render-button.png" class="img-fluid" width="22">.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -2355,13 +2236,13 @@ Note
 <figure class="figure"><p><img src="images/rstudio-qmd-how-it-works.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>Note that HTML rendered documents will typically have a number of external dependencies (e.g.&nbsp;images, CSS style sheets, JavaScript, etc.) which are contained in an external <code>_files</code> directory alongside your document. If you share youe HTML rendered file without the external files, it will lose all of its previous formatting and style. Alternatively, you can create a self-contained HTML document using the the <code>embed-resources</code> option in quarto as follows:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My document"</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  html<span class="sc">:</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    embed<span class="sc">-</span>resources<span class="sc">:</span> true</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that HTML rendered documents will typically have a number of external dependencies (e.g.&nbsp;images, CSS style sheets, JavaScript, etc.) which are contained in an external <code>_files</code> directory alongside your document. If you share your HTML rendered file without the external files, it will lose all of its previous formatting and style. Alternatively, you can create a self-contained HTML document using the the <code>embed-resources</code> option in quarto as follows:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Data Analysis: Example Report"</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  html<span class="sc">:</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    embed<span class="sc">-</span>resources<span class="sc">:</span> true</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will create standalone HTML file with no external dependencies that you can share with others (note that indentation here is important as you are calling arguments within the format output) .</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -2376,65 +2257,90 @@ Important
 <p>For your upcoming class test you want to make sure this option is set to <code>true</code> so your work can be displayed properly by a browser.</p>
 </div>
 </div>
-</section><section id="quarto-presentations" class="level1" data-number="9"><h1 data-number="9">
-<span class="header-section-number">9</span> Quarto Presentations</h1>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete your Quarto report by fitting the full model describing the relationship between Sepal lenght and Sepal Width for each the iris species and then compared this to a parallel lines model. Interpret your results and check your final model assumption. Finalise with some conclusions (you can use the <code>Example report</code> as reference).</p>
+<div class="webex-solution">
+<button>
+take hint
+</button>
+<p>In the original <code>Example report</code> we used stepwise selection analysis based on AIC to find the model with the lowest AIC. However, since we do not have a large number of candidate models, you can simply use the <code><a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html">tab_model()</a></code> function to compare the two nested models and display the results in one single output:</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">full.model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Sepal.Width</span> <span class="op">~</span> <span class="va">Sepal.Length</span> <span class="op">*</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">Irs</span><span class="op">)</span></span>
+<span><span class="va">par.model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Sepal.Width</span> <span class="op">~</span> <span class="va">Sepal.Length</span> <span class="op">+</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">Irs</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html">tab_model</a></span><span class="op">(</span><span class="va">full.model</span>,<span class="va">par.model</span>,</span>
+<span>          show.aic <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>          show.obs <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>          dv.labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Interaction model"</span>,<span class="st">"Pararell lines model"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section><section id="quarto-presentations" class="level1" data-number="10"><h1 data-number="10">
+<span class="header-section-number">10</span> Quarto Presentations</h1>
 <p>Another great feature of Quarto is that it allows you to create presentations and supports a variety of formats such as <a href="https://quarto.org/docs/presentations/revealjs/">html</a>, <a href="https://quarto.org/docs/presentations/powerpoint.html">power point</a> and <a href="https://quarto.org/docs/presentations/beamer.html">beamer</a>. Today we will focus on creating an html presentation (which can be also printed as a pdf).</p>
 <p>Creating an html presentation is as easy as setting the output format to <code>revealjs</code>:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will create a title slide that includes the provided <code>title</code> and <code>author</code>. (you can remove any of these options if you the author or title page to be removed). Now we will switch to the <code>visual</code> mode. You will notice that a new set of options have now appeared:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/quarto13.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>This new tab will allow us to interact with the different features of our presentation. Lets begin by creating some slides. Slides in Quarto are delineated using level 1 and 2 headings:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Topic 1</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 1.1</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Topic 2</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 2.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Topic 1</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 1.1</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Topic 2</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 2.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the example above we use level 1 headings for creating a new sections and level 2 heading for defining the new slides. Alternatively we can use horizontal rules to create the slides as follows (on <code>visual</code> mode click on <code>Insert▾ ➠ Horizontal Rule</code>):</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  Content of slide <span class="dv">1</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  Content of slide <span class="dv">2</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  Content of slide <span class="dv">1</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  Content of slide <span class="dv">2</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You can add bullet and numbered lists to each slide as follows (on <code>visual</code> mode click on <img src="images/bullets.png" width="24" height="25"> or <img src="images/numbered.png" width="30" height="25"> for adding bullet or numbered lists respectively):</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 1</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  Item <span class="dv">1</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>  Item <span class="dv">2</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 2</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>   Bullet <span class="dv">1</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">1.1</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">1.2</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>   Bulet <span class="dv">2</span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">2.1</span></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">2.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 1</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  Item <span class="dv">1</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>  Item <span class="dv">2</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide 2</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>   Bullet <span class="dv">1</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">1.1</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">1.2</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>   Bulet <span class="dv">2</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">2.1</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>   Bullet <span class="fl">2.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Notice that indentation allow us to create a hierarchical structure within our lists of items. You can modify some of the option of the list by clicking the <img src="images/threedots.png" class="img-fluid" width="15"> button on the right side of it. This will open a pop-up window where you can modify some of its attributes. For example, you can ask Quarto to display each item one by one as you move forward through the slides:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/quarto11.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="366"></p>
@@ -2446,16 +2352,16 @@ Important
 </figure>
 </div>
 <p>Sometimes the text size in your slide might be too large to fit in your slide and you would like to make it smaller. You can then use the .smaller class to use a smaller typeface so that more text fits on the slide.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide with small text {.smaller}</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  Item <span class="dv">1</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>  Item <span class="dv">2</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"My title"</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Jafet Belmont"</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> revealjs</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Slide with small text {.smaller}</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  Item <span class="dv">1</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>  Item <span class="dv">2</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>&nbsp;If you are on the visual model, click on the slide settings <img src="images/threedots.png" class="img-fluid" width="17"> and then type <code>.smaller</code> on the class box:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/quarto14.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="373"></p>
@@ -2482,7 +2388,7 @@ Note
 <li>
 <p><code>slide</code>: Display output on the subsequent slide.</p>
 <p>For example, the source code for a chunk within a slide containing an R code would look something like this:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| output-location: column-fragment</span></span>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| output-location: column-fragment</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">evals.scores</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bty_avg</span>, y <span class="op">=</span> <span class="va">score</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>

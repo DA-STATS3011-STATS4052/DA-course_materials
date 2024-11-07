@@ -15,6 +15,7 @@ format:
 editor: visual
 editor_options: 
   chunk_output_type: console
+bibliography: references.bib
 ---
 
 ```{r}
@@ -43,7 +44,7 @@ The following sections will take you through the different steps required to pro
 
 ## Creating a new Quarto document from scratch
 
-If you want to create a new R Markdown document from scratch within RStudio you can go to:
+If you want to create a new R Markdown document from scratch within RStudio you can click on on the `New File` icon ![](images/new_doc.png){width="23"} or go to:
 
 `File -> New File -> Quarto  Document...`
 
@@ -55,7 +56,7 @@ This will open the following window within RStudio:
 Before creating your first Quarto document, be sure that you have the latest RStudio [version](https://posit.co/download/rstudio-desktop/) installed.
 :::
 
-From here select **Document** and the **Default Output Format** as **PDF** or **HTML**. Give your document a title and select OK. This will open within RStudio an empty `.qmd` file.
+From here select **Document** and the **Default Output Format** as **HTML** (**PDF** output is also possible but you need the latest version of `MikTex` to be installed if you are a Windows user). Give your document a title and select OK. This will open within RStudio an empty `.qmd` file.
 
 ::: callout-note
 You can download this [template](https://quarto.org/docs/get-started/hello/rstudio/_hello.qmd) containing simple instructions on how to do some basic stuff using Quarto . To see what the HTML/PDF of the template document looks like click on the ![](images/rstudio-render-button.png){width="16" height="13"} `Render` button at the top of the document window.
@@ -63,7 +64,7 @@ You can download this [template](https://quarto.org/docs/get-started/hello/rstud
 
 # Title
 
-The title of the document can be found at the top of the `.qmd` file within its preamble, which is shown below. When titling your document, ensure the title is within inverted commas.
+The title of the document can be found at the top of the `.qmd` file within its preamble (YAML heading), which is shown below. When titling your document, ensure the title is within inverted commas.
 
 ```         
 ---
@@ -91,6 +92,49 @@ title: "My title"
 number-sections: true
 ---
 ```
+
+::: {.callout-warning icon="false"}
+## Task
+
+Create a new quarto document by clicking on the `New File` icon ![](images/new_doc.png){width="23"} , chage the title to *"Data Analysis: Example Report"* and add numbered-level 1 headings for each of the following project sections to the Quarto document you just created:
+
+-   Introduction
+
+-   Exploratory data analysis
+
+-   Formal data analysis
+
+-   Conclusions
+
+-   References
+
+Then, click the render ![](images/rstudio-render-button.png){width="24" height="20"} button and compile your Quarto document to be sure that your markdown formatting produces the expected output in your HTML document.
+
+Tip: Try typing `/` symbol on your main document while using the visual mode and then use the drop menu to add a new section to your document (you can type the letter `h` to search for the different header types while the drop menu is being displayed).
+
+`r hide("See solution")`
+
+Your quarto document should look like this if you go to the `source mode`:
+
+``` r
+---
+title: "Data Analysis: Example Report"
+number-sections: true
+---
+
+# Introduction
+
+# Exploratory data analysis
+
+# Formal data analysis
+
+# Conclusions
+
+# References
+```
+
+`r unhide()`
+:::
 
 Each section can be assigned labels so that they can be referred to within the text. To reference a section, add a `#sec-` identifier to any heading. For example, to give our **Introduction** section a label we simply add the label `{#sec-intro}` to the section title as follows:
 
@@ -128,10 +172,67 @@ Note that for section labels to appear on the references list, you must save you
 Subsections can be added to a document in a similar fashion using either `##` (such that `## Subsection {#sec-sub}` will create a subsection with the label `sec-sub` and title **Subsection**) or by clicking on the `Block format ➠ Header X` menu on the toolbar on the `visual` mode.
 :::
 
+## Adding references
+
+References can be included by clicking on `Insert▾➠ @Citation` then on the pop-up window you can look up for a reference, add the citation for an R package that is installed in your local computer or add a citation based on the DOI code of a paper or book:
+
+![](images/referencing.png){fig-align="center" width="495"}
+
+The reference you add will be saved to a `*.bib` that you can access at the location where your `.qmd` file is stored. Once a reference is added to your document, the YAML heading will display the option `bibliography: references.bib` which is the source file where your references are being managed.
+
 ::: {.callout-warning icon="false"}
 ## Task
 
-Try typing `/` symbol on your main document while using the visual mode and then use the drop menu to add a new section to your document ( Tip: you can type the letter `h` to search for the different header types while the drop menu is being displayed).
+Add the following level 2 headings (subsections) underneath the `Formal data analysis` heading:
+
+-   Statistical model
+
+-   Results
+
+-   Model diagnostics
+
+Then, add appropriate labels for each section. Copy and paste the following text under the `Introduction` section:
+
+```         
+There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [CITE]. The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the setosa, versicolor, and virginica. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
+
+Section 2 consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. Section 3 contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in Section 4 .
+```
+
+Then, change the species names to *italics* format and add a citation `[CITE]` for the iris data set using the following doi: `10.24432/C56C76` . Lastly, change the text refering to to Section 2, 3 and 4 with clickable hyperlinks to each of these sections. Render ![](images/rstudio-render-button.png){width="21" height="17"} your Quarto document and check the HTML output.
+
+`r hide("see solution")`
+
+Your quarto document should look like this if you go to the `source mode:`
+
+``` r
+---
+title: "Data Analysis: Example Report"
+number-sections: true
+---
+
+# Introduction {#sec-intro}
+
+There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [@r.a.fisher1936] . The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the *setosa*, *versicolor*, and *virginica*. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
+
+@sec-eda consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. @sec-fda contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in @sec-con .
+
+# Exploratory data analysis {#sec-eda}
+
+## Statistical model
+
+## Results
+
+## Model diagnostics
+
+# Formal data analysis {#sec-fda}
+
+# Conclusions {#sec-con}
+
+# References
+```
+
+`r unhide()`
 :::
 
 # Embedding R code
