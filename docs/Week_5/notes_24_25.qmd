@@ -37,7 +37,7 @@ evals.scores <- evals |>
 
 This week we will take what we have learned in previous weeks and produce a report using Quarto . Quarto is a multi-language system that allows reports and presentation to be created within R, thus allowing for R code and output to be easily embedded within a report, a presentation or even a Blog! Hence, all of the R code and plots obtained from an analysis are contained within a single file.
 
-You can find below an example of a report produced with Quarto relating to fitting a regression model using one numerical explanatory. You can toggle the `</> Code` button in the html file to see the source code that produced this file. It is advised to have this document open while working through the remaining sections in order to see examples put into practice.
+You can find below an example of a report produced with Quarto relating to fitting a regression model using one numerical and one categorical explanatory variables. You can toggle the `</> Code` button in the html file to see the source code that produced this file. It is advised to have this document open while working through the remaining sections in order to see examples put into practice.
 
 ```{r}
 #| echo: false
@@ -54,7 +54,9 @@ download_link(
 )
 ```
 
-The following sections will take you through the different steps required to produce this report in Quarto. For creating a new Quarto file from scratch see Section 1.1, otherwise move onto Section 2.
+The following sections will take you through the different steps required to produce this report in Quarto. For creating a new Quarto file from scratch see @sec-quarto_init, otherwise move onto @sec-title.
+
+# Creating your first Quarto document {#sec-quarto_init}
 
 If you want to create a new R Markdown document from scratch within RStudio you can click on on the `New File` icon ![](images/new_doc.png){width="23"} or go to:
 
@@ -68,13 +70,13 @@ This will open the following window within RStudio:
 Before creating your first Quarto document, be sure that you have the latest RStudio [version](https://posit.co/download/rstudio-desktop/) installed.
 :::
 
-From here select **Document** and the **Default Output Format** as **HTML** (**PDF** output is also possible but you need the latest version of `MikTex` to be installed if you are a Windows user). Give your document a title and select OK. This will open within RStudio an empty `.qmd` file.
+From here, select **Document** and the **Default Output Format** as **HTML** (**PDF** output is also possible but you need the latest version of `MikTex` to be installed if you are a Windows user). Give your document a title and select OK. This will open in RStudio an empty `.qmd` file.
 
 ::: callout-note
 You can download this [template](https://quarto.org/docs/get-started/hello/rstudio/_hello.qmd) containing simple instructions on how to do some basic stuff using Quarto . To see what the HTML/PDF of the template document looks like click on the ![](images/rstudio-render-button.png){width="16" height="13"} `Render` button at the top of the document window.
 :::
 
-# Title
+# Title {#sec-title}
 
 The title of the document can be found at the top of the `.qmd` file within its **preamble** (YAML heading), which is shown below. When titling your document, ensure the title is within inverted commas.
 
@@ -110,7 +112,7 @@ number-sections: true
 ::: {.callout-warning icon="false"}
 ## Task
 
-Create a new quarto document by clicking on the `New File` icon ![](images/new_doc.png){width="23"} , chage the title to *"Data Analysis: Example Report"* and add numbered-level 1 headings for each of the following project sections to the Quarto document you just created:
+Create a new quarto document by clicking on the `New File` icon ![](images/new_doc.png){width="23"} , chage the title to *"Data Analysis: Example Report"* and add numbered-level 1 headings for each of the following project sections:
 
 -   Introduction
 
@@ -196,14 +198,6 @@ Note that for section labels to appear on the references list, you must save you
 Subsections can be added to a document in a similar fashion using either `##` (such that `## Subsection {#sec-sub}` will create a subsection with the label `sec-sub` and title **Subsection**) or by clicking on the `Block format ➠ Header X` menu on the toolbar on the `visual` mode.
 :::
 
-# Adding references
-
-References can be included by clicking on `Insert▾➠ @Citation` then on the pop-up window you can look up for a reference, add the citation for an R package that is installed in your local computer or add a citation based on the DOI code of a paper or book:
-
-![](images/referencing.png){fig-align="center" width="495"}
-
-The reference you add will be saved to a `*.bib` that you can access at the location where your `.qmd` file is stored. Once a reference is added to your document, the YAML heading will display the option `bibliography: references.bib` which is the source file where your references are being managed.
-
 ::: {.callout-warning icon="false"}
 ## Task
 
@@ -215,15 +209,7 @@ Add the following level 2 headings (subsections) underneath the `Formal data ana
 
 -   Model diagnostics
 
-Then, add appropriate labels for each section. Copy and paste the following text under the `Introduction` section:
-
-``` {.latex .code-overflow-wrap}
-There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [CITE]. The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the setosa, versicolor, and virginica. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
-
-Section 2 consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. Section 3 contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in Section 4 .
-```
-
-Then, change the species names to *italics* format and add a citation `[CITE]` for the iris data set using the following doi: `10.24432/C56C76` . Lastly, change the text refering to to Section 2, 3 and 4 with clickable hyperlinks to each of these sections. Render ![](images/rstudio-render-button.png){width="21" height="17"} your Quarto document and check the HTML output.
+Then, add appropriate labels for each section. Render ![](images/rstudio-render-button.png){width="21" height="17"} your Quarto document and check the HTML output.
 
 `r hide("see solution")`
 
@@ -237,23 +223,63 @@ number-sections: true
 
 # Introduction {#sec-intro}
 
-There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [@r.a.fisher1936] . The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the *setosa*, *versicolor*, and *virginica*. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
-
-@sec-eda consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. @sec-fda contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in @sec-con .
-
 # Exploratory data analysis {#sec-eda}
 
-## Statistical model
+## Statistical model {#sec-stats}
 
-## Results
+## Results {#sec-results}
 
-## Model diagnostics
+## Model diagnostics {#sec-diagnostics}
 
 # Formal data analysis {#sec-fda}
 
 # Conclusions {#sec-con}
 
 # References
+```
+
+`r unhide()`
+:::
+
+# Adding references
+
+References can be included by clicking on `Insert▾➠ @Citation`. This will pop-up a new window where you can look up for a reference, add the citation for an R package that is installed in your local computer or add a citation based on the DOI code of a paper or book:
+
+![](images/referencing.png){fig-align="center" width="495"}
+
+The reference you add will be saved to a `*.bib` that you can access at the location where your `.qmd` file is stored. Once a reference is added to your document, the YAML heading will display the option `bibliography: references.bib` which is the source file where your references are being managed.
+
+::: {.callout-warning icon="false"}
+## Task
+
+Copy and paste the following text under the `Introduction` section:
+
+``` {.latex .code-overflow-wrap}
+There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [CITE]. The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the setosa, versicolor, and virginica. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
+
+Section 2 consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. Section 3 contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in Section 4 .
+```
+
+Then, change the species names (setosa, versicolor, and virginica) to *italics* format and add a citation `[CITE]` for the iris data set using the following doi: `10.24432/C56C76` .
+
+Lastly, change the text referring to to Section 2, 3 and 4 with clickable hyperlinks to each of these sections. Render ![](images/rstudio-render-button.png){width="21" height="17"} your Quarto document and check the HTML output.
+
+`r hide("see solution")`
+
+The introduction section of your quarto document should look like this if you go to the `source mode:`
+
+``` {.latex .code-overflow-wrap}
+---
+title: "Data Analysis: Example Report"
+number-sections: true
+---
+
+# Introduction {#sec-intro}
+
+There are hundreds of species of flowering plants, with one such genus known as the iris. Edgar Anderson procured measurements (in centimetres) from 150 different flowers from three different iris species [@r.a.fisher1936] . The measurements are on the petal length and width, and sepal length and width from each flower. The three different iris species are the *setosa*, *versicolor*, and *virginica*. Here, we shall analyse the relationship between sepal width and sepal length and see whether the relationship, if any, is different across the three species of iris.
+
+@sec-eda consists of an exploratory analysis of the iris data and explores the potential relationship between sepal width and length, and whether there are any differences between the three species of the iris genus. @sec-fda contains the results from fitting a multiple regression model to the data, as well as the assessment of the model assumptions. Concluding remarks are given in @sec-con .
+
 ```
 
 `r unhide()`
@@ -287,12 +313,10 @@ If you are on visual mode the R chunks will appear as follow:
 
 If you are in the source mode the R chunks will appear as follow:
 
-```` r
-```{r}
+```{{r}}
 #| 
 
 ```
-````
 :::
 
 Some of the most common arguments you will use in your R Chunks are:
@@ -327,13 +351,13 @@ evals.scores <- evals |>
   select(score, bty_avg)
 ```
 
-Setting `echo: false` will tell the R to evaluate the code while hiding the R chunk from the main document. In this example, we will store the subsetted data set as the object `evals.scores` so that it can be used in later chunks. If you want to embed the source code within the Quarto document then you would simply set `echo: true`.
+Setting `echo: false` will tell the R to evaluate the code while hiding the R chunk source code from the main document. In this example, we will store the subsetted data set as the object `evals.scores` so that it can be used in chunks downstream. If you want to embed the source code within the Quarto document then you would simply set `echo: true`.
 
 ::: callout-important
 R chunk options are case sensitive! so `echo: TRUE` or `echo: FALSE` won't work! You can use R Studio autocomplete feature the see the available options by pressing the tab key.
 :::
 
-Note that by default, and unless otherwise specified, chunk codes in Quarto will be set to `echo: true` . Alternatively, you can edit the Quarto YAML preamble and change the global output options to show or hide all R chunks. You can do this within the `execute` options as follows (you can manually override this by changing the `echo` option in each individual chunk) :
+Note that by default, and unless otherwise specified, chunk codes in Quarto will be set to `echo: true`. Alternatively, you can edit the Quarto YAML preamble and change the global output options to show or hide all R chunks. You can do this within the `execute` options as follows (you can manually override this by changing the `echo` option in each individual chunk) :
 
 ``` r
 ---
@@ -747,7 +771,7 @@ Your new chunk should look something like this:
 ``` {.r .code-overflow-wrap}
 #| echo: false
 #| fig-cap: Relationship between sepal width and sepal length by species.
-#| label: fig-scat
+#| label: fig-scatter
 #| fig-align: center
 #| fig-width: 4.5
 #| fig-height: 3.5
@@ -761,7 +785,7 @@ ggplot(Irs, aes(x = Sepal.Length,
        color = "Species") 
 ```
 
-Then, `@fig-scat` should be used in the text description to refer to this plot.
+Then, `@fig-scatter` should be used in the text description to refer to this plot.
 
 `r unhide()`
 :::
@@ -774,7 +798,7 @@ You can read more about authoring Quarto figures [here](https://quarto.org/docs/
 
 Mathematical and statistical equations can be presented nicely within a Quarto document. For example, the following equation referring to a linear regression model:
 
-$$y_i = \alpha + \beta x_i + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2),$$ can be specified using the following:
+$$y_i = \alpha + \beta x_i + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2),$$ can be specified using the following syntax:
 
 ``` {.latex .code-overflow-wrap}
 $$ y_i = \alpha + \beta x_i + \epsilon_i, ~~~~~ \``epsilon_i``\sim N(0, \sigma^2), $$
@@ -805,7 +829,7 @@ $$
 \end{cases}
 $$
 
-We can use the `\begin{cases}` from the `amsmath` Latex package (available already in Quarto) to replicate this expression:
+We can use the `\begin{cases}...\end{cases}` functions from the `amsmath` Latex package (available already in Quarto) to replicate this expression:
 
 ``` latex
 $$
@@ -817,7 +841,7 @@ $$
 $$
 ```
 
-For LaTeX more experienced users, you might find easier to use a `raw Tex Block` instead. This allows you write more complex mathematical expressions using standard LaTeX commands. However, you will only be able to see the compiled expressions in you rendered document. Here is an example of a mathematical expression using the LaTeX align environment:
+Note that we used `\text()` to bypass any text format emebbded within a mathematical expression. For LaTeX more experienced users, you might find easier to use a `raw Tex Block` instead. This allows you write more complex mathematical expressions using standard LaTeX commands. However, you will only be able to see the compiled expressions in you rendered document. Here is an example of a mathematical expression using the LaTeX align environment:
 
 ::: panel-tabset
 # TeX Block in `visual` mode
