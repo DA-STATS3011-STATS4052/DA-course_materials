@@ -674,6 +674,15 @@ qchisq(df=6, p=0.95)
 pchisq(77.844,df=6,lower.tail = F)
 ```
 
+Alternatively, we can run the likelihood ratio test using the anova function as follows:
+
+```{r}
+#| code-fold: false
+
+anova(model_null,model_cars,test = "Chisq")
+
+```
+
 Overall, the explanatory variables are descriptive of car preferences.
 
 We can also compare this model with the saturated (full) model, which includes an interaction between `age` and `sex`:
@@ -692,7 +701,14 @@ The difference in deviance between the additive and the saturated model is $580.
 
 qchisq(df=4, p=0.95)
 # pval
-pchisq(3.94,df=6,lower.tail = F)
+pchisq(3.94,df=4,lower.tail = F)
+```
+
+Again, we can use the `anova` function to compare the three nested models:
+
+```{r}
+#| code-fold: false
+anova(model_null,model_cars,model_full,test = "Chisq") 
 ```
 
 The same conclusion is supported when comparing the AIC for these models:

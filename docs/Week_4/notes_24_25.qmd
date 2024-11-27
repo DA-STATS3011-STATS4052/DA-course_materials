@@ -1,8 +1,6 @@
 ---
 title: "Week 4: Regression modelling part 2"
 format:
-  pdf:
-    latex-auto-install: true
   html:    
     code-link: true
     code-fold: true
@@ -13,6 +11,8 @@ format:
     toc-location: left
     toc-title: Contents
     number-sections: true
+  pdf:
+    latex-auto-install: true
 editor: visual
 editor_options: 
   chunk_output_type: console
@@ -308,7 +308,7 @@ The table below lists a variety of contexts where sample statistics can be used 
 Table 1: Scenarios of sample statistics for inference.
 
 | Scenario | Population Parameter  | Population Notation | Sample Statistic      | Sample Notation                 |
-|:---------|:----------------------|:--------------------|:----------------------|:--------------------------------|
+|:-------------|:-------------|:-------------|:-------------|:----------------|
 | 1        | Population proportion | $p$                 | Sample proportion     | $\widehat{p}$                   |
 | 2        | Population mean       | $\mu$               | Sample mean           | $\bar{x}$                       |
 | 3        | Diff.in pop. props    | $p_1 - p_2$         | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |

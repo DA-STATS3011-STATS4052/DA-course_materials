@@ -369,8 +369,8 @@ I need a hint
 </button>
 <p>Recall that <span class="math inline">\(log~Odds ~ (male) = \mathrm{log}\left(\dfrac{P(male)}{1-P(male)}\right) = \hat{\beta_0} +\hat{\beta_1} \times temperature\)</span>, but we are interested in <span class="math inline">\(\dfrac{P(female)}{1-P(female)}\)</span>, thus <span class="math inline">\(Odds ~ (female) = \mathrm{exp}\left[- \mathrm{log}\left(\dfrac{P(male)}{1-P(male)} \right)\right] = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right)\)</span>.</p>
 </div>
-<div id="radio_MLZCIAFTJH" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_MLZCIAFTJH" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
+<div id="radio_KRYQRQNLXR" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
 </div>
 </div>
 </div>
@@ -1213,10 +1213,22 @@ converged</code></pre>
 <pre><code>[1] 9.955365e-15</code></pre>
 </div>
 </div>
+<p>Alternatively, we can run the likelihood ratio test using the anova function as follows:</p>
+<div class="cell">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">model_null</span>,<span class="va">model_cars</span>,test <span class="op">=</span> <span class="st">"Chisq"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Likelihood ratio tests of Multinomial Models
+
+Response: response
+      Model Resid. df Resid. Dev   Test    Df LR stat.      Pr(Chi)
+1         1        34   658.5440                                   
+2 age + sex        28   580.7022 1 vs 2     6 77.84185 9.992007e-15</code></pre>
+</div>
+</div>
 <p>Overall, the explanatory variables are descriptive of car preferences.</p>
 <p>We can also compare this model with the saturated (full) model, which includes an interaction between <code>age</code> and <code>sex</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">response</span> <span class="op">~</span> <span class="va">age</span> <span class="op">*</span> <span class="va">sex</span>, weight <span class="op">=</span> <span class="va">frequency</span>, data <span class="op">=</span> <span class="va">dcars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">response</span> <span class="op">~</span> <span class="va">age</span> <span class="op">*</span> <span class="va">sex</span>, weight <span class="op">=</span> <span class="va">frequency</span>, data <span class="op">=</span> <span class="va">dcars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># weights:  21 (12 variable)
 initial  value 329.583687 
@@ -1224,7 +1236,7 @@ iter  10 value 288.541004
 final  value 288.381742 
 converged</code></pre>
 </div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">model_full</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">model_full</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
     edf deviance   AIC  nobs
@@ -1234,19 +1246,32 @@ converged</code></pre>
 </div>
 <p>The difference in deviance between the additive and the saturated model is <span class="math inline">\(580.70-576.76=3.94\)</span>. This is not significant when compared with a <span class="math inline">\(\chi^2(12-8)\)</span>, so the additive model appears to fit the data well.</p>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">4</span>, p<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">4</span>, p<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.487729</code></pre>
 </div>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># pval</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span><span class="fl">3.94</span>,df<span class="op">=</span><span class="fl">6</span>,lower.tail <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># pval</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span><span class="fl">3.94</span>,df<span class="op">=</span><span class="fl">4</span>,lower.tail <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6847959</code></pre>
+<pre><code>[1] 0.4141869</code></pre>
+</div>
+</div>
+<p>Again, we can use the <code>anova</code> function to compare the three nested models:</p>
+<div class="cell">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">model_null</span>,<span class="va">model_cars</span>,<span class="va">model_full</span>,test <span class="op">=</span> <span class="st">"Chisq"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Likelihood ratio tests of Multinomial Models
+
+Response: response
+      Model Resid. df Resid. Dev   Test    Df  LR stat.      Pr(Chi)
+1         1        34   658.5440                                    
+2 age + sex        28   580.7022 1 vs 2     6 77.841851 9.992007e-15
+3 age * sex        24   576.7635 2 vs 3     4  3.938713 4.143637e-01</code></pre>
 </div>
 </div>
 <p>The same conclusion is supported when comparing the AIC for these models:</p>
 <div class="cell">
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://easystats.github.io/performance/reference/compare_performance.html">compare_performance</a></span><span class="op">(</span><span class="va">model_full</span>,<span class="va">model_cars</span>,<span class="va">model_null</span>,metrics <span class="op">=</span> <span class="st">"AIC"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -1306,7 +1331,7 @@ Take hint
 See solution
 </button>
 <div class="cell">
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m.iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">Sepal.Length</span>, data<span class="op">=</span><span class="va">iris</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m.iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nnet/man/multinom.html">multinom</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">Sepal.Length</span>, data<span class="op">=</span><span class="va">iris</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># weights:  9 (4 variable)
 initial  value 164.791843 
@@ -1315,7 +1340,7 @@ iter  20 value 91.035008
 final  value 91.033971 
 converged</code></pre>
 </div>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">iris</span>,<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m.iris</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">iris</span>,<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m.iris</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species predict(m.iris)
 1          5.1         3.5          1.4         0.2  setosa          setosa

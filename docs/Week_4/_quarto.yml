@@ -1,11 +1,13 @@
 project:
   type: website
   output-dir: docs
-    render:
+  render:
     - "notes_24_25.qmd"
 website:
   title: "Week 4: Regression modelling part 2"
+  favicon: UofG_Coat_of_Arms.png
   navbar:
+    logo: UofG.png
     left:
     - href: notes_24_25.qmd
       text: Notes
