@@ -1,0 +1,481 @@
+---
+title: "Week 4 Tasks Solutions"
+format: 
+  html: 
+    embed-resources: true
+  pdf:  default
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA, out.width = '70%', fig.align = "center", fig.pos = 'H')
+```
+
+```{r libraries, include=FALSE}
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(moderndive)
+library(ISLR)
+library(skimr)
+library(plotly)
+library(tidyr)
+library(datasets)
+library(knitr)
+library(janitor)
+library(infer)
+library(broom)
+library(gridExtra)
+library(GGally) #Package to produce matrix of 'pairs' plots and more!
+library(cowplot) #Package to display plots side by side
+library(tidymodels)
+```
+
+# Tasks
+
+1.  Assess the model assumptions for the parallel regression lines model. Do they appear valid?
+
+```{r}
+evals_multiple <- evals %>%
+                  select(score, gender, age)
+par.model <- linear_reg()
+par.model <- par.model |>
+  fit(score ~ age + gender, data = evals_multiple) |>
+  extract_fit_engine()
+```
+
+**Solution**
+
+```{r}
+regression.points <- get_regression_points(par.model) 
+
+ggplot(regression.points, aes(x = age, y = residual)) + 
+  geom_point() +
+   labs(x = "age", y = "Residual") +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1) +
+   facet_wrap(~ gender)
+ 
+ggplot(regression.points, aes(x = score_hat, y = residual)) +
+ geom_point() +
+   labs(x = "Fitted values", y = "Residual") +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1) +
+   facet_wrap(~ gender)
+ 
+ggplot(regression.points, aes(x = residual)) +
+   geom_histogram(binwidth = 0.25, color = "white") +
+   labs(x = "Residual") +
+   facet_wrap(~gender)
+```
+
+2.  Return to the `Credit` data set and fit a multiple regression model with `Balance` as the outcome variable, and `Income` and `Age` as the explanatory variables, respectively. Assess the assumptions of the multiple regression model.
+
+**Solution**
+
+```{r}
+
+Cred <- Credit |>
+  select(Balance, Income, Age)
+ 
+Cred |>
+   skim()
+ 
+Cred |>
+   cor()
+ 
+ggplot(Cred, aes(x = Age, y = Balance)) +
+   geom_point() +
+   labs(x = "Age (in years)", y = "Credit card balance (in $)", 
+        title = "Relationship between balance and age") +
+   geom_smooth(method = "lm", se = FALSE)
+ 
+# plot_ly(Cred, x = ~Income, y = ~Age, z = ~Balance,
+#          type = "scatter3d", mode = "markers")
+
+Balance.model <- linear_reg()
+Balance.model <- Balance.model |> 
+  fit(Balance ~ Age + Income, data = Cred) |>
+  extract_fit_engine()
+get_regression_table(Balance.model)
+ 
+regression.points <- get_regression_points(Balance.model)
+ 
+ggplot(regression.points, aes(x = Income, y = residual)) +
+   geom_point() +
+   labs(x = "Income (in $1000)", y = "Residual", title = "Residuals vs income")  +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1)
+ 
+ggplot(regression.points, aes(x = Age, y = residual)) +
+   geom_point() +
+   labs(x = "Age (in years)", y = "Residual", title = "Residuals vs age")  +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1)
+ 
+ggplot(regression.points, aes(x = residual)) +
+   geom_histogram(color = "white") +
+   labs(x = "Residual")
+```
+
+3.  Return to the `Credit` data set and fit a parallel regression lines model with `Balance` as the outcome variable, and `Income` and `Student` as the explanatory variables, respectively. Assess the assumptions of the fitted model.
+
+**Solution**
+
+```{r}
+Cred <- Credit |>
+   select(Balance, Income, Student)
+ 
+Cred |>
+   skim()
+ 
+ggplot(Cred, aes(x = Income, y = Balance, color = Student)) +
+   geom_jitter() +
+   labs(x = "Income (in $1000)", y = "Credit card balance (in $)", color = "Student") +
+   geom_smooth(method = "lm", se = FALSE)
+ 
+par.model <- linear_reg()
+par.model <- par.model |> 
+   fit(Balance ~ Income + Student, data = Cred) |>
+   extract_fit_engine()
+get_regression_table(par.model)
+ 
+regression.points <- get_regression_points(par.model)
+ 
+ggplot(regression.points, aes(x = Income, y = residual)) +
+   geom_point() +
+   labs(x = "Income (in $1000)", y = "Residual") +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1) +
+   facet_wrap(~ Student)
+ 
+ggplot(regression.points, aes(x = Balance_hat, y = residual)) +
+   geom_point() +
+   labs(x = "Fitted values", y = "Residual") +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1) +
+   facet_wrap(~ Student)
+ 
+ggplot(regression.points, aes(x = residual)) +
+   geom_histogram(color = "white") +
+   labs(x = "Residual") +
+   facet_wrap(~Student)
+```
+
+**Trickier**
+
+4.  Load the library `datasets` and look at the `iris` data set of Edgar Anderson containing measurements (in centimeters) on 150 different flowers across three different species of iris. Fit an interaction model with `Sepal.Width` as the outcome variable, and `Sepal.Length` and `Species` as the explanatory variables. Assess the assumptions of the fitted model.
+
+**Solution**
+
+```{r}
+Irs <- iris |>
+   select(Sepal.Width, Sepal.Length, Species)
+ 
+Irs |>
+   skim()
+ 
+Irs |> 
+   get_correlation(formula = Sepal.Width ~ Sepal.Length)
+ 
+ggplot(Irs, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+   geom_point() +
+   labs(x = "Sepal length (in centimetres)", y = "Sepal width (in centimetres)", color = "Species") +
+   geom_smooth(method = "lm", se = FALSE)
+ 
+int.model <- linear_reg()
+int.model <- int.model |> 
+  fit(Sepal.Width ~ Sepal.Length * Species, data = Irs) |>
+  extract_fit_engine()
+get_regression_table(int.model)
+ 
+regression.points <- get_regression_points(int.model)
+ 
+ggplot(regression.points, aes(x = Sepal.Length, y = residual)) +
+   geom_point() +
+   labs(x = "Sepal length (in centimetres)", y = "Residual") +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1) +
+   facet_wrap(~ Species)
+ 
+ggplot(regression.points, aes(x = Sepal.Width_hat, y = residual)) +
+   geom_point() +
+   labs(x = "Fitted values", y = "Residual") +
+   geom_hline(yintercept = 0, col = "blue", linewidth = 1) +
+   facet_wrap(~ Species)
+ 
+ggplot(regression.points, aes(x = residual)) +
+   geom_histogram(color = "white") +
+   labs(x = "Residual") +
+   facet_wrap(~ Species)
+```
+
+# Further Tasks
+
+You are encouraged to complete the following tasks by using Quarto to produce a single document which summarises all your work, i.e. the original questions, your R code, your comments and reflections, etc.
+
+1.  Data was collected on the characteristics of homes in the American city of Los Angeles (LA) in 2010 and can be found in the file `LAhomes.csv` on the Moodle page. The data contain the following variables:
+
+-   `city` - the district of LA where the house was located
+
+-   `type` - either `SFR` (Single Family Residences) or `Condo/Twh` (Condominium/Town House)
+
+-   `bed` - the number of bedrooms
+
+-   `bath` - the number of bathrooms
+
+-   `garage` - the number of car spaces in the garage
+
+-   `sqft` - the floor area of the house (in square feet)
+
+-   `pool` - `Y` if the house has a pool
+
+-   `spa` - `TRUE` if the house has a spa
+
+-   `price` - the most recent sales price (\$US)
+
+    We are interested in exploring the relationships between `price` and the other variables.
+
+    Read the data into an object called `LAhomes` and answer the following questions.
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+LAhomes <- read_csv("LAhomes.csv")
+```
+
+a.  By looking at the univariate and bivariate distributions on the `price` and `sqft` variables below, what would be a sensible way to proceed if we wanted to model this data? What care must be taken if you were to proceed this way?
+
+```{r}
+library(gridExtra) # Package to display plots side by side
+
+hist1 <- ggplot(LAhomes, aes(x = price)) +
+          geom_histogram()
+
+hist2 <- ggplot(LAhomes, aes(x = sqft)) +
+          geom_histogram()
+
+hist1log <- ggplot(LAhomes, aes(x = log(price))) +
+             geom_histogram()
+
+hist2log <- ggplot(LAhomes, aes(x = log(sqft))) +
+             geom_histogram()
+
+plot1 <- ggplot(LAhomes, aes(x = sqft, y = price)) +
+          geom_point()
+
+plot2 <- ggplot(LAhomes, aes(x = log(sqft), y = log(price))) +
+          geom_point()
+
+grid.arrange(hist1, hist2, hist1log, hist2log, plot1, plot2,
+             ncol = 2, nrow = 3)
+```
+
+------------------------------------------------------------------------
+
+**Solution** Given the highly skewed nature of both `price` and `sqft` (as seen in both their histograms and their scatterplot) the use of the log transformation significantly reduces the skewness in the data and makes the scatterplot look more linear. Hence we should model the transformed variables `log(price)` and `log(sqft)` instead of the original variables.
+
+If these transformations are employed, special care must be taken when interpreting the meaning of estimated model parameters since the data are no longer on the original units and the linear models of the logged variables will have a multiplicative effect, rather than an additive effect, in the original units.
+
+------------------------------------------------------------------------
+
+b.  Fit the simple linear model with `log(price)` as the response and `log(sqft)` as the predictor. Display the fitted model on a scatterplot of the data and a confidence interval for the slope parameter in the model and interpret its point and interval estimates.
+
+------------------------------------------------------------------------
+
+**Solution**
+
+```{r, warning=FALSE}
+LAhomes <- mutate(LAhomes,log.price = log(price), log.sqft = log(sqft))
+
+slr.model1 <- linear_reg()
+slr.model1 <- slr.model1 |>
+  fit(log(price) ~ log(sqft), data = LAhomes) |>
+  extract_fit_engine()
+
+ggplot(LAhomes,aes(x = log(sqft), y = log(price))) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE)
+
+coeff <- slr.model1 |>
+          coef() 
+
+slr.model1.est <- get_regression_table(slr.model1)
+glimpse(slr.model1.est)
+percentile_beta_ci <- c(slr.model1.est$lower_ci[2], slr.model1.est$upper_ci[2])
+percentile_beta_ci
+```
+
+The above plot shows the fitted line `log(price)`=`r round(coeff[1],2)` + `r round(coeff[2],2)` `log(sqft)`. The point estimate of the slope parameter estimates that for every unit increase in `log(sqft)` the average `log(price)` of houses will increase by `r round(coeff[2],2)` US dollars. Another way of saying this is that each additional 1% of square footage produces an estimate of the average price which is `r round(coeff[2],2)`% higher (i.e. there is a multiplicative effect in the original units).
+
+*Note: you must be careful to avoid causative interpretations. Additional square footage does not necessarily **cause** the price of a specific house to go up.*
+
+Furthermore, based on the confidence interval, we are 95% confident that the interval from `r round(percentile_beta_ci[1],2)` up to `r round(percentile_beta_ci[2],2)` contains the true rate of increase in the average of the logged prices as `log(sqft)` increase. Because this interval does not contain zero we conclude that the relationship between `log(price)` and `log(sqft)` is statistically significant.
+
+------------------------------------------------------------------------
+
+c.  Repeat the analysis in part b. but with the log of the number of bathrooms (`bath`) as the single explanatory variable.
+
+------------------------------------------------------------------------
+
+**Solution**
+
+```{r, warning=FALSE}
+LAhomes <- mutate(LAhomes, log.bath = log(bath))
+
+slr.model2 <- linear_reg()
+slr.model2 <- slr.model2 |>
+  fit(log(price) ~ log(bath), data = LAhomes) |>
+  extract_fit_engine()
+
+ggplot(LAhomes,aes(x=log(bath),y=log(price)))+
+  geom_point()+
+  geom_smooth(method=lm, se = FALSE)
+
+coeff2 <- slr.model2 |>
+            coef() 
+
+slr.model2.est <- get_regression_table(slr.model2)
+glimpse(slr.model2.est)
+percentile_beta_ci2 <- c(slr.model2.est$lower_ci[2], slr.model2.est$upper_ci[2])
+percentile_beta_ci2
+```
+
+The above plot shows the fitted line `log(price)`=`r round(coeff2[1],2)` + `r round(coeff2[2],2)` `log(bath)`. The point estimate of the slope parameter estimates that for every unit increase in the log of the number of bathrooms in a house the average log of the prices of houses will increase by `r round(coeff2[2],2)` US dollars. Another way of saying this is that each doubling of bathroom produces an estimate of the average price which is `r 100*round(coeff2[2],2)`% higher (i.e. there is a multiplicative effect in the original units).
+
+Based on the confidence interval, we are 95% confident that the interval from `r round(percentile_beta_ci2[1],2)` up to `r round(percentile_beta_ci2[2],2)` contains the true rate of increase in the average of the logged prices as the log of the number of bathrooms increases. Because this interval does not contain zero we conclude that the relationship between `log(price)` and `log(bath)` is statistically significant.
+
+------------------------------------------------------------------------
+
+d.  Fit the multiple linear regression model using the **log transform of all the variables** `price` (as the response) and both `sqft` and `bath` (as the explanatory variables). Calculate the point and interval estimates of the coefficients of the two predictors separately. Compare their point and interval estimates to those you calculated in parts b. and c. Can you account for the differences?
+
+------------------------------------------------------------------------
+
+**Solution**
+
+```{r, warning=FALSE}
+mlr.model <- linear_reg()
+mlr.model <- mlr.model |>
+  fit(log(price) ~ log(sqft)+log(bath), data = LAhomes) |>
+  extract_fit_engine()
+
+coeff3 <- mlr.model |>
+            coef() 
+
+mlr.model.est <- get_regression_table(mlr.model)
+glimpse(mlr.model.est)
+percentile_beta1_ci <- c(mlr.model.est$lower_ci[2], mlr.model.est$upper_ci[2])
+percentile_beta2_ci <- c(mlr.model.est$lower_ci[3], mlr.model.est$upper_ci[3])
+percentile_beta1_ci
+percentile_beta2_ci
+```
+
+The fitted model is `log(price)`=`r round(coeff3[1],2)` + `r round(coeff3[2],2)` `log(sqft)` - `r -round(coeff3[3],2)` `log(bath)`. The first thing we notice is that the parameter associated with (the log of) the number of bathrooms has changed from `r round(coeff2[2],2)` to `r round(coeff3[3],2)`. That it, its gone from having a positive relationship with the (log of) house prices in the single explanatory variable model to having a negative relationship when the size of the house was also included in the model. One reason for the switch in sign of the parameter estimate could be that for a house with a given size in (log) square feet, more (log) bathrooms means that less of the (log) square footage is used for bedrooms and other desirable space, thus reflecting a lower average home price. This illustrates the importance of **taking all other variables in the model into account and holding them constant** when we interpret individual parameter estimates in a multiple linear regression model. (See the "Formal Analysis" section [here](https://shiny.maths-stats.gla.ac.uk/mbock/DA_Week6MLR_8515/#section-regression-modelling-with-two-continuous-explanatory-variables) from Week 6's lab).
+
+Turning to the confidence intervals, the model still predicts that the (log) square footage of the home significantly positively affects the average (log) price, since the 95% confidence interval for the `log(sqft)` parameter is from from `r round(percentile_beta1_ci[1],2)` up to `r round(percentile_beta1_ci[2],2)` which doesn't contain zero. However, now the number of bathrooms no longer significantly affects the price since the 95% confidence interval for the `log(bath)` parameter is from from `r round(percentile_beta2_ci[1],2)` up to `r round(percentile_beta2_ci[2],2)` which does contain zero. This suggests that we drop the `log(bath)` term from the model and return to the simple linear regression model we used in part b.
+
+------------------------------------------------------------------------
+
+e.  Using the objective measures for model comparisons, which of the models in parts b., c. and d. would you favour? Is this consistent with your conclusions in part d.?
+
+------------------------------------------------------------------------
+
+**Solution**
+
+```{r}
+model.comp.values.slr.model1 <- glance(slr.model1)
+model.comp.values.slr.model2 <- glance(slr.model2)
+model.comp.values.mlr.model <- glance(mlr.model)
+
+Models <- c('SLR(log(sqft))','SLR(log(bath))','MLR') 
+bind_rows(model.comp.values.slr.model1, model.comp.values.slr.model2, 
+          model.comp.values.mlr.model, .id = "Model") |>
+  select(Model,adj.r.squared,AIC,BIC) |>
+  mutate(Model=Models) |>  
+  kable(
+     digits = 2,
+     caption = "Model comparison values for different models", 
+  )
+```
+
+The table lists $R_{adj}^2$, $AIC$ and $BIC$ which can be used to compare the three models. Both the criteria of minimizing $AIC$ and $BIC$ and maximizing $R_{adj}^2$ leads us to prefer the the model
+
+`log(price)`=`r round(coeff[1],2)` + `r round(coeff[2],2)` `log(sqft)`
+
+which we first saw in part b. This agrees with our conclusions in part d.
+
+------------------------------------------------------------------------
+
+2.  You have been asked to determine the pricing of a New York City (NYC) Italian restaurant's dinner menu such that it is competitively positioned with other high-end Italian restaurants by analyzing pricing data that have been collected in order to produce a regression model to predict the price of dinner.
+
+Data from surveys of customers of 168 Italian restaurants in the target area are available. The data can be found in the file `restNYC.csv` on the Moodle page. Each row represents one customer survey from Italian restaurants in NYC and includes the key variables:
+
+-   `Price` - price (in \$US) of dinner (including a tip and one drink)
+-   `Food` - customer rating of the food (from 1 to 30)
+-   `Decor` - customer rating of the decor (from 1 to 30)
+-   `Service` - customer rating of the service (from 1 to 30)
+-   `East` - dummy variable with the value 1 if the restaurant is east of Fifth Avenue, 0 otherwise
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+restNYC <- read_csv("restNYC.csv")
+```
+
+a.  Use the `ggpairs` function in the `GGally` package (see the following code) to generate an informative set of graphical and numerical summaries which illuminate the relationships between pairs of variables. Where do you see the strongest evidence of relationships between `price` and the potential explanatory variables? Is there evidence of multicollinearity in the data?
+
+------------------------------------------------------------------------
+
+**Solution**
+
+```{r, warning=FALSE, message=FALSE}
+library(GGally)
+restNYC$East <- as.factor(restNYC$East) # East needs to be a factor
+ggpairs(restNYC[, 4:8], aes(colour = East, alpha = 0.4)) # Including the `East` factor
+ggpairs(restNYC[, 4:7], aes(alpha = 0.4)) # Without the `East` factor
+```
+
+-   `price` shows a moderate to strong correlation with 'Food`,`Service`and`Decor\`.
+-   The correlation between `Service` and `Food` (0.795) is the strongest evidence of multicollinearity in the data, followed by the correlation between `Service` and `Decor` (0.645)
+
+------------------------------------------------------------------------
+
+b.  Fit the simple linear model with `Price` as the response and `Service` as the predictor and display the fitted model on a scatterplot of the data. Construct a confidence interval for the slope parameter in the model.
+
+    Now fit a multiple regressing model of `Price` on `Service`, `Food`, and `Decor`. What happens to the significance of `Service` when additional variables were added to the model?
+
+------------------------------------------------------------------------
+
+**Solution**
+
+```{r, warning=FALSE}
+slr.Service <- linear_reg()
+slr.Service <- slr.Service |> 
+  fit(Price ~ Service, data=restNYC) |>
+  extract_fit_engine()
+
+ggplot(restNYC,aes(x=Service,y=Price))+
+  geom_point()+
+  geom_smooth(method=lm, se = FALSE)
+
+coeff.Service <- slr.Service |>
+                  coef() 
+
+get_regression_table(slr.Service) |>  
+  kable(
+     digits = 2,
+     caption = "Parameter estimates for MLR model of Price on Service, Food, and Decor", 
+  )
+
+mlr.Service.Food.Decor <- linear_reg()
+mlr.Service.Food.Decor <- mlr.Service.Food.Decor  |>
+  fit(Price ~ Service + Food + Decor, data=restNYC) |>
+  extract_fit_engine()
+
+get_regression_table(mlr.Service.Food.Decor) |>  
+  kable(
+     digits = 2,
+     caption = "Parameter estimates for MLR model of Price on Service, Food, and Decor", 
+  )
+```
+
+When only `Service` is included in the model, it appears significant (confidence interval doesn't contain zero). However, once `Food` and `Decor` are added into the model, that is no longer the case as can be seen in the confidence interval table above, which does contain zero.
+
+------------------------------------------------------------------------
+
+c.  What is the correct interpretation of the coefficient on `Service` in the linear model which regresses `Price` on `Service`, `Food`, and `Decor`?
+
+------------------------------------------------------------------------
+
+**Solution**
+
+When `Food` and `Decor` are in the model, `Service` is not statistically significant, therefore we cannot know whether it has a significant effect on modeling `Price`.
