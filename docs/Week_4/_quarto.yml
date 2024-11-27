@@ -3,6 +3,7 @@ project:
   output-dir: docs
   render:
     - "notes_24_25.qmd"
+    - "about.qmd"
 website:
   title: "Week 4: Regression modelling part 2"
   favicon: UofG_Coat_of_Arms.png
@@ -11,6 +12,8 @@ website:
     left:
     - href: notes_24_25.qmd
       text: Notes
+    - href: about.qmd
+      text: Week Tasks
 format:
   html:
     theme:
