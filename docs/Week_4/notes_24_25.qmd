@@ -1,5 +1,5 @@
 ---
-title: "Week 4: Regression modelling part 2"
+title: "Week 3: Regression modelling part 2"
 format:
   html:    
     code-link: true
@@ -45,6 +45,7 @@ p.caption {
 }
 </style>
 ```
+
 # Regression modelling with one numerical and one categorical explanatory variable
 
 Let's expand upon what we learned last week by revisiting the instructor evaluation data set `evals`. In Week 3 you were tasked with examining the relationship between teaching score (`score`) and age (`age`). Now, let's also introduce the additional (binary) categorical explanatory variable gender (`gender`). That is, we we will be examining:
@@ -113,12 +114,11 @@ From the scatterplot we can see that:
 
 Here, we shall begin by fitting what is referred to as a parallel regression lines model. This model implies that the slope of relationship between teaching score (`score`) and age (`age`) is the same for both males and females, with only the intercept of the regression lines changing. Hence, our parallel regression lines model is given as:
 
-```{=tex}
 \begin{align}
 y_{i} &= \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \epsilon_i \nonumber \\
 &= \alpha + \beta_{\mbox{age}} \cdot \mbox{age} + \beta_{\mbox{male}} \cdot \mathbb{I}_{\mbox{male}}(x) + \epsilon_i, \nonumber
 \end{align}
-```
+
 where
 
 -   $\alpha$ is the intercept of the regression line for females;
@@ -180,12 +180,11 @@ In the original plot we have what is referred to as an interaction effect betwee
 
 There is an *interaction effect* if the associated effect of one variable depends on the value of another variable. For example, the effect of age here will depend on whether the instructor is male or female, that is, the effect of age on teaching scores will differ by gender. The interaction model can be written as:
 
-```{=tex}
 \begin{align}
 y_{i} &= \alpha + \beta_1  x_{1i} + \beta_2  x_{2i} + \beta_3  x_{1i}  x_{2i} + \epsilon_i \nonumber \\
 &= \alpha + \beta_{\mbox{age}} \cdot \mbox{age} + \beta_{\mbox{male}} \cdot \mathbb{I}_{\mbox{male}}(x) + \beta_{\mbox{age, male}} \cdot \mbox{age} \cdot \mathbb{I}_{\mbox{male}}(x) + \epsilon_i, \nonumber
 \end{align}
-```
+
 where $\beta_{\mbox{age, male}} \cdot \mbox{age} \cdot \mathbb{I}_{\mbox{male}}(x)$ corresponds to the interaction term.
 
 In order to fit an interaction term within our regression model we replace the `+` sign with the `*` sign as follows:
@@ -307,14 +306,14 @@ The table below lists a variety of contexts where sample statistics can be used 
 
 Table 1: Scenarios of sample statistics for inference.
 
-| Scenario | Population Parameter  | Population Notation | Sample Statistic      | Sample Notation                 |
-|:-------------|:-------------|:-------------|:-------------|:----------------|
-| 1        | Population proportion | $p$                 | Sample proportion     | $\widehat{p}$                   |
-| 2        | Population mean       | $\mu$               | Sample mean           | $\bar{x}$                       |
-| 3        | Diff.in pop. props    | $p_1 - p_2$         | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |
-| 4        | Diff. in pop. means   | $\mu_1 - \mu_2$     | Diff. in sample means | $\bar{x}_1 - \bar{x}_2$         |
-| 5        | Pop. intercept        | $\beta_0$           | Sample intercept      | $\widehat{\beta}_0$ or $b_0$    |
-| 6        | Pop. slope            | $\beta_1$           | Sample slope          | $\widehat{\beta}_1$ or $b_1$    |
+| Scenario | Population Parameter | Population Notation | Sample Statistic | Sample Notation |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| 1 | Population proportion | $p$ | Sample proportion | $\widehat{p}$ |
+| 2 | Population mean | $\mu$ | Sample mean | $\bar{x}$ |
+| 3 | Diff.in pop. props | $p_1 - p_2$ | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |
+| 4 | Diff. in pop. means | $\mu_1 - \mu_2$ | Diff. in sample means | $\bar{x}_1 - \bar{x}_2$ |
+| 5 | Pop. intercept | $\beta_0$ | Sample intercept | $\widehat{\beta}_0$ or $b_0$ |
+| 6 | Pop. slope | $\beta_1$ | Sample slope | $\widehat{\beta}_1$ or $b_1$ |
 
 In reality, we don't have access to the population parameter values (if we did, why would we need to estimate them?) we only have a single sample of data from a larger population. We'd like to be able to make some reasonable guesses about population parameters using that single sample to create a range of plausible values for a population parameter. This range of plausible values is known as a **confidence interval**.
 
