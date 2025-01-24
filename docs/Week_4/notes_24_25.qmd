@@ -307,7 +307,7 @@ The table below lists a variety of contexts where sample statistics can be used 
 Table 1: Scenarios of sample statistics for inference.
 
 | Scenario | Population Parameter | Population Notation | Sample Statistic | Sample Notation |
-|:--------------|:--------------|:--------------|:--------------|:--------------|
+|:---|:---|:---|:---|:---|
 | 1 | Population proportion | $p$ | Sample proportion | $\widehat{p}$ |
 | 2 | Population mean | $\mu$ | Sample mean | $\bar{x}$ |
 | 3 | Diff.in pop. props | $p_1 - p_2$ | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |
