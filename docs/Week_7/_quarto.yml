@@ -1,18 +1,45 @@
+# project:
+#   type: website
+#   output-dir: docs
+# website:
+#   title: "Week 4: Collaborative Coding 1"
+#   navbar:
+#     left:
+#       - href: index.qmd
+#         text: Home
+# 
+# format:
+#   html:
+#     theme: cosmo
+#     css: styles.css
+#     toc: true
+# 
+# editor: visual
+
 project:
   type: website
   output-dir: docs
+  render:
+    - "index.qmd"
+    - "about.qmd"
 website:
-  title: "Week 7: Collaborative Coding 1"
+  title: "Week 4: Collaborative Coding 1"
+  favicon: UofG_Coat_of_Arms.png
   navbar:
+    logo: UofG.png
     left:
-      - href: index.qmd
-        text: Home
-
+    - href: index.qmd
+      text: Notes
+    - about.qmd
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme:
+      light: flatly
+      dark: darkly
+    css:
+    - styles.css
+    - include/webex.css
     toc: true
-
+    include-after-body: include/webex.js
 editor: visual
 
