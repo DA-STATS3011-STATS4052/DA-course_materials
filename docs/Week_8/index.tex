@@ -43,14 +43,28 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -70,7 +84,7 @@
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
@@ -80,7 +94,7 @@
 \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
 \newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
 \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
@@ -136,10 +150,6 @@
 \definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
 \makeatother
 \makeatletter
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -175,27 +185,21 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-\makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
-\makeatother
-\makeatletter
-\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
-\makeatother
+
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
+
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Week 8: Collaborative Coding 2},
+  pdftitle={Week 5: Collaborative Coding 2},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -203,13 +207,14 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Week 8: Collaborative Coding 2}
+
+\title{Week 5: Collaborative Coding 2}
 \author{}
 \date{}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
+
 
 This week's material is based on the \textbf{Version Control Course}
 from the School of Mathematics and Statistics from the University of
@@ -217,16 +222,14 @@ Glasgow. The content has been reduced to fit the class structure. At the
 end this week, please provide some feedback on the materials on
 \url{https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY}.
 
-\hypertarget{add-collaborator}{%
-\section{Add collaborator}\label{add-collaborator}}
+\section{Add collaborator}\label{add-collaborator}
 
 To collaborate with users in a repository that belongs to your personal
 account on GitHub.com, you can
 \href{https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository}{invite
 the users as collaborators}.
 
-\hypertarget{clone}{%
-\section{Clone}\label{clone}}
+\section{Clone}\label{clone}
 
 One way to download a project to your computer is to use Git's
 \texttt{clone} method. To use \texttt{clone}, we need to tell Git
@@ -319,12 +322,10 @@ On GitHub Desktop, click the `Fetch origin' button in the top bar:
 
 \includegraphics{images/image26.png}
 
-\hypertarget{branching-and-branching-strategies}{%
 \section{Branching and branching
-strategies}\label{branching-and-branching-strategies}}
+strategies}\label{branching-and-branching-strategies}
 
-\hypertarget{introduction}{%
-\subsection{Introduction}\label{introduction}}
+\subsection{Introduction}\label{introduction}
 
 Typically a project will have one main direction of development--- to
 reach a predetermined goal, such as a fully working prototype or to
@@ -368,12 +369,10 @@ as this covers both methods. Although rebase has some advantages, you
 can risk losing work when using it, so it won't be covered in this
 course.
 
-\hypertarget{motivation}{%
-\subsection{Motivation}\label{motivation}}
+\subsection{Motivation}\label{motivation}
 
-\hypertarget{working-with-other-people}{%
 \subsubsection{Working with other
-people}\label{working-with-other-people}}
+people}\label{working-with-other-people}
 
 Branches enable a team to work on the same files at the same time.
 However, it doesn't work like other collaboration tools like Google Docs
@@ -384,8 +383,7 @@ not worrying about what others are up to, and when the time comes to
 tools to ensure you don't overwrite someone else's work (or, if you do,
 you do it very intentionally!).
 
-\hypertarget{grouping-commits}{%
-\subsubsection{Grouping commits}\label{grouping-commits}}
+\subsubsection{Grouping commits}\label{grouping-commits}
 
 Even if you're working on your own, branches can be used as a tool to
 group multiple commits. For example, when working on a new feature for a
@@ -398,8 +396,7 @@ branch, you can choose to ``squash'' those small commits down into one
 commit history on the default branch minimal and tidy, only showing
 completed tasks such as new features and bug fixes.
 
-\hypertarget{branching-and-integrating}{%
-\section{Branching and integrating}\label{branching-and-integrating}}
+\section{Branching and integrating}\label{branching-and-integrating}
 
 This week we are going to learn how to create a branch and make changes
 to it, then integrate this branch back into the \texttt{main} branch.
@@ -420,9 +417,8 @@ without them interfering with each other.
 We are also going to learn about Git's stash feature, and how it can
 help you when switching between branches.
 
-\hypertarget{create-a-new-local-git-repository}{%
 \subsection{Create a new local Git
-repository}\label{create-a-new-local-git-repository}}
+repository}\label{create-a-new-local-git-repository}
 
 Let's create a new folder on our computer called `tutorial3' and
 initialise Git:
@@ -463,7 +459,7 @@ and click the ``Create Repository'' button:
 
 Add the following file to the repository:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 Hello
 
@@ -509,7 +505,7 @@ Switched to a new branch 'shout'
 Add an exclamation mark to the end of the word within the
 \texttt{example.md} file:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 Hello!
 
@@ -650,9 +646,8 @@ Simply right click on the \texttt{shout} branch here and select Delete
 
 \includegraphics{images/image36.png}
 
-\hypertarget{switching-branches-with-the-help-of-git-stash}{%
 \subsection{Switching branches with the help of Git
-stash}\label{switching-branches-with-the-help-of-git-stash}}
+stash}\label{switching-branches-with-the-help-of-git-stash}
 
 Given the example above, branching with Git appears straightforward.
 However, this is not always the case. Sometimes Git won't let you switch
@@ -685,7 +680,7 @@ branch `question':
 Let's make a change to the file by changing the exclamation mark to a
 question mark:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 Hello?
 
@@ -714,7 +709,7 @@ Add the change to the stage and commit:
 
 Now let's make another change to our file:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 Hello?
 
@@ -998,8 +993,7 @@ Is it me you're looking for?
 
 \includegraphics{images/image45.png}
 
-\hypertarget{merge-conflicts}{%
-\subsection{Merge conflicts}\label{merge-conflicts}}
+\subsection{Merge conflicts}\label{merge-conflicts}
 
 In the examples above we have introduced create a branch, making some
 changes and then integrating this back into main. However, what happens
@@ -1048,7 +1042,7 @@ Switched to a new branch 'capitalise'
 Now we're going to make a different change to the file on the main
 branch. This time change the contents to the following:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 HELLO
 
@@ -1118,7 +1112,7 @@ Is it me you're looking for?
 Now we're going to make a different change to the file on the main
 branch. This time change the contents to the following:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 Hello.
 
@@ -1261,7 +1255,7 @@ abort this action before you do anything else.
 Let's manually edit our file to what we want, like a mixture of both
 changes:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 HELLO.
 
@@ -1365,9 +1359,8 @@ Deleted branch capitalise (was 3da9dfb).
 
 \includegraphics{images/image57.png}
 
-\hypertarget{code-review-a-better-approach-to-resolving-merge-conflicts}{%
 \section{Code Review: A better approach to resolving merge
-conflicts}\label{code-review-a-better-approach-to-resolving-merge-conflicts}}
+conflicts}\label{code-review-a-better-approach-to-resolving-merge-conflicts}
 
 Although Git allows us to resolve a merge conflict as above, this is not
 considered the ``best practice'' way to achieve this result. We ended up
@@ -1405,7 +1398,7 @@ branch `goodbye': \includegraphics{images/image58.png}
 
 Let's update the file like so:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 GOODBYE
 
@@ -1452,7 +1445,7 @@ Switched to branch 'main'
 
 Make a change to the file on the main branch:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 HELLO
 
@@ -1567,7 +1560,7 @@ HELLO
 And we can manually resolve it as before, this time with some Beatles
 lyrics:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 You say GOODBYE and I say HELLO
 
@@ -1600,7 +1593,7 @@ And commit the change.
 GitHub Desktop has automatically detected that our merge conflict has
 been resolved: \includegraphics{images/image68.png}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 And now our branch could be ready for Code Review on GitHub via a Pull
 Request (see Supplement). This makes sense when you are contributing to
@@ -1743,9 +1736,8 @@ If you need to keep your short-lived branch open for some reason, it's
 advised to merge any recent changes from \texttt{main} into your branch
 often, to avoid painful merge conflicts later.
 
-\hypertarget{supplement-create-a-pull-request-to-an-existing-project}{%
 \section{Supplement: Create a Pull Request to an existing
-project}\label{supplement-create-a-pull-request-to-an-existing-project}}
+project}\label{supplement-create-a-pull-request-to-an-existing-project}
 
 This tutorial is about contributing to someone else's project. The
 sample project that we are going to contribute to can be found here:
@@ -1779,7 +1771,7 @@ In Git terms, what you need to do is:
   modifications
 \end{enumerate}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 What is the difference between Clone and Fork?
 
@@ -1811,8 +1803,7 @@ your Pull Request.
 
 \end{tcolorbox}
 
-\hypertarget{fork}{%
-\subsection{Fork}\label{fork}}
+\subsection{Fork}\label{fork}
 
 To fork a GitHub repository, first, click the Fork button on the top
 right:
@@ -1826,8 +1817,7 @@ name, description, and which branch to fork:
 And that's it! You have a copy of the project under your name on GitHub:
 \includegraphics{images/image79.png}
 
-\hypertarget{clone-1}{%
-\subsection{Clone}\label{clone-1}}
+\subsection{Clone}\label{clone-1}
 
 Next, we'll clone the project to our local machine:
 
@@ -1867,13 +1857,12 @@ Choose the `URL' tab and enter \texttt{dmca-glasgow/tutorial2} into the
 repository on your computer, then finally click `Clone':
 \includegraphics{images/image81.png}
 
-\hypertarget{make-some-changes}{%
-\subsection{Make some changes}\label{make-some-changes}}
+\subsection{Make some changes}\label{make-some-changes}
 
 Let's add a new line to the \texttt{readme.md} file, making sure to save
 it:
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, toprule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, rightrule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{readme.md}, toptitle=1mm, breakable, left=2mm, colback=white, titlerule=0mm, bottomtitle=1mm, coltitle=black, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, left=2mm, toptitle=1mm, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{readme.md}, titlerule=0mm, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, opacityback=0]
 
 \#\# Follow along tutorial 2: Create a Pull Request to an existing
 project
@@ -1882,9 +1871,8 @@ My updated text.
 
 \end{tcolorbox}
 
-\hypertarget{stage-commit-and-push-the-change-to-our-repository}{%
 \subsection{Stage, commit and push the change to our
-repository}\label{stage-commit-and-push-the-change-to-our-repository}}
+repository}\label{stage-commit-and-push-the-change-to-our-repository}
 
 \subsection{Command-line}
 
@@ -1908,8 +1896,7 @@ c9dfc4a..7d73c6c  main -> main
 In GitHub Desktop, add a descriptive message and click `Commit to main':
 \includegraphics{images/image82.png}
 
-\hypertarget{create-a-pull-request}{%
-\subsection{Create a Pull Request}\label{create-a-pull-request}}
+\subsection{Create a Pull Request}\label{create-a-pull-request}
 
 \includegraphics{images/image83.png}
 
@@ -1965,8 +1952,7 @@ project maintainers will be notified. There's nothing else we can do
 now, as we don't have permission to integrate this change ourselves, but
 we will be notified if there is any activity on the Pull Request.
 
-\hypertarget{code-review}{%
-\subsection{Code review}\label{code-review}}
+\subsection{Code review}\label{code-review}
 
 The Pull Request page we have just created is where a project maintainer
 will perform a code review. As an extreme example, the reviewer has a
@@ -1979,6 +1965,7 @@ opportunity to spread knowledge and build relationships in a team while
 keeping the codebase standardised and robust. It's just simply a good
 idea to have a 2nd set of eyes look over your code offering constructive
 criticism.
+
 
 
 

@@ -1,5 +1,5 @@
 ---
-title: "Week 7 Tasks"
+title: "Week 4 Tasks"
 engine: knitr
 format: 
   html: default
@@ -94,7 +94,6 @@ First, navigate to the repository you want to clone on the GitHub website.
 Using this approach, we have a copy of the files and folders in the repository, but we have also copied the metadata which makes this into a Git repository. To answer the example above, now if a project maintainer makes an update to the project on GitHub, we can easily sync both versions:
 
 ::: panel-tabset
-
 ## Command-line
 
 In the project folder just issue the `pull` command:

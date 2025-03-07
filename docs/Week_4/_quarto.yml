@@ -5,7 +5,7 @@ project:
     - "notes_24_25.qmd"
     - "about.qmd"
 website:
-  title: "Week 4: Regression modelling part 2"
+  title: "Week 3: Regression modelling part 2"
   favicon: UofG_Coat_of_Arms.png
   navbar:
     logo: UofG.png

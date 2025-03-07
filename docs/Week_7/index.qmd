@@ -1,5 +1,5 @@
 ---
-title: "Week 7: Collaborative Coding 1"
+title: "Week 4: Collaborative Coding 1"
 engine: knitr
 format:
   pdf:
@@ -23,7 +23,7 @@ editor_options:
 knitr::opts_chunk$set(error = TRUE) 
 ```
 
-This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics from the University of Glasgow. The content has been reduced to fit the class structure. At the end of Week 8, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>.
+This week's material is based on the **Version Control Course** from the School of Mathematics and Statistics from the University of Glasgow. The content has been reduced to fit the class structure. At the end of Week 5, please provide some feedback on the materials on <https://uofg.qualtrics.com/jfe/form/SV_56jF2LNgmA6qrhY>.
 
 # Using Git
 
@@ -798,11 +798,13 @@ The most important are listed below, but please see a [list of Git special files
 
 When we share our codebase using Git and GitHub, either with the public or with colleagues, we can choose to exclude certain files (e.g. tell Git/GitHub never to consider them) by making use of a `.gitignore` file. To be more precise, we are telling Git to ignore these files from our project folder by not adding them to any commit change list.
 
+```{=html}
 <!--`.gitignore` files use a simple syntax to make it easy to match files. The entries in this file can also follow a matching pattern.
 
 -   `*` is used as a wildcard match
 -   `/` is used to ignore pathnames relative to the .gitignore file
 -   `#` is used to add comments to a .gitignore file-->
+```
 
 For example:
 
