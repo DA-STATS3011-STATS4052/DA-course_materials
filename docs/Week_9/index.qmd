@@ -633,6 +633,13 @@ From this table, we can see that the odds of considering the features important 
 
 In the table below we have a summary of the coefficients, odds ratios and confidence intervals for the **log-odds** corresponding to `important` versus `no/little importance`.
 
+| Parameter, $\beta$     | Estimate, $\hat{\beta}$ | $OR=e^{\hat{\beta}}$ |
+|------------------------|-------------------------|----------------------|
+| $\beta_{02}$: constant | -0.979 (0.256)          | 0.37 \[0.23, 0.62\]  |
+| $\beta_{12}$: women    | 0.388 (0.301)           | 1.47 \[0.82,2.66\]   |
+| $\beta_{22}$: 24-40    | 1.128 (0.342)           | 3.09 \[1.58, 6.04\]  |
+| $\beta_{32}$: \>40     | 1.590 (0.403)           | 4.90 \[2.22,10.8\]   |
+
 ## Model checking and model comparisons
 
 Summary statistics can be used to assess the adequacy of a model and also to compare models. Some of the statistics we can consider are:

@@ -369,8 +369,8 @@ I need a hint
 </button>
 <p>Recall that <span class="math inline">\(log~Odds ~ (male) = \mathrm{log}\left(\dfrac{P(male)}{1-P(male)}\right) = \hat{\beta_0} +\hat{\beta_1} \times temperature\)</span>, but we are interested in <span class="math inline">\(\dfrac{P(female)}{1-P(female)}\)</span>, thus <span class="math inline">\(Odds ~ (female) = \mathrm{exp}\left[- \mathrm{log}\left(\dfrac{P(male)}{1-P(male)} \right)\right] = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right)\)</span>.</p>
 </div>
-<div id="radio_KRYQRQNLXR" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_KRYQRQNLXR" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
+<div id="radio_EMOSLFHINN" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_EMOSLFHINN" value=""><span>The chances of an male being hatched are 45% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EMOSLFHINN" value=""><span>The chances of an female being hatched are 45% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EMOSLFHINN" value="answer"><span>The chances of an female being hatched are 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label><label><input type="radio" autocomplete="off" name="radio_EMOSLFHINN" value=""><span>The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees</span></label>
 </div>
 </div>
 </div>
@@ -1162,7 +1162,46 @@ converged</code></pre>
 </div>
 <p>From this table, we can see that the odds of considering the features important (versus <code>no/little importance</code>) for over 40 year-olds are <strong>4.89</strong> times the odds for 18-23 year olds (which is the baseline category for the <code>age</code> group). In general, a positive coefficient (or greater than 1 odds multiplier) tells us that older people are more likely to consider the features important than young people, which is consistent with what we observed in the exploratory plots. Similarly, we can see that women are more likely than men to consider the features important, specifically the chances a woman finds these features <code>important</code> are 47% greater than men and more than twice consider these features as <code>very important</code> compared to men. However, in the first case, the difference between women and men is not statistically significant since the 95% CI contains 1.</p>
 <p>In the table below we have a summary of the coefficients, odds ratios and confidence intervals for the <strong>log-odds</strong> corresponding to <code>important</code> versus <code>no/little importance</code>.</p>
-</section><section id="model-checking-and-model-comparisons" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="model-checking-and-model-comparisons">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 35%">
+<col style="width: 30%">
+</colgroup>
+<thead><tr class="header">
+<th>Parameter, <span class="math inline">\(\beta\)</span>
+</th>
+<th>Estimate, <span class="math inline">\(\hat{\beta}\)</span>
+</th>
+<th><span class="math inline">\(OR=e^{\hat{\beta}}\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<span class="math inline">\(\beta_{02}\)</span>: constant</td>
+<td>-0.979 (0.256)</td>
+<td>0.37 [0.23, 0.62]</td>
+</tr>
+<tr class="even">
+<td>
+<span class="math inline">\(\beta_{12}\)</span>: women</td>
+<td>0.388 (0.301)</td>
+<td>1.47 [0.82,2.66]</td>
+</tr>
+<tr class="odd">
+<td>
+<span class="math inline">\(\beta_{22}\)</span>: 24-40</td>
+<td>1.128 (0.342)</td>
+<td>3.09 [1.58, 6.04]</td>
+</tr>
+<tr class="even">
+<td>
+<span class="math inline">\(\beta_{32}\)</span>: &gt;40</td>
+<td>1.590 (0.403)</td>
+<td>4.90 [2.22,10.8]</td>
+</tr>
+</tbody>
+</table></section><section id="model-checking-and-model-comparisons" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="model-checking-and-model-comparisons">
 <span class="header-section-number">3.4</span> Model checking and model comparisons</h2>
 <p>Summary statistics can be used to assess the adequacy of a model and also to compare models. Some of the statistics we can consider are:</p>
 <ul>

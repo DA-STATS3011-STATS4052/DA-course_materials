@@ -1,0 +1,517 @@
+---
+title: "Data Analysis"
+subtitle: "Week 8"
+embed-resources: true
+title-slide-attributes: 
+  data-background-image: uog_cloistures2.jpg
+format: 
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
+author:
+  - name: Jafet Belmont \& Jenn Gaskell
+    email: jafet.BelmontOsuna@glasgow.ac.uk jennifer.gaskell@glasgow.ac.uk
+    affiliations: School of Mathematics and Statistics
+editor_options: 
+  chunk_output_type: console
+---
+
+## ILOs
+
+By the end of this session you will be able to:
+
+-   Fit and interpret the output of a logistic regression with grouped binary data.
+
+-   Fit and interpret the coefficients of a nominal logistic model.
+
+## Assessment - Overview {.smaller}
+
+```{r}
+#| warning: false
+#| message: false
+
+
+# Assessment calendar
+library(tidyr)
+library(lubridate)
+library(knitr)
+start_date <- lubridate::ymd("2025-01-13")
+
+
+
+## Define the vectorized function that takes week numbers, days, start date, and a logical flag for time
+get_course_dates <- function(week_numbers, days, start_date, include_time = FALSE) {
+  # Ensure the start date is in Date format
+  start_date <- ymd(start_date)
+  
+  # Convert the day input to lowercase for easier comparison
+  days <- tolower(days)
+  
+  # List of days of the week, starting from Monday
+  days_of_week <- c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+  
+  # Define an inner function to calculate the date for a single week number and day
+  single_course_date <- function(week_number, day) {
+    # Find the index of the day in the week (Monday is 1, Sunday is 7)
+    day_index <- match(day, days_of_week)
+    
+    # If the day is invalid, return NA
+    if (is.na(day_index)) {
+      stop("Invalid day entered. Please enter a valid day of the week.")
+    }
+    
+    # Calculate the start of the week (week_number - 1 to account for 0-indexing)
+    week_start_date <- start_date + weeks(week_number - 1)
+    
+    # Calculate the date for the given day in that week
+    course_date <- week_start_date + days(day_index - 1)
+    
+    # Format the result as "Mon DD" (e.g., "Jan 12")
+    formatted_date <- format(course_date, "%b %d")
+    
+    # Build the output string: "Week X (date) 11:00 am BST" if include_time is TRUE, else "Week X (date)"
+    if (include_time) {
+      result <- paste0("Week ", week_number, " (", formatted_date, ") 11:00 am BST")
+    } else {
+      result <- paste0("Week ", week_number, " (", formatted_date, ")")
+    }
+    
+    return(result)
+  }
+  
+  # Use mapply to apply the single_course_date function over vectors of week_numbers and days
+  result_vector <- mapply(single_course_date, week_number = week_numbers, day = days, SIMPLIFY = TRUE)
+  
+  return(result_vector)
+}
+
+week_numbers <- c(3,3,6,9,4)
+days <- rep("Friday",length(week_numbers))
+
+release = week_numbers #get_course_dates(week_numbers = week_numbers, days = days, start_date = start_date, include_time = F)
+topics = c("Weeks: 1-3","Research","Weeks:4-6","Weeks: 1-8","Weeks: 1-8")
+type = c("Quiz 1","Peer assessment","Quiz 2","Class test","Groups project")
+w = c(15,20,15,25,25)
+due_date = c(4,9,10,8,9,11)#get_course_dates(week_numbers = c(4,8,10,7,9,11),
+                            #days = rep("Friday",6),
+                            #start_date = start_date,
+                            #include_time = T)
+
+combined_due_date <- c(due_date[1], 
+                       paste(due_date[2],"(End of Submission Stage) <br>", due_date[3],"(End of Assessment Stage)"), 
+                       due_date[4], 
+                       due_date[5]) 
+
+# Create a data frame for the HTML table
+table_data <- data.frame(
+  Release = release,
+  Topics = topics,
+  Assessment = type,
+  Weights = w,
+  Due_Date = c(combined_due_date, due_date[6]) # Add the last due date entry
+)
+
+# Generate the HTML table
+html_table <- kable(table_data, format = "html", table.attr = "class='table'", escape = FALSE)
+
+```
+
+```{r}
+html_table
+
+```
+
+## Upcoming assessments {.smaller}
+
+```{r}
+#| echo: false
+
+
+Peer1_duedate = get_course_dates(week_numbers = c(9,10),
+                            days = c("Monday","Friday"),
+                            start_date = start_date,
+                            include_time = T)
+
+```
+
+### Peer assessment
+
+-   Research a randomly assigned topic and record an (up to) 15 minute presentation
+
+    -   Submission Due on week(s):
+
+        `r Peer1_duedate[1]`.
+
+        *No late submission are allowed.*
+
+    -   Review Due on week(s)
+
+        `r Peer1_duedate[2]`
+
+## Upcoming assessments
+
+### Class test (Next week)
+
+-   Conduct a Data analysis and write a short report in quarto using the techniques covered in the course
+
+    -   Timed: The test will begin at 11:30 am at BO 418 (duration 1 and a half hour [^1]).
+
+    -   Intructions for the class test will become available after today's lab. Please read them carefully before the class test.
+
+    -   The specific tasks for the class test and the corresponding files will become available on the the day of the test.
+
+[^1]: Note: Students with allowed extra time will please arrive at 11:00.
+
+## Upcoming assessments
+
+### Groups project
+
+-   Using collaborative coding, carry out data analysis on a given dataset and then write a report.
+
+    -   Group Allocations will be available online after the class.
+
+    -   Report submission due on week(s): `r table_data[which(table_data$Assessment=="Groups project"),"Due_Date"]`
+
+    -   Contribution evaluations and Declaration of Originality
+
+# Overview of today's session
+
+## Required R packages {.unnumbered}
+
+Before we proceed, load all the packages needed for this week:
+
+```{r}
+#| message: false 
+#| warning: false
+#| code-fold: false 
+#| echo: true  
+#| 
+library(tidyr)
+library(ggplot2) 
+library(moderndive) 
+library(sjPlot)
+library(tidymodels) 
+library(broom) 
+library(performance) 
+library(faraway) 
+library(palmerpenguins)
+```
+
+## First example - Turtles sex determination {.unnumbered .smaller}
+
+This week we will continue reviewing logistic regression to model grouped binary outcomes (e.g. number of successes out of a fixed number of trials)
+
+The `turtle` data set within the `faraway` library (also available on Moodle) contains the number of hatched male and female turtles across different temperatures, with 3 independent replicates for each temperature.
+
+```{r}
+#| echo: true
+turtles = faraway::turtle 
+
+turtles = turtles %>% 
+  mutate(totals = male+female,
+         male_props = male/totals)
+```
+
+![](turtles.jpg){fig-align="center" width="331"}
+
+## Logistic regression for grouped data in R {.unnumbered}
+
+$$
+\begin{align}y_i &\sim \mathrm{Binomial}(n_i,p_i)\\\mathrm{logit}(p_i) &= \beta_0 +\beta_1 \times \mathrm{temperature}.\end{align}
+$$
+
+```{r}
+#| echo: true
+model_turtles <- glm(male_props ~ temp,
+                     data = turtles,
+                     weights =  totals,
+                     family = binomial)
+```
+
+## Interpreting the log-odds {.unnumbered .smaller}
+
+```{r}
+#| eval: false
+#| code-fold: false
+
+model_turtles %>% tidy(conf.int = T) 
+```
+
+```{r}
+#| echo: false
+
+model_turtles %>% tidy(conf.int = T) %>% kable(digits=2)
+```
+
+-   For every unit increase in *Temperature,* the log-odds of a male being hatched increase by 2.21.
+
+-   For every unit increase in *Temperature*, the **odds** of hatching a male are $\mathrm{exp}(\beta_1) = 9.13$ times the odds of those with one *temperature* unit less.
+
+-   [If an egg is incubated at a temperature of 27.5 degrees, what at the chances (odds) of a female being hatched, i.e. $\mathrm{Odds}(male=0|temp = 27.5)$?]{style="color:green;"}
+
+-   [What is the probability of a turtle egg that is incubated in a temperature of 28.5 degrees to become a male?]{style="color:green;"}
+
+## Modelling grouped binary data with a categorical covariate {.unnumbered .smaller}
+
+To illustrate how the previous model works with categorical predictors we can discretized the temperature values into arbitrary categories as follows:
+
+$$
+\mathrm{temperature~ category} =\begin{cases} \mathrm{temperature} > 29^\circ C  &  \text{high} \\ \mathrm{temperature} > 28^\circ C& \text{medium} \\ \text{else} & \text{low}\end{cases}
+$$
+
+```{r}
+#| code-fold: show
+#| echo: true
+turtles = turtles  %>% mutate(
+  temp_fct = case_when(
+    temp > 29 ~ "high",
+    temp > 28 ~ "medium",
+    .default = "low"
+  ) %>% as.factor()
+) 
+```
+
+## Model fitting {.unnumbered .smaller}
+
+-   Changing the baseline (reference) category to `low`.
+
+```{r}
+#| code-fold: false
+turtles = turtles %>%
+  mutate(temp_fct = relevel(temp_fct,ref = "low")) 
+
+```
+
+-   The Model
+
+$$
+\begin{align}
+y_i &\sim \mathrm{Binomial}(n_ip_i)\\
+\mathrm{logit}(p_i) &= \alpha +  \beta_{1}  \times \mathbb{I}_{\mathrm{temperature}}(\mathrm{high}) + \beta_{2}  \times \mathbb{I}_{\mathrm{temperature}}(\mathrm{medium}).
+\end{align}
+$$ - $\alpha$ represent the **log-odds** of a male turtle being hatched in `low` incubation temperature.
+
+-   $\beta_1$ are the change int the **log-odds** of a male turtle being hatched given it was incubated in a `high` temperature condition compared to a `low` one.
+
+-   $\mathbb{I}_{\mathrm{temperature}}(\mathrm{high})$ is an indicator variable that takes the value of 1 if the $i$th experiment replicate was conducted on a `high` temperature.
+
+-   $\beta_2$ are the change int the **log-odds** of a male turtle being hatched given it was incubated in a `medium` condition compared to a `low` one.
+
+-   $\mathbb{I}_{\mathrm{temperature}}(\mathrm{medium})$ is an indicator variable that takes the value of 1 if the $i$th experiment replicate was conducted on a `medium` temperature.
+
+## Model fitting {.unnumbered .smaller}
+
+The model estimates on the odds scale with 95% confidence intervals
+
+```{r}
+#| eval: true
+#| echo: false
+model_turtles_2 <- glm(cbind(male,female) ~ temp_fct,
+                     data = turtles,
+                     family = binomial)
+model_2_summary= model_turtles_2 %>% broom::tidy(conf.int=T,exponentiate = T) 
+model_2_summary %>% kable(digits = 2)
+```
+
+-   The odds of a male being hatched if it was incubated on a `low` temperature condition are `r round(model_2_summary$estimate[1],2)` the odds of a female being hatched if it was incubated on the same condition.
+
+-   In other words, the odds of female being hatched in a `low` temperature are $\mathrm{exp}(\alpha)^{-1} =$ `r round(1/model_2_summary$estimate[1],2)` higher than the odds of a male being hatched under `low` temperature.
+
+-However, there is not enough evidence to support that this change in the odds is statistically significant since the confidence interval ( `r round(model_2_summary$conf.low[1],2)` , `r round(model_2_summary$conf.high[1],2)`) contains 1 (remember we are in the odds scale).
+
+## Model fitting {.unnumbered .smaller}
+
+The model estimates on the odds scale with 95% confidence intervals
+
+```{r}
+#| eval: true
+#| echo: false
+#| code-fold: false
+model_turtles_2 <- glm(cbind(male,female) ~ temp_fct,
+                     data = turtles,
+                     family = binomial)
+model_2_summary= model_turtles_2 %>% broom::tidy(conf.int=T,exponentiate = T) 
+model_2_summary %>% kable(digits = 2)
+```
+
+-   The odds of a male being hatched are `r round(model_2_summary$estimate[2],2)`! significantly higher in a `high` temperature setting compared to a `low` temperature.
+
+-   The odds of a male being hatched are `r round(model_2_summary$estimate[3],2)` higher in a `medium` temperature condition compared to a `low` one.
+
+-   In other words, the odds of female being hatched in a `low` temperature are $\mathrm{exp}(\alpha)^{-1} =$ `r round(1/model_2_summary$estimate[1],2)` higher than the odds of a male being hatched under `low` temperature.
+
+-   [What if we want to compare the odds of a male being hatched if the egg was incubate on a high temperture condition against a medium one?]{style="color:green;"}
+
+## Models for multiple categorical responses {.unnumbered .smaller}
+
+We will look at logistic regression models applied to nominal (unordered) responses with more than two categories.
+
+-   The basis for modelling categorical data with more than two categories is the multinomial distribution for a given a random variable $Y$ with $J$ categories:
+
+$$
+f(\mathbf{y} | n)=\frac{n!}{y_1! y_2! \dots y_J!}p_1^{y_1}p_2^{y_2}\dots p_J^{y_J}.
+$$ {#eq-multinomial}
+
+-   $p_1,p_2,\dots, p_J$ are the probabilities associated with each of the $J$ categories, with $\sum_j^J p_j = 1$.
+
+-   Suppose $n$ independent observations from which
+
+    $y_1$ outcomes in category 1
+
+    $y_2$ outcomes in category 2
+
+    $\vdots$
+
+    $y_J$ outcomes in category J.
+
+    $\Rightarrow \sum_{j=1}^J y_j = n$ and $\mathbf{y}=(y_1,y_2,\dots,y_J)^\intercal \sim \mathrm{Multinom}(n;p_j,\ldots,p_J)$
+
+## Nominal logistic regression {.unnumbered .smaller}
+
+-   The goal is to estimate the probabilities for each category based on some explanatory variables $\mathbf{x}$.
+
+-   The probability of the $j$th category is then given by:
+
+$$
+P(Y=j|\mathbf{x})= \dfrac{\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_j)}{\sum_{k=1}^J\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_k)}
+$$
+
+-   As with logistic regression, one category is arbitrarily chosen as the reference category, and all other categories are compared with it.
+
+-   If category $J$ is chosen as the reference category. The **log-odds** for the other categories relative to the reference are:
+
+$$
+\mathrm{log}\left(\dfrac{P(Y=j|\mathbf{x})}{P(Y=J|\mathbf{x})}\right) = \mathrm{log}\left(\dfrac{p_j}{p_J}\right) =\mathbf{x}^\intercal\boldsymbol{\beta}_j, ~~\text{for } j=1,\dots,J-1.
+$$ {#eq-nominalresp}
+
+## Nominal logistic regression {.unnumbered}
+
+We can easily derive the estimated probabilities for each class:
+
+-   For the reference class $J:$$$
+        \hat{p}_J = \dfrac{1}{1+\sum_{j=1}^{J-1} \mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}
+        $$
+
+-   For class $j = 1,2,\ldots,J-1:$ $$\hat{p}_j=\dfrac{\exp(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}{1+\sum_{j=1}^{J-1}\exp(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}.$$ {#eq-pjhat}
+
+## Fitting a nominal logistic regression in R {.unnumbered .smaller}
+
+In this example we look at data on subjects that were interviewed about the importance of various features when buying a car. The data set is available on the `dobson R` package (also available in Moodle)
+
+-   `sex`: woman/man
+-   `age`: 18-23, 24-40, \>40
+-   `response`: no/little, important, very important
+-   `frequency`: number of interviewed people on each group
+
+![](multi1.png){fig-align="center" width="544"}
+
+## Fitting a nominal logistic regression in R {.unnumbered .smaller}
+
+We can fit the following **nominal logistic regression model** using the `multinom()` function from `library(nnet)`:
+
+$$
+\mathrm{log}\left(\frac{p_j}{p_1} \right) = \beta_{0j}+\beta_{1j}x_1+\beta_{2j}x_2+\beta_{3j}x_3, ~~ j=2,3
+$$
+
+where
+
+-   $j=1$ for "no/little importance" (the reference category)
+-   $j=2$ for "important"
+-   $j=3$ for "very important"
+-   $x_1=1$ for women and 0 for men,
+-   $x_2=1$ for age 24-40 years and 0 otherwise
+-   $x_3=1$ for age $>$ 40 years and 0 otherwise.
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+dcars = dobson::Cars
+
+dcars$response <- factor(dcars$response, 
+                         levels = c("no/little", "important", "very important")) 
+dcars$age <- factor(dcars$age, 
+                         levels = c("18-23", "24-40", "> 40")) 
+```
+
+```{r}
+#| code-fold: false
+#| message: false
+#| warning: false
+
+library(nnet)
+model_cars <- multinom(response ~ age + sex, weight = frequency, data = dcars)
+```
+
+## Interpreting the output {.unnumbered .smaller}
+
+Let look at model summaries and interpret the coefficients.
+
+```{r}
+#| code-fold: false
+#| eval: false
+tidy(model_cars,conf.int=T)
+```
+
+```{r}
+#| echo: false
+tidy(model_cars,conf.int=T) %>% kable(digits=2)
+```
+
+## Examples: Interpreting the output {.unnumbered .smaller}
+\vspace{-1cm}
+1.  What are the log-odds of a person to consider power steering and air conditioning `important` vs `little important`?
+2.  What are the log-odds of a `male` who is in the age range of `18-23` to consider power steering and air conditioning `important` vs `little important`?
+
+```{r}
+#| echo: false
+tidy(model_cars,conf.int=T)[1:4,] %>% kable(digits=2)
+```
+
+1.  $$
+    \mathrm{log}\left(\frac{p_2}{p_1} \right) = -0.98 +0.39 x_1+ 1.13 x_2+1.59x_3,
+    $$
+
+    -   $x_1=1$ for women and 0 for men
+
+    -    $x_2=1$ for age 24-40 years and 0 otherwise
+
+    -   $x_3=1$ for age $>$ 40 years and 0 otherwise.
+
+2.  $\log\text{Odds}(\text{Feature = important|gender=Male,Age = 18-23}) = -0.98$
+
+## Examples: Interpreting the output {.unnumbered .smaller}
+\vspace{-1cm}
+1.  What are the **odds** of a `male` over *`40 years old`* to consider power steering and air conditioning `important` vs `little important`?
+
+2.  What are the **odds** of a person over `40 years old` to consider power steering and air conditioning `important` vs `little important` compared to a younger person between `18-23 years` old?
+
+```{r}
+#| echo: false
+tidy(model_cars,conf.int=T)[1:4,] %>% kable(digits=2)
+```
+
+1.  $\text{Odds}(\text{Feauture=important|Age > 40, Gender = male}) = \exp(-0.98 + 1.59) \approx 1.82$, since male is our reference category for `gender`.
+
+2.  $\dfrac{\text{Odds}(\text{Feature = important|Age > 40})}{\text{Odds}(\text{Feature = little important|Age = 18-23})} = \dfrac{\exp(-0.98 + 1.59)}{\exp(-0.98)}= \exp(1.59) \approx 4.89$
+
+    -   The odds of a `40 years old` to consider this feature important are $\exp(1.59) \approx 4.89$ times higher compared to a person who is in the `18-23` age category (which is the base line for `age`).
+
+## Examples: Interpreting the output {.unnumbered .smaller}
+\vspace{-1cm}
+1.  What are the **odds** of a over `female` to consider power steering and air conditioning `important` vs `little important` compared to a `male`?
+
+2.  What are the **odds** of a `female` in the `24-40 age` category to consider power steering and air conditioning `important` vs `little important` compared to a younger `female` between `18-23` ?
+
+```{r}
+#| echo: false
+tidy(model_cars,conf.int=T)[1:4,] %>% kable(digits=2)
+```
+
+1.  $\dfrac{\text{Odds}(\text{Feauture=important| Gender = female})}{\text{Odds}(\text{Feauture= little important| Gender = male})} = \dfrac{\exp(-0.98+0.39)}{\exp(-0.98)}=\exp(0.39) \approx 1.47$
+
+2.  $\dfrac{\text{Odds}(\text{Feauture=important|Age = 24-40, Gender = female})}{\text{Odds}(\text{Feauture=little important|Age = 18-23, Gender = female})} = \dfrac{-0.98 + 1.13  + 0.39}{-0.98 + 0.39}= \exp(1.13) \approx 3.09$

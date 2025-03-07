@@ -1,0 +1,414 @@
+---
+title: "Data Analysis"
+subtitle: "Week 7"
+embed-resources: true
+title-slide-attributes: 
+  data-background-image: uog_cloistures2.jpg
+format: 
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
+author:
+  - name: Jafet Belmont \& Jenn Gaskell
+    email: jafet.BelmontOsuna@glasgow.ac.uk jennifer.gaskell@glasgow.ac.uk
+    affiliations: School of Mathematics and Statistics
+editor_options: 
+  chunk_output_type: console
+---
+
+## ILOs
+
+By the end of this session you will be able to:
+
+-   Fit a logistic regression model with either a numerical or categorical explanatory variable:
+
+-   Interpret the regression coefficients of the logistic model in terms of their effects on both the odds and the log odds (of the response)
+
+    -   embed and compile R -code.
+
+    -   Include external and self-generated plots/figures.
+
+    -   Create tables and write latex-mathematical notations.
+
+-   Authoring presentation using quarto with some interactive features.
+
+## Assessment - Overview {.smaller}
+
+```{r}
+#| warning: false
+#| message: false
+
+
+# Assessment calendar
+library(tidyr)
+library(lubridate)
+library(knitr)
+start_date <- lubridate::ymd("2025-01-13")
+
+
+
+## Define the vectorized function that takes week numbers, days, start date, and a logical flag for time
+get_course_dates <- function(week_numbers, days, start_date, include_time = FALSE) {
+  # Ensure the start date is in Date format
+  start_date <- ymd(start_date)
+  
+  # Convert the day input to lowercase for easier comparison
+  days <- tolower(days)
+  
+  # List of days of the week, starting from Monday
+  days_of_week <- c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+  
+  # Define an inner function to calculate the date for a single week number and day
+  single_course_date <- function(week_number, day) {
+    # Find the index of the day in the week (Monday is 1, Sunday is 7)
+    day_index <- match(day, days_of_week)
+    
+    # If the day is invalid, return NA
+    if (is.na(day_index)) {
+      stop("Invalid day entered. Please enter a valid day of the week.")
+    }
+    
+    # Calculate the start of the week (week_number - 1 to account for 0-indexing)
+    week_start_date <- start_date + weeks(week_number - 1)
+    
+    # Calculate the date for the given day in that week
+    course_date <- week_start_date + days(day_index - 1)
+    
+    # Format the result as "Mon DD" (e.g., "Jan 12")
+    formatted_date <- format(course_date, "%b %d")
+    
+    # Build the output string: "Week X (date) 11:00 am BST" if include_time is TRUE, else "Week X (date)"
+    if (include_time) {
+      result <- paste0("Week ", week_number, " (", formatted_date, ") 11:00 am BST")
+    } else {
+      result <- paste0("Week ", week_number, " (", formatted_date, ")")
+    }
+    
+    return(result)
+  }
+  
+  # Use mapply to apply the single_course_date function over vectors of week_numbers and days
+  result_vector <- mapply(single_course_date, week_number = week_numbers, day = days, SIMPLIFY = TRUE)
+  
+  return(result_vector)
+}
+
+week_numbers <- c(3,3,6,9,4)
+days <- rep("Friday",length(week_numbers))
+
+release = week_numbers #get_course_dates(week_numbers = week_numbers, days = days, start_date = start_date, include_time = F)
+topics = c("Weeks: 1-3","Research","Weeks:4-6","Weeks: 1-8","Weeks: 1-8")
+type = c("Quiz 1","Peer assessment","Quiz 2","Class test","Groups project")
+w = c(15,20,15,25,25)
+due_date = c(4,9,10,8,9,11)#get_course_dates(week_numbers = c(4,8,10,7,9,11),
+                            #days = rep("Friday",6),
+                            #start_date = start_date,
+                            #include_time = T)
+
+combined_due_date <- c(due_date[1], 
+                       paste(due_date[2],"(End of Submission Stage) <br>", due_date[3],"(End of Assessment Stage)"), 
+                       due_date[4], 
+                       due_date[5]) 
+
+# Create a data frame for the HTML table
+table_data <- data.frame(
+  Release = release,
+  Topics = topics,
+  Assessment = type,
+  Weights = w,
+  Due_Date = c(combined_due_date, due_date[6]) # Add the last due date entry
+)
+
+# Generate the HTML table
+html_table <- kable(table_data, format = "html", table.attr = "class='table'", escape = FALSE)
+
+```
+
+```{r}
+html_table
+
+```
+
+## Upcoming assessments {.smaller}
+
+```{r}
+#| echo: false
+
+quiz2_duedate = get_course_dates(week_numbers = c(8),
+                            days = "Friday",
+                            start_date = start_date,
+                            include_time = T)
+
+```
+
+### Moodle Quiz 2
+
+-   Online quiz assessing the material from week 4 thru 8
+
+    -   **Release**: after today's lab
+
+    -   **Due** on week(s): `r quiz2_duedate`
+
+        -   *No late submission are allowed.*
+
+### Peer assessment
+
+-   Research a randomly assigned topic and record an (up to) 15 minute presentation
+
+    -   Due on week(s):
+
+        `r table_data[which(table_data$Assessment=="Peer assessment"),"Due_Date"]`.
+
+        *No late submission are allowed.*
+
+### 
+
+## Upcoming assessments
+
+### Class test
+
+-   Conduct a Data analysis and write a short report in quarto using the techniques covered in the course
+
+    -   Due on week(s): `r table_data[which(table_data$Assessment=="Class test"),"Due_Date"]`
+
+    -   Timed: 1 and a half hour [^1]
+
+    -   Intructions for the class test will become available a week prior to the test. Please read them them before the class test.
+
+    -   The specific tasks for the class test and the corresponding files will become available on the the date of the test.
+
+[^1]: Note: Students with allowed extra time please arrive 30 min prior the beginning of the test.
+
+## Upcoming assessments
+
+### Groups project
+
+-   Using collaborative coding, carry out data analysis on a given dataset and then write a report.
+
+    -   Group Allocations will be available online after the class.
+
+    -   Setup GitHub Repository by `r quiz2_duedate`
+
+    -   Report submission due on week(s): `r table_data[which(table_data$Assessment=="Groups project"),"Due_Date"]`
+
+    -   Contribution evaluations and Declaration of Originality
+
+# Overview of today's session
+
+## Logistic regression {.smaller}
+
+This week we will learn how to model outcomes of interest that take one of two categorical values (e.g. yes/no, success/failure, alive/dead), i.e.
+
+-   **binary**, taking the value 1 (say success, with probability $p_i$) or 0 (failure, with probability $1-p_i$) or
+
+In this case,
+
+$$
+y_i \sim \mathrm{Bin}(1,p_i)\\
+g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right)
+$$
+
+which is also referred to as the **log-odds** (since $p_i ~ / ~ 1-p_i$ is an odds ratio).
+
+$$p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].$$
+
+## Required R packages {.unnumbered}
+
+Before we proceed, load all the packages needed for this week:
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: false
+#| echo: true
+
+library(tidyr)
+library(ggplot2)
+library(moderndive)
+library(sjPlot)
+library(tidymodels)
+library(broom)
+library(performance)
+library(janitor)
+```
+
+## First example - Teaching evaluation scores {.unnumbered}
+
+`evals` data set available from the `moderndive` R package.
+
+```{r}
+#| code-fold: show
+#| echo: true
+
+evals.gender <- evals %>%
+                  select(gender, age)
+```
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+
+ggplot(data = evals.gender, aes(x = gender, y = age, fill = gender)) +
+  geom_boxplot() +
+  labs(x = "Gender", y = "Age") +
+  theme(legend.position = "none")
+
+```
+
+## Fitting a logistic regression in R {.unnumbered}
+
+$$
+\log\left( \frac{p}{1-p} \right) = \alpha + \beta 
+$$
+
+where $p = \textrm{Prob}\left(\textrm{Male}\right)$ and $1 - p = \textrm{Prob}\left(\textrm{Female}\right)$.
+
+```{r}
+#| code-fold: false
+#| eval: false 
+#| echo: true
+model <- glm(gender ~ age, data = evals.gender,family = binomial)
+model %>% broom::tidy(conf.int = TRUE, conf.level = 0.95)
+```
+
+```{r mod1sum, echo = FALSE, eval = TRUE}
+model <- glm(gender ~ age, data = evals.gender,family = binomial)
+model %>%   broom::tidy() %>% knitr::kable()
+```
+
+## Relationship between between Odds and Probabilities
+
+| Scale       | Equivalence                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|----------------------|--------------------------------------------------|
+| Odds        | $$                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                        Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                        $$                                                                                                                                                              |
+| Probability | $$                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                        P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                                        
+                                                                                                                                                                                                                                                                                                                                                                        $$                                                                                                                                                              |
+
+: Relationship between Odds and Probabilities {#tbl-odds_probs}
+
+## Model evaluation
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: true
+library(performance)
+check_model(model, panel = TRUE)
+```
+
+## **Predictive performance metrics** {.smaller}
+
+How well our model predicts new observations?
+
+-   compute the **predicted classes** and compare them against the **observed values**.
+
+-   We typically classify these probabilities into discrete classes based on a **threshold** (commonly 0.5 for binary classification)We can set a threshold
+
+```{r}
+#| code-fold: show
+#| echo: true
+
+pred_results = model %>% 
+  augment(type.predict = c("response")) %>%
+  mutate(predicted_class = 
+           factor(ifelse(.fitted > 0.5, "male", "female")))
+
+```
+
+```{r}
+#| echo: false
+pred_results %>% slice(1:5) %>% kable()
+
+```
+
+## **Predictive performance metrics**{.smaller}
+
+We can use these predicted classes to compute different predictive performance/evaluation metrics
+
+:::: {.columns}
+::: {.column width="40%"}
+![](tikz__pictures-1.png){fig-align="center" width="356"} 
+:::
+::: {.column width="60%"}
+The table can be interpreted as follows:
+-   The *correct classification rate* (CCR) or *accuracy* describes the overall proportion of teaching instructors (males or females) that were classified correctly.
+
+-   The *true positive rate* (TPR) or *sensitivity* (a.k.a. recall), denotes the proportion of actual male instructors that are correctly classified as males by the model.
+
+-   The *true negative rate* (TNR) or *specificity*, denotes the proportion of actual females that have been classified correctly as females by the model.
+
+-   The model's *precision* or *positive predictive value* (PPV) represents the proportion of predicted male instructors that were actually male
+
+-   The model's *negative predictive value* (NPV) represents the proportion of predicted female instructors .
+:::
+::::
+
+## ROC Curve
+
+-   Plot true positive rate (sensitivity) and the false positive rate (1 - specificity) at various **threshold** levels.
+
+-   The closer the ROC curve is to the top-left corner, the better the model is at distinguishing between the positive and negative classes
+
+![](roc.png){fig-align="center" width="374"}
+
+## **Logistic regression with one categorical explanatory variable**
+
+Instead of having a numerical explanatory variable such as `age`, let's now use the binary categorical variable `ethnicity` as our explanatory variable.
+
+![](ethnicity.png){fig-align="center" width="422"}
+
+## Fitting the model
+
+```{r}
+#| echo: true
+
+evals.ethnic <- evals %>%
+                  select(gender, ethnicity)
+model.ethnic <- glm(gender ~ ethnicity,
+                    data = evals.ethnic,
+                    family = binomial) 
+```
+
+```{r}
+#| echo: false
+
+model.ethnic %>%
+  tidy(conf.int = T) %>% kableExtra::kable(digits=2)
+```
+
+## Interpretation of model parameters {.smaller}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\mbox{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$ (i.e., when the instructor is in the minority group).
+
+    -   When the instructor belongs to the reference category `minority` the models simplifies to: $$\mathrm{log}\left(\frac{p_i}{1-p_i}\right) = \alpha $$
+
+-   $\beta_{\mathrm{ethnicity}}$ is the **coefficient** for the predictor $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority})$, which shows how the log-odds change when moving from the reference category (`minority`) to the other level (`not minority`).
+
+    -   When the instructor does **not** belong to reference category, i.e. $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 1$, the model becomes: $$\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\mbox{ethnicity}}$$
+
+So, the **log-odds** of the instructors being male in the `not minority` group are $\alpha +\beta_{\mbox{ethnicity}}$.
+
+## The steps ahead
+
+-   Calculate, using R, the logistic regression coefficients on the odds and probability scales when either a continuous or a categorical exploratory variable is used in the model.
+
+-   Correct interpretation of the of the model parameters of a fitted logistic regression (in terms of the log-odds, odds and probabilities) with either a continuous or a categorical exploratory variable .
+
+-   Check how to visualize the results of a fitted logistic regression with with either a continuous or a categorical exploratory variable.
+
+-   Interpret the model diagnostic plots and predictive performance metrics of a logistic regression model.
