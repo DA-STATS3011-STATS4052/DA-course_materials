@@ -15,6 +15,7 @@ website:
     - about.qmd
 format:
   html:
+    embed-resources: true
     theme:
       light: flatly
       dark: darkly

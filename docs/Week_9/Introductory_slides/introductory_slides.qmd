@@ -463,7 +463,9 @@ tidy(model_cars,conf.int=T) %>% kable(digits=2)
 ```
 
 ## Examples: Interpreting the output {.unnumbered .smaller}
+
 \vspace{-1cm}
+
 1.  What are the log-odds of a person to consider power steering and air conditioning `important` vs `little important`?
 2.  What are the log-odds of a `male` who is in the age range of `18-23` to consider power steering and air conditioning `important` vs `little important`?
 
@@ -478,14 +480,16 @@ tidy(model_cars,conf.int=T)[1:4,] %>% kable(digits=2)
 
     -   $x_1=1$ for women and 0 for men
 
-    -    $x_2=1$ for age 24-40 years and 0 otherwise
+    -   $x_2=1$ for age 24-40 years and 0 otherwise
 
     -   $x_3=1$ for age $>$ 40 years and 0 otherwise.
 
 2.  $\log\text{Odds}(\text{Feature = important|gender=Male,Age = 18-23}) = -0.98$
 
 ## Examples: Interpreting the output {.unnumbered .smaller}
+
 \vspace{-1cm}
+
 1.  What are the **odds** of a `male` over *`40 years old`* to consider power steering and air conditioning `important` vs `little important`?
 
 2.  What are the **odds** of a person over `40 years old` to consider power steering and air conditioning `important` vs `little important` compared to a younger person between `18-23 years` old?
@@ -497,12 +501,14 @@ tidy(model_cars,conf.int=T)[1:4,] %>% kable(digits=2)
 
 1.  $\text{Odds}(\text{Feauture=important|Age > 40, Gender = male}) = \exp(-0.98 + 1.59) \approx 1.82$, since male is our reference category for `gender`.
 
-2.  $\dfrac{\text{Odds}(\text{Feature = important|Age > 40})}{\text{Odds}(\text{Feature = little important|Age = 18-23})} = \dfrac{\exp(-0.98 + 1.59)}{\exp(-0.98)}= \exp(1.59) \approx 4.89$
+2.  $\dfrac{\text{Odds}(\text{Feature = important|Age > 40})}{\text{Odds}(\text{Feature = important|Age = 18-23})} = \dfrac{\exp(-0.98 + 1.59)}{\exp(-0.98)}= \exp(1.59) \approx 4.89$
 
     -   The odds of a `40 years old` to consider this feature important are $\exp(1.59) \approx 4.89$ times higher compared to a person who is in the `18-23` age category (which is the base line for `age`).
 
 ## Examples: Interpreting the output {.unnumbered .smaller}
+
 \vspace{-1cm}
+
 1.  What are the **odds** of a over `female` to consider power steering and air conditioning `important` vs `little important` compared to a `male`?
 
 2.  What are the **odds** of a `female` in the `24-40 age` category to consider power steering and air conditioning `important` vs `little important` compared to a younger `female` between `18-23` ?
@@ -512,6 +518,6 @@ tidy(model_cars,conf.int=T)[1:4,] %>% kable(digits=2)
 tidy(model_cars,conf.int=T)[1:4,] %>% kable(digits=2)
 ```
 
-1.  $\dfrac{\text{Odds}(\text{Feauture=important| Gender = female})}{\text{Odds}(\text{Feauture= little important| Gender = male})} = \dfrac{\exp(-0.98+0.39)}{\exp(-0.98)}=\exp(0.39) \approx 1.47$
+1.  $\dfrac{\text{Odds}(\text{Feauture=important| Gender = female})}{\text{Odds}(\text{Feauture= important| Gender = male})} = \dfrac{\exp(-0.98+0.39)}{\exp(-0.98)}=\exp(0.39) \approx 1.47$
 
-2.  $\dfrac{\text{Odds}(\text{Feauture=important|Age = 24-40, Gender = female})}{\text{Odds}(\text{Feauture=little important|Age = 18-23, Gender = female})} = \dfrac{-0.98 + 1.13  + 0.39}{-0.98 + 0.39}= \exp(1.13) \approx 3.09$
+2.  $\dfrac{\text{Odds}(\text{Feauture=important|Age = 24-40, Gender = female})}{\text{Odds}(\text{Feauture=important|Age = 18-23, Gender = female})} = \dfrac{-0.98 + 1.13  + 0.39}{-0.98 + 0.39}= \exp(1.13) \approx 3.09$
