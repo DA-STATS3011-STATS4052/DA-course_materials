@@ -1,0 +1,1438 @@
+---
+title: "Week 1: Visualising and data tidying using R"
+format:
+  html:    
+    code-link: true
+    code-fold: true
+    code-tools:
+      source: false
+      toggle: true
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    number-sections: true
+  PrettyPDF-pdf:
+    keep-tex: true
+    number-sections: true
+embed-resources: true
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+# Getting started 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| purl: false
+options(knitr.duplicate.label = "allow")
+library(webexercises)
+knitr::purl("notes.qmd")
+```
+
+This week we will review various techniques for data **tidying**, **wrangling** and **visualization** in R. We'll revisit key concepts from your previous **R programming** course and build on them with more advanced methods for data manipulation and plotting.
+
+::: callout-note
+A lot of the content within this course is based on the open-source book [Statistical Inference via Data Science](https://moderndive.com/index.html) and thus is a useful source for additional examples and questions.
+:::
+
+First, start by opening **RStudio** by going to `Desktop -> Maths-Stats -> RStudio`. Once RStudio has opened create a new R script by going to `File -> New File -> R Script`. Next go to `File -> Save As...` and save the script into your personal drive. Alternatively, you can download today's session R script and open it on RStudio (remember to save any edits or comments you make on this file) :
+
+{{< downloadthis notes.R dname="week_script.R" label="Download Week 1 R script" icon="database-fill-down" type="success" >}}
+
+We shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: show
+
+library(ggplot2)
+library(tidyverse)
+library(nycflights13)
+library(fivethirtyeight)
+```
+
+The libraries can be loaded into R by highlighting them in your script and then clicking on the `Run` button located in the top right of the script window. The first library `ggplot2` allows us to use functions within that package in order to create nice data visualisations. The `tidyverse` library is actually a collection of different R packages for manipulating data. The final two libraries (`nycflights13` and `fivethirtyeight`) contain interesting data sets that we shall examine in this session.
+
+Notice that when loading the `tidyverse` package you get a message that tells you about conflicting functions of certain packages. This means that there is at least one or more functions with the same name loaded from different packages (and thus one the function will mask the other).
+
+1.  Using `::` after calling the package name every time we use the function from that package. E.g., `dplyr::filter(…)` will tell R to explicitly use the function `filter` from the `dplyr` library.
+
+2.  Load the `conflicted` library and use the `conflicts_prefer("function","package")` function to explicitly declare which version of the function you want to use in the remaining R session (i.e. after `conflicts_prefer()` is called, e.g., `conflict_prefer("filter","dplyr")` .
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+What do you think is the advantage of using the `conflicts_prefer` as opposed to the first approach?
+:::
+
+# Viewing the data
+
+Before visualising any data set, we first need to know its contents. For example, the contents of the `flights` data within the `nycflights13` library can be observed using the following command:
+
+```{r}
+#| label: "View the Data"
+glimpse(flights)
+```
+
+This function provides a concise overview of a data frame's structure. For each column/variable, it displays the name, data type, and a brief preview of the actual values along with dimensions of the data set (i.e, `r ncol(flights)` columns and `r nrow(flights)` rows).
+
+Another useful function that can be used to quickly explore your data is the `slice()` function. It allows you to extract specific rows from a data frame based on their positions.
+
+For example, `slice(flights, 1:5)` retrieves the first 5 rows of the `flights` data frame. Additionally, the `.by` argument in `slice()` enables grouped slicing (e.g. `slice(flights, 1:3, .by = carrier)` retrieves the first three rows within each group defined by the carrier variable). This function is useful for obtaining subsets of data for inspection or further analysis while preserving the structure within subgroups.
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 1
+
+Use the `slice` function to print the first row of the `flights` data frame grouped by origin.
+
+`r hide("Take hint")`
+
+See the documentation for `slice()` (`?slice`).
+
+`r unhide()`
+
+```{r, echo = TRUE, eval = TRUE}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| purl: false
+
+slice(flights, 1, .by = origin)
+```
+:::
+
+# Tidy data
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| purl: false
+library(kableExtra)
+```
+
+What does it mean for your data to be **tidy**? Beyond just being organised, having **tidy** data means that your data follows a standardised format. Tidy data is about structuring your data so that:
+
+1.  Each variable has its own column
+
+2.  Each observation has its own row
+
+3.  Each type of observation forms a table.
+
+This format makes it much easier to perform data analysis and ensures that your data is compatible with many of the tools and packages used in data science.
+
+```{r tidyfig, echo=FALSE, fig.cap="Tidy data graphic from http://r4ds.had.co.nz/tidy-data.html"}
+#| purl: false
+knitr::include_graphics("tidy-1.png",dpi = 300)
+```
+
+For example, say the following table consists of stock prices:
+
+```{r}
+#| purl: false
+#| echo: false
+#| warning: false
+ stocks <- data_frame(
+   Date = as.Date('2009-01-01') + 0:4,
+   `Boeing Stock Price` = paste("$", c("173.55", "172.61", "173.86", "170.77", "174.29"), sep = ""),
+   `Amazon Stock Price` = paste("$", c("174.90", "171.42", "171.58", "173.89", "170.16"), sep = ""),
+   `Google Stock Price` = paste("$", c("174.34", "170.04", "173.65", "174.87", "172.19") ,sep = "")
+ ) %>%
+   slice(1:2)
+  stocks %>%
+    kable(
+      digits = 2,
+      caption = "Stock Prices (Non-Tidy Format)",
+      booktabs = TRUE
+    ) %>%
+    kable_styling(font_size = 9, latex_options = "hold_position")
+```
+
+Although the data are neatly organised in a spreadsheet-type format, they are not in tidy format since there are three variables corresponding to three unique pieces of information (Date, Stock Name, and Stock Price), but there are not three columns. In tidy data format each variable should be its own column, as shown below. Notice that both tables present the same information, but in different formats.
+
+```{r}
+#| purl: false
+#| echo: false
+#| warning: false
+ stocks_tidy <- stocks %>%
+   rename(
+     Boeing = `Boeing Stock Price`,
+     Amazon = `Amazon Stock Price`,
+     Google = `Google Stock Price`
+   ) %>%
+   gather(`Stock Name`, `Stock Price`, -Date)
+ stocks_tidy %>%
+   kable(
+     digits = 2,
+     caption = "Stock Prices (Tidy Format)",
+     booktabs = TRUE
+   ) %>%
+    kable_styling(font_size = 9, latex_options = "hold_position")
+```
+
+However, consider the following table:
+
+```{r}
+#| purl: false
+#| echo: false
+#| warning: false
+ stocks <- data_frame(
+   Date = as.Date('2009-01-01') + 0:4,
+   `Boeing Price` = paste("$", c("173.55", "172.61", "173.86", "170.77", "174.29"), sep = ""),
+   `Weather` = c("Sunny", "Overcast", "Rain", "Rain", "Sunny")
+ ) %>%
+   slice(1:2)
+ stocks %>%
+   kable(
+     digits = 2,
+     caption = "Date, Boeing Price, Weather Data",
+     booktabs = TRUE
+   ) %>%
+    kable_styling(font_size = 9, latex_options = "hold_position")
+```
+
+In this case, even though the variable **Boeing Price** occurs again, the data *is* tidy since there are three variables corresponding to three unique pieces of information (Date, Boeing stock price, and the weather on that particular day).
+
+The non-tidy data format in the original table is also known as [wide](https://en.wikipedia.org/wiki/Wide_and_narrow_data) format whereas the tidy data format in the second table is also known as [long/narrow](https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow) data format. In this course, we will work mostly with data sets that are already in the tidy format.
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+Consider the following data frame of average number of servings of beer, spirits, and wine consumption in three countries as reported in the FiveThirtyEight article [Dear Mona Followup: Where Do People Drink The Most Beer, Wine And Spirits?](https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/)
+
+```{r}
+#| purl: false
+#| echo: false
+#| warning: false
+drinks_sub <- drinks %>%
+  select(-total_litres_of_pure_alcohol) %>%
+  filter(country %in% c("USA", "Canada", "South Korea"))
+drinks_sub_tidy <- drinks_sub %>%
+  gather(type, servings, -c(country)) %>%
+  mutate(
+    type = str_sub(type, start=1, end=-10)
+  ) %>%
+  arrange(country, type) %>%
+  rename(`alcohol type` = type)
+drinks_sub |> kable()
+```
+
+This data frame is not in tidy format. What would it look like if it were?
+
+`r hide("I need a hint")`
+
+Think of these data as being in a wide format. What variables in this data set could be placed in different columns?
+
+`r unhide()`
+
+<!-- note: you could also just set webex.hide to TRUE -->
+
+```{r, echo = FALSE, eval = TRUE}
+#| webex.hide: "See the solution"
+#| code-fold: true
+#| purl: false
+
+drinks_sub %>% gather("beverages type","number of servings",-country) |> kable()
+```
+:::
+
+# Converting to **tidy** data format {#tidying}
+
+In this section, we will see how to convert a data set that is not in the **tidy** format i.e. [wide](https://en.wikipedia.org/wiki/Wide_and_narrow_data) format, to a data set that is in the **tidy** format i.e. [long/narrow](https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow) format.
+
+First, let's download a **Comma Separated Values** (CSV) file of ratings of the level of democracy in different countries spanning 1952 to 1992: <https://moderndive.com/data/dem_score.csv>. We use the `read_csv()` function from the `readr` package to read it off the web:
+
+```{r readcsv, message=FALSE, eval=TRUE, echo = 1}
+dem_score <- read_csv("https://moderndive.com/data/dem_score.csv")
+```
+
+::: callout-note
+Please refer back to your **R programming** course for an overview of how to import spreadsheets and `.csv` files into R.
+:::
+
+In this `dem_score` data frame, the minimum value of -10 corresponds to a highly autocratic nation whereas a value of 10 corresponds to a highly democratic nation. Let's use the `dem_score` data frame but focus on only data corresponding to the country of Guatemala.
+
+```{r}
+#| code-fold: show
+guat_dem <-  dplyr::filter(dem_score,country == "Guatemala")
+guat_dem
+```
+
+::: callout-note
+Here we have used the `filter` function from `dplyr` package to subset the data set. We will revisit this code for subsetting data later in the session.
+:::
+
+In order for this data set to be on a **tidy** format, we need to take the values of the current column names in `guat_dem` (aside from `country`) and convert them into a new variable that will act as a key called `year`. Then, we'd like to take the numbers on the inside of the table and turn them into a column that will act as values called `democracy_score`. Our resulting data frame will have three columns: `country`, `year`, and `democracy_score`.
+
+The `pivot_longer` function in the `tidyr` package can complete this task for us. The first argument to `pivot_longer`, is the `data` argument where we specify which data frame we would like to tidy. The next argument to `pivot_longer` is `cols` which specifies which columns we want to pivot into the longer format.
+
+::: callout-note
+There are helper functions which help us declaring which variable (or variables) we want to pivot `!`,`start_with`, `last_col`, `everything`, `contains`, etc. E.g. `!country` will the tell the function that all the variables except for `country` should be included in the pivoting process.
+:::
+
+The next two arguments `names_to` and `values_to`, specify what we would like to call the new columns that convert our wide data into tidy/long format.
+
+```{r}
+#| echo: true
+#| code-fold: show
+guat_dem_long = pivot_longer(guat_dem,cols = !country,
+                             names_to = "year",
+                             values_to = "democracy_score")
+slice(guat_dem_long,1:5)
+```
+
+The inverse transformation of `pivot_longer()` is of course, `pivot_wider()` and allows us to pivot from a long to a wide format. As arguments we need to provide which column (or columns) to get the name of the output column (`names_from`), and which column (or columns) to get the cell values from (`values_from`). For instance, if want the data from the previous example to go back to a wide-format, we can use the following code:
+
+```{r}
+#| code-fold: false
+
+guat_dem_wide = pivot_wider(guat_dem_long,
+                            names_from = year, 
+                            values_from = democracy_score)
+guat_dem_wide
+```
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+The information about drink consumption across countries is available on the `drinks` data set in the `fivethirtyeight` library:
+
+```{r}
+#| eval: false
+#| code-fold: false
+#| label: "Task"
+
+library(fivethirtyeight)
+drinks
+```
+
+```{r}
+#| echo: false
+#| purl: false
+slice(drinks,1:3) %>% kable()
+```
+
+Convert this data frame to tidy data (long) format by pivoting the variables related to the servings of beer, spirits and wine. Name the new type of beverage column as `beverages type` and the servings as `number of servings`.
+
+`r hide("Take hint")`
+
+Your new data frame should contain 4 columns: `country`, `total_litres_of_pure_alcohol`, `beverages type` and `number of servings`. You can use the `ends_with()` function to match variables according to a given pattern.
+
+`r unhide()`
+
+```{r, echo = TRUE, eval = FALSE}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| purl: false
+
+# There are multiples ways of doing this:
+
+# (1) We can explicitly declare which variable we don't want to pivot
+
+drinks %>%
+  pivot_longer(cols = !c(country,total_litres_of_pure_alcohol),
+               names_to = "beverages type",
+               values_to = "number of servings")
+
+# (2) use a helper function to select the variables that end with the word "servings"
+
+drinks %>%
+  pivot_longer(cols = ends_with("servings"),
+               names_to = "beverages type",
+               values_to = "number of servings")
+
+```
+:::
+
+# Reminder of ggplot
+
+Now that we have our data on a tidy format we can use `ggplot2` to produce a plot showing how the democracy scores have changed over the 40 years from 1952 to 1992 for Guatemala. Lets have a reminder of how we can do this using the ggplot.
+
+First, we need to pass our data to the `ggplot()` function and then add layers that can combines data, aesthetic mapping, a geom (geometric object), a stat (statistical transformation), and a position adjustment.
+
+Let's start by laying out how we would map our aesthetics to variables in the data frame:
+
+-   The `data` frame is `guat_dem_long` so we use `data = guat_dem_long`.
+-   The mapping of the coordinates for the axes using `aes(x = year, y = democracy_score)`, where `aes()` relates to the plots aesthetics. That is,
+    -   `year` maps to the `x` coordinate.
+    -   `democracy_score` maps to the `y` coordinate.
+
+Now we need to add an additional layer using the `+` command. Lets include a points layer first:
+
+```{r}
+#| fig-width: 4
+#| fig-height: 3
+#| fig-align: center
+#| code-fold: show
+#| label: "Scatterplot Democracy vs. year"
+
+ggplot(data = guat_dem_long, mapping =aes(x = year, y = democracy_score)) +
+  geom_point()
+```
+
+When adding layers using `ggplot` it should be noted that:
+
+-   the `+` command should come at the end of lines, otherwise R will produce an error.
+-   when adding additional layers it is a good idea to take a new line after each `+` command. This is so your code will be nice and clear with each layer given its own line of code. This is handy for code debugging.
+
+Now we add a line connecting each point:
+
+```{r}
+#| fig-width: 4
+#| fig-height: 3
+#| fig-align: center
+#| error: true
+#| code-fold: show
+#| purl: false
+
+ggplot(data = guat_dem_long, mapping =aes(x = year, y = democracy_score)) +
+  geom_point()+
+  geom_line()
+```
+
+**What happened?** Note that the `year` variable in `guat_dem_long` is stored as a character vector since we had to circumvent the naming rules in R by adding backticks around the different year columns in `guat_dem_long`. This is leading to `ggplot` not knowing exactly how to plot a line using a categorical variable. We can fix this by using the `parse_number` function in the `readr` package:
+
+```{r }
+#| fig-width: 4
+#| fig-height: 3
+#| fig-align: center
+#| purl: false
+ggplot(data = guat_dem_long, mapping = aes(x = parse_number(year), y = democracy_score)) +
+   geom_point()+
+   geom_line()
+
+```
+
+We'll see later how we could use the `mutate` function to change `year` to be a numeric variable during the tidying process (alternatively we could have added the argument `names_transform = list(year = as.integer)` in the `pivot_longer()` function to declare the `year` column values as an integers; see `?pivot_longer` for more details).
+
+As a final step we can change the axes labels and include a title on our plot by adding another layer as follows:
+
+```{r}
+#| fig-width: 4
+#| fig-height: 3
+#| fig-align: center
+#| purl: false
+
+ggplot(data = guat_dem_long, mapping = aes(x = parse_number(year), y = democracy_score)) +
+   geom_point()+
+   geom_line()+
+  labs(x = "year", y = "Democracy score",
+       title = "Guatemala's democracy score ratings from 1952 to 1992")
+```
+
+# Data wrangling {#wrangling}
+
+We are now able to import data and perform basic operations on the data to get it into the **tidy** format. In this and subsequent sections we will use tools from the `dplyr` package (included in `tidyverse`) to perform data **wrangling** which includes transforming, mapping and summarising variables.
+
+## The pipe %\>% {#piping}
+
+Before we dig into data wrangling, let's first introduce the pipe operator (`%>%`). Just as the `+` sign was used to add layers to a plot created using `ggplot`, the pipe operator allows us to chain together data wrangling functions. The pipe operator can be read as **then**.
+
+The piping syntax will be our major focus throughout the rest of this course and you'll find that you'll quickly be addicted to the chaining with some practice.
+
+## Data wrangling verbs {#verbs}
+
+The `d` in `dplyr` stands for data frames, so the functions in `dplyr` are built for working with objects of the data frame type. In your previous **R programming** course you have already covered some of the most commonly used functions/verbs for wrangling and summarising data (i.e. `filter`, `summarise` and `group_by`). Thus, on this session we won't review these deeply (for more details of how these verbs work please refer back to your **R programming** course) but rather we will introduce new verbs that you might not have seen before. Here is a description of some of these verbs:
+
+1.  `select`: Select variables in a data frame
+
+2.  `filter`: Pick rows based on conditions about their values
+
+3.  `summarize`: Compute summary measures known as "summary statistics" of variables
+
+4.  `group_by`: Group rows of observations together
+
+5.  `mutate`: Create a new variable in the data frame by mutating existing ones
+
+6.  `join`: Join/merge two data frames by matching along a "key" variable. There are many different `join` available. Here, we will focus on the `inner_join` function.
+
+All of the verbs are used similarly where you: take a data frame, pipe it using the `%>%` syntax into one of the verbs above followed by other arguments specifying which criteria you would like the verb to work with in parentheses.
+
+## Select and rename columns
+
+```{r selectfig, echo=FALSE, fig.cap="Select diagram from Data Wrangling with dplyr and tidyr cheatsheet.", purl=FALSE}
+knitr::include_graphics("select.png")
+```
+
+We've seen that the `flights` data frame in the `nycflights13` package contains many different variables. The `names` function gives a listing of all the columns in a data frame; in our case you would run `names(flights)`. However, say you only want to consider two of these variables, `carrier` and `flight`. You can `select` these as follows:
+
+```{r}
+#| code-fold: show
+#| eval: false
+#| label: "Select variables"
+
+flights %>%
+  select(carrier, flight)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| purl: false
+
+flights %>%
+  select(carrier, flight) %>% slice(1:5) %>% kable()
+```
+
+The `select` function allows a subset of columns to be extracted, making navigation data sets with a very large number of variables easier.
+
+Reversely, one can exclude specific columns via negative selection (using -). For instance, in the `flights` data set, the `year` variable isn't really a variable here in that it doesn't vary (the `flights` data set actually comes from a larger data set that covers many years). Thus, we may want to remove the `year` variable from our data set since it won't be helpful for analysis in this case. We can deselect `year` by using the `-` sign:
+
+```{r}
+#| code-fold: show
+#| label: "Remove variables"
+flights_no_year <- flights  %>% select(-year)
+```
+
+The `select` function can also be used to reorder columns in combination with the `everything` helper function. Let's suppose we would like the `hour`, `minute`, and `time_hour` variables, which appear at the end of the `flights` data set, to actually appear immediately after the `day` variable:
+
+```{r}
+#| code-fold: show
+#| label: "Select variables with helper functions"
+
+flights_reorder <- flights %>%
+  select(month:day, hour:time_hour, everything())
+names(flights_reorder)
+```
+
+in this case `everything()` picks up all remaining variables.
+
+::: callout-note
+Alternatively we could use the `relocate()` verb to change column positions, using the same syntax as `select()` to make it easy to move blocks of columns at once. We will see an example of this in the next section.
+:::
+
+Lastly, the helper functions `starts_with`, `ends_with`, and `contains` can be used to choose **variables / column names** that match those conditions.
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+-   Use `starts_with` helper function to select the arrival time and arrival delay columns from the `flights` data frame.
+
+-   Use `ends_with` to select departure and arrival delay columns from the `flights` data frame.
+
+-   Use `contains` to select columns to select departure times, schedule departure and departure delay columns from the `flights` data frame.
+
+`r hide("Take hint")`
+
+In the `flights` data frame arrival time and arrival delay columns all begin with the `arr` character, while departure and arrival delay columns end with the `delay` character. Lastly, departure times, schedule departure and departure delay columns all contain the `dep` characters
+
+`r unhide()`
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| purl: false
+# Select arrival time and arrival delay columns
+flights %>%
+  select(starts_with("arr")) %>%
+  slice(1:3)
+# Select departure and arrival delay columns
+flights %>%
+  select(ends_with("delay")) %>%
+  slice(1:3)
+# Select departure times, schedule departure and departure delay columns
+flights %>%
+  select(contains("dep"))%>%
+  slice(1:3)
+```
+:::
+
+Finally, if we want to rename a column while preserving the other columns we can use the `rename` function. Suppose we wanted `dep_time` and `arr_time` to be `departure_time` and `arrival_time` instead in the `flights_time` data frame:
+
+```{r}
+#| code-fold: show
+#| label: "rename variables"
+
+flights_time <- flights %>%
+  select(contains("time")) %>%
+  rename(departure_time = dep_time, arrival_time = arr_time)
+names(flights_time)
+```
+
+Note that in this case we used a single `=` sign with `rename`. e.g,. `departure_time = dep_time`. This is because we are not testing for equality like we would using `==`, but instead we want to assign a new variable `departure_time` to have the same values as `dep_time` and then delete the variable `dep_time`.
+
+## Filter observations using filter {#filter}
+
+```{r filter, echo=FALSE, purl=FALSE}
+knitr::include_graphics("filter.png")
+```
+
+The `filter` function allows you to specify criteria about values of a variable in your data set and then chooses only those rows that match that criteria.
+
+::: callout-important
+Recall that the base R has already a filter function defined. So make sure to avoid any conflicts either by calling `dplyr::filter()` every time you use the function (specially if you have loaded the `conflicts` library) or alternatively run the`conflict_prefer()` function to let R know that it should use `dplyr`'s `filter` function as default.
+
+```{r}
+#| message: false
+#| echo: false
+library(conflicted)
+```
+
+```{r}
+#| code-fold: show
+conflict_prefer("filter", "dplyr")
+```
+:::
+
+Since you have already covered this in your **R programming course**, let's begin straight away by focusing only at *Alaska Airlines* flights leaving from New York City in 2013. We can combine the data wrangling output with ggplot plotting techniques. Run the following code and look at the resulting scatterplot.
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-width: 5
+#| fig-height: 4
+#| fig-align: center
+#| code-fold: show
+#| label: "Scatterplot Arrival vs Departue delays"
+
+flights %>%
+  filter(carrier ==  "AS") %>%
+  ggplot(aes(x = dep_delay, y = arr_delay)) +
+  geom_point()+
+   labs(x = "Departure delay (minutes)", y = "Arrival delay (minutes)",
+       title = "Alaska Airlines flights leaving NYC in 2013")
+```
+
+Here is an explanation of what we've just did:
+
+-   Take the data frame `flights` **then**
+-   `filter` the data frame so that only those where the `carrier` equals `AS` are included. (recall that the double equals sign `==` tests equality, and not a single equals sign `=`).
+-   pass the filtered data to the ggplot function and add a point layer and then modify axis labels.
+
+You can combine multiple criteria together using operators that make comparisons:
+
+-   `|` corresponds to **or**
+-   `&` corresponds to **and**
+
+We can often skip the use of `&` and just separate our conditions with a comma. You'll see this in the example below.
+
+::: callout-note
+In addition, you can use other mathematical checks (similar to `==`):
+
+-   `>` corresponds to **greater than**
+
+-   `<` corresponds to **less than**
+
+-   `>=` corresponds to **greater than or equal to**
+
+-   `<=` corresponds to **less than or equal to**
+
+-   `!=` corresponds to **not equal to**
+:::
+
+To see many of these in action, let's select all flights that left JFK airport heading to Burlington, Vermont (`BTV`) or Seattle, Washington (`SEA`) in the months of October, November, or December. Run the following:
+
+```{r}
+#| code-fold: show
+#| label: "Filter variables"
+btv_sea_flights_fall <- flights %>%
+  filter(origin == "JFK", (dest == "BTV" | dest == "SEA"), month >= 10) %>%
+  relocate(dest,.before = dep_time )
+```
+
+```{r}
+#| echo: false
+#| purl: false
+btv_sea_flights_fall %>%
+  slice(1:3) %>% kable()
+```
+
+::: callout-note
+Even though colloquially speaking one might say "all flights leaving Burlington, Vermont *and* Seattle, Washington," in terms of computer logical operations, we really mean "all flights leaving Burlington, Vermont *or* Seattle, Washington." For a given row in the data, `dest` can be `BTV`, `SEA`, or something else, but not `BTV` **and** `SEA` at the same time. Also note that we have used the `relocate` function to change the `dest` column position to just before the `dep_time`. See `?relocate` for further details.
+:::
+
+Another example uses `!` to pick rows that *do not* match a condition. The `!` can be read as **not**. Here, we are selecting rows corresponding to flights that **did not** go to Burlington, VT or Seattle, WA.
+
+```{r}
+#| code-fold: show
+#| label: "Filter variables 2"
+not_BTV_SEA <- flights %>%
+  filter(!(dest == "BTV" | dest == "SEA")) %>%
+  relocate(dest,.before = dep_time )
+not_BTV_SEA %>%
+  slice(1:3)
+```
+
+As a final note we point out that `filter` should often be the first verb you'll apply to your data. This narrows down the data to just the observations your are interested in.
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+What is another way of using the **not** operator `!` to filter only the rows that are not going to Burlington, VT nor Seattle, WA in the `flights` data frame?
+
+`r hide("Take a hint")`
+
+Try using the `%in%` operator
+
+`r unhide()`
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| purl: false
+flights %>%
+  filter( !dest %in% c("BTV","SEA")) %>%
+  head()
+```
+:::
+
+## Create new variables/change old variables using mutate {#mutate}
+
+```{r select, echo=FALSE,  purl=FALSE}
+knitr::include_graphics("mutate.png")
+```
+
+When looking at the `flights` data set, there are some clear additional variables that could be calculated based on the values of variables already in the data set. Passengers are often frustrated when their flights depart late, but change their mood a bit if pilots can make up some time during the flight to get them to their destination close to when they expected to land. This is commonly referred to as "gain" and we will create this variable using the `mutate` function. Note that we will be overwriting the `flights` data frame with one including the additional variable `gain` here, or put differently, the `mutate` command outputs a new data frame which then gets saved over the original `flights` data frame.
+
+```{r}
+#| code-fold: show
+#| label: "Mutate verb"
+flights <- flights %>%
+  mutate(gain = dep_delay - arr_delay)
+```
+
+Let's take a look at `dep_delay`, `arr_delay`, and the resulting `gain` variables in our new `flights` data frame:
+
+```{r, echo=FALSE}
+#| purl: false
+flights %>%
+  select(dep_delay, arr_delay, gain) %>% slice(1:5) %>%kable()
+```
+
+The flight in the first row departed 2 minutes late but arrived 11 minutes late, so its "gained time in the air" is actually a loss of 9 minutes, hence its `gain` is `-9`. Contrast this to the flight in the fourth row which departed a minute early (`dep_delay` of `-1`) but arrived 18 minutes early (`arr_delay` of `-18`), so its "gained time in the air" is 17 minutes, hence its `gain` is `+17`.
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+Why did we overwrite `flights` instead of assigning the resulting data frame to a new object, like `flights_with_gain`?
+
+`r hide("Answer")`
+
+As a rough rule of thumb, as long as you are not losing information that you might need later, it's acceptable practice to overwrite data frames. However, if you overwrite existing variables and/or change the observational units, recovering the original information might prove difficult. In this case, it might make sense to create a new data object.
+
+`r unhide()`
+:::
+
+Let's look at visualize this `gain` variable in the form of a histogram:
+
+```{r}
+#| message: false
+#| fig-width: 4
+#| fig-height: 3
+#| fig-align: center
+#| warning: false
+#| code-fold: show
+#| label: "Histogram of gained time"
+
+
+ggplot(data = flights, mapping = aes(x = gain)) +
+  geom_histogram(color = "white", bins = 20)
+```
+
+We can also create multiple columns at once and even refer to columns that were just created in a new column.
+
+```{r}
+#| code-fold: show
+#| include: false
+#| label: "Create multiple columns"
+flights <- flights %>%
+  mutate(
+    gain = dep_delay - arr_delay,
+    hours = air_time / 60,
+    gain_per_hour = gain / hours
+  )
+flights %>% select(c(gain,hours,gain_per_hour))
+```
+
+```{r}
+#| echo: false
+#| purl: false
+flights %>% select(c(gain,hours,gain_per_hour)) %>% slice(1:5) %>% kable()
+```
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+What do positive values of the `gain` variable in `flights` correspond to?
+
+`r mcq(c(answer ="Departure delays are greater than arrivals delays", "Departure delays are lower than arrivals delays", "Departures and arrivals delays are the same"))`
+
+What about negative values?
+
+`r mcq(c(  "Departure delays are greater than arrivals delays", answer =  "Departure delays are lower than arrivals delays", "Departures and arrivals delays are the same"))`
+
+And what about a zero value?
+
+`r mcq(c("Departure delays are greater than arrivals delays", "Departuredelays are lower than arrivals delays", answer =  "Departures and arrivals delays are the same"))`
+:::
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+Could we create the `dep_delay` and `arr_delay` columns by simply subtracting `dep_time` from `sched_dep_time` and similarly for arrivals? Try the code out and explain any differences between the result and what actually appears in `flights`.
+
+```{r}
+#| eval: false
+#| code-fold: false
+#| purl: false
+
+flights %>%
+  mutate(dep_delay  = sched_dep_time - dep_time ,
+         arr_delay  = sched_arr_time  - arr_time)
+```
+
+`r hide("Take a hint")`
+
+See the description of the variables `arr_time`, `dep_time`, `sched_dep_time` and `sched_arr_time` in the flights data set `?flights`
+
+`r unhide()`
+
+`r hide("Answer")`
+
+The differences are due to departure and arrival times have a HHMM or HMM format. E.g., if we compute the difference between a flight scheduled to arrive by 923 and its actual arrival time at 850, the result would be a difference of 73, while in reality there was only a 33 min difference if we consider the correct time format! We will see more detials on how to work with time-date variables later on in this session.
+
+`r unhide()`
+:::
+
+## Summarise variables using summarize {#summarize}
+
+The next common task is to be able to summarise data: take a large number of values and summarise them with a single value. While this may seem like a very abstract idea, something as simple as the sum, the smallest value, and the largest values are all summaries of a large number of values.
+
+```{r sum2, echo=FALSE,  purl=FALSE}
+knitr::include_graphics("summary.png")
+```
+
+We can calculate the standard deviation and mean of the temperature variable `temp` in the `weather` data frame of `nycflights13` in one step using the `summarize` (or equivalently using the UK spelling `summarise`) function in `dplyr`. Before compute the mean it is important to notice that there are some **missing values** in the data. Thus, by default any time you try to summarise a number of values (using `mean()` and `sd()` for example) that has one or more missing values, an `NA` will be returned.
+
+You can summarise all non-missing values by setting the `na.rm` argument to TRUE (`rm` is short for remove). This will remove any `NA` missing values and only return the summary value for all non-missing values. So the code below computes the mean and standard deviation of all non-missing values. Notice how the `na.rm=TRUE` are set as arguments to the `mean` and `sd` functions, and not to the `summarize` function.
+
+```{r}
+#| code-fold: show
+#| label: "Summarise one variable"
+summary_temp <- weather %>%
+  summarize(mean = mean(temp, na.rm = TRUE), std_dev = sd(temp, na.rm = TRUE))
+summary_temp
+```
+
+<!-- ::: {.callout-tip icon="false"} -->
+
+<!-- ## {{< bi question-octagon color=#6dc83c >}} Question -->
+
+<!-- Modify `summary_temp` from above to also use the `n` summary function: `summarize(count = n())`. What does the returned value correspond to? -->
+
+<!-- `r mcq(c("Number of weather stations", "Number of columns in the data", answer = "Sample size"))` -->
+
+<!-- ::: -->
+
+<!-- Another very useful function that allows you to summarise multiple columns is the `summarise_at()` function. Here, we can supply a vector of variables we want to summarise and a list of functions that we want to apply to each of the variables. See the following example where we compute the minimum and maximum values of temperature and relative humidity (notice that we also specified the argument `na.rm=T` to remove missing values - this arguments gets passed on to all the functions in the list): -->
+
+<!-- ```{r} -->
+
+<!-- #| echo: false -->
+
+<!-- #| eval: false -->
+
+<!-- weather %>% -->
+
+<!--   summarise_at(.vars = c("temp","humid"), -->
+
+<!--                .funs = list(min = min, max = max), -->
+
+<!--                na.rm = TRUE) -->
+
+<!-- ``` -->
+
+::: callout-important
+It is **not** good practice to include `na.rm = TRUE` in your summary commands by default; you should attempt to run code first without this argument as this will alert you to the presence of missing data. Only after you have identified where missing values occur and have thought about the potential issues of these should you consider using `na.rm = TRUE`.
+:::
+
+<!-- What other summary functions can we use inside the `summarize` verb? Any function in R that takes a vector of values and returns just one. Here are just a few: -->
+
+<!-- -   `mean`: the mean (or average) -->
+
+<!-- -   `sd`: the standard deviation, which is a measure of spread -->
+
+<!-- -   `min` and `max`: the minimum and maximum values, respectively -->
+
+<!-- -   `IQR`: the interquartile range -->
+
+<!-- -   `sum`: the sum -->
+
+<!-- -   `n`: a count of the number of rows/observations in each group. This particular summary function will make more sense when **grouping** is used in the next section. -->
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+Say a doctor is studying the effect of smoking on lung cancer for a large number of patients who have records measured at five year intervals. She notices that a large number of patients have missing data points because the patient has died, so she chooses to ignore these patients in her analysis. What is wrong with this doctor's approach?
+
+```{r}
+#| echo: false
+opts_p <- c(
+  answer = "Introduces a selection bias since patient who died due to lung cancer are excluded from the analysis, leading to an underestimation of the true impact of smoking on lung cancer risk",
+    "There is no problem, smaller datasets with fewer missing values may require less computational resources, leading to faster processing times.",
+  answer = "Removing patients with missing data reduces the sample size. Hence, conclusions may not be as easily generalizable to the broader population, as the excluded patients may represent a different subset with unique characteristics.", "Removing missing values can result in a dataset with fewer errors and inconsistencies, which can lead to more accurate analyses."
+)
+```
+
+`r longmcq(opts_p)`
+:::
+
+<!-- ::: {.callout-tip icon="false"} -->
+
+<!-- ## {{< bi question-octagon color=#6dc83c >}} Question -->
+
+<!-- Why does the code below not work? -->
+
+<!-- ```{r} -->
+
+<!-- #| error: true -->
+
+<!-- #| code-fold: show -->
+
+<!-- summary_temp <- weather %>% -->
+
+<!--   summarize(mean = mean(temp, na.rm = TRUE)) %>% -->
+
+<!--   summarize(std_dev = sd(temp, na.rm = TRUE)) -->
+
+<!-- ``` -->
+
+<!-- `r hide("Take hint")` -->
+
+<!-- Run the code line by line instead of all at once, and then look at the data. In other words, run `summary_temp <- weather %>% summarize(mean = mean(temp, na.rm = TRUE))` first. -->
+
+<!-- `r unhide()` -->
+
+<!-- `r hide("Answer")` -->
+
+<!-- The first line of code computes the temperature mean for the weather data set. Then, the output gets passed on to `weather %>% summarize(std_dev= sd(temp, na.rm = TRUE))`. However, the temperature value is no longer present in the first result, hence the error: `! object 'temp' not found` -->
+
+<!-- `r unhide()` -->
+
+<!-- ::: -->
+
+## Using grouping structures {#groupby}
+
+```{r groupsummarize, echo=FALSE, purl=FALSE}
+knitr::include_graphics("group_summary.png")
+```
+
+It is often more useful to summarise a variable based on the groupings of another variable. Let's say we are interested in the mean and standard deviation of temperatures but *grouped by month*. Run the following code:
+
+```{r, eval=FALSE, echo = c(1,2,3,4)}
+#| code-fold: show
+#| label: "Group-level summaries"
+summary_monthly_temp <- weather %>%
+  summarize(mean = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE),
+            .by = month)
+```
+
+This code is identical to the previous code that created `summary_temp`, with an extra `.by = month` added. This kind per-operation grouping allow us to do the grouping within the operation where the summarisation takes place without changing the structure of the data .
+
+<!-- ::: {#note_grouping .callout-note} -->
+
+<!-- Previous versions of `dplyr` relied on the specification of a `group_by` function within the pipeline to do the grouping. For example, in the next line of code the `weather` data set is initially grouped by `month`and then passed as a new grouped data frame into `summarize`. Yielding to the same data frame that shows the mean and standard deviation of temperature for each month in New York City: -->
+
+<!-- ```{r} -->
+
+<!-- #| eval: false -->
+
+<!-- #| code-fold: true -->
+
+<!-- summary_monthly_temp <- weather |>  -->
+
+<!--   group_by(month) |>  -->
+
+<!--   summarize(mean = mean(temp, na.rm = TRUE),  -->
+
+<!--             std_dev = sd(temp, na.rm = TRUE)) -->
+
+<!-- ``` -->
+
+<!-- While`group_by` doesn't change the data frame, it sets *meta-data* (data about the data), specifically the group structure of the data. If we wanted to remove this group structure meta-data, we could add the `.groups = "drop"` option. -->
+
+<!-- ```{r} -->
+
+<!-- #| eval: false -->
+
+<!-- #| code-fold: show -->
+
+<!-- summary_monthly_temp <- weather |>  -->
+
+<!--   group_by(month) |>  -->
+
+<!--   summarize(mean = mean(temp, na.rm = TRUE),  -->
+
+<!--             std_dev = sd(temp, na.rm = TRUE), -->
+
+<!--             .groups = "drop") -->
+
+<!-- ``` -->
+
+<!-- The advantage of using the `.by` argument is that the grouping occurs within the `summarise` function and thus the resulting data frame is no longer grouped. -->
+
+<!-- ::: -->
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+The `drop_na()` function can be used in the pipeline to remove missing observations from a data set. Try running the following code to compute the mean and standard deviation of the temperature in the `weather` data set and comment on the output. Why is this different from one one we had before?
+
+```{r}
+#| eval: false
+#| code-fold: false
+#| purl: false
+summary_monthly_temp <- weather %>%
+  drop_na() %>%
+  summarize(mean = mean(temp),
+            std_dev = sd(temp),
+            .by = month)
+```
+
+`r hide("Answer")`
+
+The `drop_na()` function remove all missing observation from the data set while specifying `na.rm =T` in each summarizing function only removes the missing values for the specific variable to which the function is applied.
+
+`r unhide()`
+:::
+
+We now revisit the `n` counting summary function (see the **R programming course** for more details). For example, suppose we would like to get a sense for how many flights departed from each of the three airports in New York City:
+
+```{r}
+#| code-fold: show
+#| eval: false
+#| label: "Summarise counts"
+by_origin <- flights %>%
+  summarize(count = n(),
+            .by =origin)
+by_origin
+```
+
+```{r, echo=FALSE}
+#| purl: false
+by_origin <- flights %>%
+  group_by(origin) %>%
+  summarize(count = n())
+kable(by_origin, booktabs = TRUE)  %>%
+    kable_styling(font_size = 9, latex_options = "hold_position")
+```
+
+We see that Newark (`EWR`) had the most flights departing in 2013 followed by `JFK` and lastly by LaGuardia (`LGA`). Note, there is a subtle but important difference between `sum` and `n`. While `sum` simply adds up a large set of numbers, the latter counts the number of times each of many different values occur.
+
+::: {.callout-warning icon="false"}
+## Task
+
+With the `weather` data set, write code to produce the mean and standard deviation temperature for each day in 2013 for NYC.
+
+`r hide("Take a hint")`
+
+See the documentation for `summarize()` (`?summarize`)
+
+`r unhide()`
+
+```{r}
+#| code-fold: show
+#| webex.hide: "Click here to see the solution"
+#| purl: false
+
+ weather %>%
+  summarize(mean = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE),
+            .by = day)
+
+```
+:::
+
+## Grouping by more than one variable
+
+You are not limited to grouping by one variable. Say you wanted to know the number of flights leaving each of the three New York City airports *for each month*, we can also group by a second variable `month`:
+
+```{r}
+#| code-fold: show
+#| label: "Summarise by multiple groups"
+by_origin_monthly <- flights %>%
+  summarize(count = n(),
+            .by = c(origin, month))
+by_origin_monthly
+```
+
+We see there are 36 rows for `by_origin_monthly` because there are 12 months times 3 airports (`EWR`, `JFK`, and `LGA`). How can we visualize this information? Lets look now into different techniques for manipulation and visualizing categorical data.
+
+# Working with categorical data
+
+## Visualizing categorical data
+
+Recall that barplots, or barcharts, are used to visualise the distributions of categorical variables. This essentially provides us with the frequencies of categories within a categorical variable. You can use either the raw data (e.g. the original `flights` data set) or the summarised data set (e.g. the `by_origin_monthly` data set we just created) to create barplots in `ggplot.`
+
+::: panel-tabset
+# Raw data and geom_bar()
+
+Here we can use a data set with variable(s) representing the categories. We can add a `geom_bar()` layer to create a barplot layer by counting the number of cases for each level of a categorical variable and use the `fill=origin` option to assign a different color to the counts based on the origin.
+
+```{r}
+#| fig-width: 5
+#| fig-align: center
+#| fig-height: 4
+#| code-fold: false
+#| label: "Barplot for unaggregated count data"
+flights %>%
+  ggplot(aes(x=factor(month),fill=origin))+
+  geom_bar()+
+  scale_x_discrete(labels = month.abb) +
+  labs(x= "Months",y="Number of flights")
+```
+
+Note that the month variable in our data set is an integer. Thus, we convert this into a factor using the `factor()` function directly in the aesthetic mapping. Then we provide appropriate labels for each month (`labels = month.abb)` by adding one more `scale_x_discrete`layer.
+
+# Summarized data set and geom_col()
+
+Here we can use a data set with variables representing the categories and the counts of each category (e.g. the `by_origin_monthly` data set we just created). To produce the bar plot we add a `geom_col()` layer which expects a data set that already contains the counts for each group. We use the `fill=origin` option to assign a different color to the counts based on the origin.
+
+```{r}
+#| fig-width: 5
+#| fig-align: center
+#| fig-height: 4
+#| code-fold: false
+#| label: "Barplot for aggregated count data"
+
+by_origin_monthly %>%
+ggplot(aes(x = factor(month), y = count, fill= origin )) +
+  geom_col() +
+  scale_x_discrete(labels = month.abb)+
+    labs(x= "Months",y="Number of flights")
+```
+
+Note that the month variable in our data set is an integer. Thus, we convert this into a factor using the `factor()` function directly in the aesthetic mapping. Then we provide appropriate labels for each month (`labels = month.abb)` by adding one more `scale_x_discrete`layer.
+:::
+
+This is what is referred to as a *Stacked barplot* since the bars for each `origin` are simply stacked on top of one another for each of the carriers. This provides us with a visually nice barplot to present the monthly number of flights by airport of origin. However, there are also alternative barplots to the stacked barplot.
+
+-   One alternative to a stacked barplot is the **side-by-side** (or **dodged**) **barplot**, which, as suggested by its name, places the bars next to each other instead of on top of one another. This can be produced by including `position = 'dodge'` within the `geom_col` or `geom_bar` layer.
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+How would you modify the code above to produced a *dodged* barplot? `r hide("Answer")`
+
+Depending on the structure of your data you could change the column/bar layer to `geom_col(position = "dodge")` or `geom_bar(position = "dodge")` respectively.
+
+`r unhide()`
+:::
+
+-   A second alternative is to use a **faceted barplot**. This can be produced by adding a `facet_wrap()` layer to ggplot. E.g. try adding `facet_wrap(~ origin, ncol = 1)` to any of the previous barplots you have produced. The `facet_wrap` function tells ggplot that we want to separate out barplots by `origin`, and hence we use `~ origin`.
+
+::: {.callout-warning icon="false"}
+## Task
+
+Boxplots are useful visualisations when comparing the distribution of a numerical variable split across groups (or a categorical variable). Taking the `weather` data set, use ggplot to create a boxplot showing how the hourly temperature changes by month for each of the three different Weather stations (`origin` variable). Use a different color for each station.
+
+`r hide("Take a hint")`
+
+To create boxplots using ggplot you can use the `geom_boxplot` function. If we want to look at boxplots of a variable separately for a categorical variable then you need to declare that variable as a factor using the `factor` function.
+
+`r unhide()`
+
+```{r}
+#| code-fold: show
+#| webex.hide: "Click here to see the solution"
+#| warning: false
+#| purl: false
+
+ggplot(data = weather, mapping = aes(x = factor(month), y = temp, fill = origin)) +
+  geom_boxplot() +
+  facet_wrap(~origin)+
+  labs(x = "Month", y = "Temperature (Hourly)",
+        title = "Hourly temperatures from NYC in 2013 by month")  +
+   scale_x_discrete(labels = month.abb)
+
+```
+:::
+
+::: {.callout-warning icon="false"}
+## Task
+
+By using the `summarise()` function, how could we identify how many flights left each of the three airports for each `carrier`? Can you create a barplot showing these results?
+
+`r hide("Take a hint")`
+
+You can count how many flights left each of the three airports by summarising the data using the `n()` function while grouping by the origin and carrier. Then, you can pass the resulting data frame to `ggplot` using the pipeline command `%>%` and use a `geom_col` layer as in the previous example.
+
+`r unhide()`
+
+```{r}
+#| code-fold: show
+#| webex.hide: "Click here to see the solution"
+#| purl: false
+
+flights %>%
+  summarise(count = n(),
+            .by = c(origin,carrier)) %>%
+  ggplot(aes(x = carrier, y = count, fill = origin)) + geom_col()
+
+```
+:::
+
+## Vectorised if-else thru `case_when`
+
+In many situations, we may want to represent continuous variables as discrete categories (e.g., grouping temperatures into "cold," "warm," and "hot" ranges). The `case_when` function provides an efficient way to handle multiple if-else statements by vectorizing them, allowing us to evaluate conditions and assign categories more cleanly and concisely. In this session, we will use `case_when` to categorize weather conditions based on meteorological data from the `weather` dataset. Let suppose that we want to categorize the temperature variable into three categories:
+
+-   **low** for temperatures $<39.9$
+
+-   **medium** for temperature values $\geq 39.9$ and $\leq 70$
+
+-   **high** for temperature values $> 70$
+
+We can achieve this with the following code:
+
+```{r}
+#| code-fold: show
+#| eval: false
+#| label: "if else case when statements"
+weather %>%
+  mutate(
+    temp_cat = case_when(
+      is.na(temp) ~ NA,
+      temp < 39.9 ~ "low",
+      between(temp,39.9 ,70)~ "medium",
+      .default = "large"
+    )
+  ) %>%
+  relocate(temp,temp_cat)
+
+```
+
+```{r}
+#| echo: false
+#| purl: false
+weather %>%
+  mutate(
+    temp_cat = case_when(
+      is.na(temp) ~ NA,
+      temp < 39.9 ~ "low",
+      between(temp,39.9 ,70)~ "medium",
+      .default = "large"
+    )
+  ) %>%
+  relocate(temp,temp_cat) %>% slice(1:5) %>% kable()
+```
+
+Here we use the `mutate` command to create new variable named `temp_cat`. The `case_when` will then set to `NA` those values in the original `temp` variable that are missing. Then if the values of `temp` are $< 30.9$ it will assign them the label of `low`. If they lie between $39.9$ and $70$ it will assign them the label of `medium` and finally set to `large` any of the values that do not meet any of the aforementioned conditions. We can also use the function `relocate` to change the columns position so that the `temp` and `temp_cat` appears first on the data frame.
+
+::: {.callout-warning icon="false"}
+## Task
+
+Create a new variable called `extreme_weather` that takes the value of `extreme` if the wind speed exceeds 64 mph and the temperature is less than 40°F and `not extreme` otherwise. Then, relocate this new variable along with the variables used to create it at the first columns of the data frame, and sort them out based on `wind_speed`.
+
+`r hide("Take a hint")`
+
+Use the conditional operators `|` and `&` to add multiple conditions.
+
+`r unhide()`
+
+```{r}
+#| code-fold: show
+#| webex.hide: "Click here to see the solution"
+#| purl: false
+weather %>%
+  mutate(
+    extreme_weather  = case_when(
+      is.na(temp)|is.na(wind_speed) ~ NA,
+      temp < 40 & wind_speed  > 64~ "extreme",
+      .default = "not extreme"
+    )
+  ) %>%
+  relocate(extreme_weather,temp,wind_speed) |>
+  arrange(desc(wind_speed))
+```
+:::
+
+# Joining data frames {#joins}
+
+Another common task is joining (merging) two different data sets. For example, in the `flights` data, the variable `carrier` lists the carrier code for the different flights. While `UA` and `AA` might be somewhat easy to guess for some (United and American Airlines), what are VX, HA, and B6? This information is provided in a separate data frame `airlines`.
+
+```{r}
+#| eval: false
+#| code-fold: false
+#| label: "Airlines data set"
+airlines
+```
+
+```{r}
+#| echo: false
+#| purl: false
+airlines %>% slice(1:5) %>% kable()
+
+```
+
+We see that in `airports`, `carrier` is the carrier code while `name` is the full name of the airline. Using this table, we can map the carrier in the `flights` data set to its corresponding full name stored in the `airlines` data. However, will we have to continually look up the carrier's name for each flight in the `airlines` data set?
+
+No! Instead of having to do this manually, we can have R automatically do the "looking up" for us.
+
+Note that the values in the variable `carrier` in `flights` match the values in the variable `carrier` in `airlines`. In this case, we can use the variable `carrier` as a *key variable* to join/merge/match the two data frames by. Key variables are almost always identification variables that uniquely identify the observational units. This ensures that rows in both data frames are appropriately matched during the join. This diagram helps us understand how the different data sets are linked by various key variables:
+
+```{r reldiagram, echo=FALSE, fig.cap="Data relationships in nycflights13 from R for Data Science, Hadley and Garrett (2016).", purl=FALSE}
+knitr::include_graphics("relational-nycflights.png")
+```
+
+## Joining by "key" variables
+
+In both `flights` and `airlines`, the key variable we want to join/merge/match the two data frames with has the same name in both data sets: `carriers`. We make use of the `inner_join` function to join by the variable `carrier`.
+
+```{r}
+#| code-fold: show 
+#| label: "Join data frame by a common key with same names"
+flights_joined <- flights %>%
+  inner_join(airlines,
+             by = join_by(carrier))
+```
+
+If we compare the `flights` and the `flights_joined` we just created, we will observe that these are identical except that `flights_joined` has an additional variable `name` whose values were drawn from `airlines`.
+
+A visual representation of the `inner_join` is given below:
+
+```{r ijdiagram, echo=FALSE, fig.cap="Diagram of inner join from R for Data Science.", purl=FALSE}
+knitr::include_graphics("join-inner.png")
+```
+
+There are more complex joins available, but the `inner_join` will solve nearly all of the problems you will face here.
+
+## Joining by "key" variables with different names
+
+Say instead, you are interested in all the destinations of flights from NYC in 2013 and ask yourself:
+
+-   "What cities are these airports in?"
+-   "Is `ORD` Orlando?"
+-   "Where is `FLL`?"
+
+The `airports` data frame contains airport codes:
+
+```{r}
+#| eval: false
+#| code-fold: false
+#| label: "Airports data set"
+airports
+```
+
+```{r}
+#| echo: false
+#| purl: false
+airports %>% slice(1:5) %>% kable()
+
+```
+
+However, looking at both the `airports` and `flights` and the visual representation of the relations between the data frames in the figure above, we see that in:
+
+-   `airports` the airport code is in the variable `faa`
+-   `flights` the airport code is in the variable `origin`
+
+So to join these two data sets, our `inner_join` operation involves a logical operator `==` argument that accounts for the different names.
+
+```{r}
+#| code-fold: show
+#| eval: false
+#| label: "Join data frame by a common key with different names"
+
+flights %>%
+  inner_join(airports,
+             by = join_by(dest == faa))
+```
+
+We can read the code out loud as:
+
+"*Take the flights data frame and inner join it to the airports data frame by the entries where the variable* `dest` *is equal to* `faa`"
+
+Let's construct the sequence of commands that computes the number of flights from NYC to each destination, but also includes information about each destination airport:
+
+```{r}
+#| code-fold: show
+#| eval: false
+#| label: "Large pipeline command"
+named_dests <- flights %>%
+  summarize(num_flights = n(),
+            .by = dest)  %>%
+  arrange(desc(num_flights))  %>%
+  inner_join(airports, by = join_by(dest == faa)) %>%
+  rename(airport_name = name)
+named_dests
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| purl: false
+
+named_dests <- flights %>%
+  summarize(num_flights = n(),
+            .by = dest)  %>%
+  arrange(desc(num_flights))  %>%
+  inner_join(airports, by = join_by(dest == faa)) %>%
+  rename(airport_name = name)
+named_dests %>% slice(1:5)
+```
+
+In case you didn't know, `ORD` is the airport code of Chicago O'Hare airport and `FLL` is the main airport in Fort Lauderdale, Florida, which we can now see in our `named_dests` data frame.
+
+## Joining by multiple "key" variables
+
+Say instead we are in a situation where we need to join by multiple variables. For example, in the first figure in this section we see that in order to join the `flights` and `weather` data frames, we need more than one key variable: `year`, `month`, `day`, `hour`, and `origin`. This is because the combination of these 5 variables act to uniquely identify each observational unit in the `weather` data frame: hourly weather recordings at each of the 3 NYC airports.
+
+We achieve this by specifying a vector of key variables to join by.
+
+```{r}
+#| code-fold: show
+#| label: "Join data sets with multiple keys"
+flights_weather_joined <- flights  %>%
+  inner_join(weather,
+             by = join_by(year,month,day,hour,origin))
+
+flights_weather_joined
+```
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+Looking at the first figure in this section, when joining `flights` and `weather` (or, in other words, matching the hourly weather values with each flight), why do we need to join by all of `year`, `month`, `day`, `hour`, and `origin`, and not just `hour`?
+
+`r hide("Answer")`
+
+`year`,`month`,`day`,`hour`,`origin` are the key variables that allow us to uniquely identify the observational units.
+
+`r unhide()`
+:::
+
+::: {.callout-warning icon="false"}
+## Task
+
+Create a new data frame that shows the top 5 airports with the largest average arrival delays from NYC in 2013.
+
+`r hide("Take a hint")`
+
+Compute the mean arrival delay from each destination. You can then join the resulting data set with the `airports` data which contains the airports names and search for the top 5 entries.
+
+`r unhide()`
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| eval: false
+#| code-fold: show
+#| purl: false
+
+
+  flights %>%
+  summarize(mean_arr_delay = mean(arr_delay,na.rm=T),
+            .by = dest)  %>%
+  inner_join(airports, by = join_by(dest == faa)) %>%
+  rename(airport_name = name) |>
+    slice_max(mean_arr_delay,n=5)
+
+```
+:::
+
+# The end? {.unnumbered}
+
+Congratulations! You have reached the end of today's session. But wait, there's still more! To further enhance your skills in Data analysis, check out the additional material provided on handling date-time data. This will help you learn how to manage and manipulate date-time variables within the framework of tidy data, enabling you to perform more precise and effective analyses.

@@ -1,0 +1,441 @@
+---
+title: "Data analysis"
+subtitle: "Visualising and data tidying using R"
+title-slide-attributes: 
+  data-background-image: logo2.png
+  data-background-size: 20%
+  data-background-position: 2% 2%
+format: 
+  revealjs:
+    embed-resources: true
+    theme: night
+    smaller: true
+editor: visual
+execute: 
+  echo: true
+include-in-header: 
+  text: |
+    <style>
+      .custom-small table {
+        font-size: .8em
+      }
+      .custom-tiny table {
+        font-size: .6em
+      }
+    </style>
+editor_options: 
+  chunk_output_type: console
+---
+
+## The Course Structure {.smaller}
+
+::: custom-small
+| Week | Topic                                  | Assessment                       | Weights (%) |
+|------------------|-------------------|------------------|:----------------:|
+| 1    | Visualising and data tidying using `R` |                                  |             |
+| 2    | Introduction to Quarto                 |                                  |             |
+| 3    | Regression Modelling                   |                                  |             |
+| 4    | Model assessment                       | *Moodle Quiz 1 online*           |     15      |
+| 5    | Class test 🖥️                          | *Class test - in person*         |     25      |
+| 6    | Generalised linear Models part 1       |                                  |             |
+| 7    | Generalised linear Models part 2       | *Peer review (submission phase)* |     20      |
+| 8    | Introduction to version control        | *Moodle Quiz 2 online*           |     15      |
+| 9    | Collaborative coding                   | *Peer review (evaluation phase)* |             |
+| 10   | Drop-in session (Group projects)       |                                  |             |
+| 11   |                                        | *Group projects*                 |     25      |
+:::
+
+## Assessment calendar {.smaller}
+
+Please refer to Moodle for the detailed assessment calendar
+
+::: custom-tiny
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
+
+# Assessment calendar
+library(tidyr)
+library(lubridate)
+library(knitr)
+start_date <- lubridate::ymd("2026-01-12")
+
+
+
+## Define the vectorized function that takes week numbers, days, start date, and a logical flag for time
+get_course_dates <- function(week_numbers, days, start_date, include_time = FALSE) {
+  # Ensure the start date is in Date format
+  start_date <- ymd(start_date)
+  
+  # Convert the day input to lowercase for easier comparison
+  days <- tolower(days)
+  
+  # List of days of the week, starting from Monday
+  days_of_week <- c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+  
+  # Define an inner function to calculate the date for a single week number and day
+  single_course_date <- function(week_number, day) {
+    # Find the index of the day in the week (Monday is 1, Sunday is 7)
+    day_index <- match(day, days_of_week)
+    
+    # If the day is invalid, return NA
+    if (is.na(day_index)) {
+      stop("Invalid day entered. Please enter a valid day of the week.")
+    }
+    
+    # Calculate the start of the week (week_number - 1 to account for 0-indexing)
+    week_start_date <- start_date + weeks(week_number - 1)
+    
+    # Calculate the date for the given day in that week
+    course_date <- week_start_date + days(day_index - 1)
+    
+    # Format the result as "Mon DD" (e.g., "Jan 12")
+    formatted_date <- format(course_date, "%b %d")
+    
+    # Build the output string: "Week X (date) 11:00 am BST" if include_time is TRUE, else "Week X (date)"
+    if (include_time) {
+      result <- paste0("Week ", week_number, " (", formatted_date, ") 11:00 am BST")
+    } else {
+      result <- paste0("Week ", week_number, " (", formatted_date, ")")
+    }
+    
+    return(result)
+  }
+  
+  # Use mapply to apply the single_course_date function over vectors of week_numbers and days
+  result_vector <- mapply(single_course_date, week_number = week_numbers, day = days, SIMPLIFY = TRUE)
+  
+  return(result_vector)
+}
+
+# Assessments:
+
+type = c("Moodle Quiz 1",
+         "Class test",
+         "Peer assessment",
+         "Moodle Quiz 2",
+         "Groups project")
+
+# release weeks
+week_numbers_r <- c(3,5,2,8,6)
+# Due week 
+week_numbers_due <- c(4,5,7,8,9,11)
+
+# release days (all Friday)
+days <- rep("Friday",length(week_numbers_r))
+
+
+
+release =  get_course_dates(week_numbers = week_numbers_r, days = days, start_date = start_date, include_time = F)
+
+# topics covered on each assessment
+topics = c("Weeks: 1-3", 
+           "Weeks: 1-4",
+           "Information during Week 2",
+           "Weeks:6-7",
+           "Weeks: 1-10")
+
+# weights of each assessment
+
+w = c(15,25,20,15,25)
+
+
+due_date = get_course_dates(week_numbers = week_numbers_due,
+                            days = rep("Friday",6),
+                            start_date = start_date,
+                            include_time = T)
+
+combined_due_date <- c(due_date[1], 
+                       due_date[2],
+                       paste(due_date[3],"(End of Submission Stage) <br>", due_date[5],"(End of Evaluation Stage)"), 
+                       due_date[4], 
+                       due_date[6]) 
+
+# Create a data frame for the HTML table
+table_data <- data.frame(
+  Release_week = release,
+  Topics = topics,
+  Type_of_assessment = type,
+  Weights = w,
+  Due_Date = combined_due_date
+)
+
+# Generate the HTML table
+html_table <- kable(table_data, format = "html", table.attr = "class='table'", escape = FALSE)
+
+html_table
+
+```
+:::
+
+## Lab structure {.smaller}
+
+### **How to Approach Each Lab**
+
+1.  **Overview**
+    -   Brief introduction/ recap at the beginning of each lab
+    -   Understand what concepts and tools you'll practice
+2.  **Work Through Exercises** - Work on your own pace through the self-contained notes - Attempt all the tasks (Focus on understanding, not just finishing)
+3.  **Check Against Solutions**
+    -   Compare your approach to the provided solutions
+    -   Don't just copy - try to understand *why* it works
+4.  **Ask for Help** 🙋‍♂️ - If you're stuck more than \~5 minutes, ask for help
+
+# Week 1: Visualising and data tidying using R
+
+## Overview {.smaller}
+
+We'll revisit key concepts from your previous **R programming** course and build on them with more advanced methods for data manipulation and plotting.
+
+**ILO's for today:**
+
+::: incremental
+-   Use tools from the `tidyverse` and `ggplot2` packages to manipulate and visualise data in R, including categorical variables.
+-   Understand the concept of tidy data and apply `tidyverse` tools to structure datasets and join datasets accordingly.
+-   Perform data wrangling tasks using tidyverse functions to prepare data for analysis and visualisation.
+:::
+
+## Load libraries & data {.smaller}
+
+We shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:
+
+```{r}
+#| message: false
+#| warning: false
+
+library(ggplot2)
+library(tidyverse)
+library(nycflights13)
+library(fivethirtyeight)
+
+```
+
+::: incremental
+1.  The first library `ggplot2` allows us to use functions within that package in order to create nicer data visualisations.
+2.  The second library `tidyverse` is a collection of package for data manipulation.
+3.  The final two libraries (`nycflights13` and `fivethirtyeight`) contain interesting data sets that we shall examine in this session.
+:::
+
+## Tidy Data {.smaller auto-animate="true"}
+
+Tidy data is about structuring your data so that:
+
+1.  Each variable has its own column
+
+2.  Each observation has its own row
+
+3.  Each type of observation forms a table.
+
+![](tidy-1.png)
+
+## Tidy Data {.smaller}
+
+Tidy data is about structuring your data so that:
+
+1.  Each variable has its own column
+
+2.  Each observation has its own row
+
+3.  Each type of observation forms a table.
+
+You will learn how to convert your data to **tidy data format**
+
+![](pivot.png){fig-align="center" width="565"}
+
+## Data Visualization using `ggplot`
+
+Use `ggplot` to produce scatter plots, boxplots, histograms, barplots, line plots, etc.
+
+```{r}
+#| code-line-numbers: "1"
+#| eval: false
+
+ggplot(data , # <1>
+       mapping = aes(x , y )) + # <2>
+  geom_point() + # <3>
+  labs(x , y , title )   # <4>
+```
+
+1.  Start by specifying the **tidy data** you're plotting from
+
+## Data Visualization using `ggplot`
+
+Use `ggplot` to produce scatter plots, boxplots, histograms, barplots,line plots, etc.
+
+```{r}
+#| code-line-numbers: "2"
+#| eval: false
+ggplot(data , # <1>
+       mapping = aes(x , y )) + # <2>
+  geom_point() + 
+  labs(x , y , 
+       title ) 
+```
+
+1.  [Start by specifying the **tidy data** you're plotting from]{style="opacity: 0.25;"}
+2.  Use the **aesthetic mapping** to define which variables go on the axes, colors, size, etc
+
+## Data Visualization using `ggplot`
+
+Use `ggplot` to produce scatter plots, boxplots, histograms, barplots,line plots, etc.
+
+```{r}
+#| code-line-numbers: "3"
+#| eval: false
+ggplot(data , # <1>
+       mapping = aes(x , y )) + # <2>
+  geom_point() + # <3>
+  labs(x , y , 
+       title ) 
+```
+
+1.  [Start by specifying the **tidy data** you're plotting from]{style="opacity: 0.25;"}
+2.  [Use the **aesthetic mapping** to define which variables go on the axes, colors, size, etc]{style="opacity: 0.25;"}
+3.  Add a **geom layer** (e.g., `geom_point()`, `geom_bar()`, `geom_line()`)
+
+## Data Visualization using `ggplot`
+
+Use `ggplot` to produce scatter plots, boxplots, histograms, barplots,line plots, etc.
+
+```{r}
+#| code-line-numbers: "4"
+#| eval: false
+ggplot(data , # <1>
+       mapping = aes(x , y )) + # <2>
+  geom_point() + # <3>
+  labs(x , y , title )   # <4>
+```
+
+1.  [Start by specifying the **tidy data** you're plotting from]{style="opacity: 0.25;"}
+2.  [Use the **aesthetic mapping** to define which variables go on the axes, colors, size, etc]{style="opacity: 0.25;"}
+3.  [Add a **geom layer** (e.g., `geom_point()`, `geom_bar()`, \`geom_line()]{style="opacity: 0.25;"}
+4.  Add **labels** for axes or a title to make your plot more readable.
+
+## Data wrangling {.smaller auto-animate="true"}
+
+Use tools from the `dplyr` package (included in `tidyverse`) to perform data **wrangling** which includes transforming, mapping and summarising variables using the pipeline command `%>%`
+
+![](piepeline.png){fig-align="center" width="345"}
+
+## Data wrangling {.smaller auto-animate="true"}
+
+![](piepeline.png){fig-align="center" width="367"}
+
+::: {.fragment .fade-in-then-out fragment-index="1"}
+**Select Columns**
+
+```{r}
+#| eval: false
+
+data %>% select(c(column_1,column_3,column_6))
+
+```
+
+![](select.png){fig-align="center" width="580" height="145"}
+:::
+
+## Data wrangling {.smaller auto-animate="true"}
+
+![](piepeline.png){fig-align="center" width="367"}
+
+::: {.fragment .fade-in-then-out fragment-index="1"}
+**Filter observations**
+
+```{r}
+#| eval: false
+
+data %>% filter(year > 2025 & month %in% c("Jan","Feb","Mar")) 
+
+```
+
+![](filter.png){fig-align="center" width="580" height="145"}
+:::
+
+## Data wrangling {.smaller auto-animate="true"}
+
+![](piepeline.png){fig-align="center" width="367"}
+
+::: {.fragment .fade-in-then-out fragment-index="1"}
+**Create/modify variables**
+
+```{r}
+#| eval: false
+
+data %>% mutate(new_variable = existing_var + 1) 
+
+```
+
+![](mutate.png){fig-align="center" width="580" height="145"}
+:::
+
+## Data wrangling {.smaller auto-animate="true"}
+
+![](piepeline.png){fig-align="center" width="367"}
+
+::: {.fragment .fade-in-then-out fragment-index="1"}
+**Summarise variables**
+
+```{r}
+#| eval: false
+
+data %>% summarise(mean_x = mean(x, na.rm=T)) 
+
+```
+
+![](summary.png){fig-align="center" width="580" height="145"}
+:::
+
+## Data wrangling {.smaller auto-animate="true"}
+
+![](piepeline.png){fig-align="center" width="367"}
+
+::: {.fragment .fade-in-then-out fragment-index="1"}
+**Grouping structure**
+
+```{r}
+#| eval: false
+
+data %>% summarise(mean_x = mean(x, na.rm=T), .by = group) 
+
+```
+
+![](group_summary.png){fig-align="center" width="580" height="145"}
+:::
+
+## Data wrangling {.smaller auto-animate="true"}
+
+![](piepeline.png){fig-align="center" width="367"}
+
+::: {.fragment .fade-in-then-out fragment-index="1"}
+**Joining data frames**
+
+```{r}
+#| eval: false
+
+data_1 %>%
+  inner_join(data_2,
+             by = join_by(key_var))
+
+```
+
+![](join-inner.png){fig-align="center" width="488"}
+:::
+
+## A last thing... {.smaller auto-animate="true"}
+
+::: callout-note
+To further enhance your skills in Data analysis, check out the additional material provided on handling date-time data.
+:::
+
+::: incremental
+-   🕒 **Work at your own pace or in groups** --- the notes and exercises are designed for flexible, self-guided learning.
+
+-   💬 **Ask for help** whenever you need it --- we're here to support you.
+
+-   🧠 Focus on **understanding** the concepts, not just completing tasks.
+
+-   🏠 Didn't finish? **No problem!** You're encouraged to take the exercises home and revisit them later.
+:::
