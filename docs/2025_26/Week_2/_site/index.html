@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Week_4 - Week 4: Introduction to Quarto</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/bootstrap-icons-1.9.1/all.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="include/webex.css">
+</head>
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Week_4</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">Week 4 Tasks</span></a>
+  </li>  
+</ul>
+<div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+   
+  <ul>
+<li>
+<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+<li><a href="#creating-a-new-quarto-document-from-scratch" id="toc-creating-a-new-quarto-document-from-scratch" class="nav-link" data-scroll-target="#creating-a-new-quarto-document-from-scratch"><span class="header-section-number">1.1</span> Creating a new Quarto document from scratch</a></li>
+  </ul>
+</li>
+  <li><a href="#title" id="toc-title" class="nav-link" data-scroll-target="#title"><span class="header-section-number">2</span> Title</a></li>
+  <li><a href="#sections" id="toc-sections" class="nav-link" data-scroll-target="#sections"><span class="header-section-number">3</span> Sections</a></li>
+  <li>
+<a href="#embedding-r-code" id="toc-embedding-r-code" class="nav-link" data-scroll-target="#embedding-r-code"><span class="header-section-number">4</span> Embedding R code</a>
+  <ul class="collapse">
+<li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="header-section-number">4.1</span> Code chunks</a></li>
+  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code"><span class="header-section-number">4.2</span> Inline code</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables"><span class="header-section-number">5</span> Tables</a>
+  <ul class="collapse">
+<li><a href="#tables-by-hand" id="toc-tables-by-hand" class="nav-link" data-scroll-target="#tables-by-hand"><span class="header-section-number">5.1</span> Tables ‘by hand’</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures"><span class="header-section-number">6</span> Figures</a>
+  <ul class="collapse">
+<li><a href="#embedding-external-images" id="toc-embedding-external-images" class="nav-link" data-scroll-target="#embedding-external-images"><span class="header-section-number">6.1</span> Embedding external images</a></li>
+  <li><a href="#embedding-r-generated-figures" id="toc-embedding-r-generated-figures" class="nav-link" data-scroll-target="#embedding-r-generated-figures"><span class="header-section-number">6.2</span> Embedding R generated figures</a></li>
+  </ul>
+</li>
+  <li><a href="#mathematics" id="toc-mathematics" class="nav-link" data-scroll-target="#mathematics"><span class="header-section-number">7</span> Mathematics</a></li>
+  <li><a href="#quarto-presentations" id="toc-quarto-presentations" class="nav-link" data-scroll-target="#quarto-presentations"><span class="header-section-number">8</span> Quarto Presentations</a></li>
+  <li><a href="#rendering" id="toc-rendering" class="nav-link" data-scroll-target="#rendering"><span class="header-section-number">9</span> Rendering</a></li>
+  </ul><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Week 4: Introduction to Quarto</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="introduction" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Introduction</h1>
+<p>This week we will take what we have learned in previous weeks and produce a report using Quarto . Quarto is a multi-language system that allows reports and presentation to be created within R, thus allowing for R code and output to be easily embedded within a report, a presentation or even a Blog!. Hence, all of the R code and plots obtained from an analysis are contained within a single file.</p>
+<p>Under Week 5 on Moodle there is an Example Report produced using Quarto relating to fitting a regression model using one numerical explanatory variable that was done in Week 4. The corresponding Quarto <code>.qmd</code> file can also be downloaded and opened in R to see how the document was produced (press the <code>Render</code> button to create the HTML/PDF version). It is advised to have this document open within RStudio while working through the remaining sections in order to see examples put into practice.</p>
+<p>The following sections will take you through the different steps required to produce the Example Report on Moodle. For creating a new Quarto file from scratch see Section 1.1, otherwise move onto Section 2.</p>
+<section id="creating-a-new-quarto-document-from-scratch" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="creating-a-new-quarto-document-from-scratch">
+<span class="header-section-number">1.1</span> Creating a new Quarto document from scratch</h2>
+<p>If you want to create a new R Markdown document from scratch within RStudio you can go to:</p>
+<p><code>File -&gt; New File -&gt; Quarto  Document...</code></p>
+<p>This will open the following window within RStudio:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto1.png" class="img-fluid figure-img" width="500"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before creating your first Quarto document, be sure that you have the latest RStudio <a href="https://posit.co/download/rstudio-desktop/">version</a> installed.</p>
+</div>
+</div>
+<p>From here select <strong>Document</strong> and the <strong>Default Output Format</strong> as <strong>PDF</strong> or <strong>HTML</strong>. Give your document a title and select OK. This will open within RStudio an empty <code>.qmd</code> file.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download this <a href="https://quarto.org/docs/get-started/hello/rstudio/_hello.qmd">template</a> containing simple instructions on how to do some basic stuff using Quarto . To see what the HTML/PDF of the template document looks like click on the <img src="images/rstudio-render-button.png" width="16" height="13"><code>Render</code> button at the top of the document window.</p>
+</div>
+</div>
+</section></section><section id="title" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Title</h1>
+<p>The title of the document can be found at the top of the <code>.qmd</code> file within its preamble, which is shown below. When titling your document, ensure the title is within inverted commas.</p>
+<pre><code>---
+title: "Example Report"
+---</code></pre>
+<p>A Quarto document can be edited in the two modes of the RStudio editor: visual (on the left) and source (on the right). The visual mode offers a more friendly interface for editing you document (it includes a toolbar for quick edit options), while the source mode allows you to see and edit the underlying R markdown text code.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto2.png" class="img-fluid figure-img" width="763"></p>
+</figure>
+</div>
+<p>You can switch between these two modes at anytime. Will now cover different aspects of building a Quarto document and provide the instructions on how to do this using either the visual editor or the source mode.</p>
+</section><section id="sections" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Sections</h1>
+<p>Under the <code>source</code> mode, sections within a Quarto document are created using <code>#</code>. For example, <code># Introduction</code> will create a section titled <strong>Introduction</strong>. Alternatively, if you use the <code>visual</code> mode, you can include a new section by selecting a proper heading under the block-format display of the toolbar as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto3.png" class="img-fluid figure-img" width="734"></p>
+</figure>
+</div>
+<p>If you want section to be numbered you can set <code>number_sections: true</code> within the preamble of the document:</p>
+<pre><code>---
+title: "My title"
+number-sections: true
+---</code></pre>
+<p>Each section can be assigned labels so that they can be referred to within the text. To reference a section, add a&nbsp;<code>#sec-</code>&nbsp;identifier to any heading. For example, to give our <strong>Introduction</strong> section a label we simply add the label <code>{#sec-intro}</code> to the section title as follows:</p>
+<pre><code># Introduction {#sec-intro}</code></pre>
+<p>where <code>sec-intro</code> is the name chosen for this particular section. For the <code>visual</code> model you can click on the edit attributes settings <img src="images/threedots.png" class="img-fluid" width="17"> (right hand side of the section heading) and write the label you want on the ID box of the pop-up window:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is a good idea to label your sections appropriately so that it is easy to refer to them later. Note that it is important to add the <code>sec-</code> prefix in order for cross-referencing to work properly.</p>
+</div>
+</div>
+<p>The section can now be referred to within the text of the document using the <code>@</code>sec- command. That is</p>
+<pre><code>Section @sec-intro ...</code></pre>
+<p>will produce</p>
+<pre><code>Section 1 ...</code></pre>
+<p>where the 1 is a clickable hyperlink that will take you to the beginning of that section within the document. If you are using the <code>visual</code> mode, you can easily include cross-references by clicking on <code>Insert▾➠ Cross Reference</code></p>
+<p>Note that for section labels to appear on the references list, you must save your document first (click on <code>File ➠ Save as…</code> and save your document with a proper name). Then all the labels (i.e., labels of sections, figures, equations, etc.) will appear on the Insert Cross Reference pop up window. Then simply click on <code>Insert▾</code> to add the selected reference to your document.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto5.png" class="img-fluid figure-img" width="528"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Subsections can be added to a document in a similar fashion using either <code>##</code> (such that <code>## Subsection {#sec-sub}</code> will create a subsection with the label <code>sec-sub</code> and title <strong>Subsection</strong>) or by clicking on the <code>Block format ➠ Header X</code> menu on the toolbar on the <code>visual</code> mode.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try typing <code>/</code> symbol on your main document while using the visual mode and then use the drop menu to add a new section to your document ( Tip: you can type the letter <code>h</code> to search for the different header types while the drop menu is being displayed).</p>
+</div>
+</div>
+</section><section id="embedding-r-code" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Embedding R code</h1>
+<section id="code-chunks" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="code-chunks">
+<span class="header-section-number">4.1</span> Code chunks</h2>
+<p>Code chunks allow for R code to be embedded within a document. Not only can the code be easily included within a document, the code can also be evaluated. Hence, you can produce an entire report based on an analysis that is contained within a single file instead of having separate files containing your R code, plot images and comments.</p>
+<p>R Code can be evaluated directly on the Quarto document or in the R console (the latter would be similar to run your code from an R script). To select where you want your code to be evaluated click on the setting options <img src="images/settings.png" class="img-fluid" width="19"> (next to the Render button <img src="images/rstudio-render-button.png" class="img-fluid" width="22"> ) and choose between <code>Chunk Output Inline</code> (default) if you want your code to be evaluated within the Quarto document or <code>Chunk Output in Console</code> to evaluate your code directly on the R console. If you select the latter, the following options will be added to the document preamble:</p>
+<pre><code>editor_options: 
+  chunk_output_type: inline</code></pre>
+<p>To add an R Code Chunk you can simply click on the <img src="images/chunk.png" class="img-fluid" width="29"> symbol (or using keyboard shortcut <code>cmd+alt+i</code> or <code>ctrl+alt+i</code> for windows users) on either <code>visual</code> or <code>source</code> modes.</p>
+<p>R code chunks are identified with&nbsp;<code>{r}</code> with multiple (optional) chunk options which we can access by typing <code>#|</code>&nbsp;at the beginning of the line.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto6.png" class="img-fluid figure-img" width="485"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br>
+If you are in the source mode the R chunks will appear as follow:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Some of the most common arguments you will use in your R Chunks are:</p>
+<ul>
+<li>
+<strong>echo</strong>: include the R code within the code chunk in the document (true/false);</li>
+<li>
+<strong>eval</strong>: evaluate the R code within the code chunk (true/false);</li>
+<li>
+<strong>warning</strong>: suppress warnings from R (true/false); and</li>
+<li>
+<strong>message</strong>: suppress messages from R (true/false).</li>
+</ul>
+<p>For example, let’s say we wanted to select the <code>score</code> and <code>bty_avg</code> variables from the <code>evals</code> data set to be used later, we can do that using the following code chunk:</p>
+<pre><code>{r}
+#| echo: false
+library(tidyverse)
+library(moderndive)
+evals.scores &lt;- evals |&gt;
+  select(score, bty_avg)</code></pre>
+<p>Setting <code>echo: false</code> will tell the R to evaluate the code while hiding the R chunk from the main document. In this example, we will store the subsetted data set as the object <code>evals.scores</code> so that it can be used later . If you want to embed the code within the Quarto document then you would simply set <code>echo: true</code>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R chunk options are case sensitive! so <code>echo: TRUE</code> or <code>echo: FALSE</code> won’t work! You can use R Studio autocomplete feature the see the available options by pressing the tab key.</p>
+</div>
+</div>
+<p>Note that by default Quarto will set <code>echo: true</code> . Alternatively, you can edit the Quarto preamble and change the global output options to show or hide all R chunks. You can do this within the <code>execute</code> options as follows (you can manually override this by changing the <code>echo</code> option in each individual chunk) :</p>
+<pre><code>---
+title: "My title"
+number-sections: true
+execute:
+  echo: false
+---</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You need to be very careful with the indentation if you decide to change the global settings of Quarto preamble!</p>
+</div>
+</div>
+<p>Lets look at another example:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>In this case, we set <code>warning</code> and <code>message</code> to <code>false</code> to indicate that we want to suppress any warnings or messages (e.g., the ones that you usually get when loading R packages). Another useful options is <code>eval.</code> If we set <code>eval: false</code> then we indicate that we don’t want the chunk output to be included in the rendered document (this is useful for example if we just want to show our R code without rendering its output):</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>evals.scores,<span class="fu">aes</span>(<span class="at">y=</span>score,<span class="at">x=</span>bty_avg)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that we can still run the code in each individual chunk (even if we set <code>eval: false</code>) by clicking the run chunk bottom<img src="images/run_chunk.png" width="28" height="18">. The code will be evaluated in either your <code>.qmd</code> file or in the console depending on the Chunk output settings (this mean that can test your code in R but its output won;t be rendered in the final dicument).</p>
+</div>
+</div>
+<p>Additional arguments can be passed to code chunks other than those displayed above. The most useful ones other than those relate to figure sizing and positioning and are discussed in the upcoming sections.</p>
+</section><section id="inline-code" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="inline-code">
+<span class="header-section-number">4.2</span> Inline code</h2>
+<p>R code can be included within text by enclosing the code with <code>`r `</code>. This allows for expressions to be evaluated by R and not be hardwired by the user. For example, if you wanted to convey the number of observations within <code>evals.scores</code> then we can enclose <code>nrow(evals.scores)</code> within <code>`r `</code> to obtain the number of observations, rather than hardwiring 463 into the text. This can help to prevent potential human error when presenting information. It can also help with consistency and ease-of-use, since <code>n = nrow(evals.scores)</code> could be stored as an R object and referred to whenever necessary within the text using inline R code.</p>
+</section></section><section id="tables" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> Tables</h1>
+<p>There are several ways to produce tables in Quarto . Here, a couple of different approaches will be presented. The first approach uses the <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code> function from the <code>gt</code> package and essentially puts a wrapper around the tables produced in R in order to make them more visually appealing within the Quarto document. Here we will just cover the basics, but if you want to learn more about creating eye-catching tables with <code>gt</code> visit <a href="https://gt.rstudio.com/articles/intro-creating-gt-tables.html">here</a>.</p>
+<p>Let’s say we wanted to create a table of the first 5 rows of the <code>iris</code> data from the <code>datasets</code> library. We can create the table using the <code>gt</code> function as follows:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/">gt</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">iris</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">slice_head</span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+
+<div id="drsuktaicy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#drsuktaicy table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#drsuktaicy thead, #drsuktaicy tbody, #drsuktaicy tfoot, #drsuktaicy tr, #drsuktaicy td, #drsuktaicy th {
+  border-style: none;
+}
+
+#drsuktaicy p {
+  margin: 0;
+  padding: 0;
+}
+
+#drsuktaicy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#drsuktaicy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#drsuktaicy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#drsuktaicy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#drsuktaicy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#drsuktaicy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#drsuktaicy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#drsuktaicy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#drsuktaicy .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#drsuktaicy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#drsuktaicy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#drsuktaicy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#drsuktaicy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#drsuktaicy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#drsuktaicy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drsuktaicy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#drsuktaicy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#drsuktaicy .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#drsuktaicy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drsuktaicy .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#drsuktaicy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drsuktaicy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#drsuktaicy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drsuktaicy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#drsuktaicy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drsuktaicy .gt_left {
+  text-align: left;
+}
+
+#drsuktaicy .gt_center {
+  text-align: center;
+}
+
+#drsuktaicy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#drsuktaicy .gt_font_normal {
+  font-weight: normal;
+}
+
+#drsuktaicy .gt_font_bold {
+  font-weight: bold;
+}
+
+#drsuktaicy .gt_font_italic {
+  font-style: italic;
+}
+
+#drsuktaicy .gt_super {
+  font-size: 65%;
+}
+
+#drsuktaicy .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#drsuktaicy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#drsuktaicy .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#drsuktaicy .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#drsuktaicy .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#drsuktaicy .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#drsuktaicy .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sepal.Length">Sepal.Length</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sepal.Width">Sepal.Width</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Petal.Length">Petal.Length</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Petal.Width">Petal.Width</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Species">Species</th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">5.1</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.5</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.4</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.2</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">4.9</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.0</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.4</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.2</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">4.7</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.2</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.3</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.2</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">4.6</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.1</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.5</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.2</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">5.0</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.6</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.4</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.2</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Lets customize this table a bit by (1) adding a table caption and number (2) modifying the labels of the columns and (3) create a grouping structure for the petals and sepals width and length columns:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-iris</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: First five entries of the iris Data set</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">fmt_number</span>(<span class="at">decimals=</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">tab_spanner</span>(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Sepals"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Sepal.Length, Sepal.Width)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Petals"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Petal.Length, Petal.Width)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Length =</span> <span class="fu">html</span>(<span class="st">"Length (cm)"</span>),</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Width =</span> <span class="fu">html</span>(<span class="st">"Width (cm)"</span>),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Length =</span> <span class="fu">html</span>(<span class="st">"Length (cm)"</span>),</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Width =</span> <span class="fu">html</span>(<span class="st">"Width (cm)"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="tbl-iris" class="anchored">
+
+<div id="eyytckgwqo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#eyytckgwqo table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#eyytckgwqo thead, #eyytckgwqo tbody, #eyytckgwqo tfoot, #eyytckgwqo tr, #eyytckgwqo td, #eyytckgwqo th {
+  border-style: none;
+}
+
+#eyytckgwqo p {
+  margin: 0;
+  padding: 0;
+}
+
+#eyytckgwqo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#eyytckgwqo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#eyytckgwqo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#eyytckgwqo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#eyytckgwqo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#eyytckgwqo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#eyytckgwqo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#eyytckgwqo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#eyytckgwqo .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#eyytckgwqo .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#eyytckgwqo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#eyytckgwqo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#eyytckgwqo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#eyytckgwqo .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#eyytckgwqo .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eyytckgwqo .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#eyytckgwqo .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#eyytckgwqo .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#eyytckgwqo .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eyytckgwqo .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#eyytckgwqo .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eyytckgwqo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#eyytckgwqo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eyytckgwqo .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eyytckgwqo .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eyytckgwqo .gt_left {
+  text-align: left;
+}
+
+#eyytckgwqo .gt_center {
+  text-align: center;
+}
+
+#eyytckgwqo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#eyytckgwqo .gt_font_normal {
+  font-weight: normal;
+}
+
+#eyytckgwqo .gt_font_bold {
+  font-weight: bold;
+}
+
+#eyytckgwqo .gt_font_italic {
+  font-style: italic;
+}
+
+#eyytckgwqo .gt_super {
+  font-size: 65%;
+}
+
+#eyytckgwqo .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#eyytckgwqo .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#eyytckgwqo .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#eyytckgwqo .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#eyytckgwqo .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#eyytckgwqo .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#eyytckgwqo .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<caption>Table&nbsp;1:  <p>First five entries of the iris Data set</p> </caption>
+  <thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Sepals">
+        <span class="gt_column_spanner">Sepals</span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Petals">
+        <span class="gt_column_spanner">Petals</span>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="Species">Species</th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Length (cm)">Length (cm)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Width (cm)">Width (cm)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Length (cm)">Length (cm)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Width (cm)">Width (cm)</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">5.10</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.50</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.40</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.20</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">4.90</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.00</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.40</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.20</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">4.70</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.20</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.30</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.20</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">4.60</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.10</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.50</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.20</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+<tr>
+<td headers="Sepal.Length" class="gt_row gt_right">5.00</td>
+<td headers="Sepal.Width" class="gt_row gt_right">3.60</td>
+<td headers="Petal.Length" class="gt_row gt_right">1.40</td>
+<td headers="Petal.Width" class="gt_row gt_right">0.20</td>
+<td headers="Species" class="gt_row gt_center">setosa</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p>The first thing we’ve done is to add a table label using <code>label: tbl-planets</code> .This will allow us to add cross-reference in the text (Remember to use the <code>tbl-</code>&nbsp;prefix to make them cross-referenceable). For example we can write <code>@tbl-iris</code> in our document to reference and create an hyperlink directed to the <a href="#tbl-iris">Table&nbsp;1</a> (you can also use the tool bar <code>Insert▾➠ Cross Reference</code> to do this). Then, the option <code>tbl-cap:</code> allow us to add caption to the table. Finally, we set the number of decimals to 2 with the <code>fmt_number</code> function and then we use the <code>tab_spanner</code> and <code>cols_label</code> functions to change some features of our <code>gt</code> table.</p>
+<section id="tables-by-hand" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="tables-by-hand">
+<span class="header-section-number">5.1</span> Tables ‘by hand’</h2>
+<p>Tables can also be produced ‘by hand’ in Quarto . For example, the table above corresponding to the first 5 rows of the <code>iris</code> data can be produced by hand by clicking on the <code>Table</code> option in the toolbar (next to <code>Insert▾</code> while using the <code>visual</code> mode) and selecting the number of rows and columns.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto7.png" class="img-fluid figure-img" width="435"></p>
+</figure>
+</div>
+<p>We can manually fill each entry to produce the following table:</p>
+<table class="table">
+<caption>The fist 5 rows of the iris data.</caption>
+<thead><tr class="header">
+<th style="text-align: center;">Sepal Length</th>
+<th style="text-align: center;">Sepal Width</th>
+<th style="text-align: center;">Petal Length</th>
+<th style="text-align: center;">Petal Width</th>
+<th style="text-align: right;">Species</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">5.1</td>
+<td style="text-align: center;">3.5</td>
+<td style="text-align: center;">1.4</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: right;">setosa</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4.9</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">1.4</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: right;">setosa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4.7</td>
+<td style="text-align: center;">3.2</td>
+<td style="text-align: center;">1.3</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: right;">setosa</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4.6</td>
+<td style="text-align: center;">3.1</td>
+<td style="text-align: center;">1.5</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: right;">setosa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5.0</td>
+<td style="text-align: center;">3.6</td>
+<td style="text-align: center;">1.4</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: right;">setosa</td>
+</tr>
+</tbody>
+</table>
+<p>If you then go to the <code>source</code> mode you will see the raw markdown code that produced this table:</p>
+<pre><code>| Sepal Length | Sepal Width | Petal Length | Petal Width | Species |
+|:------------:|:-----------:|:------------:|:-----------:|--------:|
+|     5.1      |     3.5     |     1.4      |     0.2     |  setosa |
+|     4.9      |     3.0     |     1.4      |     0.2     |  setosa |
+|     4.7      |     3.2     |     1.3      |     0.2     |  setosa |
+|     4.6      |     3.1     |     1.5      |     0.2     |  setosa |
+|     5.0      |     3.6     |     1.4      |     0.2     |  setosa |
+: The fist 5 rows of the iris data. {#tbl-iris}</code></pre>
+<p>In here, the vertical separators <code>|</code> are used between columns, while <code>---</code> is placed below table/column headings. Alignment of the columns is done using colons, that is, for left alignment put <code>:---</code>, for right alignment put <code>---:</code>, and for centred alignment put <code>:---:</code>. For these sorts of tables, you can add a caption below the table and then include a <code>#tbl- label</code> in braces at the end of the caption for cross-referencing.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can read more about authoring Quarto tables <a href="https://quarto.org/docs/authoring/tables.html">here</a>.</p>
+</div>
+</div>
+</section></section><section id="figures" class="level1" data-number="6"><h1 data-number="6">
+<span class="header-section-number">6</span> Figures</h1>
+<section id="embedding-external-images" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="embedding-external-images">
+<span class="header-section-number">6.1</span> Embedding external images</h2>
+<p>Including plots and figures within a Quarto document is straightforward. To include an external figure you can use the <code>visual</code> mode tool bar and click on <code>Insert▾➠ Figure/Image...</code> and then browse to the path where you image is, or alternatively write the <em>url</em> from which the image should be obtained. The pop-up windows allows you also to write a caption and also to modify the image alignment with respect the main text.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto8.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>If you want to add cross-referencing you can add the <code>fig-</code> prefix in the attributes tab of the pop-up windows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto9.png" class="img-fluid figure-img" width="379"></p>
+</figure>
+</div>
+<p>The source code would then look something like:</p>
+<pre><code>![](images/myimage.png){#fig-image1}</code></pre>
+</section><section id="embedding-r-generated-figures" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="embedding-r-generated-figures">
+<span class="header-section-number">6.2</span> Embedding R generated figures</h2>
+<p>Very often we would like to use the R plots generated from your analysis instead of using external figures. To achieve this, the R code for the plot is simply included within a code chunk including additional arguments for plot size and positioning. For example, to include the scatterplot of teaching and beauty:</p>
+<div class="cell" data-layout-align="center">
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-scatterplot1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Relationship between teaching and beauty scores. The best-fitting line has been superimposed.</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 4</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals.scores, <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> score)) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Beauty Score"</span>, <span class="at">y =</span> <span class="st">"Teaching Score"</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-scatterplot1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="index_files/figure-html/fig-scatterplot1-1.png" class="img-fluid figure-img" width="384"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Relationship between teaching and beauty scores. The best-fitting line has been superimposed.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Here, we set the chunk label to include the <code>fig-</code> prefix so we can cross-reference using the @ prefix. For example <code>@fig-scatterplot1</code> will create a hyperlink to <a href="#fig-scatterplot1">Figure&nbsp;1</a>. Then we added a figure caption using the <code>fig-cap</code> option. For size and positioning of the figure we can include:</p>
+<ul>
+<li>
+<code>fig.width</code>: an integer value denoting the width of the figure;</li>
+<li>
+<code>fig.height</code>: an integer value denoting the height of the figure;</li>
+<li>
+<code>fig.align</code>: the alignment of the figure within the body of the document</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="bi-question-octagon " style="color: #6dc83c;" role="img" aria-hidden="true"></i> Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What other argument would you need to include if you wish to show the chunk plot output only?</p>
+<p><select class="webex-select"><option value="blank"></option>
+<option value="">eval: false</option>
+<option value="">echo: true</option>
+<option value="answer">echo: false</option>
+<option value="">eval: true</option></select></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can read more about authoring Quarto tables <a href="https://quarto.org/docs/authoring/figures.html">here</a>.</p>
+</div>
+</div>
+</section></section><section id="mathematics" class="level1" data-number="7"><h1 data-number="7">
+<span class="header-section-number">7</span> Mathematics</h1>
+<p>Mathematics and statistical equations can be presented nicely within a Quarto document. For example, the following equation referring to a linear regression model:</p>
+<p><span class="math display">\[y_i = \alpha + \beta x_i + \epsilon_i, ~~~~ \epsilon_i \sim N(0, \sigma^2),\]</span> is done using the following:</p>
+<p><code>$$ y_i = \alpha + \beta x_i + \epsilon_i, ~~~~~ \``epsilon_i``\sim N(0, \sigma^2), $$</code></p>
+<p>That is, we use:</p>
+<ul>
+<li>
+<code>$$</code> signs to produce mathematics which is centred, and a single <code>$</code> to include mathematics within a sentence or paragraph; in visual mode you can go to <code>Insert ▾  ➠ LaTeX Math ▸</code> and chose between <code>Inlay Math</code> or <code>Display Math</code>.</li>
+<li>
+<code>_</code> and <code>^</code> are used for subscripts and superscripts, respectively;</li>
+<li>Greek letters are obtained using <code>\</code> and the letters name, i.e.&nbsp;<code>\alpha</code> gives <span class="math inline">\(\alpha\)</span>; and</li>
+<li>tildes (<code>~</code>) are used to put spacing between notation.</li>
+</ul>
+<p>If you have a categorical variable then you would write it using an indicator function. For example, if we have gender as a categorical variable, where females are the baseline category, then we could write our model as follows:</p>
+<p><span class="math display">\[y_i = \alpha + \beta_{\mbox{Male}} \cdot \mathbb{I}_{\mbox{Male}}(x),\]</span></p>
+<pre><code>$$y_i = \alpha + \beta_{\mbox{Male}} \cdot \mathbb{I}_{\mbox{Male}}(x),$$</code></pre>
+<p>where <span class="math inline">\(\mathbb{I}_{\mbox{Male}}(x)\)</span> <code>$\mathbb{I}_{\mbox{Male}}(x)$</code> is an indicator function such that</p>
+<p><span class="math display">\[\mathbb{I}_{\mbox{Male}}(x)=\left\{
+                \begin{array}{ll}
+                  1 ~~~ \mbox{if the gender of} ~ x \mbox{th observation is Male},\\
+                  0 ~~~ \mbox{Otherwise}.\\
+                \end{array}
+              \right.\]</span></p>
+<pre><code>    $$\mathbb{I}_{\mbox{Male}}(x)=\left\{
+                \begin{array}{ll}
+                  1 ~~~ \mbox{if Gender of} ~ x \mbox{th observation is Male},\\
+                  0 ~~~ \mbox{Otherwise}.\\
+                \end{array}
+              \right.$$</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For additional tricks inserting mathematics into documents see <a href="https://quarto.org/docs/visual-editor/technical.html">here</a>.</p>
+</div>
+</div>
+</section><section id="quarto-presentations" class="level1" data-number="8"><h1 data-number="8">
+<span class="header-section-number">8</span> Quarto Presentations</h1>
+<p>Another great feature of Quarto is that it allows you to create presentations and supports a variety of formats such as <a href="https://quarto.org/docs/presentations/revealjs/">html</a>, <a href="https://quarto.org/docs/presentations/powerpoint.html">power point</a> and <a href="https://quarto.org/docs/presentations/beamer.html">beamer</a>. Today we will focus on creating an html presentation (which can be also printed as a pdf).</p>
+<p>Creating an html presentation is as easy as setting the output format to <code>revealjs</code>:</p>
+<pre><code>
+
+
+---
+title: "My title"
+author: "Jafet Belmont"
+format: revealjs
+---
+
+
+</code></pre>
+<p>This will create a title slide that includes the provided <code>title</code> and <code>author</code>. (you can remove any of these options if you the author or title page to be removed). Now we will switch to the <code>visual</code> mode. You will notice that a new set of options have now appeared:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto13.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>This new tab will allow us to interact with the different features of our presentation. Lets begin by creating some slides. Slides in Quarto are delineated using level 1 and 2 headings:</p>
+<pre><code>
+
+
+---
+title: "My title"
+author: "Jafet Belmont"
+format: revealjs
+---
+
+
+
+
+# Topic 1
+
+
+## Slide 1.1
+
+
+# Topic 2
+
+
+## Slide 2.1</code></pre>
+<p>In the example above we use level 1 headings for creating a new sections and level 2 heading for defining the new slides. Alternatively we can use horizontal rules to create the slides as follows (on <code>visual</code> mode click on <code>Insert▾ ➠ Horizontal Rule</code>):</p>
+<pre><code>
+
+
+---
+title: "My title"
+author: "Jafet Belmont"
+format: revealjs
+---
+
+
+
+
+  Content of slide 1
+
+---
+
+  Content of slide 2
+
+
+
+
+---</code></pre>
+<p>You can add bullet and numbered lists to each slide as follows (on <code>visual</code> mode click on <img src="images/bullets.png" width="24" height="25"> or <img src="images/numbered.png" width="30" height="25"> for adding bullet or numbered lists respectively):</p>
+<pre><code>---
+
+
+
+title: "My title"
+author: "Jafet Belmont"
+format: revealjs
+
+---
+
+## Slide 1
+
+1.  Item 1
+2.  Item 2
+
+## Slide 2
+
+-   Bullet 1
+
+    -   Bullet 1.1
+
+    -   Bullet 1.2
+
+-   Bulet 2
+
+    -   Bullet 2.1
+
+    -   Bullet 2.2
+</code></pre>
+<p>Notice that indentation allow us to create a hierarchical structure within our lists of items. You can modify some of the option of the list by clicking the <img src="images/threedots.png" class="img-fluid" width="15"> button on the right side of it. This will open a pop-up window where you can modify some of its attributes. For example, you can ask Quarto to display each item one by one as you move forward through the slides:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto11.png" class="img-fluid figure-img" width="366"></p>
+</figure>
+</div>
+<p>If you want to arrange the content of you slide into different columns you can insert a multiple column output. To do this switch to <code>visual</code> mode and click on <code>Insert▾ ➠ Slide Columns</code>). You can then fill each column:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto12.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Sometimes the text size in your slide might be too large to fit in your slide and you would like to make it smaller. You can then use the .smaller class to use a smaller typeface so that more text fits on the slide.</p>
+<pre><code>
+---
+
+title: "My title"
+author: "Jafet Belmont"
+format: revealjs
+
+---
+
+
+## Slide with small text {.smaller}
+
+1.  Item 1
+2.  Item 2
+ </code></pre>
+<p>&nbsp;If you are on the visual model, click on the slide settings <img src="images/threedots.png" class="img-fluid" width="17"> and then type <code>.smaller</code> on the class box:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/quarto14.png" class="img-fluid figure-img" width="373"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that ideally you slides should not contain too much text and thus this is just a quick way around if you feel that you need a bit of extra space in your slide.</p>
+</div>
+</div>
+<p>R code can be embedded in any slides by including a R chunk in the same way as we did before. However, sometimes we would like to arrange the code output to be display in a “tidy” manner within the slide. To achieve this we can use the <code>output-location:</code> argument which has the following options:</p>
+<ul>
+<li><p><code>column</code>: Display output in a column adjacent to the code</p></li>
+<li><p><code>column-fragment</code>: Display output in a column adjacent to the code and delay showing it until its explicitly stepped through by advancing the slides.</p></li>
+<li><p><code>fragment</code>: Delay the output dipslay until it is explicitly stepped through by advancing the slides.</p></li>
+<li>
+<p><code>slide</code>: Display output on the subsequent slide.</p>
+<p>For example, the source code for a slide containing an R code would look something like this:</p>
+<pre><code>---
+title: "My title"
+author: "Jafet Belmont"
+format: revealjs
+---
+
+## Slide with R Code {.smaller}
+
+::: {.cell output-location='column-fragment'}
+
+```{.r .cell-code}
+ggplot(evals.scores, aes(x = bty_avg, y = score)) +
+  geom_point() +
+  labs(x = "Beauty Score", y = "Teaching Score") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+::: {.cell-output .cell-output-stderr}
+```
+`geom_smooth()` using formula = 'y ~ x'
+```
+:::
+
+::: {.cell-output-display}
+![](index_files/figure-html/unnamed-chunk-7-1.png){width=672}
+:::
+:::</code></pre>
+</li>
+</ul></section><section id="rendering" class="level1" data-number="9"><h1 data-number="9">
+<span class="header-section-number">9</span> Rendering</h1>
+<p>You can render a Quarto document or a presentation by clicking the Render button <img src="images/rstudio-render-button.png" class="img-fluid" width="22">.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that if you are working on a Quarto document you can also compile a PDF version of it by clicking on <img src="images/rstudio-render-button.png" width="17" height="17"><code>Render ▾ ➠</code><img src="images/renderpdf.png" class="img-fluid" width="14"><code>Render PDF</code>. However, if you are working on a Quarto presentation while using <code>revealjs</code> format then you need to render the presentation first in html and then export it as pdf by following these <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf">instructions</a>.</p>
+</div>
+</div>
+<p>When you render a Quarto document, the R code in you chunks is executed by the <a href="http://yihui.name/knitr/">knitr</a>&nbsp;R-package and a new markdown (.md) document is then created. This file includes all of your code and its output. <a href="http://pandoc.org/">pandoc</a> then processes this markdown to create the finished format. <em>The Render button encapsulates these actions and executes them in the right order for you.</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/rstudio-qmd-how-it-works.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+
+
+</section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
