@@ -296,7 +296,7 @@
 \@ifundefined{codebgcolor}{\definecolor{codebgcolor}{named}{light}}{}
 \makeatother
 \makeatletter
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, sharp corners, frame hidden, breakable, colback={codebgcolor}, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, colback={codebgcolor}, breakable, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
@@ -338,15 +338,12 @@ embedded within a report, a presentation or even a Blog! Hence, all of
 the R code and plots obtained from an analysis are contained within a
 single file.
 
-You can find
-\href{https://moodle.gla.ac.uk/pluginfile.php/8299098/mod_resource/content/4/Example_report.htm}{here},
-an example of a report produced with Quarto relating to fitting a
-regression model. You can toggle the
+Below you can download an example of a report produced with Quarto
+relating to fitting a regression model. You can toggle the
 \texttt{\textless{}/\textgreater{}\ Code} button in the html file to see
 the source code that produced this file. It is advised to have this
 document open while working through the remaining sections in order to
-see examples put into practice (you can also use the link below to
-download the report).
+see examples put into practice.
 
 The following sections will take you through the different steps
 required to produce this report in Quarto. For creating a new Quarto
@@ -368,7 +365,7 @@ This will open the following window within RStudio:
 \includegraphics[width=5.20833in,height=\textheight]{images/quarto1.png}
 \end{center}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-important-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-important-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-important-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 If you are working on your personal computer be sure that you have the
 latest RStudio
@@ -438,7 +435,7 @@ If you want section to be numbered you can set
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 1}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 1}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Create a new quarto document by clicking on the \texttt{New\ File} icon
 \includegraphics[width=0.23958in,height=\textheight]{images/new_doc.png}
@@ -524,7 +521,7 @@ add the label \texttt{\{\#sec-intro\}} to the section title as follows:
 where \texttt{sec-intro} is the label chosen for this particular
 section.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-important-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-important-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-important-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 It is a good idea to label your sections appropriately so that it is
 easy to refer to them later. Note that it is important to add the
@@ -566,7 +563,7 @@ the selected reference to your document:
 \includegraphics[width=5.5in,height=\textheight]{images/quarto5.png}
 \end{center}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Subsections can be added to a document in a similar fashion using either
 \texttt{\#\#} (such that \texttt{\#\#\ Subsection\ \{\#sec-sub\}} will
@@ -577,7 +574,7 @@ create a subsection with the label \texttt{sec-sub} and title
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 2}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 2}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Add the following level 2 headings (subsections) underneath the
 \texttt{Formal\ data\ analysis} heading:
@@ -644,7 +641,7 @@ reference is added to your document, the YAML heading will display the
 option \texttt{bibliography:\ references.bib} which is the source file
 where your references are being managed.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 3}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 3}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -798,7 +795,7 @@ so that it can be used in chunks downstream. If you want to embed the
 source code within the Quarto document then you would simply set
 \texttt{echo:\ true}.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-important-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-important-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-important-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 R chunk options are case sensitive! so \texttt{echo:\ TRUE} or
 \texttt{echo:\ FALSE} won't work! You can use R Studio autocomplete
@@ -824,7 +821,7 @@ option in each individual chunk) :
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-important-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-important-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-important-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 You need to be very careful with the indentation if you decide to change
 the global settings of Quarto preamble!
@@ -861,7 +858,7 @@ without actually evaluating it:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Note that we can still run the code in each individual chunk (even if we
 set \texttt{eval:\ false}) by clicking the run chunk
@@ -878,7 +875,7 @@ Additional arguments can be passed to code chunks other than those
 displayed above. The most useful ones other than those relate to figure
 sizing and positioning and are discussed in the upcoming sections.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 4}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 4}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1082,7 +1079,7 @@ table more appealing we can make the table more appealing by setting the
 number of decimals to 2 by setting \texttt{digits\ =\ 2}. Lastly, we
 modify the original column names via the \texttt{col.names} argument.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 5}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 5}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Add two separate chunks in your exploratory analysis that produce the
 following tables:
@@ -1230,7 +1227,7 @@ For example, the table above corresponding to the first 5 rows of the
 using the \texttt{visual} mode) and selecting the number of rows and
 columns.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 You can read more about authoring Quarto tables
 \href{https://quarto.org/docs/authoring/tables.html}{here}.
@@ -1247,7 +1244,7 @@ receives as argument a single or multiple models fitted with the
 \texttt{lm} or \texttt{glm} engine (other models, like hurdle- or
 zero-inflated models, also work with this function).
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-important-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-important-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-important-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 HTML is the only output-format, you can't (directly) create a LaTeX or
 PDF output
@@ -1348,7 +1345,7 @@ at once, which are then printed side-by-side, e.g.,
 \texttt{dv.labels} to change the names of the model columns, this way
 you can give sensible name to each model.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 You can read more about \texttt{sjPlot} html regression model tables
 \href{https://strengejacke.github.io/sjPlot/articles/tab_model_estimates.html}{here}.
@@ -1447,7 +1444,7 @@ include:
   document
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title={Question}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Question}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 What other argument would you need to include if you wish to show the
 chunk plot output only?
@@ -1489,7 +1486,7 @@ chunk plot output only?
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 6}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 6}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Create a new chunk in your exploratory analysis section that displays a
 scatter plot showing the relationship between sepal width and length by
@@ -1525,7 +1522,7 @@ refer to this plot.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 You can read more about authoring Quarto figures
 \href{https://quarto.org/docs/authoring/figures.html}{here}.
@@ -1643,7 +1640,7 @@ equation options
 (visual mode) and the entering \texttt{\#eq–label} (\texttt{eq} is the
 equation suffix and this cannot be changed.)
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 7}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 7}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Try to write the LaTeX code for the correlation coefficient between two
 random variables \(x\) and \(y\):
@@ -1673,7 +1670,7 @@ See Solution
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 8}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 8}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 In the formal analysis section, underneath the Statistical model
 sub-section, write the expression of a saturated model that explores the
@@ -1750,7 +1747,7 @@ Lastly, make sure equation has a cross reference label such as
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 For additional tricks inserting mathematics into documents see
 \href{https://quarto.org/docs/visual-editor/technical.html}{here}. For a
@@ -1765,7 +1762,7 @@ You can render a Quarto document or a presentation (see next section) by
 clicking the Render button
 \includegraphics[width=0.22917in,height=\textheight]{images/rstudio-render-button.png}.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Note that if you are working on a Quarto document you can also compile a
 PDF version of it by clicking on
@@ -1812,14 +1809,14 @@ This will create standalone HTML file with no external dependencies that
 you can share with others (note that indentation here is important as
 you are calling arguments within the format output) .
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-important-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-important-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-important-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 For your upcoming class test you want to make sure this option is set to
 \texttt{true} so your work can be displayed properly by a browser.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 9}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 9}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Fit the full model describing the relationship between Sepal length and
 Sepal Width for each the iris species and then compared this to a
@@ -1869,14 +1866,14 @@ R chunk
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title={Task 10}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title={Task 10}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Check your results and your final model assumption. You can use the
 \texttt{check\_model} function from the \texttt{performance} package we
 loaded before to conduct a residual analysis. Finalise with some
 conclusions (you can use the Example report as reference).
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, bottomtitle=1mm, coltitle=black, titlerule=0mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, breakable, opacitybacktitle=0.6, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, rightrule=.15mm, titlerule=0mm, opacityback=0, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, opacitybacktitle=0.6, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, arc=.35mm, toprule=.15mm, left=2mm, bottomrule=.15mm]
 
 Don worry if you are not familiar with some of these regression
 modelling topics. We will cover these in the next couple of sessions.

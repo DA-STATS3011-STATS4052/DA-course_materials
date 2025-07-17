@@ -14,7 +14,7 @@ website:
     - href: notes.qmd
       text: Notes
     - href: extra_material.qmd
-      text: Presentation with Quarto
+      text: Presentations with Quarto
 format:
   html:
     theme:

@@ -37,7 +37,7 @@ library(kableExtra)
 
 This week we will take what we will produce a report using Quarto . Quarto is a multi-language system that allows reports and presentation to be created within R, thus allowing for R code and output to be easily embedded within a report, a presentation or even a Blog! Hence, all of the R code and plots obtained from an analysis are contained within a single file.
 
-You can find [here](https://moodle.gla.ac.uk/pluginfile.php/8299098/mod_resource/content/4/Example_report.htm), an example of a report produced with Quarto relating to fitting a regression model. You can toggle the `</> Code` button in the html file to see the source code that produced this file. It is advised to have this document open while working through the remaining sections in order to see examples put into practice (you can also use the link below to download the report).
+Below you can download an example of a report produced with Quarto relating to fitting a regression model. You can toggle the `</> Code` button in the html file to see the source code that produced this file. It is advised to have this document open while working through the remaining sections in order to see examples put into practice.
 
 {{< downloadthis Example_Report/Example_Report.html dname="example_report" label="Download Example Report" icon="database-fill-down" type="success" >}}
 
