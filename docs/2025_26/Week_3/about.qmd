@@ -1,0 +1,173 @@
+---
+title: "Week 3 Tasks"
+format:
+  html:    
+    code-link: true
+    code-fold: true
+    code-tools:
+      source: false
+      toggle: true
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    number-sections: true
+  PrettyPDF-pdf:
+    keep-tex: true
+    number-sections: true
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(tidymodels)
+library(moderndive)
+library(gapminder)
+library(skimr)
+library(mvtnorm)
+library(gridExtra)
+library(ISLR)
+library(performance)
+library(sjPlot)
+```
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 1
+
+Examine the relationship between teaching score and age in the `evals` data set. What is the value of the correlation coefficient? How would you interpret this verbally? Finally, produce a scatterplot of teaching score and age.
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+
+evals.age <- evals %>%
+  dplyr::select(score, age)
+
+cor(evals.age$score, evals.age$age)
+
+ggplot(evals.age, aes(x = age, y = score)) +
+  geom_point() +
+  labs(x = "Age", y = "Teaching Score",
+       title = "Relationship between Teaching Score and Age")
+```
+:::
+
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 2
+
+Perform a formal analysis of the relationship between teaching score and age by fitting a simple linear regression model. Superimpose your best-fitting line onto your scatterplot from the previous Task .
+
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+
+model <- lm(score ~ age, data = evals.age)
+model
+ggplot(evals.age, aes(x = age, y = score)) +
+  geom_point() +
+  labs(x = "Age", y = "Teaching Score",
+       title = "Relationship between Teaching Score and Age") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+:::
+
+
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 3
+
+Assess the model assumptions from Task 2 by plotting the residuals diagnostic plots.
+
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| purl: false
+
+check_model(model,check=c("linearity","homogeneity","qq","normality"))
+
+```
+:::
+
+
+
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 4
+
+Perform the same analysis we did on life expectancy from the `gapminder` data set in 2007. However, subset the data for the year 1997. Are there any differences in the results across this 10 year period?
+
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| purl: false
+
+gapminder1997 <- gapminder %>%
+  filter(year == 1997) %>%
+  dplyr::select(country, continent, lifeExp)
+
+lifeExp.continent <- gapminder1997 %>%
+  summarize(median = median(lifeExp), mean = mean(lifeExp),.by=continent)
+lifeExp.continent
+
+lifeExp.model <- lm(lifeExp ~ continent, data = gapminder1997)
+lifeExp.model
+```
+:::
+
+
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 5
+
+ Return to the `Credit` data set and fit a multiple regression model with `Balance` as the outcome variable, and `Income` and `Age` as the explanatory variables, respectively. Assess the assumptions of the multiple regression model.
+
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| purl: false
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+#| 
+
+# Select variables of interest
+Cred <- Credit %>%
+  select(Balance, Income, Age)
+# Explore the data
+Cred %>%
+  skim()
+# Correlation between covariates
+Cred %>%
+  cor()
+# Scatterplot
+ggplot(Cred, aes(x = Age, y = Balance)) +
+  geom_point() +
+  labs(x = "Age (in years)", y = "Credit card balance (in $)",
+       title = "Relationship between balance and age") 
+# Fit the model
+Balance.model <- lm(Balance ~ Age + Income, data = Cred)
+# Model output
+tab_model(Balance.model,show.ci = F)
+# Check assumptions
+check_model(Balance.model,check=c("linearity","homogeneity","qq","normality"))
+
+```
+:::
+
+

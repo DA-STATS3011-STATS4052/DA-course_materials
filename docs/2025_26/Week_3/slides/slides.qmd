@@ -1,0 +1,541 @@
+---
+title: "Data analysis"
+subtitle: "Regression Modelling part 1"
+title-slide-attributes: 
+  data-background-image: logo2.png
+  data-background-size: 20%
+  data-background-position: 2% 2%
+format: 
+  revealjs:
+    embed-resources: true
+    theme: night
+    smaller: true
+editor: visual
+execute: 
+  echo: true
+include-in-header: 
+  text: |
+    <style>
+      .custom-small table {
+        font-size: .8em
+      }
+      .custom-tiny table {
+        font-size: .6em
+      }
+    </style>
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(moderndive)
+library(gapminder)
+library(ISLR)
+
+```
+
+# Week 3: Regression Modelling part 1
+
+## Overview {.smaller}
+
+Now that we are comfortable with visualising and manipulating data in R, we can now proceed onto modelling data.
+
+There are many different modelling techniques. However, we will begin with one of the easier to understand and commonly-used approaches,**linear regression**.
+
+**ILO's for today:**
+
+::: incremental
+-   Conduct appropriate exploratory analysis to explore the relationship between a response and a relevant covariates/explanatory variables.
+-   Fit a simple linear regression model with one numerical or categorical covariate and interpret its output.
+-   Fit a multiple linear regression model with two numerical covariates.
+-   Assess linear regression model fit using diagnostic plots.
+:::
+
+## Load libraries {.smaller}
+
+We shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:
+
+```{r}
+#| message: false
+#| warning: false
+
+library(ggplot2)     # Data visualization
+library(tidyverse)   # Data wrangling
+library(performance) # Model assessment
+library(skimr)       # Exploratory analysis
+library(sjPlot)      # Plot and tables for linear models
+
+```
+
+::: incremental
+1.  The first two libraries, `ggplot2` and `tidyverse`, are used for data wrangling and visualization.
+2.  The third library (`performance`) can be used to assess the model fit of linear regression models.
+3.  The fourth library `skimr` will be used to produce summary statistics for our data.
+4.  The `sjPlot` package will be used to summarise the output of linear models as well as performing some diagnostic plots.
+:::
+
+## Data sets {.smaller}
+
+**Teaching evaluations at the UT Austin**
+
+Professor evaluation scores feedback obtained from end of semester student evaluations for a sample of 463 courses taught by 94 professors from the University of Texas at Austin.
+
+-   We will examine the evaluation scores of the instructors based purely on one numerical variable their beauty score.
+
+-   The goal: Explore the relationship between the *average professor evaluation score* and the *average beauty rating of professor*.
+
+![](1463066175-indiana-jones-102.jpg){fig-align="center" width="400"}
+
+## Data sets {.smaller}
+
+**Gapminder data**
+
+The Gapminder dataset is a comprehensive collection of global statistics on health, wealth, and development over time, spanning countries and decades.
+
+-   We will examine life expectancy data from 2007 of every country on each continent.
+
+-   The goal: Explore whether there are differences in the mean life expectancy across continents
+
+![](life_exp.png){fig-align="center" width="330"}
+
+## Data sets {.smaller}
+
+**Credit Card Balance Data**
+
+A simulated data set containing information on credit card balances, demographics, and financial attributes for a sample of individuals.
+
+-   We will examine the impact that individuals credit limit and income have on their credit card balance.
+
+-   The goal: Describe the relationship between credit balance and these two explanatory variables.
+
+![](travolta.jpg){fig-align="center" width="280"}
+
+## Exploring our data {.smaller}
+
+Quick univariate summaries via the `skimr` package.
+
+::: custom-tiny
+```{r}
+#| echo: false
+evals.scores <- evals %>%
+  dplyr::select(score, bty_avg)
+
+skim(evals.scores)
+```
+:::
+
+## Exploring our data {.smaller auto-animate="true"}
+
+When our response and explanatory variable(s) are **numerical** we can:
+
+-   Compute the correlation between them:
+
+$$
+\rho (x,y) = \dfrac{\sum_{i=1}^n (x_i -\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n (y_i-\bar{y})^2}}
+$$
+
+## Exploring our data {.smaller auto-animate="true"}
+
+When our response and explanatory variable(s) are **numerical** we can:
+
+-   Compute the correlation between them:
+
+$$
+\rho (x,y) = \dfrac{\sum_{i=1}^n (x_i -\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n (y_i-\bar{y})^2}}
+$$
+
+-   Produce scatterplots of our data
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(evals.scores, 
+       aes(x = bty_avg, y = score)) +
+  geom_point() +
+  labs(x = "Beauty Score",
+       y = "Teaching Score",
+       title = "Relationship of teaching and beauty scores")
+```
+
+## Exploring our data {.smaller auto-animate="true"}
+
+When our response and explanatory variable(s) are **categorical** we can:
+
+-   `Summarise` the variable of interest based on our categorical variable.
+
+```{r}
+#| echo: false
+gapminder2007 <- gapminder %>%
+  dplyr::filter(year == 2007) %>% 
+  dplyr::select(country, continent, lifeExp)
+
+gapminder2007 %>%
+  summarise(median = median(lifeExp), 
+            mean = mean(lifeExp),
+            .by = continent) %>% kableExtra::kable()
+```
+
+## Exploring our data {.smaller auto-animate="true"}
+
+When our response and explanatory variable(s) are **categorical** we can:
+
+-   `Summarise` the variable of interest based on our categorical variable.
+
+-   Produce *boxplots* to examine the distribution of a numerical outcome variable across different *levels* of a categorical variable
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(gapminder2007, aes(x = continent, y = lifeExp)) +
+  geom_boxplot() +
+  labs(x = "Continent", 
+       y = "Life expectancy (years)", 
+       title = "Life expectancy by continent")
+```
+
+## Simple Linear Regression
+
+Let the general form of the simple linear model:
+
+$$y_i = \beta_0 + \beta_1 x_{i,1} + \epsilon_i,  \ i = 1,..n \\
+ \mathrm{such \  that } \ \epsilon \sim \mathrm{Normal}(0,\sigma^2)$$
+
+used to describe the relationship between a response **y** and a set of variables or predictors **x**
+
+-   $y_i$ is the $i^{th}$ observation of the response variable;
+-   $\alpha$ is the **intercept** of the regression line;
+-   $\beta$ is the **slope** of the regression line;
+-   $x_i$ is the $i^{th}$ observation of the explanatory variable; and
+-   $\epsilon_i$ is the $i^{th}$ random component.
+
+## Fitting a Simple Linear Regression in R
+
+Modelling the relationship between the *professor's evaluation score* and their *beauty rating*
+
+::: panel-tabset
+## Statistical model
+
+$$\text{score} = \alpha + \beta \  \text{beauty} +  \epsilon ~~\text{such that}~\epsilon \sim \mathcal{N}(0,\sigma^2)$$
+
+## R-Code
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: true
+model <- lm(score ~ bty_avg, data = evals.scores)
+```
+
+## Plot
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: true
+#| fig-align: center
+ggplot(evals.scores,
+       aes(x = bty_avg, y = score)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+:::
+
+## Interpreting the output of a linear regression model {.smaller}
+
+::: columns
+::: {.column width="40%"}
+::: custom-small
+```{r}
+#| echo: false
+tab_model(model,show.ci = F)
+```
+:::
+:::
+
+::: {.column width="60%"}
+$$\widehat{\text{score}} = \widehat{\alpha} + \widehat{\beta} x_i = 3.88 + 0.07 \cdot \mathrm{bty\_avg},$$
+
+-   $\widehat{\alpha} = 3.88$ is the intercept coefficient and means that, for any instructor with a `bty_avg = 0`, their average teaching `score` would be 3.88.
+-   $\widehat{\beta} = 0.07$ is the slope coefficient associated with the exploratory variable `bty_avg`.
+    -   For every 1 unit increase in `bty_avg`, there is an associated increase of, on average, 0.06664 units of `score`.
+:::
+:::
+
+## Model Diagnostics {.smaller auto-animate="true"}
+
+1.  The deterministic part of the model captures all the non-random structure in the data, i.e. the residuals have mean zero.
+2.  The scale of the variability of the residuals is constant at all values of the explanatory variables (*homoscedasticity*).
+
+```{r}
+#| echo: false
+#| fig-cap: "Residuals against fitted values."
+#| fig-width: 7
+#| fig-height: 4
+#| fig-align: center
+
+check_model(model,check = c("homogeneity","linearity"))
+
+```
+
+## Model Diagnostics {.smaller auto-animate="true"}
+
+1.  The deterministic part of the model captures all the non-random structure in the data, i.e. the residuals have mean zero.
+2.  The scale of the variability of the residuals is constant at all values of the explanatory variables (*homoscedasticity*).
+3.  The residuals are normally distributed.
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+#| fig-align: center
+
+check_model(model,check = c("qq","normality"))
+
+```
+
+## Model Diagnostics {.smaller auto-animate="true"}
+
+1.  The deterministic part of the model captures all the non-random structure in the data, i.e. the residuals have mean zero.
+2.  The scale of the variability of the residuals is constant at all values of the explanatory variables (*homoscedasticity*).
+3.  The residuals are normally distributed.
+4.  The residuals are independent.
+5.  The values of the explanatory variables are recorded without error.
+
+Justified on the basis of the experimental context and are not formally examined.
+
+## Linear Regression with a Categorical variable {.smaller}
+
+Here, we will fit a simple linear regression model where the explanatory variable is *categorical*, i.e. a **factor** with two or more **levels**
+
+::: panel-tabset
+## Statistical Model
+
+$${\text{life exp}} = {\alpha} + {\beta}_{\text{Amer}} \cdot \mathbb{I}_{\text{Amer}}(x) + {\beta}_{\text{Asia}} \cdot \mathbb{I}_{\text{Asia}}(x) + {\beta}_{\text{Euro}} \cdot \mathbb{I}_{\text{Euro}}(x) + {\beta}_{\text{Ocean}} \cdot \mathbb{I}_{\text{Ocean}}(x),$$
+
+-   the intercept ${\alpha}$ is the mean life expectancy for our baseline category Africa;
+
+-   ${\beta}_{\text{continent}}$ is the difference in the mean life expectancy of a given continent relative to the baseline category ,i.e., Africa.
+
+-   $\mathbb{I}_{\text{continent}}(x)$ is an indicator function such that
+
+    $$\mathbb{I}_{\text{continent}}(x)=\left\{
+                \begin{array}{ll}
+                  1 ~~~ \text{if country} ~ x ~ \text{is in the continent},\\
+                  0 ~~~ \text{Otherwise}.\\
+                \end{array}
+              \right.$$
+
+## R-Code
+
+```{r}
+glimpse(gapminder2007)
+lifeExp.model <- lm(lifeExp ~ continent, data = gapminder2007)
+```
+:::
+
+## Interpretation of a LM with a Categorical variable {.smaller}
+
+::: columns
+::: {.column width="40%"}
+::: custom-small
+```{r}
+#| echo: false
+tab_model(lifeExp.model,show.ci = F)
+```
+:::
+:::
+
+::: {.column width="60%"}
+Our regression equation is given as:
+
+$$\widehat{\text{life exp}} = \widehat{\alpha} + \sum_j^4 \widehat{\beta}_{j}  \mathbb{I}_{\text{continent}_j}(x)$$
+
+-   The mean life expectancy for Africa is equal to the intercept term $\widehat{\alpha} = 54.8$. $\mathbb{I}_{\text{continent}_j} = 0 ~\forall~j.$
+:::
+:::
+
+## Interpretation of Linear Regression with a Categorical variable {.smaller}
+
+::: columns
+::: {.column width="40%"}
+::: custom-small
+```{r}
+#| echo: false
+tab_model(lifeExp.model,show.ci = F)
+```
+:::
+:::
+
+::: {.column width="60%"}
+Our regression equation is given as:
+
+$$\widehat{\text{life exp}} = \widehat{\alpha} + \sum_j^4 \widehat{\beta}_{j}  \mathbb{I}_{\text{continent}_j}(x)$$
+
+-   The mean life expectancy for the j$th$ continent is given by $\widehat{\alpha} + \widehat{\beta}_j \cdot \mathbb{I}_{\text{continent}_j}(x)$. E.g.,
+    -   the mean life expectancy for Asia is:
+
+$$\widehat{\alpha} + \widehat{\beta}_{\text{Asia}} \cdot \mathbb{I}_{\text{Asia}}(x) = 54.8 + 15.9 \cdot 1 = 70.7 $$
+:::
+:::
+
+## Interpretation of Linear Regression with a Categorical variable {.smaller}
+
+::: columns
+::: {.column width="40%"}
+::: custom-small
+```{r}
+#| echo: false
+tab_model(lifeExp.model,show.ci = F)
+```
+:::
+:::
+
+::: {.column width="60%"}
+Our regression equation is given as:
+
+$$\widehat{\text{life exp}} = \widehat{\alpha} + \sum_j^4 \widehat{\beta}_{j}  \mathbb{I}_{\text{continent}_j}(x)$$
+
+-   Looking at $\widehat{\beta}_{\text{Asia}}=15.9$ on its own, we would say that the life expectancy in Asia is on average 15.9 years greater than in Africa.
+:::
+:::
+
+## Multiple regression with two numerical explanatory variables {.smaller}
+
+Let the general form of the linear model:
+
+$$y_i = \beta_0 + \beta_1 x_{i,1} + \beta_2 x_{i,2} + ... +  \beta_p x_{i,p} + \epsilon_i,  \ i = 1,..n$$
+
+-   $y_i$ is our response of the $i^{th}$ observation;
+
+-   $\beta_0$ is the intercept;
+
+-   $\beta_1$ is the coefficient for the first explanatory variable $x_1$;
+
+-   $\beta_2$ is the coefficient for the second explanatory variable $x_2$;
+
+-   $\beta_p$ is the coefficient for the $p^{th}$ explanatory variable $x_p$;
+
+-   $\epsilon_i$ is the $i^{th}$ random error component.
+
+## Fitting a multiple regression {.smaller}
+
+```{r}
+#| echo: false
+
+Cred = Credit %>%
+  dplyr::select(c(Balance,Limit,Income))
+
+```
+
+The multiple regression model we will be fitting to the credit balance data is given as:
+
+$$y_i = \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \epsilon_i, ~~~~ \epsilon \sim N(0, \sigma^2),$$
+
+::: panel-tabset
+## Statistical model
+
+$$\text{score} = \alpha + \beta \  \text{beauty} +  \epsilon ~~\text{such that}~\epsilon \sim \mathcal{N}(0,\sigma^2)$$
+
+-   $y_i$ is the balance of the $i^{th}$ individual;
+-   $\alpha$ is the intercept and positions the best-fitting plane in 3D space;
+-   $\beta_1$ is the coefficient for the first explanatory variable $x_1$;
+-   $\beta_2$ is the coefficient for the second explanatory variable $x_2$; and
+-   $\epsilon_i$ is the $i^{th}$ random error component.
+
+## R-Code
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: true
+Balance.model <- lm(Balance ~ Limit + Income, data = Cred)
+```
+:::
+
+## Interpreting multiple regression model output {.smaller}
+
+::: columns
+::: {.column width="40%"}
+::: custom-small
+```{r}
+#| echo: false
+tab_model(Balance.model,show.ci = F)
+```
+:::
+:::
+
+::: {.column width="60%"}
+Our regression equation is given as:
+
+-   The **intercept** represents the credit card balance (`Balance`) of an individual who has \$0 for both credit limit (`Limit`) and income (`Income`).
+
+-   The coefficient for credit limit (`Limit`) tells us that, *taking all other variables in the model into account*, that there is an associated increase, on average, in credit card balance of \$0.26.
+
+-   The coefficient for income (`Income`) tells us that, *taking all other variables in the model into account*, that there is an associated decrease, on average, in credit card balance of \$7.66.
+:::
+:::
+
+## Multiple regression model assessment {.smaller}
+
+Besides our usual diagnostic plots to check for: homoscedasticity, linearity,normality, etc.
+
+```{r}
+#| echo: false
+#| fig-align: center
+check_model(Balance.model, check= c("linearity","homogeneity","qq","normality"))
+```
+
+## Multiple regression model assessment {.smaller}
+
+Besides our usual diagnostic plots to check for: homoscedasticity, linearity,normality, etc.
+
+We need to consider collinearity among our predictors
+
+```{r}
+cor(Cred)
+```
+
+A high collinearity value may inflate the parameter uncertainty
+
+## Multiple regression model assessment {.smaller}
+
+To check for colliniearity we can compute the VIF (Variance Inflation Factor)
+
+-   VIF measures how much the variance of a regression coefficient is inflated due to multicollinearity among predictors.
+
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| message: false
+#| warning: false
+#|  
+
+diag <- plot_model(Balance.model,type="diag")
+diag[[1]]
+```
+:::
+
+::: {.column width="40%"}
+-   VIF = 1: No collinearity (predictor is uncorrelated with others).
+
+-   1 $<$ VIF $<$ 5: Moderate correlation (usually acceptable).
+
+-   VIF $\geq$ 5: High collinearity (may inflate coefficient variance, reducing reliability).
+:::
+
+::::
+
+
+
+
+

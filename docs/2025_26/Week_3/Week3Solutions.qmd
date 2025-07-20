@@ -1,0 +1,135 @@
+---
+title: "Week 2 Tasks Solutions"
+format: 
+  html: default
+  pdf:  default
+editor: visual
+---
+
+```{r,message=FALSE,warning=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(moderndive)
+library(gapminder)
+library(skimr)
+library(mvtnorm)
+library(gridExtra)
+library(ISLR)
+```
+
+```{r evalshist, echo = FALSE, eval = FALSE, warning = FALSE}
+skim_with(numeric = list(hist = NULL))
+```
+
+# Tasks
+
+1.  Examine the relationship between teaching score and age in the `evals` data set. What is the value of the correlation coefficient? How would you interpret this verbally? Finally, produce a scatterplot of teaching score and age.
+
+```{r task2-solution, echo = TRUE, eval = TRUE}
+evals.age <- evals |>
+  select(score, age)
+evals.age |>
+  get_correlation(formula = score ~ age)
+ggplot(evals.age, aes(x = age, y = score)) +
+  geom_point() +
+  labs(x = "Age", y = "Teaching Score",
+       title = "Relationship between Teaching Score and Age")
+```
+
+\newpage
+
+2.  Perform a formal analysis of the relationship between teaching score and age by fitting a simple linear regression model. Superimpose your best-fitting line onto your scatterplot from Task 1.
+
+```{r task3-solution, echo = TRUE, eval = TRUE}
+evals.age <- evals |>
+  select(score, age)
+model <- linear_reg() |> fit(score ~ age, data = evals.age)
+model$fit
+ggplot(evals.age, aes(x = age, y = score)) +
+  geom_point() +
+  labs(x = "Age", y = "Teaching Score",
+       title = "Relationship between Teaching Score and Age") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+\newpage
+
+3.  Assess the model assumptions from Task 2 by plotting the residuals against the explanatory variable and fitted values, respectively. Also, plot a histogram of the residuals to assess whether they are normally distributed.
+
+```{r task4-solution, echo = TRUE, eval = TRUE}
+evals.age <- evals |>
+  select(score, age)
+model <- linear_reg() |> fit(score ~ age, data = evals.age)
+regression.points <- get_regression_points(model$fit)
+ggplot(regression.points, aes(x = age, y = residual)) +
+  geom_point() +
+  labs(x = "Age", y = "Residual") +
+  geom_hline(yintercept = 0, col = "blue", size = 1)
+
+ggplot(regression.points, aes(x = score_hat, y = residual)) +
+  geom_point() +
+  labs(x = "Fitted values", y = "Residual") +
+  geom_hline(yintercept = 0, col = "blue", size = 1)
+
+ggplot(regression.points, aes(x = residual)) +
+  geom_histogram(binwidth = 0.25, color = "white") +
+  labs(x = "Residual")
+```
+
+\newpage
+
+4.  Perform the same analysis we did on life expectancy from the `gapminder` data set in 2007. However, subset the data for the year 1997. Are there any differences in the results across this 10 year period?
+
+    ```{r}
+    gapminder1997 <- gapminder |>
+      filter(year == 1997) |>
+      select(country, continent, lifeExp)
+
+    lifeExp.continent <- gapminder1997 |>
+      summarize(median = median(lifeExp), mean = mean(lifeExp),.by=continent)
+    lifeExp.continent
+
+    lifeExp.model <- linear_reg() |> fit(lifeExp ~ continent, data = gapminder1997)
+    lifeExp.model
+    ```
+
+    \newpage
+
+5.  Return to the `Credit` data set and fit a multiple regression model with `Balance` as the outcome variable, and `Income` and `Age` as the explanatory variables, respectively. Assess the assumptions of the multiple regression model.
+
+```{r task2, echo = TRUE, eval = TRUE, out.width = '60%'}
+
+Cred <- Credit |>
+  select(Balance, Income, Age)
+
+Cred |>
+  skim()
+
+Cred |>
+  cor()
+
+ggplot(Cred, aes(x = Age, y = Balance)) +
+  geom_point() +
+  labs(x = "Age (in years)", y = "Credit card balance (in $)",
+       title = "Relationship between balance and age") +
+  geom_smooth(method = "lm", se = FALSE)
+
+Balance.model <- linear_reg() |> fit(Balance ~ Age + Income, data = Cred)
+tidy(Balance.model)
+
+regression.points <- get_regression_points(Balance.model$fit)
+
+ggplot(regression.points, aes(x = Income, y = residual)) +
+  geom_point() +
+  labs(x = "Income (in $1000)", y = "Residual", title = "Residuals vs income")  +
+  geom_hline(yintercept = 0, col = "blue", size = 1)
+
+ggplot(regression.points, aes(x = Age, y = residual)) +
+  geom_point() +
+  labs(x = "Age (in years)", y = "Residual", title = "Residuals vs age")  +
+  geom_hline(yintercept = 0, col = "blue", size = 1)
+
+ggplot(regression.points, aes(x = residual)) +
+  geom_histogram(color = "white") +
+  labs(x = "Residual")
+```
