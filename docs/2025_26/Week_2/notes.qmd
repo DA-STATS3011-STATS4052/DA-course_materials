@@ -1,5 +1,5 @@
 ---
-title: "Week 6: Introduction to Quarto "
+title: "Introduction to Quarto "
 toc: true
 toc-location: left
 toc-title: Contents
@@ -983,6 +983,6 @@ Don worry if you are not familiar with some of these regression modelling topics
 
 # More about Quarto
 
-Congratulations! You have reached the end of today\'s session. If you want to learn more about quarto please visit <https://quarto.org/>. The website contains a wide variety of topics, tutorials, and practical examples to deepen your understanding.
+Congratulations! You have reached the end of today's session. If you want to learn more about quarto please visit <https://quarto.org/>. The website contains a wide variety of topics, tutorials, and practical examples to deepen your understanding.
 
 Also, check out the additional material provided on creating eye-catching presentations with Quarto. This will help you to design professional slides with dynamic visuals, streamline your workflow by integrating code, text, and outputs seamlessly. Impress your audience with polished, publication-quality formats!
