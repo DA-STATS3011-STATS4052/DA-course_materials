@@ -7,7 +7,7 @@ project:
     - embbeded_slides.qmd
     - slides/slides.qmd
 website:
-  title: 'Data Analysis Week 2'
+  title: 'Data Analysis Week 3'
   favicon: UofG_Coat_of_Arms.png
   navbar:
     logo: UofG.png
