@@ -278,6 +278,8 @@ ggplot(Cred, aes(x = Income, y = Balance)) +
 #| fig-align: center
 #| fig-cap: "3D scatterplot of balance, credit limit, and income."
 #| code-fold: show
+#| message: false
+#| warning: false
 library(plotly)
 plot_ly(Cred, x = ~Income, y = ~Limit, z = ~Balance,
         type = "scatter3d", mode = "markers")
