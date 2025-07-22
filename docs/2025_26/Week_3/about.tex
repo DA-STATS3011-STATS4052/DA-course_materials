@@ -282,7 +282,7 @@
 \@ifundefined{codebgcolor}{\definecolor{codebgcolor}{named}{light}}{}
 \makeatother
 \makeatletter
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, colback={codebgcolor}, frame hidden, enhanced, sharp corners, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, colback={codebgcolor}, frame hidden, sharp corners, breakable, boxrule=0pt]}{\end{tcolorbox}}\fi
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
@@ -309,7 +309,7 @@
 
 \pagestyle{mystyle}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title={Task 1}, toprule=.15mm, coltitle=black, left=2mm, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, leftrule=.75mm, bottomtitle=1mm, colback=white, arc=.35mm, toptitle=1mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-warning-color-frame, opacityback=0, breakable, toptitle=1mm, toprule=.15mm, colback=white, titlerule=0mm, bottomtitle=1mm, opacitybacktitle=0.6, leftrule=.75mm, left=2mm, title={Task 1}, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white]
 
 Examine the relationship between teaching score and age in the
 \texttt{evals} data set. What is the value of the correlation
@@ -346,7 +346,7 @@ Click here to see the solution
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title={Task 2}, toprule=.15mm, coltitle=black, left=2mm, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, leftrule=.75mm, bottomtitle=1mm, colback=white, arc=.35mm, toptitle=1mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-warning-color-frame, opacityback=0, breakable, toptitle=1mm, toprule=.15mm, colback=white, titlerule=0mm, bottomtitle=1mm, opacitybacktitle=0.6, leftrule=.75mm, left=2mm, title={Task 2}, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white]
 
 Perform a formal analysis of the relationship between teaching score and
 age by fitting a simple linear regression model. Superimpose your
@@ -391,7 +391,7 @@ Coefficients:
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title={Task 3}, toprule=.15mm, coltitle=black, left=2mm, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, leftrule=.75mm, bottomtitle=1mm, colback=white, arc=.35mm, toptitle=1mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-warning-color-frame, opacityback=0, breakable, toptitle=1mm, toprule=.15mm, colback=white, titlerule=0mm, bottomtitle=1mm, opacitybacktitle=0.6, leftrule=.75mm, left=2mm, title={Task 3}, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white]
 
 Assess the model assumptions from Task 2 by plotting the residuals
 diagnostic plots.
@@ -408,7 +408,7 @@ Click here to see the solution
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title={Task 4}, toprule=.15mm, coltitle=black, left=2mm, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, leftrule=.75mm, bottomtitle=1mm, colback=white, arc=.35mm, toptitle=1mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-warning-color-frame, opacityback=0, breakable, toptitle=1mm, toprule=.15mm, colback=white, titlerule=0mm, bottomtitle=1mm, opacitybacktitle=0.6, leftrule=.75mm, left=2mm, title={Task 4}, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white]
 
 Perform the same analysis we did on life expectancy from the
 \texttt{gapminder} data set in 2007. However, subset the data for the
@@ -461,7 +461,7 @@ Coefficients:
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title={Task 5}, toprule=.15mm, coltitle=black, left=2mm, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, leftrule=.75mm, bottomtitle=1mm, colback=white, arc=.35mm, toptitle=1mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-warning-color-frame, opacityback=0, breakable, toptitle=1mm, toprule=.15mm, colback=white, titlerule=0mm, bottomtitle=1mm, opacitybacktitle=0.6, leftrule=.75mm, left=2mm, title={Task 5}, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white]
 
 Return to the \texttt{Credit} data set and fit a multiple regression
 model with \texttt{Balance} as the outcome variable, and \texttt{Income}

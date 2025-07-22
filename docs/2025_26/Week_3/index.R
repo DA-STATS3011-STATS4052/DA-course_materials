@@ -30,7 +30,9 @@ evals.scores %>%
 
 
 ## ----correlation3, echo = TRUE, eval = TRUE, warning = FALSE------------------
-cor(evals.scores$score,evals.scores$bty_avg)
+
+evals.scores %>% summarise(rho = cor(score,bty_avg))
+
 
 
 ## -----------------------------------------------------------------------------
