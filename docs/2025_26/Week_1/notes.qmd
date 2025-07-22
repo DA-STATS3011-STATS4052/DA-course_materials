@@ -20,7 +20,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Getting started 
+# Getting started
 
 ```{r}
 #| echo: false
