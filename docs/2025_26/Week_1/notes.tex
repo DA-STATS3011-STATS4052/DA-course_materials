@@ -296,7 +296,7 @@
 \@ifundefined{codebgcolor}{\definecolor{codebgcolor}{named}{light}}{}
 \makeatother
 \makeatletter
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, colback={codebgcolor}, boxrule=0pt, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, boxrule=0pt, enhanced, breakable, colback={codebgcolor}]}{\end{tcolorbox}}\fi
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
@@ -330,7 +330,7 @@ This week we will review various techniques for data \textbf{tidying},
 concepts from your previous \textbf{R programming} course and build on
 them with more advanced methods for data manipulation and plotting.
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 A lot of the content within this course is based on the open-source book
 \href{https://moderndive.com/index.html}{Statistical Inference via Data
@@ -390,7 +390,7 @@ the other).
   called, e.g., \texttt{conflict\_prefer("filter","dplyr")} .
 \end{enumerate}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 What do you think is the advantage of using the
 \texttt{conflicts\_prefer} as opposed to the first approach?
@@ -451,7 +451,7 @@ first three rows within each group defined by the carrier variable).
 This function is useful for obtaining subsets of data for inspection or
 further analysis while preserving the structure within subgroups.
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task 1}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task 1}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Use the \texttt{slice} function to print the first row of the
 \texttt{flights} data frame grouped by origin.
@@ -579,7 +579,7 @@ whereas the tidy data format in the second table is also known as
 data format. In this course, we will work mostly with data sets that are
 already in the tidy format.
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Consider the following data frame of average number of servings of beer,
 spirits, and wine consumption in three countries as reported in the
@@ -651,7 +651,7 @@ off the web:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Please refer back to your \textbf{R programming} course for an overview
 of how to import spreadsheets and \texttt{.csv} files into R.
@@ -678,7 +678,7 @@ the country of Guatemala.
 1 Guatemala      2     -6     -5      3      1     -3     -7      3      3
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Here we have used the \texttt{filter} function from \texttt{dplyr}
 package to subset the data set. We will revisit this code for subsetting
@@ -702,7 +702,7 @@ like to tidy. The next argument to \texttt{pivot\_longer} is
 \texttt{cols} which specifies which columns we want to pivot into the
 longer format.
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 There are helper functions which help us declaring which variable (or
 variables) we want to
@@ -761,7 +761,7 @@ wide-format, we can use the following code:
 1 Guatemala      2     -6     -5      3      1     -3     -7      3      3
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 The information about drink consumption across countries is available on
 the \texttt{drinks} data set in the \texttt{fivethirtyeight} library:
@@ -1104,7 +1104,7 @@ we would like the \texttt{hour}, \texttt{minute}, and
 
 in this case \texttt{everything()} picks up all remaining variables.
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Alternatively we could use the \texttt{relocate()} verb to change column
 positions, using the same syntax as \texttt{select()} to make it easy to
@@ -1117,7 +1117,7 @@ Lastly, the helper functions \texttt{starts\_with}, \texttt{ends\_with},
 and \texttt{contains} can be used to choose \textbf{variables / column
 names} that match those conditions.
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 \begin{itemize}
 \item
@@ -1233,7 +1233,7 @@ The \texttt{filter} function allows you to specify criteria about values
 of a variable in your data set and then chooses only those rows that
 match that criteria.
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-important-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-important-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colframe=quarto-callout-important-color-frame, left=2mm, colbacktitle=quarto-callout-important-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Recall that the base R has already a filter function defined. So make
 sure to avoid any conflicts either by calling \texttt{dplyr::filter()}
@@ -1305,7 +1305,7 @@ comparisons:
 We can often skip the use of \texttt{\&} and just separate our
 conditions with a comma. You'll see this in the example below.
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 In addition, you can use other mathematical checks (similar to
 \texttt{==}):
@@ -1411,7 +1411,7 @@ N807JB & JFK & 362 & 2422 & 9 & 0 & 2013-10-01 09:00:00 \\
 N192JB & JFK & 48 & 266 & 9 & 25 & 2013-10-01 09:00:00 \\
 \end{longtable}
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Even though colloquially speaking one might say ``all flights leaving
 Burlington, Vermont \emph{and} Seattle, Washington,'' in terms of
@@ -1456,7 +1456,7 @@ As a final note we point out that \texttt{filter} should often be the
 first verb you'll apply to your data. This narrows down the data to just
 the observations your are interested in.
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 What is another way of using the \textbf{not} operator \texttt{!} to
 filter only the rows that are not going to Burlington, VT nor Seattle,
@@ -1543,7 +1543,7 @@ flight in the fourth row which departed a minute early
 (\texttt{arr\_delay} of \texttt{-18}), so its ``gained time in the air''
 is 17 minutes, hence its \texttt{gain} is \texttt{+17}.
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Why did we overwrite \texttt{flights} instead of assigning the resulting
 data frame to a new object, like \texttt{flights\_with\_gain}?
@@ -1590,7 +1590,7 @@ gain & hours & gain\_per\_hour \\
 19 & 1.933333 & 9.827586 \\
 \end{longtable}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 What do positive values of the \texttt{gain} variable in
 \texttt{flights} correspond to?
@@ -1682,7 +1682,7 @@ And what about a zero value?
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Could we create the \texttt{dep\_delay} and \texttt{arr\_delay} columns
 by simply subtracting \texttt{dep\_time} from \texttt{sched\_dep\_time}
@@ -1758,7 +1758,7 @@ not to the \texttt{summarize} function.
 1  55.3    17.8
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-important-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-important-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, colframe=quarto-callout-important-color-frame, left=2mm, colbacktitle=quarto-callout-important-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 It is \textbf{not} good practice to include \texttt{na.rm\ =\ TRUE} in
 your summary commands by default; you should attempt to run code first
@@ -1769,7 +1769,7 @@ thought about the potential issues of these should you consider using
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Say a doctor is studying the effect of smoking on lung cancer for a
 large number of patients who have records measured at five year
@@ -1846,7 +1846,7 @@ kind per-operation grouping allow us to do the grouping within the
 operation where the summarisation takes place without changing the
 structure of the data .
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 The \texttt{drop\_na()} function can be used in the pipeline to remove
 missing observations from a data set. Try running the following code to
@@ -1907,7 +1907,7 @@ there is a subtle but important difference between \texttt{sum} and
 the latter counts the number of times each of many different values
 occur.
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 With the \texttt{weather} data set, write code to produce the mean and
 standard deviation temperature for each day in 2013 for NYC.
@@ -2072,7 +2072,7 @@ there are also alternative barplots to the stacked barplot.
   the \texttt{geom\_col} or \texttt{geom\_bar} layer.
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 How would you modify the code above to produced a \emph{dodged} barplot?
 
@@ -2096,7 +2096,7 @@ layer to \texttt{geom\_col(position\ =\ "dodge")} or
   \texttt{\textasciitilde{}\ origin}.
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Boxplots are useful visualisations when comparing the distribution of a
 numerical variable split across groups (or a categorical variable).
@@ -2129,7 +2129,7 @@ Click here to see the solution
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 By using the \texttt{summarise()} function, how could we identify how
 many flights left each of the three airports for each \texttt{carrier}?
@@ -2275,7 +2275,7 @@ aforementioned conditions. We can also use the function
 \texttt{relocate} to change the columns position so that the
 \texttt{temp} and \texttt{temp\_cat} appears first on the data frame.
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Create a new variable called \texttt{extreme\_weather} that takes the
 value of \texttt{extreme} if the wind speed exceeds 64 mph and the
@@ -2598,7 +2598,7 @@ We achieve this by specifying a vector of key variables to join by.
 #   visib <dbl>, time_hour.y <dttm>
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Question}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Question}, colframe=quarto-callout-tip-color-frame, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Looking at the first figure in this section, when joining
 \texttt{flights} and \texttt{weather} (or, in other words, matching the
@@ -2614,7 +2614,7 @@ observational units.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, title={Task}, bottomtitle=1mm, leftrule=.75mm, toprule=.15mm, opacityback=0, arc=.35mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, colback=white, coltitle=black, titlerule=0mm, toptitle=1mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, title={Task}, colframe=quarto-callout-warning-color-frame, left=2mm, colbacktitle=quarto-callout-warning-color!10!white, toprule=.15mm, arc=.35mm, coltitle=black, opacityback=0, bottomrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, leftrule=.75mm, breakable, colback=white]
 
 Create a new data frame that shows the top 5 airports with the largest
 average arrival delays from NYC in 2013.

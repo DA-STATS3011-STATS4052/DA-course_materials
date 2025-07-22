@@ -41,7 +41,7 @@ A lot of the content within this course is based on the open-source book [Statis
 
 First, start by opening **RStudio** by going to `Desktop -> Maths-Stats -> RStudio`. Once RStudio has opened create a new R script by going to `File -> New File -> R Script`. Next go to `File -> Save As...` and save the script into your personal drive. Alternatively, you can download today's session R script and open it on RStudio (remember to save any edits or comments you make on this file) :
 
-{{< downloadthis notes.R dname="week_script.R" label="Download Week 1 R script" icon="database-fill-down" type="success" >}}
+{{< downloadthis notes.R dname="week_script" label="Download Week 1 R script" icon="database-fill-down" type="success" >}}
 
 We shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:
 
