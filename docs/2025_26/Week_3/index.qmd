@@ -218,7 +218,7 @@ evals.scores %>% summarise(rho = cor(score,bty_avg))
 Here, we are given a correlation coefficient of 0.187 for the relationship between teaching (`score`) and beauty (`bty_avg`) scores. This suggests a rather *weakly positive* linear relationship between the two variables. There is some subjective interpretation surrounding correlation coefficients not very close to -1, 0, 1. The table below provides a rough guide as to the verbal interpretation of a correlation coefficient.
 
 | Correlation coefficient       | Verbal interpretation                       |
-|------------------------------|------------------------------------------|
+|-------------------------------|---------------------------------------------|
 | 0.90 to 1.00 (-0.90 to -1.00) | Very strong positive (negative) correlation |
 | 0.70 to 0.90 (-0.70 to -0.90) | Strong positive (negative) correlation      |
 | 0.50 to 0.70 (-0.50 to -0.70) | Moderate positive (negative) correlation    |
@@ -949,9 +949,8 @@ check_model(Balance.model, check= c("linearity","homogeneity","qq","normality"))
 Which assumptions does each of the following plots address?
 :::
 
-
 ::: {.callout-warning icon="false"}
-## {{< bi pencil-square color=#c8793c >}} Task 
+## {{< bi pencil-square color=#c8793c >}} Task
 
 Use the `plot_model` function from the `sjPlot` package to obtain the same diagnostic plots produced via `check_model(Balance.model, check= c(homogeneity","qq","normality"))`.
 
@@ -976,20 +975,19 @@ diag_plots[[4]]
 
 Lastly, besides our usual diagnostic plots to checks we need to be carefull with the collinearity among our predictor since a high collinearity value may inflate the parameter uncertainty.
 
-To check for colliniearity we can compute the VIF (Variance Inflation Factor) which measures how well a covariate $j$ can be predicted by all other predictors in the model. It  measures how much the variance of a regression coefficient is inflated due to collinearity.
+To check for colliniearity we can compute the VIF (Variance Inflation Factor) which measures how well a covariate $j$ can be predicted by all other predictors in the model. It measures how much the variance of a regression coefficient is inflated due to collinearity.
 
 It is computed by regressing a predicor $x_j$ against all other predictors in the model and then obtaining the VIF as:
 
 $$
 VIF_j = \frac{1}{1-R^2_j}
-$$
-where $R^2_j$ is the coefficient of determination from this auxiliary regression. In general terms we can interpret VIF as follows:
+$$ where $R^2_j$ is the coefficient of determination from this auxiliary regression. In general terms we can interpret VIF as follows:
 
-* VIF = 1: No multicollinearity (predictor is uncorrelated with others).
+-   VIF = 1: No multicollinearity (predictor is uncorrelated with others).
 
-* 1 $<$ VIF < 5: Moderate correlation (usually acceptable).
+-   1 $<$ VIF \< 5: Moderate correlation (usually acceptable).
 
-* VIF $\geq$ 5: High multicollinearity (may inflate coefficient variance, reducing reliability).
+-   VIF $\geq$ 5: High multicollinearity (may inflate coefficient variance, reducing reliability).
 
 We can check for collinearity using the `check_model` function as follows:
 
@@ -1008,7 +1006,5 @@ Alternatively, the aforementioned `plot_model()` function from `sjPlot` also com
 #| fig-height: 4
 diag_plots[[1]]
 ```
-
-
 
 You can further enhance your data analysis skills by completing the additional [tasks](about.qmd). Attempt these tasks first, then compare your solutions with the provided answers.
