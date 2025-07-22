@@ -1,0 +1,392 @@
+---
+title: "Week 3 Tasks"
+format: 
+  html: default
+  pdf:  default
+editor: visual
+---
+
+# Tasks
+
+1.  Assess the model assumptions for the parallel regression lines/slopes model. Do they appear valid?
+
+<!-- ```{r task1-solution, echo = TRUE, eval = TRUE} -->
+
+<!-- regression.points <- get_regression_points(par.model) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = age, y = residual)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "age", y = "Residual") + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) + -->
+
+<!--   facet_wrap(~ gender) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = score_hat, y = residual)) + -->
+
+<!-- geom_point() + -->
+
+<!--   labs(x = "Fitted values", y = "Residual") + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) + -->
+
+<!--   facet_wrap(~ gender) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = residual)) + -->
+
+<!--   geom_histogram(binwidth = 0.25, color = "white") + -->
+
+<!--   labs(x = "Residual") + -->
+
+<!--   facet_wrap(~gender) -->
+
+<!-- ``` -->
+
+2.  Return to the `Credit` data set and fit a multiple regression model with `Balance` as the outcome variable, and `Income` and `Age` as the explanatory variables, respectively. Assess the assumptions of the multiple regression model.
+
+<!-- ```{r task2-solution, echo = TRUE, eval = TRUE} -->
+
+<!-- Cred <- Credit %>% -->
+
+<!--   select(Balance, Income, Age) -->
+
+<!--  -->
+
+<!-- Cred %>% -->
+
+<!--   skim() -->
+
+<!--  -->
+
+<!-- Cred %>% -->
+
+<!--   cor() -->
+
+<!--  -->
+
+<!-- ggplot(Cred, aes(x = Age, y = Balance)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Age (in years)", y = "Credit card balance (in $)",  -->
+
+<!--        title = "Relationship between balance and age") + -->
+
+<!--   geom_smooth(method = "lm", se = FALSE) -->
+
+<!--  -->
+
+<!-- plot_ly(Cred, x = ~Income, y = ~Age, z = ~Balance, -->
+
+<!--         type = "scatter3d", mode = "markers") -->
+
+<!--  -->
+
+<!-- Balance.model <- lm(Balance ~ Age + Income, data = Cred) -->
+
+<!-- get_regression_table(Balance.model) -->
+
+<!--  -->
+
+<!-- regression.points <- get_regression_points(Balance.model) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = Income, y = residual)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Income (in $1000)", y = "Residual", title = "Residuals vs income")  + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = Age, y = residual)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Age (in years)", y = "Residual", title = "Residuals vs age")  + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = residual)) + -->
+
+<!--   geom_histogram(color = "white") + -->
+
+<!--   labs(x = "Residual") -->
+
+<!-- ``` -->
+
+3.  Return to the `Credit` data set and fit a parallel regression lines model with `Balance` as the outcome variable, and `Income` and `Student` as the explanatory variables, respectively. Assess the assumptions of the fitted model.
+
+<!-- ```{r task3-solution, echo = TRUE, eval = TRUE} -->
+
+<!-- Cred <- Credit %>% -->
+
+<!--   select(Balance, Income, Student) -->
+
+<!--  -->
+
+<!-- Cred %>% -->
+
+<!--   skim() -->
+
+<!--  -->
+
+<!-- ggplot(Cred, aes(x = Income, y = Balance, color = Student)) + -->
+
+<!--   geom_jitter() + -->
+
+<!--   labs(x = "Income (in $1000)", y = "Credit card balance (in $)", color = "Student") + -->
+
+<!--   geom_smooth(method = "lm", se = FALSE) -->
+
+<!--  -->
+
+<!-- par.model <- lm(Balance ~ Income + Student, data = Cred) -->
+
+<!-- get_regression_table(par.model) -->
+
+<!--  -->
+
+<!-- regression.points <- get_regression_points(par.model) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = Income, y = residual)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Income (in $1000)", y = "Residual") + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) + -->
+
+<!--   facet_wrap(~ Student) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = Balance_hat, y = residual)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Fitted values", y = "Residual") + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) + -->
+
+<!--   facet_wrap(~ Student) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = residual)) + -->
+
+<!--   geom_histogram(color = "white") + -->
+
+<!--   labs(x = "Residual") + -->
+
+<!--   facet_wrap(~Student) -->
+
+<!-- ``` -->
+
+**Trickier**
+
+4.  Load the library `datasets` and look at the `iris` data set of Edgar Anderson containing measurements (in centimetres) on 150 different flowers across three different species of iris. Fit an interaction model with `Sepal.Width` as the outcome variable, and `Sepal.Length` and `Species` as the explanatory variables. Assess the assumptions of the fitted model.
+
+<!-- ```{r task4-solution, echo = TRUE, eval = TRUE} -->
+
+<!-- Irs <- iris %>% -->
+
+<!--   select(Sepal.Width, Sepal.Length, Species) -->
+
+<!--  -->
+
+<!-- Irs %>% -->
+
+<!--   skim() -->
+
+<!--  -->
+
+<!-- Irs %>%  -->
+
+<!--   get_correlation(formula = Sepal.Width ~ Sepal.Length) -->
+
+<!--  -->
+
+<!-- ggplot(Irs, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Sepal length (in centimetres)", y = "Sepal width (in centimetres)", color = "Species") + -->
+
+<!--   geom_smooth(method = "lm", se = FALSE) -->
+
+<!--  -->
+
+<!-- int.model <- lm(Sepal.Width ~ Sepal.Length * Species, data = Irs) -->
+
+<!-- get_regression_table(int.model) -->
+
+<!--  -->
+
+<!-- regression.points <- get_regression_points(int.model) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = Sepal.Length, y = residual)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Sepal length (in centimetres)", y = "Residual") + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) + -->
+
+<!--   facet_wrap(~ Species) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = Sepal.Width_hat, y = residual)) + -->
+
+<!--   geom_point() + -->
+
+<!--   labs(x = "Fitted values", y = "Residual") + -->
+
+<!--   geom_hline(yintercept = 0, col = "blue", size = 1) + -->
+
+<!--   facet_wrap(~ Species) -->
+
+<!--  -->
+
+<!-- ggplot(regression.points, aes(x = residual)) + -->
+
+<!--   geom_histogram(color = "white") + -->
+
+<!--   labs(x = "Residual") + -->
+
+<!--   facet_wrap(~ Species) -->
+
+<!-- ``` -->
+
+# Further Tasks
+
+You are encouraged to complete the following tasks by using Quarto to produce a single document which summarises all your work, i.e. the original questions, your R code, your comments and reflections, etc.
+
+1.  Data was collected on the characteristics of homes in the American city of Los Angeles (LA) in 2010 and can be found in the file `LAhomes.csv` on the Moodle page. The data contain the following variables:
+
+-   `city` - the district of LA where the house was located
+
+-   `type` - either `SFR` (Single Family Residences) or `Condo/Twh` (Condominium/Town House)
+
+-   `bed` - the number of bedrooms
+
+-   `bath` - the number of bathrooms
+
+-   `garage` - the number of car spaces in the garage
+
+-   `sqft` - the floor area of the house (in square feet)
+
+-   `pool` - `Y` if the house has a pool
+
+-   `spa` - `TRUE` if the house has a spa
+
+-   `price` - the most recent sales price (\$US)
+
+    We are interested in exploring the relationships between `price` and the other variables.
+
+    Read the data into an object called `LAhomes` and answer the following questions.
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(moderndive)
+library(ISLR)
+library(skimr)
+library(plotly)
+library(tidyr)
+library(datasets)
+library(knitr)
+library(janitor)
+library(broom)
+library(readr)
+```
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+LAhomes <- read_csv("LAhomes.csv")
+```
+
+a.  By looking at the univariate and bivariate distributions on the `price` and `sqft` variables below, what would be a sensible way to proceed if we wanted to model this data? What care must be taken if you were to proceed this way?
+
+```{r, message=FALSE, warning=FALSE}
+library(gridExtra) # Package to display plots side by side 
+
+hist1 <- ggplot(LAhomes, aes(x = price)) +
+          geom_histogram()
+
+hist2 <- ggplot(LAhomes, aes(x = sqft)) +
+          geom_histogram()
+
+hist1log <- ggplot(LAhomes, aes(x = log(price))) +
+             geom_histogram()
+
+hist2log <- ggplot(LAhomes, aes(x = log(sqft))) +
+             geom_histogram()
+
+plot1 <- ggplot(LAhomes, aes(x = sqft, y = price)) +
+          geom_point()
+
+plot2 <- ggplot(LAhomes, aes(x = log(sqft), y = log(price))) +
+          geom_point()
+
+grid.arrange(hist1, hist2, hist1log, hist2log, plot1, plot2,
+             ncol = 2, nrow = 3)
+```
+
+b.  Fit the simple linear model with `log(price)` as the response and `log(sqft)` as the predictor. Display the fitted model on a scatterplot of the data and construct a confidence interval for the slope parameter in the model and interpret its point and interval estimates.
+
+c.  Repeat the analysis in part b. but with the log of the number of bathrooms (`bath`) as the single explanatory variable.
+
+d.  Fit the multiple linear regression model using the **log transform of all the variables** `price` (as the response) and both `sqft` and `bath` (as the explanatory variables). Calculate the point and interval estimates of the coefficients of the two predictors separately. Compare their point and interval estimates to those you calculated in parts b. and c. Can you account for the differences?
+
+e.  Using the objective measures for model comparisons, which of the models in parts b., c. and d. would you favour? Is this consistent with your conclusions in part d.?
+
+------------------------------------------------------------------------
+
+2.  You have been asked to determine the pricing of a New York City (NYC) Italian restaurant's dinner menu such that it is competitively positioned with other high-end Italian restaurants by analysing pricing data that have been collected in order to produce a regression model to predict the price of dinner.
+
+    Data from surveys of customers of 168 Italian restaurants in the target area are available. The data can be found in the file `restNYC.csv` on the Moodle page. Each row represents one customer survey from Italian restaurants in NYC and includes the key variables:
+
+-   `Price` - price (in \$US) of dinner (including a tip and one drink)
+-   `Food` - customer rating of the food (from 1 to 30)
+-   `Decor` - customer rating of the decor (from 1 to 30)
+-   `Service` - customer rating of the service (from 1 to 30)
+-   `East` - dummy variable with the value 1 if the restaurant is east of Fifth Avenue, 0 otherwise
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+restNYC <- read_csv("restNYC.csv")
+```
+
+a.  Use the `ggpairs` function in the `GGally` package (see the following code) to generate an informative set of graphical and numerical summaries which illuminate the relationships between pairs of variables. Where do you see the strongest evidence of relationships between `price` and the potential explanatory variables? Is there evidence of multicollineatity in the data?
+
+```{r, eval=FALSE}
+library(GGally) # Package to produce matrix of 'pairs' plots and more!
+restNYC$East <- as.factor(restNYC$East) # East needs to be a factor
+# Including the `East` factor
+ggpairs(restNYC[, 4:8], aes(colour = East, alpha = 0.4)) 
+# Without the `East` factor
+ggpairs(restNYC[, 4:7], aes(alpha = 0.4)) 
+```
+
+b.  Fit the simple linear model with `Price` as the response and `Service` as the predictor and display the fitted model on a scatterplot of the data. Construct a confidence interval for the slope parameter in the model.
+
+    Now fit a multiple regressing model of `Price` on `Service`, `Food`, and `Decor`. What happens to the significance of `Service` when additional variables were added to the model?
+
+c.  What is the correct interpretation of the coefficient on `Service` in the linear model which regresses `Price` on `Service`, `Food`, and `Decor`?

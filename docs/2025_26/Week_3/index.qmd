@@ -49,7 +49,7 @@ knitr::purl("index.qmd")
 
 You can download today's session R script below:
 
-{{< downloadthis index.R dname="week_script.R" label= "Download Week 3 R script" icon="database-fill-down" type="success" >}}
+{{< downloadthis index.R dname="week_script" label= "Download Week 3 R script" icon="database-fill-down" type="success" >}}
 
 ::: callout-note
 I recommend opening a new Quarto file and using it to create your own notes as you work through today's exercises. This will help you practice coding in a structured way, reinforce your learning, and keep a reusable record of your progress.
@@ -207,10 +207,12 @@ ggplot(data = values, mapping = aes(V1, V2)) +
   )
 ```
 
-The correlation coefficient can be computed in R using the `cor` function as follows:
+The correlation coefficient can be computed in R by `summarising` our data using the `cor` function as follows:
 
 ```{r correlation3, echo = TRUE, eval = TRUE, warning = FALSE}
-cor(evals.scores$score,evals.scores$bty_avg)
+
+evals.scores %>% summarise(rho = cor(score,bty_avg))
+
 ```
 
 Here, we are given a correlation coefficient of 0.187 for the relationship between teaching (`score`) and beauty (`bty_avg`) scores. This suggests a rather *weakly positive* linear relationship between the two variables. There is some subjective interpretation surrounding correlation coefficients not very close to -1, 0, 1. The table below provides a rough guide as to the verbal interpretation of a correlation coefficient.

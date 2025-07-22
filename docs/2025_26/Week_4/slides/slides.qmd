@@ -1,0 +1,571 @@
+---
+title: "Week 4: Regression modelling part 2"
+title-slide-attributes: 
+  data-background-image: logo2.png
+  data-background-size: 20%
+  data-background-position: 2% 2%
+format: 
+  revealjs: 
+    theme: dark
+    smaller: true
+embed-resources: true
+editor: visual
+execute: 
+  echo: true
+include-in-header: 
+  text: |
+    <style>
+      .custom-small table {
+        font-size: .8em
+      }
+      .custom-tiny table {
+        font-size: .6em
+      }
+    </style>
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(moderndive)
+library(ISLR)
+library(skimr)
+library(plotly)
+library(tidyr)
+library(datasets)
+library(knitr)
+library(janitor)
+library(broom)
+library(readr)
+library(webexercises)
+library(tidymodels)
+
+knitr::opts_chunk$set(echo = TRUE, comment = NA, out.width = '65%', fig.align = "center", fig.pos = 'H',
+                      warning = FALSE, message = FALSE)
+
+library(tidyverse)
+library(sjPlot)
+
+evals.scores <- evals %>%
+  select(score, age)
+
+```
+
+```{css, echo=FALSE}
+
+.reveal pre {
+  font-size: 1.4rem !important;
+}
+
+.reveal code {
+  font-size: 0.8em !important;
+}
+
+/* Headings */
+.reveal h1 {
+  font-size: 3em !important;  /* Adjust this value as needed */
+}
+
+.reveal h2 {
+  font-size: 2em !important;  /* Adjust this value as needed */
+}
+
+```
+
+# Recap of last week
+
+## Simple Linear Regression
+
+Let the general form of the simple linear model:
+
+$$y_i = \beta_0 + \beta_1 x_{i,1} + \epsilon_i,  \ i = 1,..n \\
+ \mathrm{such \  that } \ \epsilon \sim \mathrm{Normal}(0,\sigma^2)$$
+
+used to describe the relationship between a response **y** and a set of variables or predictors **x**
+
+-   $y_i$ is the $i^{th}$ observation of the response variable;
+-   $\alpha$ is the **intercept** of the regression line;
+-   $\beta$ is the **slope** of the regression line;
+-   $x_i$ is the $i^{th}$ observation of the explanatory variable; and
+-   $\epsilon_i$ is the $i^{th}$ random component.
+
+## Fitting a Simple Linear Regression in R
+
+**Data**
+
+Student evaluations for a sample of 463 courses taught by 94 professors from the University of Texas at Austins, including information on the professor **evaluation score** and a the **age** of each professor.
+
+::: panel-tabset
+## Statistical model
+
+$\text{score} = \alpha + \beta \  \text{age} + \ \epsilon$
+
+## R-Code
+
+```{r}
+#| warning: false
+#| message: false
+
+model <- lm(score ~ age, data = evals.scores)
+tab_model(model)
+```
+:::
+
+## Visualize a Simple Linear Regression {.smaller}
+
+::: panel-tabset
+## Best fitting line
+
+```{r}
+#| output-location: default
+
+ggplot(evals.scores, aes(x = age, y = score)) +
+  geom_point() +
+  labs(x = "Age", y = "Teaching Score") +
+  geom_smooth(method = "lm", se = FALSE)
+
+```
+
+## Model Diagnostics
+
+```{r}
+#| output-location: default
+#| message: false
+#| warning: false
+
+library(performance)
+check_model(model,check=c("homogeneity","linearity","qq","normality"))
+```
+:::
+
+## Simple Linear Regression with a Categorical variable {.smaller}
+
+Here, we will fit a simple linear regression model where the explanatory variable is *categorical*, i.e. a **factor** with two or more **levels**
+
+::: panel-tabset
+## Statistical Model
+
+$$ y_{i} = \alpha + \beta_{\text{male}} \cdot \mathbb{I}_{\text{male}}(x) + \epsilon_i $$
+
+$$\mathbb{I}_{\text{male}}(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \text{If gender} ~ x ~ \text{is male},\\
+              0 ~~~ \text{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+## R-Code
+
+```{r}
+#| echo: false
+
+evals.scores_2 <- evals %>%
+  select(score, gender)
+```
+
+```{r}
+model_2 <- lm(score ~ gender, data = evals.scores_2)
+tab_model(model_2)
+```
+:::
+
+## Multiple linear regression {.smaller}
+
+Let the general form of the linear model:
+
+$$y_i = \beta_0 + \beta_1 x_{i,1} + \beta_2 x_{i,2} + ... +  \beta_p x_{i,p} + \epsilon_i,  \ i = 1,..n$$
+
+-   $y_i$ is our response of the $i^{th}$ observation;
+
+-   $\beta_0$ is the intercept;
+
+-   $\beta_1$ is the coefficient for the first explanatory variable $x_1$;
+
+-   $\beta_2$ is the coefficient for the second explanatory variable $x_2$;
+
+-   $\beta_p$ is the coefficient for the $p^{th}$ explanatory variable $x_p$;
+
+-   $\epsilon_i$ is the $i^{th}$ random error component.
+
+Last week we covered the case with **two numerical** explanatory variables**. This week,** we will have a look at the case with one **numerical** and one **categorical** explanatory variable.
+
+# Regression modelling with one numerical and one categorical explanatory variable
+
+## **Parallel lines model** {.smaller}
+
+We already explored the relationship between teaching score (`score`) and age (`age`). Now, let's also introduce the additional (binary) categorical explanatory variable gender (`gender`).
+
+::: panel-tabset
+## Statistical Model
+
+```{=tex}
+\begin{align}
+y_{i} &= \alpha + \beta_{\text{age}} \cdot \text{age} + \beta_{\text{male}} \cdot \mathbb{I}_{\text{male}}(x) + \epsilon_i, \nonumber
+\end{align}
+```
+-   $\alpha$ is the intercept of the regression line for females;
+
+-   $\beta_{\text{age}}$ is the slope of the regression line for both males and females;
+
+-   $\beta_{\text{male}}$ is the additional term added to $\alpha$ to get the intercept of the regression line for males; and
+
+-   $\mathbb{I}_{\text{male}}(x)$ is an indicator function such that takes the value of 1 if the person is a male and zero otherwise.
+
+## R Code
+
+```{r}
+evals_multiple <- evals %>%
+                  select(score, gender, age)
+par.model <- lm(score ~ age + gender, data = evals_multiple)
+tab_model(par.model)
+
+```
+
+Hence, the regression line for females is given by:
+
+$$\widehat{\text{score}} = 4.48 - 0.009 \cdot \text{age},$$
+
+while the regression line for males is given by:
+
+$$\widehat{\text{score}} = 4.48 - 0.009 \cdot \text{age} + 0.191 = 4.671 - 0.009 \cdot \text{age}.$$
+:::
+
+## Visualize the parallel regression lines
+
+```{r}
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+plot_model(model = par.model,                 
+           type="pred",              
+           terms = c("age","gender"), 
+           grid=T,                    
+           show.data = T,             
+           jitter=T,                  
+           ci.lvl = NA,               
+           title="") 
+```
+
+-   From the parallel regression lines model the associated effect of age on teaching score is the same for both men and women.
+
+-   For every one year increase in age, there is an associated decrease in teaching score of 0.009.
+
+-   Male instructors have a higher intercept terms. This is linked to the average difference in teaching scores that males obtain relative to females.
+
+## Multiple regression: interaction model {.smaller}
+
+In this model, the effect of age on teaching scores will differ by gender.
+
+::: panel-tabset
+## Statistical model
+
+```{=tex}
+\begin{align}
+y_{i} &= \alpha + \beta_{\text{age}} \cdot \text{age} + \beta_{\text{male}} \cdot \mathbb{I}_{\text{male}}(x) + \beta_{\text{age, male}} \cdot \text{age} \cdot \mathbb{I}_{\text{male}}(x) + \epsilon_i, \nonumber
+\end{align}
+```
+where $\beta_{\text{age, male}} \cdot \text{age} \cdot \mathbb{I}_{\text{male}}(x)$ corresponds to the interaction term.
+
+More concretely:
+
+$$y_{i}=\left\{
+                \begin{array}{ll}
+                  \alpha + \beta_{\text{age}} \cdot \text{age} + \epsilon_i ~~~ \text{If gender} ~ x ~ \text{is female},\\
+                  (\alpha + \beta_{\text{male}}) + (\beta_{\text{age}} + \beta_{\text{age, male}}) \cdot \text{age} + \epsilon_i ~~~ \text{Otherwise}.\\
+                \end{array}
+              \right.$$
+
+## R Code
+
+```{r}
+#| code-line-numbers: "2"
+#| message: false
+#| warning: false
+int.model <- lm(score ~ age * gender, data = evals_multiple)
+broom::tidy(int.model)
+```
+
+-   The regression line for females is given by:
+
+    $$
+    \widehat{\text{score}} = 4.88 - 0.018 \cdot \text{age},
+    $$
+
+-   The regression line for males is given by:
+
+$$\widehat{\text{score}} = 4.88 - 0.018 \cdot \text{age} - 0.446 + 0.014 \cdot \text{age} = 4.434 - 0.004 \cdot \text{age}.$$
+:::
+
+## Visualize the regression model with interaction
+
+```{r}
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+plot_model(model = int.model,        
+           type=  "pred",              
+           terms = c("age","gender"), 
+           grid=F,                    
+           show.data = T,           
+           jitter=T,                  
+           ci.lvl = NA,               
+           title ="",
+           colors = c("purple", "orange")) 
+
+```
+
+## Assessing model fit
+
+Now we have to assess the fit of the model by looking at plots of the residuals.
+
+```{r}
+int.model_output <-  evals_multiple %>% 
+  mutate(score_hat  = int.model$fitted.values,
+         residual = int.model$residuals)
+```
+
+::: panel-tabset
+## Residuals vs. age
+
+```{r}
+#| output-location: default
+
+ggplot(int.model_output, aes(x = age, y = residual)) +
+  geom_point() +
+  labs(x = "age", y = "Residual") +
+  geom_hline(yintercept = 0, col = "blue", linewidth = 1) +
+  facet_wrap(~ gender)
+
+```
+
+## Residuals vs. fitted values
+
+```{r}
+#| output-location: default
+
+check_model(int.model,check = c("linearity","homogeneity"))
+
+```
+
+## Histograms & QQ plots
+
+```{r}
+#| output-location: default
+
+check_model(int.model,check = c("qq","normality"))
+
+
+```
+:::
+
+## Which model do we select?
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(patchwork)
+
+p1<- ggplot(evals_multiple, aes(x = age, y = score, color = gender)) +   
+  geom_point() +  
+  labs(x = "Age", y = "Teaching Score", color = "Gender")+
+  geom_parallel_slopes(se = FALSE) + ggtitle("Model 1: Parallel regression lines.")
+
+p2 <- ggplot(evals_multiple, aes(x = age, y = score, col = gender)) +  
+  geom_jitter() +   labs(x = "Age", y = "Teaching Score", color = "Gender") +  
+  geom_smooth(method = "lm", se = FALSE)+ ggtitle("Model 2: Separate regression lines.")
+
+p1 +p2 +  plot_layout(ncol=2) 
+```
+
+## **Inference using Confidence Intervals**
+
+-   A **confidence interval** gives a range of plausible values for a population parameter.
+
+-   It depends on a specified *confidence level*.
+
+-   Instead of estimating an unknown parameter by using a single point estimate/sample statistic we can use a range of possible values based around our sample statistic to make a plausible guess as to the location of the parameter.
+
+    ![](fishing.png){width="603" fig-align="center"}
+
+## Confidence Intervals for Regression Parameters {.smaller}
+
+::: columns
+::: {.column width="60%"}
+
+::: custom-tiny
+```{r}
+#| echo: false
+tab_model(par.model,
+          int.model,
+          show.stat = T,
+          show.se = T,
+          collapse.ci = T,
+          dv.labels = c("parallel lines model","interaction model") )
+```
+:::
+:::
+
+::: {.column width="40%"}
+The tables includes:
+
+-   **std_error**: the standard error of each parameter estimate;
+-   **statistic**: the test statistic value used to test the null hypothesis that the population parameter is zero;
+-   **p_value**: the $p$ value associated with the test statistic under the null hypothesis; and
+-   **lower_ci** and **upper_ci**: the lower and upper bounds of the 95% confidence interval for the population parameter
+:::
+:::
+
+## Variable selection using confidence intervals
+
+-   A confidence interval gives a range of plausible values for a population parameter.
+
+-   When there is more than one explanatory variable in a model, the parameter associated with each explanatory variable is interpreted as the change in the mean response based on a 1-unit change in the corresponding explanatory variable **keeping all other variables held constant**.
+
+-   When interpreting the confidence intervals of each parameter by acknowledging that each are plausible values **conditional on all the other explanatory variables in the model**.
+
+We will introduce some of the ideas in the simple case where we have 2 potential explanatory variables ($x_1$ and $x_2$) and use confidence intervals to decide which variables will be useful in predicting the response variable ($y$).
+
+## Variable selection using confidence intervals {.smaller}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+One approach is to consider a hierarchy of models:
+
+
+$$y_i = \alpha + \beta_1 x_{1i} + \beta_2 x_{2i}$$\
+$$y_i = \alpha + \beta_1 x_{1i} \qquad  \qquad y_i = \alpha + \beta_2 x_{2i}$$\
+$$y_i = \alpha$$
+:::
+
+::: {.column width="60%"}
+Within this structure we might take a top-down approach:
+
+1.  Fit the most general model.
+2.  Construct confidence intervals for $\beta_1 ~\textrm{and} ~\beta_2$
+    (a) If both intervals exclude 0 then retain the model with both $x_1$ and $x_2$.
+    (b) If the interval for $\beta_1$ contains 0 but that for $\beta_2$ does not, fit the model with $x_2$ alone.
+    (c) If the interval for $\beta_2$ contains 0 but that for $\beta_1$ does not, fit the model with $x_1$ alone.
+    (d) If both intervals include 0 it may still be that a model with one variable is useful.
+:::
+
+::::
+
+
+
+
+
+
+## Example: variable selection using confidence intervals {.smaller}
+
+Recall that as well as `age` and `gender`, there is also a potential explanatory variable `bty_avg` in the `evals` data, i.e. the numerical variable of the average beauty score from a panel of six students' scores between 1 and 10.
+
+```{r}
+mlr.model <- lm(score ~ age + bty_avg, data = evals) 
+```
+
+::: custom-tiny
+```{r, echo=FALSE}
+tab_model(mlr.model,collapse.ci = T,show.se = T,show.obs = F)
+```
+:::
+
+::: {.callout-tip icon="false"}
+## Question
+
+Which variable should we drop?
+:::
+
+## Model comparisons using objective criteria {.smaller}
+
+When the number of potential explanatory variables is large the problem of selecting which variables to include in the final model becomes more difficult.
+
+When we do model selection we compromise:
+
+-   Predictive accuracy (improved by including more predictor/explanatory variables)
+-   Interpretability (achieved by having less predictor/explanatory variables)
+
+There are many objective criteria for comparing different models applied to the same data set.
+
+All of them trade off the two objectives above, i.e. fit to the data against complexity. Common examples include:
+
+## Model comparisons using objective criteria {.smaller}
+
+
+::: panel-tabset
+## R-squared
+
+The $R^2_{adj}$ values, i.e. the proportion of the total variation of the response variable explained by the models.
+
+$$R_{adj}^2 = 1 - \frac{RSS/(n-p-1)}{SST/(n-1)} = 100 \times \Bigg[ 1-\frac{\sum_{i=1}^n(y_i-\widehat{y}_i)^2/(n-p-1)}{\sum_{i=1}^n(y_i-\bar y_i)^2/(n-1)}\Bigg]$$
+
+-   where
+    -   $n$ is the sample size and $p$ is the number of parameters in the model
+    -   $RSS$ is the residual sum of squares from the fitted model
+    -   $SST$ is the total sum of squares around the mean response.
+-   $R_{adj}^2$ values are used for nested models, i.e. where one model is a particular case of the other
+
+## AIC
+
+Akaike's Information Criteria (AIC)
+
+$$AIC = -2 \cdot \text{log-likeihood} + 2p = n\ln\left(\frac{RSS}{n}\right)+2p$$
+
+-   A value based on the maximum likelihood function of the parameters in the fitted model penalised by the number of parameters in the model
+-   It be used to compare any models fitted to the same response variable
+-   The smaller the AIC the 'better' the model, i.e. no distributional results are employed to assess differences
+-   See the `stepAIC` function from the `MASS` library.
+
+## BIC
+
+Bayesian Information Criteria
+
+$$BIC = -2 \cdot \text{log-likeihood} +\ln(n)p$$
+
+A popular data analysis strategy that can be adopted is to calculate $R_{adj}^2$, $AIC$ and $BIC$ and compare the models which **minimise** the $AIC$ and $BIC$ with the model that **maximises** the $R_{adj}^2$.
+:::
+
+## Example: Model comparisons using objective criteria {.smaller .scrollable}
+
+To illustrate this, let's return to the `evals` data and the MLR on the teaching evaluation score `score` with the two continuous explanatory variables `age` and `bty_avg` and compare this with the SLR model with just `bty_avg`.
+
+
+```{r}
+ 
+lm(score ~ age, data = evals) %>% # Model 1: score = age
+glance()
+
+
+lm(score ~ bty_avg, data = evals) %>%  # Model 2: score = bty_avg
+glance()
+
+
+lm(score ~ age + bty_avg, data = evals) %>% # Model 3: score = age + bty_avg
+glance(mlr.model)
+
+```
+
+## A final word on model selection {.smaller}
+
+-   A great deal of care should be taken in selecting explanatory variables for a model because the values of the regression coefficients depend upon the variables included in the model.
+
+-   One thing **NOT** to do is select hundreds of random predictors, bung them all into a regression analysis and hope for the best.
+
+-   There are automatic strategies, such as **Stepwise** and **Best Subsets** regression, based on systematically searching through the entire list of variables not in the current model to make decisions on whether each should be included.
+
+-   These strategies need to be handled with care,
+
+Our best strategy is a mixture of judgement on what variables should be included as potential explanatory variables, together with an interval estimation and hypothesis testing strategy for assessing these. The judgement should be made in the light of advice from the problem context.
+
+
+## A final word on model selection {.smaller}
+
+::: callout-important
+**Golden rule for modelling**
+
+The key to modelling data is to only use the objective measures as a rough guide. In the end the choice of model will involve your own judgement. You have to be able to defend why you chose a particular model.
+:::

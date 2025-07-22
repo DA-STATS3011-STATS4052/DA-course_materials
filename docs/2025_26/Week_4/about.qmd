@@ -1,0 +1,287 @@
+---
+title: "Week 4 Tasks"
+format:
+  html:    
+    code-link: true
+    code-fold: show
+    code-tools:
+      source: false
+      toggle: true
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    number-sections: true
+  PrettyPDF-pdf:
+    keep-tex: true
+    number-sections: true
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+# Tasks
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false  
+library(tidyverse)    # Data wrangling 
+library(ggplot2)      # Data visualization
+library(performance)  # Model assessment
+library(skimr)        # Exploratory analysis
+library(sjPlot)       # Plot and tables for linear models
+library(broom)        # Linear model tidy summaries
+library(gridExtra) # Package to display plots side by side 
+library(webexercises)
+```
+
+You are encouraged to complete the following tasks by using Quarto to produce a single document which summarises all your work, i.e. the original questions, your R code, your comments and reflections, etc.
+
+## Part 1
+
+Data was collected on the characteristics of homes in the American city of Los Angeles (LA) in 2010 and can be downloaded below:
+
+{{< downloadthis LAhomes.csv dname="LAhomes" label="Download LAhomes dataset" icon="database-fill-down" type="success" >}}
+
+The data contain the following variables:
+
+-   `city` - the district of LA where the house was located
+
+-   `type` - either `SFR` (Single Family Residences) or `Condo/Twh` (Condominium/Town House)
+
+-   `bed` - the number of bedrooms
+
+-   `bath` - the number of bathrooms
+
+-   `garage` - the number of car spaces in the garage
+
+-   `sqft` - the floor area of the house (in square feet)
+
+-   `pool` - `Y` if the house has a pool
+
+-   `spa` - `TRUE` if the house has a spa
+
+-   `price` - the most recent sales price (\$US)
+
+We are interested in exploring the relationships between `price` and the other variables.
+
+Read the data into an object called `LAhomes` and complete the following tasks
+
+```{r}
+LAhomes <- read.csv("LAhomes.csv",stringsAsFactors = T)
+```
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 1
+
+By looking at the univariate and bivariate distributions on the `price` and `sqft` variables below, what would be a sensible way to proceed if we wanted to model this data? What care must be taken if you were to proceed this way?
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+#| message: false
+#| warning: false 
+
+
+hist1 <- ggplot(LAhomes, aes(x = price)) +
+          geom_histogram()
+hist2 <- ggplot(LAhomes, aes(x = sqft)) +
+          geom_histogram()
+
+# Explore log transformation
+hist1log <- ggplot(LAhomes, aes(x = log(price))) +
+             geom_histogram()
+hist2log <- ggplot(LAhomes, aes(x = log(sqft))) +
+             geom_histogram()
+
+plot1 <- ggplot(LAhomes, aes(x = sqft, y = price)) +
+          geom_point()
+plot2 <- ggplot(LAhomes, aes(x = log(sqft), y = log(price))) +
+          geom_point()
+
+grid.arrange(hist1, hist2, hist1log, hist2log, plot1, plot2,
+             ncol = 2, nrow = 3)
+```
+:::
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 2
+
+Fit the simple linear model with `log(price)` as the response and `log(sqft)` as the predictor. Display the fitted model on a scatterplot of the data and construct a confidence interval for the slope parameter in the model and interpret its point and interval estimates.
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+#| message: false
+
+slr_LAprices <- lm(log(price) ~ log(sqft), data = LAhomes)
+
+ggplot(LAhomes, aes(x =  log(sqft), y = log(price))) +
+  geom_point(alpha=0.25) +
+  labs(x = "log(aquare feet)", y = "log(price)") +
+  geom_smooth(method = "lm", level =0.95)
+
+tab_model(slr_LAprices)
+
+```
+:::
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 3
+
+Re-do your analysis but now using `log(bath)` as the explanatory variable. Calculate the point and interval estimates of the coefficients.
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+
+slr_LAprices2 <- lm(log(price) ~ log(bath), data = LAhomes)
+
+ggplot(LAhomes, aes(x =  log(bath), y = log(price))) +
+  geom_point(alpha=0.25) +
+  labs(x = "log(aquare feet)", y = "log(price)") +
+  geom_smooth(method = "lm", level =0.95)
+
+tab_model(slr_LAprices2)
+```
+:::
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 4
+
+Fit the multiple linear regression model using the **log transform of all the variables** `price` (as the response) and both `sqft` and `bath` (as the explanatory variables). Calculate the point and interval estimates of the coefficients of the two predictors separately. Compare their point and interval estimates to those you calculated before. Can you account for the differences?
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+
+mlr_LAprices <- lm(log(price) ~ log(sqft) + log(bath), data = LAhomes)
+tab_model(mlr_LAprices,slr_LAprices,slr_LAprices2)
+```
+:::
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 5
+
+Using the objective measures for model comparisons, which of the models in task 2 ,3 and 4 would you favour? Is this consistent with your conclusions in task 4?
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+
+tab_model(mlr_LAprices,slr_LAprices,slr_LAprices2,show.aic = T)
+
+```
+:::
+
+## Part 2.
+
+You have been asked to determine the pricing of a New York City (NYC) Italian restaurant's dinner menu such that it is competitively positioned with other high-end Italian restaurants by analysing pricing data that have been collected in order to produce a regression model to predict the price of dinner.
+
+Data from surveys of customers of 168 Italian restaurants in the target area are available. The data can be found in the file `restNYC.csv`.
+
+{{< downloadthis restNYC.csv dname="restNYC" label="Download restNYC dataset" icon="database-fill-down" type="success" >}}
+
+Each row represents one customer survey from Italian restaurants in NYC and includes the key variables:
+
+-   `Price` - price (in \$US) of dinner (including a tip and one drink)
+-   `Food` - customer rating of the food (from 1 to 30)
+-   `Decor` - customer rating of the decor (from 1 to 30)
+-   `Service` - customer rating of the service (from 1 to 30)
+-   `East` - dummy variable with the value 1 if the restaurant is east of Fifth Avenue, 0 otherwise
+
+```{r}
+restNYC <- read.csv("restNYC.csv",stringsAsFactors = T)
+```
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 6
+
+Using the `ggpairs` function in the `GGally` package (see the following code) we can generate an informative set of graphical and numerical summaries which illuminate the relationships between pairs of variables. Where do you see the strongest evidence of relationships between `price` and the potential explanatory variables? Is there evidence of multicollineatity in the data?
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-height: 6
+#| fig-width: 6
+#| code-fold: false
+library(GGally) # Package to produce matrix of 'pairs' plots and more!
+restNYC$East <- as.factor(restNYC$East) # East needs to be a factor
+# Including the `East` factor
+# ggpairs(restNYC[, 4:8], aes(fill = East, alpha = 0.4),progress = F) 
+
+# Without the `East` factor
+ggpairs(restNYC[, 4:7], aes(alpha = 0.4),progress = F) 
+```
+
+`r hide("Solution")`
+
+There seems to be a strong positive linear association between service and food, which could lead to some collinearity issues.
+
+`r unhide()`
+:::
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 7
+
+Fit the simple linear model with `Price` as the response and `Service` as the predictor and display the fitted model on a scatterplot of the data. Construct a confidence interval for the slope parameter in the model.
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+#| message: false
+
+
+price_serv_LM <- lm(Price  ~ Service  , data = restNYC)
+ggplot(restNYC, aes(x = Service, y = Price)) +
+  geom_point() +
+  geom_jitter() +
+  labs(x = "Service score", y = "Price")+
+  geom_smooth(method = "lm")
+
+broom::tidy(price_serv_LM,conf.int = T)
+
+```
+:::
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 8
+
+Now fit a multiple regressing model of `Price` on `Service`, `Food`, and `Decor`. What happens to the significance of `Service` when additional variables were added to the model?
+
+```{r}
+#| webex.hide: "Click here to see the solution"
+#| code-fold: show
+
+price_serv_MLR <- lm(Price  ~ Service + Food + Decor , data = restNYC)
+tab_model(price_serv_MLR,collapse.ci = T)
+
+```
+:::
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task 9
+
+What is the correct interpretation of the coefficient on `Service` in the linear model which regresses `Price` on `Service`, `Food`, and `Decor`?
+
+`r hide("See solution")` After controlling for `Food` and `Decor`, a 1-point increase in the `Service` rating is associated with an estimated \$0.135 increase in the. average Price, but this effect is not statistically significant (p $>$ 0.05) `r unhide()`
+:::
