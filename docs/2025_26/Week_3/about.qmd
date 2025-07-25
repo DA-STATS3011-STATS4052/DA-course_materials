@@ -60,12 +60,10 @@ ggplot(evals.age, aes(x = age, y = score)) +
 ```
 :::
 
-
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task 2
 
 Perform a formal analysis of the relationship between teaching score and age by fitting a simple linear regression model. Superimpose your best-fitting line onto your scatterplot from the previous Task .
-
 
 ```{r}
 #| webex.hide: "Click here to see the solution"
@@ -84,13 +82,10 @@ ggplot(evals.age, aes(x = age, y = score)) +
 ```
 :::
 
-
-
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task 3
 
 Assess the model assumptions from Task 2 by plotting the residuals diagnostic plots.
-
 
 ```{r}
 #| webex.hide: "Click here to see the solution"
@@ -102,14 +97,10 @@ check_model(model,check=c("linearity","homogeneity","qq","normality"))
 ```
 :::
 
-
-
-
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task 4
 
 Perform the same analysis we did on life expectancy from the `gapminder` data set in 2007. However, subset the data for the year 1997. Are there any differences in the results across this 10 year period?
-
 
 ```{r}
 #| webex.hide: "Click here to see the solution"
@@ -129,13 +120,10 @@ lifeExp.model
 ```
 :::
 
-
-
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task 5
 
- Return to the `Credit` data set and fit a multiple regression model with `Balance` as the outcome variable, and `Income` and `Age` as the explanatory variables, respectively. Assess the assumptions of the multiple regression model.
-
+Return to the `Credit` data set and fit a multiple regression model with `Balance` as the outcome variable, and `Income` and `Age` as the explanatory variables, respectively. Assess the assumptions of the multiple regression model.
 
 ```{r}
 #| webex.hide: "Click here to see the solution"
@@ -169,5 +157,3 @@ check_model(Balance.model,check=c("linearity","homogeneity","qq","normality"))
 
 ```
 :::
-
-
