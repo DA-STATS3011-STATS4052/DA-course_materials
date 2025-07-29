@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 0f82e83a-8bb1-4782-b79a-9c34f7336d10
+      url: 'https://imarques.quarto.pub/week-7-0-generalised-linear-models'

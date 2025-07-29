@@ -1,0 +1,416 @@
+---
+title: "Data Analysis"
+subtitle: "Week 6: Generalised Linear Models part 1"
+embed-resources: true
+title-slide-attributes: 
+  data-background-image: uog_cloistures2.jpg
+format: 
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
+include-in-header: 
+  text: |
+    <style>
+      .custom-small table {
+        font-size: .8em
+      }
+      .custom-tiny table {
+        font-size: .6em
+      }
+    </style>
+author:
+  - name: Jafet Belmont 
+    email: jafet.BelmontOsuna@glasgow.ac.uk 
+    affiliations: School of Mathematics and Statistics
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(moderndive)
+library(kableExtra)
+```
+
+
+## ILOs
+
+By the end of this session you will be able to:
+
+-   Fit a logistic regression model with either a numerical or categorical explanatory variable:
+
+-   Interpret the regression coefficients of the logistic model in terms of their effects on both the odds and the log odds (of the response)
+
+- Conduct model validation and assess model predictive performance 
+
+# Overview of today's session
+
+## Logistic regression {.smaller}
+
+This week we will learn how to model outcomes of interest that take one of two categorical values (e.g. yes/no, success/failure, alive/dead), i.e.
+
+-   **binary**, taking the value 1 (say success, with probability $p_i$) or 0 (failure, with probability $1-p_i$)
+-   We are interested in $\text{Prob}(Event) = p_i$. Suppose the a random variable $y_i$ for the *event* of interest.
+
+In this case,
+
+$$
+y_i \sim \mathrm{Bin}(1,p_i)\\
+g(p_i) = \log \left(\frac{p_i}{1 - p_i} \right)
+$$
+
+which is also referred to as the **log-odds** (since $p_i ~ / ~ 1-p_i$ is an odds ratio).
+
+$$p_i = \frac{\exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)}{1 + \exp\left(\mathbf{x}_i^\top \boldsymbol{\beta}\right)} ~~~ \in [0, 1].$$
+
+## Required R packages {.unnumbered .smaller}
+
+Before we proceed, load all the packages needed for this week:
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: false
+#| echo: true
+
+library(tidyverse)
+library(ggplot2)
+library(sjPlot)
+library(broom)
+library(performance)
+library(yardstick) 
+```
+
+::: incremental
+1.  The first libraries `ggplot2` and `tidyverse` allows us to create nice data visualisations and data manipulation.
+2.  The second libraries `sjPlot` and `broom` allows us summarise and present model output in a tidy format.
+3.  The final two libraries (`performance` and `yardstick`) are used fro  model assessment and validation.
+:::
+
+## First example - Teaching evaluation scores {.unnumbered .smaller}
+
+
+`evals` data set containing student evaluations for a sample of 463 courses taught by 94 professors from the University of Texas at Austins.
+
+
+```{r}
+#| code-fold: show
+#| echo: true
+evals.gender <- evals %>%
+                  select(gender, age)
+```
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
+
+ggplot(data = evals.gender, aes(x = gender, y = age, fill = gender)) +
+  geom_boxplot() +
+  labs(x = "Gender", y = "Age") +
+  theme(legend.position = "none")
+
+```
+
+## Fitting a logistic regression in R {.unnumbered .smaller}
+
+$$
+\log\left( \frac{p}{1-p} \right) = \alpha + \beta 
+$$
+
+where $p = \textrm{Prob}\left(\textrm{Male}\right)$.
+
+```{r}
+#| code-fold: false
+model <- glm(gender ~ age, data = evals.gender,family = binomial)
+```
+
+:::{.panel-tabset}
+
+## Log Odds
+
+::: custom-small
+```{r}
+#| eval: true 
+#| echo: false
+model %>% 
+  tab_model(transform = NULL,
+            show.obs = F,
+            show.r2 = F,
+            collapse.ci = T)
+
+```
+:::
+* the log-odds of the instructor being male increase by 0.06 for every one unit increase in age.
+
+## Odd Scale
+::: custom-small
+```{r}
+#| code-fold: false
+#| eval: true 
+#| echo: false
+model %>% 
+  tab_model(transform = "exp",
+            show.obs = F,
+            show.r2 = F,
+            collapse.ci = T)
+```
+:::
+
+* for every 1 unit increase in age, the odds of the teaching instructor being male increase by a factor of 1.06.
+
+:::
+
+
+
+## Relationship between between Odds and Probabilities
+
+| Scale       | Equivalence                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|----------------------|-------------------------------------------------|
+| Odds        | $$                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                       Odds = \mathrm{exp}(log Odds) = \dfrac{P(event)}{1-P(event)}                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                                       $$                                                                                                                                                                |
+| Probability | $$                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                       P(event) =\dfrac{\mathrm{exp}(logOdds)}{1+\mathrm{exp}(logOdds)}  = \dfrac{Odds}{1+Odds}                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                       $$                                                                                                                                                                |
+
+: Relationship between Odds and Probabilities {#tbl-odds_probs}
+
+## Model evaluation
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: true
+library(performance)
+check_model(model, check = c("pp_check","binned_residuals","outliers","qq"))
+
+```
+
+## **Predictive performance metrics** {.smaller}
+
+How well our model predicts new observations?
+
+-   compute the **predicted classes** and compare them against the **observed values**.
+
+-   We typically classify these probabilities into discrete classes based on a **threshold** (commonly 0.5 for binary classification)We can set a threshold
+
+```{r}
+#| code-fold: show
+#| echo: true
+
+pred_results = model %>% 
+  broom::augment(type.predict = c("response")) %>%
+  mutate(predicted_class = 
+           factor(ifelse(.fitted > 0.5, "male", "female")))
+
+```
+
+```{r}
+#| echo: false
+pred_results %>% slice(1:5) %>% kable(digits=2)
+
+```
+
+## **Predictive performance metrics** {.smaller}
+
+We can use these predicted classes to compute different predictive performance/evaluation metrics
+
+::: columns
+::: {.column width="40%"}
+![](tikz__pictures-1.png){fig-align="center" width="356"}
+:::
+
+::: {.column width="60%"}
+- The *correct classification rate* (CCR) or *accuracy* describes the overall proportion of teaching instructors (males or females) that were classified correctly.
+
+-   The *true positive rate* (TPR) or *sensitivity* (a.k.a. recall), denotes the proportion of actual male instructors that are correctly classified as males by the model.
+
+-   The *true negative rate* (TNR) or *specificity*, denotes the proportion of actual females that have been classified correctly as females by the model.
+
+-   The model's *precision* or *positive predictive value* (PPV) represents the proportion of predicted male instructors that were actually male
+
+-   The model's *negative predictive value* (NPV) represents the proportion of predicted female instructors .
+:::
+:::
+
+## ROC Curve
+
+-   Plot true positive rate (sensitivity) and the false positive rate (1 - specificity) at various **threshold** levels.
+
+-   The closer the ROC curve is to the top-left corner, the better the model is at distinguishing between the positive and negative classes
+
+![](roc.png){fig-align="center" width="374"}
+
+## **Logistic regression with one categorical explanatory variable**
+
+Instead of having a numerical explanatory variable such as `age`, let's now use the binary categorical variable `ethnicity` as our explanatory variable.
+
+![](ethnicity.png){fig-align="center" width="422"}
+
+## Fitting the model
+
+```{r}
+#| echo: true
+
+evals.ethnic <- evals %>%
+                  select(gender, ethnicity)
+model.ethnic <- glm(gender ~ ethnicity,
+                    data = evals.ethnic,
+                    family = binomial) 
+```
+
+```{r}
+#| echo: false
+
+model.ethnic %>% tab_model(transform = NULL,show.obs = F,show.r2 = F,collapse.ci = T)
+```
+
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+    -   When the instructor belongs to the reference category `minority` the models simplifies to: $$\mathrm{log}\left(\frac{p_i}{1-p_i}\right) = \alpha = -0.25 $$
+    
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+    -   When the instructor belongs to the reference category `minority` the models simplifies to: $$\mathrm{log}\left(\frac{p_i}{1-p_i}\right) = \alpha = -0.25 $$
+    - $\text{Odds}(\text{male=1|minority=1}) = \left[\dfrac{P(\mathrm{male}=1 |\mathrm{minority}=1)}{P(\mathrm{female}= 1 |\mathrm{minority}=1)}\right]=\exp(\alpha) = \exp(-0.25) = 0.78$
+
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+    -   When the instructor belongs to the reference category `minority` the models simplifies to: $$\mathrm{log}\left(\frac{p_i}{1-p_i}\right) = \alpha = -0.25 $$
+    - $\text{Odds}(\text{male=1|minority=1}) = \left[\dfrac{P(\mathrm{male}=1 |\mathrm{minority}=1)}{P(\mathrm{female}= 1 |\mathrm{minority}=1)}\right]=\exp(\alpha) = \exp(-0.25) = 0.78$
+    - $\text{Odds}(\text{male=0|minority=1}) =  \left[\dfrac{P(\mathrm{male}=1 |\mathrm{minority}=1)}{P(\mathrm{female}= 1 |\mathrm{minority}=1)}\right]^{-1} = \exp(\alpha)^{-1} = \exp(-0.25)^{-1} = 1.28$
+
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+
+-   $\beta_{\mathrm{ethnicity}}$ is the **coefficient** for the predictor $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority})$, which shows how the log-odds change when moving from the reference category (`minority`) to the other level (`not minority`).
+
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+
+-   $\beta_{\mathrm{ethnicity}}$ is the **coefficient** for the predictor $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority})$, which shows how the log-odds change when moving from the reference category (`minority`) to the other level (`not minority`).
+
+    -   When the instructor does **not** belong to reference category, i.e. $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 1$, the model becomes: $$\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}$$
+
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+
+-   $\beta_{\mathrm{ethnicity}}$ is the **coefficient** for the predictor $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority})$, which shows how the log-odds change when moving from the reference category (`minority`) to the other level (`not minority`).
+
+
+So, the **log-odds** of the instructors being male in the `not minority` group are $\alpha +\beta_{\text{ethnicity}}$.
+
+## Interpretation of model parameters {.smaller auto-animate=true}
+
+Lets break this down. The model we have fitted is:
+
+$$
+\mathrm{log}\left(\dfrac{p_i}{1-p_i}\right) = \alpha + \beta_{\text{ethnicity}}  \times \mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~  minority})
+$$
+
+-   $\alpha$ is the **intercept**, representing the **log-odds** when $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority}) = 0$.
+
+
+-   $\beta_{\mathrm{ethnicity}}$ is the **coefficient** for the predictor $\mathbb{I}_{\mathrm{ethnicity}}(\mathrm{not~ minority})$, which shows how the log-odds change when moving from the reference category (`minority`) to the other level (`not minority`).
+
+
+So, the **log-odds** of the instructors being male in the `not minority` group are $\alpha +\beta_{\text{ethnicity}}$.
+
+On The odd scale this is:
+
+$$
+\text{Odds}(\text{male=1|minority=0}) = \exp(\alpha + \beta_{\text{ethnicity}} ) = \exp(-0.25 + 0.66)
+$$
+
+
+## Odds ratio {.smaller}
+
+The odds-ratio of an instructor being `male` in the `not minority` group compared to the `minority` ethnic group is given by the following Odds ratio:
+
+$$
+\begin{aligned}
+    \frac{\mathrm{Odds}(\mathrm{male} = 1| \mathrm{minority} = 0)}{\mathrm{Odds}(\mathrm{male} = 1| \mathrm{minority} = 1)} &= \dfrac{\frac{p_{(\mathrm{minority} = 0)}}{1- p_{(\mathrm{minority} = 0)}}}{\frac{p_{(\mathrm{minority}=1)}}{1- p_{(\mathrm{minority}=1)}}} \\
+    &= \frac{\mathrm{exp}( \alpha + \beta_{\text{ethnicity}})}{\exp\left(\alpha\right)}\\ 
+    &= \exp\left(\alpha + \beta_{\text{ethnicity}} - \alpha\right) \\
+    &= \exp\left(\beta_{\text{ethnicity}}\right)
+    &= 1.94
+\end{aligned}
+$$
+This means that instructors that are not in the minority groups are significantly 1.94 times more likely to be males compared to instructors in the minority group.
+
+## The steps ahead {.smaller}
+
+-   Calculate, using R, the logistic regression coefficients on the odds and probability scales when either a continuous or a categorical exploratory variable is used in the model.
+
+-   Correct interpretation of the of the model parameters of a fitted logistic regression (in terms of the log-odds, odds and probabilities) with either a continuous or a categorical exploratory variable .
+
+-   Check how to visualize the results of a fitted logistic regression with with either a continuous or a categorical exploratory variable.
+
+-   Interpret the model diagnostic plots and predictive performance metrics of a logistic regression model.
