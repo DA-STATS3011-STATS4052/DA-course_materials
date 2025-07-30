@@ -2,6 +2,8 @@
 title: "Data Analysis"
 subtitle: "Week 4: Regression modelling part 2"
 embed-resources: true
+execute: 
+  echo: true
 title-slide-attributes: 
   data-background-image: uog_cloistures2.jpg
 format: 

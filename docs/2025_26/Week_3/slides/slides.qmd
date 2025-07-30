@@ -2,6 +2,8 @@
 title: "Data analysis"
 subtitle: "Regression Modelling part 1"
 embed-resources: true
+execute: 
+  echo: true
 title-slide-attributes: 
   data-background-image: uog_cloistures2.jpg
 format: 

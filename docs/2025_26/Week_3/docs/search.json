@@ -11,7 +11,7 @@
     "href": "slides/slides.html#load-libraries",
     "title": "Data analysis",
     "section": "Load libraries",
-    "text": "Load libraries\nWe shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:\n\n\nThe first two libraries, ggplot2 and tidyverse, are used for data wrangling and visualization.\nThe third library (performance) can be used to assess the model fit of linear regression models.\nThe fourth library skimr will be used to produce summary statistics for our data.\nThe sjPlot package will be used to summarise the output of linear models as well as performing some diagnostic plots."
+    "text": "Load libraries\nWe shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:\n\nlibrary(ggplot2)     # Data visualization\nlibrary(tidyverse)   # Data wrangling\nlibrary(performance) # Model assessment\nlibrary(skimr)       # Exploratory analysis\nlibrary(sjPlot)      # Plot and tables for linear models\n\n\n\nThe first two libraries, ggplot2 and tidyverse, are used for data wrangling and visualization.\nThe third library (performance) can be used to assess the model fit of linear regression models.\nThe fourth library skimr will be used to produce summary statistics for our data.\nThe sjPlot package will be used to summarise the output of linear models as well as performing some diagnostic plots."
   },
   {
     "objectID": "slides/slides.html#data-sets",
@@ -81,7 +81,7 @@
     "href": "slides/slides.html#fitting-a-simple-linear-regression-in-r",
     "title": "Data analysis",
     "section": "Fitting a Simple Linear Regression in R",
-    "text": "Fitting a Simple Linear Regression in R\nModelling the relationship between the professor’s evaluation score and their beauty rating\n\nStatistical modelR-CodePlot\n\n\n\\[\\text{score} = \\alpha + \\beta \\  \\text{beauty} +  \\epsilon ~~\\text{such that}~\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\]"
+    "text": "Fitting a Simple Linear Regression in R\nModelling the relationship between the professor’s evaluation score and their beauty rating\n\nStatistical modelR-CodePlot\n\n\n\\[\\text{score} = \\alpha + \\beta \\  \\text{beauty} +  \\epsilon ~~\\text{such that}~\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\]\n\n\n\nmodel &lt;- lm(score ~ bty_avg, data = evals.scores)\n\n\n\n\nggplot(evals.scores,\n       aes(x = bty_avg, y = score)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE)"
   },
   {
     "objectID": "slides/slides.html#interpreting-the-output-of-a-linear-regression-model",
@@ -116,7 +116,7 @@
     "href": "slides/slides.html#linear-regression-with-a-categorical-variable",
     "title": "Data analysis",
     "section": "Linear Regression with a Categorical variable",
-    "text": "Linear Regression with a Categorical variable\nHere, we will fit a simple linear regression model where the explanatory variable is categorical, i.e. a factor with two or more levels\n\nStatistical ModelR-Code\n\n\n\\[{\\text{life exp}} = {\\alpha} + {\\beta}_{\\text{Amer}} \\cdot \\mathbb{I}_{\\text{Amer}}(x) + {\\beta}_{\\text{Asia}} \\cdot \\mathbb{I}_{\\text{Asia}}(x) + {\\beta}_{\\text{Euro}} \\cdot \\mathbb{I}_{\\text{Euro}}(x) + {\\beta}_{\\text{Ocean}} \\cdot \\mathbb{I}_{\\text{Ocean}}(x),\\]\n\nthe intercept \\({\\alpha}\\) is the mean life expectancy for our baseline category Africa;\n\\({\\beta}_{\\text{continent}}\\) is the difference in the mean life expectancy of a given continent relative to the baseline category ,i.e., Africa.\n\\(\\mathbb{I}_{\\text{continent}}(x)\\) is an indicator function such that\n\\[\\mathbb{I}_{\\text{continent}}(x)=\\left\\{\n            \\begin{array}{ll}\n              1 ~~~ \\text{if country} ~ x ~ \\text{is in the continent},\\\\\n              0 ~~~ \\text{Otherwise}.\\\\\n            \\end{array}\n          \\right.\\]\n\n\n\n\n\nRows: 142\nColumns: 3\n$ country   &lt;fct&gt; \"Afghanistan\", \"Albania\", \"Algeria\", \"Angola\", \"Argentina\", …\n$ continent &lt;fct&gt; Asia, Europe, Africa, Africa, Americas, Oceania, Europe, Asi…\n$ lifeExp   &lt;dbl&gt; 43.828, 76.423, 72.301, 42.731, 75.320, 81.235, 79.829, 75.6…"
+    "text": "Linear Regression with a Categorical variable\nHere, we will fit a simple linear regression model where the explanatory variable is categorical, i.e. a factor with two or more levels\n\nStatistical ModelR-Code\n\n\n\\[{\\text{life exp}} = {\\alpha} + {\\beta}_{\\text{Amer}} \\cdot \\mathbb{I}_{\\text{Amer}}(x) + {\\beta}_{\\text{Asia}} \\cdot \\mathbb{I}_{\\text{Asia}}(x) + {\\beta}_{\\text{Euro}} \\cdot \\mathbb{I}_{\\text{Euro}}(x) + {\\beta}_{\\text{Ocean}} \\cdot \\mathbb{I}_{\\text{Ocean}}(x),\\]\n\nthe intercept \\({\\alpha}\\) is the mean life expectancy for our baseline category Africa;\n\\({\\beta}_{\\text{continent}}\\) is the difference in the mean life expectancy of a given continent relative to the baseline category ,i.e., Africa.\n\\(\\mathbb{I}_{\\text{continent}}(x)\\) is an indicator function such that\n\\[\\mathbb{I}_{\\text{continent}}(x)=\\left\\{\n            \\begin{array}{ll}\n              1 ~~~ \\text{if country} ~ x ~ \\text{is in the continent},\\\\\n              0 ~~~ \\text{Otherwise}.\\\\\n            \\end{array}\n          \\right.\\]\n\n\n\n\nglimpse(gapminder2007)\n\nRows: 142\nColumns: 3\n$ country   &lt;fct&gt; \"Afghanistan\", \"Albania\", \"Algeria\", \"Angola\", \"Argentina\", …\n$ continent &lt;fct&gt; Asia, Europe, Africa, Africa, Americas, Oceania, Europe, Asi…\n$ lifeExp   &lt;dbl&gt; 43.828, 76.423, 72.301, 42.731, 75.320, 81.235, 79.829, 75.6…\n\nlifeExp.model &lt;- lm(lifeExp ~ continent, data = gapminder2007)"
   },
   {
     "objectID": "slides/slides.html#interpretation-of-a-lm-with-a-categorical-variable",
@@ -151,7 +151,7 @@
     "href": "slides/slides.html#fitting-a-multiple-regression",
     "title": "Data analysis",
     "section": "Fitting a multiple regression",
-    "text": "Fitting a multiple regression\nThe multiple regression model we will be fitting to the credit balance data is given as:\n\\[y_i = \\alpha + \\beta_1 x_{1i} + \\beta_2 x_{2i} + \\epsilon_i, ~~~~ \\epsilon \\sim N(0, \\sigma^2),\\]\n\nStatistical modelR-Code\n\n\n\\[\\text{score} = \\alpha + \\beta \\  \\text{beauty} +  \\epsilon ~~\\text{such that}~\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\]\n\n\\(y_i\\) is the balance of the \\(i^{th}\\) individual;\n\\(\\alpha\\) is the intercept and positions the best-fitting plane in 3D space;\n\\(\\beta_1\\) is the coefficient for the first explanatory variable \\(x_1\\);\n\\(\\beta_2\\) is the coefficient for the second explanatory variable \\(x_2\\); and\n\\(\\epsilon_i\\) is the \\(i^{th}\\) random error component."
+    "text": "Fitting a multiple regression\nThe multiple regression model we will be fitting to the credit balance data is given as:\n\\[y_i = \\alpha + \\beta_1 x_{1i} + \\beta_2 x_{2i} + \\epsilon_i, ~~~~ \\epsilon \\sim N(0, \\sigma^2),\\]\n\nStatistical modelR-Code\n\n\n\\[\\text{score} = \\alpha + \\beta \\  \\text{beauty} +  \\epsilon ~~\\text{such that}~\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\]\n\n\\(y_i\\) is the balance of the \\(i^{th}\\) individual;\n\\(\\alpha\\) is the intercept and positions the best-fitting plane in 3D space;\n\\(\\beta_1\\) is the coefficient for the first explanatory variable \\(x_1\\);\n\\(\\beta_2\\) is the coefficient for the second explanatory variable \\(x_2\\); and\n\\(\\epsilon_i\\) is the \\(i^{th}\\) random error component.\n\n\n\n\nBalance.model &lt;- lm(Balance ~ Limit + Income, data = Cred)"
   },
   {
     "objectID": "slides/slides.html#interpreting-multiple-regression-model-output",
@@ -172,7 +172,7 @@
     "href": "slides/slides.html#multiple-regression-model-assessment-1",
     "title": "Data analysis",
     "section": "Multiple regression model assessment",
-    "text": "Multiple regression model assessment\nBesides our usual diagnostic plots to check for: homoscedasticity, linearity,normality, etc.\nWe need to consider collinearity among our predictors\n\n\n          Balance     Limit    Income\nBalance 1.0000000 0.8616973 0.4636565\nLimit   0.8616973 1.0000000 0.7920883\nIncome  0.4636565 0.7920883 1.0000000\n\n\nA high collinearity value may inflate the parameter uncertainty"
+    "text": "Multiple regression model assessment\nBesides our usual diagnostic plots to check for: homoscedasticity, linearity,normality, etc.\nWe need to consider collinearity among our predictors\n\ncor(Cred)\n\n          Balance     Limit    Income\nBalance 1.0000000 0.8616973 0.4636565\nLimit   0.8616973 1.0000000 0.7920883\nIncome  0.4636565 0.7920883 1.0000000\n\n\nA high collinearity value may inflate the parameter uncertainty"
   },
   {
     "objectID": "slides/slides.html#multiple-regression-model-assessment-2",
