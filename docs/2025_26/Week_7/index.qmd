@@ -1,0 +1,824 @@
+---
+title: "Generalised Linear Models part 2"
+format:
+  html:    
+    code-link: true
+    code-fold: true
+    code-tools:
+      source: false
+      toggle: true
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    number-sections: true
+  PrettyPDF-pdf:
+    keep-tex: true
+    number-sections: true
+    latex-auto-install: true
+    include-in-header:
+      - text: |
+          \usepackage{cancel}
+editor: visual
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| purl: false
+#| results: hide
+
+library(webexercises)
+library(knitr)
+library(faraway)
+library(palmerpenguins)
+knitr::purl("index.qmd")
+```
+
+# Introduction
+
+Last week we introduced **Generalised Linear Models** (GLMs). Particularly, we looked at **logistic regression** to model outcomes of interest that take one of two categorical values (e.g.yes/no, success/failure, alive/dead). This week we will continue reviewing logistic regression to model grouped binary outcomes (e.g. number of successes out of a fixed number of trials) and then we we will generalise this to situations where the response variable is categorical with more than two categories. First lets look at the framework for modelling categorical data with only two categories, i.e.
+
+-   **binary**, taking the value 1 (say success, with probability $p$) or 0 (failure, with probability $1-p$) or
+
+-   **binomial**, where $y_i$ is the number of events (successes) in a given number of trials $n_i$, with the probability of success being $p_i$ and the probability of failure being $1-p_i$.
+
+In both cases the distribution of $y_i$ is assumed to be binomial, but in the first case it is $\mathrm{Bin}(1,p_i)$ and in the second case it is $\mathrm{Bin}(n_i,p_i)$. The first case was covered last week, so now lets focus on the second case.
+
+Before we proceed, we will load all the packages needed for this week:
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: show
+
+library(tidyverse)
+library(ggplot2)
+library(sjPlot)
+library(broom)
+library(performance)
+library(yardstick)
+
+```
+
+# Logistic regression with grouped binary data
+
+Suppose that our binary outcome $y_i$ is grouped across $n_i$ number of trials, e.g. number of times a head landed when a coin was tossed on multiple occasions or the proportion of beetles that were killed after being exposed to an insecticide.
+
+In such cases $y_i \sim \mathrm{Bin}(n_i,p_i)$, often referred to as proportional data, since our dependent variables are expressed as percentages or fractions of a whole. Lets look at a an example.
+
+It is known that the incubation temperature can affect the sex determination of turtles. An experiment was conducted where turtle eggs were incubated at various temperatures and the number of male and female hatchlings was recorded. The goal of the experiment was to examine the link between incubation temperature and the chance of hatchling being a male.
+
+![](turtles.jpg){fig-align="center" width="473"}
+
+The `turtle` data set contains the number of hatched male and female turtles across different temperatures, with 3 independent replicates for each temperature.
+
+The data can be downloaded below:
+
+{{< downloadthis turtles.csv dname="turtles" label="Download turtles dataset" icon="database-fill-down" type="success" >}}
+
+You can download today's session R script below:
+
+{{< downloadthis index.R dname="week_script" label= "Download Week 6 R script" icon="database-fill-down" >}}
+
+```{r}
+#| code-fold: false
+#| 
+turtles = read.csv("turtles.csv")
+turtles%>% glimpse()
+```
+
+Lets investigate whether the probability of a male being hatched increases or decrease with the temperature. First, we need to compute the proportion of males that hatched on each replicate per temperature. To do this, we obtain the ratio between the total number of male hatchlings and total number hatchlings (males+females):
+
+```{r}
+#| code-fold: false
+
+turtles = turtles %>% 
+  mutate(totals = male+female,
+         male_props = male/totals)
+
+```
+
+We can see on the next plot, that the proportion of males hatchlings seems to increase as the incubation temperature rises.
+
+```{r}
+#| fig-width: 4
+#| fig-align: center
+#| fig-height: 4
+#| code-fold: show
+ggplot(turtles,aes(y= male_props,x=temp))+
+  geom_point()+ 
+  labs(y="proportion of male hatchlings",x = "temperature")
+
+```
+
+To corroborate this result, we can fit a logistic regression to the data.
+
+```{=tex}
+\begin{align}
+y_i &\sim \mathrm{Binomial}(n_i,p_i)\\
+\mathrm{logit}(p_i) &= \beta_0 +\beta_1 \times \mathrm{temperature}.
+\end{align}
+```
+Here, $y_i$ denotes the number of hatched males on the $i$th experiment replicate, $n_i$ is the fixed total number of hatched eggs per replicate, $p_i$ is the probability of a male turtle being hatched, and $\beta_0$ and $\beta_1$ are our unknown parameters to be estimated.
+
+Proportions can be modelled by providing an $N \times 2$ matrix of the number of positive events (num. of males hatchlings) and the number of negative events (number of female hatchlings):
+
+```{r}
+#| eval: false
+#| code-fold: false
+
+model_turtles <- glm(cbind(male,female) ~ temp,
+                     data = turtles,
+                     family = binomial)
+```
+
+or by providing the proportion of males hatchlings and `weights` totals, i.e the number of trials (number of eggs in each replicate), in the `glm` function:
+
+```{r}
+#| code-fold: false
+
+model_turtles <- glm(male_props ~ temp,
+                     data = turtles,
+                     weights =  totals,
+                     family = binomial)
+```
+
+These two formulations are valid and will yield to the same following result:
+
+```{r}
+#| code-fold: false
+
+model_turtles %>% tab_model(transform = NULL)
+```
+
+Recall that by setting `transform = NULL` we get the log-oddss estimates. Thus, the interpretation goes as follows:
+
+-   For every unit increase (celsius degrees presumably) in *Temperature,* the log-odds of a male being hatched increase by 2.21 i.e. the chances of hatching a male increases as the incubation temperature increases.
+
+-   Given $p_{val} < 0.05$, we can **reject the null hypothesis** $\beta_1 = 0$ that one unit increase in temperature does not affect chances of a male being hatched.
+
+-   For every unit increase in *Temperature*, the **odds** of hatching a male are $\mathrm{exp}(\beta_1) = 9.13$ times the odds of those with one *temperature* unit less.
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+If an egg is incubated at a temperature of 27.5 degrees, what are the odds of a **female** being hatched?
+
+`r hide("I need a hint")`
+
+Firs we can compute:
+
+1.  $\text{Odds(male|temp=27.5)} = \exp(\hat{\beta_0} +\hat{\beta_1} \times 27.5) \approx 0.59$.
+
+    However, we are interested in $\text{Odds(female|temp=27.5)}$, thus
+
+2.  $\text{Odds(female|temp=27.5)}~ = \mathrm{exp}\left(-\left[\hat{\beta_0} +\hat{\beta_1} \times 27.5\right]\right) \approx 1.67$.
+
+`r unhide()`
+
+```{r}
+#| echo: false
+#| purl: false 
+
+opts_p <- c(
+"The chances of an male being hatched are 59% greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees",
+"The chances of an female being hatched are 59% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees",
+  answer = "The chances of an female being hatched are approximately 67% greater than a male hatchling if the egg was incubated at a temperature of 27.5 degrees", "The chances of an male being hatched are 67 greater than a female hatchling if the egg was incubated at a temperature of 27.5 degrees"
+)
+
+```
+
+`r longmcq(opts_p)`
+:::
+
+We can now plot the predicted probabilities of a hatchling being male. However, notice that the number of unique temperature values in the `turtles` data set is not very large:
+
+```{r}
+#| code-fold: false 
+#| purl: false 
+ turtles %>% select(temp) %>% unique() 
+```
+
+Thus, we can create a coarser grid of temperature values to make our predictions and then use the `plot_model()` function as follows:
+
+```{r}
+#| code-fold: show 
+temp_pred = seq(27,30,by=0.01)
+plot_model(model_turtles, 
+           type = "eff", 
+           title = "", 
+           terms="temp[temp_pred]", 
+           axis.title = c("Temperature", "Prob. of a hatchling being male"))
+
+```
+
+::: {.callout-tip icon="false"}
+## {{< bi question-octagon color=#6dc83c >}} Question
+
+What is the probability of a turtle egg that is incubated in a temperature of 28.5 degrees to become a male?
+
+`r hide("I need a hint")`
+
+Recall that $P~ (male) = \dfrac{Odds(male)}{1 + Odds(male)} = \dfrac{\mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}{1 + \mathrm{exp}(\hat{\beta_0} +\hat{\beta_1} \times temperature)}$. In R, the inverse logit transformation can be achieved using the `plogis()` function directly on the log-odds. i.e., `plogis(x)= exp(x)/1+exp(x)`
+
+`r unhide()`
+
+`r mcq(c(0.45, 0.18 , answer = 0.84, 0.15))`
+:::
+
+Besides our usual model checks and model evaluation metrics, when dealing with proportional data sometimes we find that the observed variability in the data is greater than the one expected by the model, i.e. $Var(Y) = n ~p~ (1-p)$.
+
+This excess of variance is called **overdispersion** and its an indicator that our model is missing some important variability in the data (e.g. unaccounted factors affecting the probability of an event, non-independent trials, clustering within the data, among others).
+
+To check for overdispersion we can use the built-in `check_overdispersion()` function from the `performance` package (to learn more about overdispersion see @gelman2006):
+
+```{r}
+#| code-fold: false
+check_overdispersion(model_turtles)
+```
+
+In this example its seems we don't have to worry about it. But what about the binary case (i.e. ungrouped data)? well overdispersion is usually not a concern here because the variance cannot exceed the range for a binary response where each observation represents a single outcome (0 or 1) and the variance of the model is constrained since $Var(Y) = p(1-p)$.
+
+## Modelling grouped binary data with a categorical covariate
+
+In the last section we reviewed the case when the explanatory variable was continuous., lets look now at the case when the explanatory variable is categorical.
+
+To illustrate how the previous model works with categorical predictors we can discretised the temperature values into arbitrary categories as follows:
+
+$$
+\mathrm{temperature~ category} =\begin{cases} \mathrm{temperature} > 29^\circ C  &  \text{high} \\ \mathrm{temperature} > 28^\circ C& \text{medium} \\ \text{else} & \text{low}\end{cases}
+$$
+
+In R we can use the `case_when()` function to accomplish this:
+
+```{r}
+#| code-fold: show
+#| 
+turtles = turtles  %>% mutate(
+  temp_fct = case_when(
+    temp > 29 ~ "high",
+    temp > 28 ~ "medium",
+    .default = "low"
+  ) %>% as.factor()
+) 
+```
+
+Now, recall that as usual, R will set the baseline category for our explanatory variable in alphabetical order, i.e. the `high` temperature level will be treated as reference for the dicretised variable. However, we already know that the chances of a male being hatched increases with higher incubation temperatures.
+
+Thus, it makes sense to assess how the chances of a male being hatched are affected by comparing higher temperature categories against lower ones. This implies that we will set `low` to be our reference category. Luckily, we have seen in previous tasks how to do this using the `relevel()` function:
+
+```{r}
+#| code-fold: false
+turtles = turtles %>%
+  mutate(temp_fct = relevel(temp_fct,ref = "low")) 
+
+```
+
+We can now fit a logistic regression using the `low` temperature level as the reference category for our dicretized temperature covariate. The model is then given by:
+
+```{=tex}
+\begin{align}
+y_i &\sim \mathrm{Binomial}(n_ip_i)\\
+\mathrm{logit}(p_i) &= \alpha +  \beta_{1}  \times \mathbb{I}_{\mathrm{temperature}}(\mathrm{high}) + \beta_{2}  \times \mathbb{I}_{\mathrm{temperature}}(\mathrm{medium}).
+\end{align}
+```
+-   $\alpha$ represent the **log-odds** of a male turtle being hatched in `low` incubation temperature.
+
+-   $\beta_1$ are the change int the **log-odds** of a male turtle being hatched given it was incubated in a `high` temperature condition compared to a `low` one.
+
+-   $\mathbb{I}_{\mathrm{temperature}}(\mathrm{high})$ is an indicator variable that takes the value of 1 if the $i$th experiment replicate was conducted on a `high` temperature.
+
+-   $\beta_2$ are the change int the **log-odds** of a male turtle being hatched given it was incubated in a `medium` condition compared to a `low` one.
+
+-   $\mathbb{I}_{\mathrm{temperature}}(\mathrm{medium})$ is an indicator variable that takes the value of 1 if the $i$th experiment replicate was conducted on a `medium` temperature.
+
+In R, the model can be fitted as follows:
+
+```{r}
+#| code-fold: false
+model_turtles_2 <- glm(cbind(male,female) ~ temp_fct,
+                     data = turtles,
+                     family = binomial)
+
+```
+
+Lets print the model estimates odds scale and 95% confidence intervals:
+
+```{r}
+#| code-fold: false
+
+model_turtles_2 %>% tab_model(transform = "exp")
+```
+
+```{r}
+#| echo: false
+#| purl: false
+model_2_summary= model_turtles_2 %>% broom::tidy(conf.int=T,exponentiate = T) 
+```
+
+We can see that the odds of a male being hatched if it was incubated on a `low` temperature condition are `r round(model_2_summary$estimate[1],2)` the odds of a female being hatched if it was incubated on the same condition.
+
+Alternatively, we could interpret this as the odds of female being hatched in a `low` temperature incubation settings being $\mathrm{exp}(\alpha)^{-1} =$ `r round(1/model_2_summary$estimate[1],2)` higher than the odds of a male being hatched under the same setting. However, there is not enough evidence to support that the change in the odds is statistically significant since the confidence interval ( `r round(model_2_summary$conf.low[1],2)` , `r round(model_2_summary$conf.high[1],2)`) **contains 1** (remember we are in the odds scale).
+
+On the other hand, the odds of a male being hatched are `r round(model_2_summary$estimate[2],2)`! significantly higher in a `high` temperature setting compared to a `low` temperature. Likewise, the odds of a male being hatched are `r round(model_2_summary$estimate[3],2)` higher in a `medium` temperature condition compared to a `low` one.
+
+**Comparing odds ratio**
+
+What if we want to compare the odds of a male being hatched if the egg was incubate on a `high` temperature condition against a `medium` one?
+
+In that case, we we will be looking at the following odds ratio:
+
+$$
+\begin{aligned}
+\dfrac{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=high)}{\mathrm{Odds}(\mathrm{male}=1|\mathrm{temperature}=medium)} &= \dfrac{\mathrm{exp}(\alpha+\beta_1)}{\mathrm{exp}(\alpha+\beta_2)} \\&= \mathrm{exp}(\alpha+\beta_1 - \alpha - \beta_2) \\&= \mathrm{exp}(\beta_1 - \beta_2) = \frac{\mathrm{exp}(\beta_1)}{ \mathrm{exp}(\beta_2)}
+\end{aligned}
+$$
+
+Where $\beta_1$ and $\beta_2$ are the coefficients in the **log-odd** scale. However since we already have $\mathrm{exp}(\beta_1)=$ `r round(model_2_summary$estimate[2],2)` and $\mathrm{exp}(\beta_2)=$ `r round(model_2_summary$estimate[3],2)`, then the odds of male being hatched from an egg that was incubated on a `high` temperature condition are $\frac{45.47}{6.32}=$ `r round(model_2_summary$estimate[2]/model_2_summary$estimate[3],2)` greater than the one that was incubate on a `medium` temperature condition.
+
+**Calculating probabilities**
+
+Finally, we can calculate the probabilities of a male being hatched in each temperature condition as follows:
+
+-   $P(\mathrm{male}=1|\mathrm{temperature}=low) = \dfrac{\mathrm{\mathrm{exp}(\alpha})}{1 + \mathrm{exp}(\alpha)}.$ In R this is:
+
+    ```{r}
+    #| code-fold: false  
+    plogis(coef(model_turtles_2)[1])
+
+    ```
+
+-   $P(\mathrm{male}=1|\mathrm{temperature}=medium) = \dfrac{\mathrm{\mathrm{exp}(\alpha + \beta_1})}{1 + \mathrm{exp}(\alpha + \beta_1)}.$ In R this is equivalent to:
+
+    ```{r}
+    #| code-fold: false  
+
+    plogis(coef(model_turtles_2)[1] + coef(model_turtles_2)[3])
+    ```
+
+-   $P(\mathrm{male}=1|\mathrm{temperature}=high) = \dfrac{\mathrm{\mathrm{exp}(\alpha + \beta_2})}{1 + \mathrm{exp}(\alpha + \beta_2)}$. In R this is computed as:
+
+    ```{r}
+    #| code-fold: false  
+
+    plogis(coef(model_turtles_2)[1] + coef(model_turtles_2)[2])
+    ```
+
+We can visualize these probabilities using the `plot_model()` function as follows:
+
+```{r}
+#| code-fold: show
+plot_model(type = "pred",
+           model_turtles_2,
+           terms = "temp_fct",
+           axis.title = c("Temperature Category",
+                          "Prob. of a hatchling being male"),
+           title = " ")
+```
+
+# Models for multiple categorical responses
+
+Now that we have covered GLMs for categorical responses with two possible outcomes, we will generalise this to situations where the response variable is categorical with more than two categories. More specifically, we will look at logistic regression models applied to **nominal** (unordered) responses with **more than two categories**.
+
+The basis for modelling categorical data with more than two categories is the **multinomial distribution**.
+
+Consider a random variable $Y$ with $J$ categories. Let $p_1,p_2,\dots, p_J$ be the respective probabilities associated with each of the $J$ categories, with $\sum_j^J p_j = 1$. Suppose there are $n$ independent observations which result in $y_1$ outcomes in category 1, $y_2$ outcomes in category 2, and so on. Let $\mathbf{y}=(y_1,y_2,\dots,y_J)^\intercal$ with $\sum_{j=1}^J y_j = n$. We say that $\mathbf{y}$ follows a **multinomial distribution** with probability mass function (p.m.f.)
+
+$$
+f(\mathbf{y} | n)=\frac{n!}{y_1! y_2! \dots y_J!}p_1^{y_1}p_2^{y_2}\dots p_J^{y_J}.
+$$ {#eq-multinomial}
+
+::: callout-note
+If $J=2$ then $p_2=1-p_1$ and $y_2=n-y_1$ so the expression above reduces to the p.m.f. of the binomial distribution:
+
+$$
+f(\mathbf{y} | n)=\frac{n!}{y_1! (n-y_1)!} p_1^{y_1}p_2^{n-y_1}
+$$
+:::
+
+For the multinomial distribution, we have the following expressions for the mean, variance and covariance:
+
+$$
+\begin{aligned}
+\textrm{E}(Y_j)&=np_j\\\textrm{Var}(Y_j)&=np_j(1-p_j)\\\textrm{Cov}(Y_j,Y_k)&= -n p_jp_k
+\end{aligned}
+$$
+
+Notice also the negative covariance between $Y_j$ and $Y_k$ due to the sum constraint $\sum_{j=1}^J y_j = n$.
+
+In general, the multinomial model does not satisfy the exponential family distribution requirement for the response in a GLM, but we can still fit GLMs to multinomial responses thanks to its relationship with the Poisson distribution, which is a member of the exponential family.
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+Let $Y_j \sim \text{Po}(\mu_j)$ where the $Y_j$ are independent for $j=1,\dots,J$ with $\mu_j$ the expected number of events. Their joint p.m.f. is: $$ f(\mathbf{y})=\prod_{j=1}^J \frac{\mu_j^{y_j}e^{-\mu_j}}{y_j!}.$$
+
+The random variable $N=Y_1+Y_2+\dots+Y_J$ follows a $\mathrm{Poisson}(\mu_1+\mu_2+\dots+\mu_J)$ density , i.e. $$f(n) = \dfrac{\left(\sum_{j=1}^J\mu_j\right)^ne^{-\sum_{j=1}^J\mu_j}}{n!}.$$
+
+Conditional on $N$, show that $\mathbf{y}$ follows a multinomial distribution.
+
+`r hide("Take hint")`
+
+When we condition on the observed total number of events $N=n$, the conditional probability $f(\mathbf{y}|n) = \dfrac{f(\mathbf{y},n)}{f(n)} = \dfrac{f(y_1,y_2,\ldots,y_n)}{f(n)}$ since $N = \sum_{j=1}^J Y_j$. Thus, conditional on $N=n$, $\mathbf{y}$ has the following distribution:
+
+$$
+f(\mathbf{y} |n ) =\frac{\prod_{j=1}^J \mu_j^{y_j}e^{-\mu_j}/y_j!}{(\mu_1+\mu_2+\dots+\mu_J)^ne^{-(\mu_1+\mu_2+\dots+\mu_J)}/n!}
+$$ `r unhide()`
+
+`r hide("See solution")`
+
+Conditional on $N=n$, $\mathbf{y}$ has the following distribution:
+
+$$
+f(\mathbf{y} |n ) =\frac{\prod_{j=1}^J \mu_j^{y_j}e^{-\mu_j}/y_j!}{(\mu_1+\mu_2+\dots+\mu_J)^ne^{-(\mu_1+\mu_2+\dots+\mu_J)}/n!}
+$$
+
+which can be simplified as:
+
+$$
+\begin{aligned}
+f(\mathbf{y} |n ) &=\dfrac{\left(\prod_{j=1}^J \frac{\mu_j^{y_j}}{y_j!}\right)\color{red}{e^{-\sum_{j=1}^J \mu_j}}}{ \frac{(\mu_1+\mu_2+\dots+\mu_J)^n\color{red}{e^{-\sum_{j=1}^J \mu_j}}}{n!}} \\&= \dfrac{n!}{y_1!y_2!\ldots y_J!}\dfrac{\prod_{j=1}^J\mu_j^{y_j}}{(\mu_1+\mu_2+\dots+\mu_J)^n}
+\end{aligned}
+$$
+
+Letting $n= \sum_{j=1}^J y_j$ and $p_j = \dfrac{\mu_j}{\mu_1+\ldots+\mu_J}$, s.t. $\sum_{j=1}^J p_j=1$
+
+$$
+\begin{aligned}
+ f(\mathbf{y}|n)&= \dfrac{n!}{y_1!y_2!\ldots y_J!} \prod_{j=1}^J\left(\dfrac{\mu_j}{\mu_1+\ldots+\mu_J}\right)^{y_j} \\&= \dfrac{n!}{y_1!y_2!\ldots y_J!} \prod_{j=1}^Jp _j^{y_j}
+\end{aligned}
+$$
+
+which is the same as the expression for the multinomial p.m.f. in @eq-multinomial
+
+`r unhide()`
+:::
+
+## Nominal logistic regression
+
+Nominal logistic regression, also known as *multinomial logistic regression* is used when there is no natural order among the response categories, for example:
+
+-   Eye colour: Blue, Green, Brown, Hazel
+-   House types: Bungalow, Duplex, Terrace
+-   Type of pet: Dog, Cat, Rodent, Fish, Bird
+-   Genotype: AA, Aa, aa
+
+The goal is to estimate the probabilities for each class $j$ (where $j \in \{1,2,\ldots,J\}$) based on the independent variables $\mathbf{x}$. The probability of the $j$th class is then given by:
+
+$$
+P(Y=j|\mathbf{x})= \dfrac{\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_j)}{\sum_{k=1}^J\mathrm{exp}(\mathbf{x}^\intercal \boldsymbol{\beta}_k)}
+$$
+
+Typically, one category is arbitrarily chosen as the reference category, and all other categories are compared with it. Suppose category $J$ is chosen as the reference category. The **log-odds** for the other categories relative to the reference are:
+
+$$
+\mathrm{log}\left(\dfrac{P(Y=j|\mathbf{x})}{P(Y=J|\mathbf{x})}\right) = \mathrm{log}\left(\dfrac{p_j}{p_J}\right) =\mathbf{x}^\intercal\boldsymbol{\beta}_j, ~~\text{for } j=1,\dots,J-1.
+$$ {#eq-nominalresp}
+
+## Parameter estimation and fitted values
+
+The $J-1$ log-odds in @eq-nominalresp are solved simultaneously to estimate the parameters $\boldsymbol{\beta}_j$.
+
+Given parameter estimates $\hat{\boldsymbol{\beta}}_j$, the linear predictors $\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j$ can be calculated.
+
+From @eq-nominalresp, we derive:
+
+$$
+\hat{p}_j=\hat{p}_J\mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j) 
+$$ {#eq-pj}
+
+Now we can express $\hat{p}_J$ in terms of the other probabilities by using the fact that $\sum_{j=1}^{J-1} \hat{p}_j + \hat{p}_J = \hat{p}_1+\hat{p}_2+\dots+\hat{p}_J= 1.$ For instance, substituting @eq-pj for $j = 1,\ldots,J-1$ in the sumation above yields to:
+
+$$
+\sum_{j=1}^{J-1} \hat{p}_J\mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j) + \hat{p}_J = 1.
+$$
+
+Solving for $\hat{p}_J$ yields to
+
+$$
+\hat{p}_J\left(\sum_{j=1}^{J-1} \mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j) + 1\right) = 1 \\ \Rightarrow\hat{p}_J = \dfrac{1}{1+\sum_{j=1}^{J-1} \mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}
+$$ {#eq-p1hat}
+
+Hence, the probabilities for each class are:
+
+-   For the reference class $J:$$$
+        \hat{p}_J = \dfrac{1}{1+\sum_{j=1}^{J-1} \mathrm{exp}(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}
+        $$
+
+-   By substituting $\hat{p}_J$ in @eq-pj we find $\hat{p}_j$ for class $j = 1,2,\ldots,J-1:$ $$\hat{p}_j=\dfrac{\exp(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}{1+\sum_{j=1}^{J-1}\exp(\mathbf{x}^\intercal\hat{\boldsymbol{\beta}}_j)}.$$ {#eq-pjhat}
+
+Fitted values (expected frequencies) can be calculated for each covariate pattern by multiplying the estimated probabilities $\hat{p}_j$ by the total frequency of the covariate pattern. Parameter estimates $\hat{\boldsymbol{\beta}}_j$ depend on the choice of reference category, but estimated probabilities and hence, fitted values (predicted counts), don't.
+
+## Example: Fitting a nominal logistic regression in R
+
+In this example we look at data on subjects that were interviewed about the importance of various features when buying a car [@mcfadden2000].
+
+We focus in particular on the importance of power steering and air conditioning. The variables available in this dataset are:
+
+-   `sex`: woman/man
+-   `age`: 18-23, 24-40, \>40
+-   `response`: no/little, important, very important
+-   `frequency`: number of interviewed people on each group
+
+The data set is available on the `dobson` R package or can be downloaded below:
+
+{{< downloadthis Cars.csv dname="Cars" label="Download Cars dataset" icon="database-fill-down" type="success" >}}
+
+Lets begin loading it and produce some exploratory plots.
+
+```{r}
+#| warning: false
+#| message: false
+dcars = read.csv("Cars.csv",stringsAsFactors = T)
+
+# Set "no/little" and "18-23"  as our reference categories
+
+dcars = dcars %>%
+  mutate(response = relevel(response,ref = "no/little"),
+         age = relevel(age,ref="18-23")) 
+```
+
+```{r}
+#| echo: false
+#| purl: false
+
+dcars %>% kable()
+
+```
+
+From the plots of the data below, we can see that quite a large proportion of people -- a little over 58% in the over 40 category considered the features *very important* and, similarly 60% of young people (18-23 years old) considered these features as having *no or little importance*. Sex also seems to have an impact on car feature preferences, with over 40% of men considering the features of *no or little importance* and over 40% of women considering them *very important*.
+
+::: panel-tabset
+## R Plot
+
+```{r}
+#| echo: false
+#| fig-align: center 
+#| fig-width: 10
+#| fig-height: 6 
+#| message: false
+#| warning: false
+#| fig-cap: "Preferences for air conditioning and power steering in cars by gender and age." 
+#| purl: false
+library(patchwork)
+p1 <- ggplot(dcars, aes(x = age, y = frequency, fill = response)) +
+      geom_bar(stat = "identity", position = "dodge" )+
+      xlab("Age groups" ) + ylab("Frequency" ) +
+        scale_fill_manual(name = "Response category",values = c("darkorange","purple","cyan4")) 
+
+p2 <- ggplot(dcars, aes(x = sex, y = frequency, fill = response)) +
+      geom_bar(stat = "identity", position = "dodge" )+
+      xlab("Sex" ) + ylab("Frequency" ) +
+      scale_fill_manual(name = "Response category",values = c("darkorange","purple","cyan4")) 
+p1+p2+patchwork::plot_layout(guides="collect")
+```
+
+## R Code
+
+```{r}
+#| code-fold: false  
+#| results: hide
+
+ ggplot(dcars, aes(x = age,
+                   y = frequency, 
+                   fill = response)) +
+      geom_bar(stat = "identity",
+               position = "dodge" )+
+   labs(x = "Age groups",y ="Frequency")+
+   scale_fill_manual(name = "Response category",
+                     values = c("darkorange","purple","cyan4")) 
+ 
+ ggplot(dcars, aes(x = sex,
+                   y = frequency, 
+                   fill = response)) +
+      geom_bar(stat = "identity",
+               position = "dodge" )+
+   labs(x = "Sex",y ="Frequency")+
+      scale_fill_manual(name = "Response category",
+                        values = c("darkorange","purple","cyan4")) 
+
+```
+:::
+
+Although the response is really an ordinal variable, we will treat it as nominal with "no/little importance" as the reference category (also occasionally referred to as "unimportant" in the rest for brevity.). Similarly we will initially regard `age` as nominal.
+
+We can fit the following **nominal logistic regression model** using the `multinom()` function from `library(nnet)`:
+
+$$
+\mathrm{log}\left(\frac{p_j}{p_1} \right) = \beta_{0j}+\beta_{1j}x_1+\beta_{2j}x_2+\beta_{3j}x_3, ~~ j=2,3
+$$ {#eq-multi_mod}
+
+where
+
+-   $j=1$ for "no/little importance" (the reference category)
+-   $j=2$ for "important"
+-   $j=3$ for "very important"
+-   $x_1=1$ for women and 0 for men,
+-   $x_2=1$ for age 24-40 years and 0 otherwise
+-   $x_3=1$ for age $>$ 40 years and 0 otherwise.
+
+```{r}
+#| code-fold: false
+#| message: false
+#| warning: false
+
+library(nnet)
+model_cars <- multinom(response ~ age + sex, weight = frequency, data = dcars)
+```
+
+Notice that model converged after 10 iterations, the default number of iteration is set to 100 but you can modify this by setting `maxit=X` where `X` is the number of iterations after which the algorithm will stop.
+
+Let look at model summaries and interpret the coefficients.
+
+```{r}
+#| code-fold: false
+model_cars %>% tab_model(transform = NULL)
+```
+
+Notice the two sets of coefficients, for the `response column` categories `important` and `very important` that correspond to the two log-odds equations comparing these to the baseline, which is `no/little importance`.
+
+Lets break this down:
+
+-   First, $\hat{\beta}_{0,\text{important}} = -0.98$ represent the **log-odds** of considering the features `important` vs `no/little` important for `men` between `18-23` since these are our two reference categories ( this is the case when $x_{1} = x_2 = x_3 = 0$ in @eq-multi_mod).
+
+-   Likewise, $\hat{\beta}_{0,\text{very important}} = -1.85$ represent the **log-odds** of considering the features `very important` vs `no/little` important for `men` between `18-23`.
+
+-   Then, each $\hat{\beta}_{i,j}$ shows how the log-odds change when moving from the reference categories to the other levels. For example, the **log-odds** of considering the feature `important` vs `no/little important` for `women` between `24-40` are given by :
+
+$$
+\begin{aligned}
+\mathrm{log}\left(\frac{p_{(\text{important|age>40,sex=women})}}{p_{(\text{no/little|age > 40,sex=women})}} \right) &= \hat{\beta}_{0,\text{important}}+\hat{\beta}_{1,\text{important}} x_1 +\hat{\beta}_{2\text{important}}x_2\\
+&= -0.98 +  0.39 + 1.13  \approx 0.54
+\end{aligned}
+$$
+
+However, it might be easier to interpret these coefficients in terms of odds for each logit equation. For example:
+
+```{r}
+#| code-fold: false
+#| eval: false
+model_cars %>% tab_model(transform = "exp")
+```
+
+From this table, we can see that the odds of considering the features important (versus `no/little importance`) for a person of the same gender over 40 years are **4.89** times the odds for 18-23 year old person (which is the baseline category for the `age` group). Remember that this is calculated based on the **odds-ratio** as follows:
+
+$$
+\require(cancel)
+\begin{aligned}
+\dfrac{\text{Odds}(\text{important|age > 40 })}{\text{Odds}(\text{important|age [18-23] })} &= \dfrac{\exp(\cancel{\hat{\beta}_{\text{0,important}}} + \cancel{\hat{\beta}_{\text{1,important}}} x_1 + \hat{\beta}_{\text{2,important}} \cancelto{0}{x_2}+ \hat{\beta}_{3,\text{important}} x_3 )}{\exp(\cancel{\hat{\beta}_{\text{0,important}}} + \cancel{\hat{\beta}_{\text{1,important}}} x_1)}\\
+&= \exp(\hat{\beta}_{3,\text{important}} ) = 4.89
+\end{aligned}
+$$
+
+In general, a positive coefficient (or greater than 1 odds multiplier) tells us that older people are more likely to consider the features important than young people, which is consistent with what we observed in the exploratory plots. Similarly, we can see that women are more likely than men to consider the features important, specifically the chances a woman finds these features `important` are 47% greater than men and more than twice consider these features as `very important` compared to men:
+
+$$
+\begin{aligned} \dfrac{\text{Odds}(\text{important|sex = women })}{\text{Odds}(\text{important|sex= men })} &= \dfrac{\exp(\cancel{\hat{\beta}_{\text{0,important}}} + \hat{\beta}_{\text{1,important}} x_1 + \cancel{\hat{\beta}_{\text{2,important}}} x_2+ \cancel{\hat{\beta}_{3,\text{important}}} x_3 )}{\exp(\cancel{\hat{\beta}_{\text{0,important}}} + \hat{\beta}_{\text{1,important}} \cancelto{0}{x_1} + \cancel{\hat{\beta}_{\text{2,important}}} x_2 + \cancel{\hat{\beta}_{3,\text{important}}} x_3)}\\
+&= \exp(\hat{\beta}_{1,\text{important}}) = 1.47 
+\end{aligned}
+$$
+
+$$ 
+\begin{aligned} 
+\dfrac{\text{Odds}(\text{very important|sex = women })}{\text{Odds}(\text{very important|sex= men })} &= \dfrac{\exp(\cancel{\hat{\beta}_{\text{0, very very important}}} + \hat{\beta}_{\text{1, very important}} x_1 + \cancel{\hat{\beta}_{\text{2,very important}}} x_2+ \cancel{\hat{\beta}_{3,\text{ very important}}} x_3 )}{\exp(\cancel{\hat{\beta}_{\text{0,very important}}} + \hat{\beta}_{\text{1,very important}} \cancelto{0}{x_1} + \cancel{\hat{\beta}_{\text{2,important}}} x_2 + \cancel{\hat{\beta}_{3,\text{important}}} x_3)}\\
+&= \exp(\hat{\beta}_{1,\text{very important}}) = 2.25 
+\end{aligned} 
+$$
+
+However, in the first case, the difference between women and men is not statistically significant since the 95% CI contains 1.
+
+## Model checking and model comparisons
+
+Summary statistics can be used to assess the adequacy of a model and also to compare models. Some of the statistics we can consider are:
+
+-   the **deviance** $D=2[l(\hat{\boldsymbol{\beta}}_{\max})-l(\hat{\boldsymbol{\beta}})]$ (also referred to as *residual deviance*), where $l(\hat{\boldsymbol{\beta}}_{\max})$ is the maximised log-likelihood for the saturated (full) model and $l(\hat{\boldsymbol{\beta}})$ is the maximised log-likelihood for the model of interest;
+-   the **likelihood ratio statistic**, which is equal to the difference between the null deviance (deviance of the model with no predictors included) and the residual deviance for the model of interest;
+-   the **Akaike information criterion** $AIC=-2l(\hat{\boldsymbol{\beta}};\mathbf{y})+2p$, which equals the maximised log-likelihood of the model of interest plus a penalty term equal to twice the number of parameters in the model. The reason for this is that we can keep adding predictors to the model to improve the log-likelihood, but the cost is increased model complexity. The penalty term attempts to strike a balance between model complexity and how well the model fits.
+
+If the model fits well, the deviance will be asymptotically $\chi^2(N-p)$, where $N$ is $J-1$ times the number of distinct covariate patterns in the data, and $p$ is the number of parameters estimated.
+
+The likelihood ratio statistic will be asymptotically $\chi^2[p-(J-1)]$ because the null (minimal) model will have one parameter for each logit defined in @eq-nominalresp.
+
+The AIC can be used for model selection: calculate the criterion for each model and choose the one with the smallest value of the AIC.
+
+We can compare the nominal logistic regression model with additive terms for `age` and `sex` with the null model by taking the difference in deviances (likelihood ratio test).
+
+The null model can be fit as follows:
+
+```{r}
+#| code-fold: false
+model_null<- multinom(response ~ 1, data=dcars, weights=frequency)
+```
+
+To see some model comparison metrics we can use the `glance()` function from the `broom` package:
+
+```{r}
+#| code-fold: false
+glance(model_null)
+glance(model_cars)
+```
+
+The difference in deviance is $658.54-580.70=77.84$ which is significant when compared with a $\chi^2(8-2)$:
+
+```{r}
+#| code-fold: false
+
+qchisq(df=6, p=0.95)
+# pval
+pchisq(77.844,df=6,lower.tail = F)
+```
+
+Alternatively, we can run the likelihood ratio test using the anova function as follows:
+
+```{r}
+#| code-fold: false
+
+anova(model_null,model_cars,test = "Chisq")
+
+```
+
+Overall, the explanatory variables are descriptive of car preferences.
+
+We can also compare this model with the saturated (full) model, which includes an interaction between `age` and `sex`:
+
+```{r}
+#| code-fold: false
+
+model_full <- multinom(response ~ age * sex, weight = frequency, data = dcars)
+glance(model_full)
+```
+
+The difference in deviance between the additive and the saturated model is $580.70-576.76=3.94$. This is not significant when compared with a $\chi^2(12-8)$, so the additive model appears to fit the data well.
+
+```{r}
+#| code-fold: false
+
+qchisq(df=4, p=0.95)
+# pval
+pchisq(3.94,df=4,lower.tail = F)
+```
+
+Again, we can use the `anova` function to compare the three nested models:
+
+```{r}
+#| code-fold: false
+anova(model_null,model_cars,model_full,test = "Chisq") 
+```
+
+The same conclusion is supported when comparing the AIC for these models:
+
+```{r}
+#| code-fold: false
+#| eval: false
+#| results: hide
+
+library(performance)
+compare_performance(model_full,model_cars,model_null,metrics = "AIC")
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| purl: false
+
+library(performance)
+compare_performance(model_full,model_cars,model_null,metrics = "AIC") %>% kable(digits=2)
+
+```
+
+the additive model has a smaller AIC of 596.7 compared to the interaction model which has AIC of 600.7.
+
+::: {.callout-warning icon="false"}
+## {{< bi pencil-square color=#c8793c >}} Task
+
+The `iris` data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of three species of iris: setosa, versicolor, and virginica. Suppose that we have these measurements from an iris and we wish to classify it into one of the three species.
+
+Fit a nominal logistic regression model to the data and predict the probability of each species from the fitted model using sepal length as the only predictor.
+
+Note that you can use the predicted probabilities from a nominal logistic regression model to classify an observation to the category with the highest predicted probability.
+
+`r hide("Take hint")`
+
+We can get a list which assigns each observation to the category with the highest predicted probability using `predict(your_model)`.
+
+`r unhide()`
+
+`r hide("See solution")`
+
+```{r}
+#| code-fold: false
+
+m.iris <- multinom(Species ~ Sepal.Length, data=iris)
+cbind(iris,predict(m.iris)) %>% head()
+
+```
+
+`r unhide()`
+:::
+
+In the car preferences example there was a natural ordering among the response categories that we have not accounted for. This ordering can be taken into account in the model specification. Unfortunately, we don't have time to cover all of this in a single session. But please have a look at the extra material where we introduce the basis of **ordinal logistic regression** for ordered categorical responses.
