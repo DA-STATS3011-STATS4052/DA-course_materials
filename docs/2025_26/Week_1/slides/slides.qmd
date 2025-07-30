@@ -1,18 +1,17 @@
 ---
 title: "Data analysis"
 subtitle: "Visualising and data tidying using R"
+embed-resources: true
 title-slide-attributes: 
-  data-background-image: logo2.png
-  data-background-size: 20%
-  data-background-position: 2% 2%
+  data-background-image: uog_cloistures2.jpg
 format: 
-  revealjs:
-    embed-resources: true
-    theme: night
-    smaller: true
-editor: visual
-execute: 
-  echo: true
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
 include-in-header: 
   text: |
     <style>
@@ -23,6 +22,10 @@ include-in-header:
         font-size: .6em
       }
     </style>
+author:
+  - name: Jafet Belmont 
+    email: jafet.BelmontOsuna@glasgow.ac.uk 
+    affiliations: School of Mathematics and Statistics
 editor_options: 
   chunk_output_type: console
 ---
@@ -31,7 +34,7 @@ editor_options:
 
 ::: custom-small
 | Week | Topic                                  | Assessment                       | Weights (%) |
-|------------------|-------------------|------------------|:----------------:|
+|------|----------------------------------------|----------------------------------|:-----------:|
 | 1    | Visualising and data tidying using `R` |                                  |             |
 | 2    | Introduction to Quarto                 |                                  |             |
 | 3    | Regression Modelling                   |                                  |             |
