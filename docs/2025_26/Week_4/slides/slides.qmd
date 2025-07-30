@@ -59,30 +59,9 @@ evals.scores <- evals %>%
 
 ```
 
-```{css, echo=FALSE}
-
-.reveal pre {
-  font-size: 1.4rem !important;
-}
-
-.reveal code {
-  font-size: 0.8em !important;
-}
-
-/* Headings */
-.reveal h1 {
-  font-size: 3em !important;  /* Adjust this value as needed */
-}
-
-.reveal h2 {
-  font-size: 2em !important;  /* Adjust this value as needed */
-}
-
-```
-
 # Recap of last week
 
-## Simple Linear Regression
+## Simple Linear Regression {.smaller}
 
 Let the general form of the simple linear model:
 
@@ -97,7 +76,7 @@ used to describe the relationship between a response **y** and a set of variable
 -   $x_i$ is the $i^{th}$ observation of the explanatory variable; and
 -   $\epsilon_i$ is the $i^{th}$ random component.
 
-## Fitting a Simple Linear Regression in R
+## Fitting a Simple Linear Regression in R {.smaller}
 
 **Data**
 
@@ -113,7 +92,6 @@ $\text{score} = \alpha + \beta \  \text{age} + \ \epsilon$
 ```{r}
 #| warning: false
 #| message: false
-
 model <- lm(score ~ age, data = evals.scores)
 tab_model(model)
 ```
@@ -221,24 +199,23 @@ y_{i} &= \alpha + \beta_{\text{age}} \cdot \text{age} + \beta_{\text{male}} \cdo
 
 ## R Code
 
+:::custom-small
 ```{r}
 evals_multiple <- evals %>%
                   select(score, gender, age)
 par.model <- lm(score ~ age + gender, data = evals_multiple)
-tab_model(par.model)
+tab_model(par.model,show.obs = F)
 
 ```
-
-Hence, the regression line for females is given by:
-
-$$\widehat{\text{score}} = 4.48 - 0.009 \cdot \text{age},$$
-
-while the regression line for males is given by:
-
-$$\widehat{\text{score}} = 4.48 - 0.009 \cdot \text{age} + 0.191 = 4.671 - 0.009 \cdot \text{age}.$$
 :::
 
-## Visualize the parallel regression lines
+The regression line for (1) females and (2) males is given by:
+
+1. $\widehat{\text{score}} = 4.48 - 0.009 \cdot \text{age},$
+2. $\widehat{\text{score}} = 4.48 - 0.009 \cdot \text{age} + 0.191 = 4.671 - 0.009 \cdot \text{age}.$
+:::
+
+## Visualize the parallel regression lines {.smaller}
 
 ```{r}
 #| output-location: column
@@ -285,6 +262,7 @@ $$y_{i}=\left\{
 
 ## R Code
 
+:::custom-small
 ```{r}
 #| code-line-numbers: "2"
 #| message: false
@@ -292,16 +270,12 @@ $$y_{i}=\left\{
 int.model <- lm(score ~ age * gender, data = evals_multiple)
 broom::tidy(int.model)
 ```
+:::
 
--   The regression line for females is given by:
+The regression line for (1) females and (2) males are:
 
-    $$
-    \widehat{\text{score}} = 4.88 - 0.018 \cdot \text{age},
-    $$
-
--   The regression line for males is given by:
-
-$$\widehat{\text{score}} = 4.88 - 0.018 \cdot \text{age} - 0.446 + 0.014 \cdot \text{age} = 4.434 - 0.004 \cdot \text{age}.$$
+1. $\widehat{\text{score}} = 4.88 - 0.018 \cdot \text{age},$
+2. $\widehat{\text{score}} = 4.88 - 0.018 \cdot \text{age} - 0.446 + 0.014 \cdot \text{age} = 4.434 - 0.004 \cdot \text{age}.$
 :::
 
 ## Visualize the regression model with interaction
@@ -322,7 +296,7 @@ plot_model(model = int.model,
 
 ```
 
-## Assessing model fit
+## Assessing model fit {.smaller}
 
 Now we have to assess the fit of the model by looking at plots of the residuals.
 
@@ -424,7 +398,7 @@ The tables includes:
 :::
 :::
 
-## Variable selection using confidence intervals
+## Variable selection using confidence intervals {.smaller}
 
 -   A confidence interval gives a range of plausible values for a population parameter.
 
@@ -556,7 +530,7 @@ glance(mlr.model)
 
 Our best strategy is a mixture of judgement on what variables should be included as potential explanatory variables, together with an interval estimation and hypothesis testing strategy for assessing these. The judgement should be made in the light of advice from the problem context.
 
-## A final word on model selection {.smaller}
+## A final word on model selection 
 
 ::: callout-important
 **Golden rule for modelling**

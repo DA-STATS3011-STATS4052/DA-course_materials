@@ -202,7 +202,7 @@ ggplot(gapminder2007, aes(x = continent, y = lifeExp)) +
        title = "Life expectancy by continent")
 ```
 
-## Simple Linear Regression
+## Simple Linear Regression {.smaller}
 
 Let the general form of the simple linear model:
 
@@ -217,7 +217,7 @@ used to describe the relationship between a response **y** and a set of variable
 -   $x_i$ is the $i^{th}$ observation of the explanatory variable; and
 -   $\epsilon_i$ is the $i^{th}$ random component.
 
-## Fitting a Simple Linear Regression in R
+## Fitting a Simple Linear Regression in R {.smaller}
 
 Modelling the relationship between the *professor's evaluation score* and their *beauty rating*
 
@@ -242,9 +242,10 @@ model <- lm(score ~ bty_avg, data = evals.scores)
 #| message: false
 #| eval: true
 #| fig-align: center
+#| fig-width: 4
+#| fig-height: 4
 ggplot(evals.scores,
-       aes(x = bty_avg, y = score)) +
-  geom_point() +
+       aes(x = bty_avg, y = score)) + geom_point() +
   geom_smooth(method = "lm", se = FALSE)
 ```
 :::

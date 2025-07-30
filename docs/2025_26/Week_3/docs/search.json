@@ -81,7 +81,7 @@
     "href": "slides/slides.html#fitting-a-simple-linear-regression-in-r",
     "title": "Data analysis",
     "section": "Fitting a Simple Linear Regression in R",
-    "text": "Fitting a Simple Linear Regression in R\nModelling the relationship between the professor’s evaluation score and their beauty rating\n\nStatistical modelR-CodePlot\n\n\n\\[\\text{score} = \\alpha + \\beta \\  \\text{beauty} +  \\epsilon ~~\\text{such that}~\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\]\n\n\n\nmodel &lt;- lm(score ~ bty_avg, data = evals.scores)\n\n\n\n\nggplot(evals.scores,\n       aes(x = bty_avg, y = score)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE)"
+    "text": "Fitting a Simple Linear Regression in R\nModelling the relationship between the professor’s evaluation score and their beauty rating\n\nStatistical modelR-CodePlot\n\n\n\\[\\text{score} = \\alpha + \\beta \\  \\text{beauty} +  \\epsilon ~~\\text{such that}~\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\]\n\n\n\nmodel &lt;- lm(score ~ bty_avg, data = evals.scores)\n\n\n\n\nggplot(evals.scores,\n       aes(x = bty_avg, y = score)) + geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE)"
   },
   {
     "objectID": "slides/slides.html#interpreting-the-output-of-a-linear-regression-model",
