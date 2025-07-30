@@ -52,7 +52,6 @@ The data can be downloaded below:
 
 {{< downloadthis evals.csv dname="evals" label="Download evals dataset" icon="database-fill-down" type="success" >}}
 
-
 You can download today's session R script below:
 
 {{< downloadthis notes.R dname="week_script" label= "Download Week 4 R script" icon="database-fill-down" type="success" >}}
@@ -153,9 +152,6 @@ The above code has jittered the points, however, this is not necessary and `geom
 :::
 
 From the scatterplot we can see that there are very few women over the age of 60 in our data set and that the variability for women seems to be slighlty larger than for men.
-
-
-
 
 ## Multiple regression: parallel slopes model
 
@@ -375,18 +371,15 @@ gridExtra::grid.arrange(int.model_diag[[2]], # qqplot
 ```
 :::
 
-
 ::: {.callout-warning icon="false"}
 ## {{< bi pencil-square color=#c8793c >}} Task 2
 
 Using `ggplot` to produce manually:
 
-1. a scatter plot of the residuals vs. fitted values 
-2. histogram of the residuals to assess normality
+1.  a scatter plot of the residuals vs. fitted values
+2.  histogram of the residuals to assess normality
 
-`r hide("Take a hint")`
-The `int.model_output` data we produced above contains all the information you need. Recall that a scatterplots and histograms can be produced with `geom_point` and `geom_histogram` layers respectively.
-`r unhide()`
+`r hide("Take a hint")` The `int.model_output` data we produced above contains all the information you need. Recall that a scatterplots and histograms can be produced with `geom_point` and `geom_histogram` layers respectively. `r unhide()`
 
 ```{r}
 #| webex.hide: "Click here to see the solution"
@@ -410,7 +403,6 @@ gridExtra::grid.arrange(p1, # resid. vs. fitted
                         ncol=2)
 ```
 :::
-
 
 # Sample statistics
 
@@ -445,7 +437,7 @@ The table below lists a variety of contexts where sample statistics can be used 
 Table 1: Scenarios of sample statistics for inference.
 
 | Scenario | Population Parameter  | Population Notation | Sample Statistic      | Sample Notation                 |
-|:--------------|:--------------|:--------------|:--------------|:--------------|
+|:---------|:----------------------|:--------------------|:----------------------|:--------------------------------|
 | 1        | Population proportion | $p$                 | Sample proportion     | $\widehat{p}$                   |
 | 2        | Population mean       | $\mu$               | Sample mean           | $\bar{x}$                       |
 | 3        | Diff.in pop. props    | $p_1 - p_2$         | Diff. in sample props | $\widehat{p}_1 - \widehat{p}_2$ |

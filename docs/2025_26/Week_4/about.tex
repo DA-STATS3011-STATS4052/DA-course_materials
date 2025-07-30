@@ -282,7 +282,7 @@
 \@ifundefined{codebgcolor}{\definecolor{codebgcolor}{named}{light}}{}
 \makeatother
 \makeatletter
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, colback={codebgcolor}, boxrule=0pt, breakable, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, breakable, colback={codebgcolor}, frame hidden, boxrule=0pt, sharp corners]}{\end{tcolorbox}}\fi
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
@@ -356,7 +356,7 @@ following tasks
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 1}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 1}, rightrule=.15mm, bottomrule=.15mm]
 
 By looking at the univariate and bivariate distributions on the
 \texttt{price} and \texttt{sqft} variables below, what would be a
@@ -394,7 +394,7 @@ Click here to see the solution
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 2}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 2}, rightrule=.15mm, bottomrule=.15mm]
 
 Fit the simple linear model with \texttt{log(price)} as the response and
 \texttt{log(sqft)} as the predictor. Display the fitted model on a
@@ -444,7 +444,7 @@ R\textsuperscript{2} / R\textsuperscript{2} adjusted &
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 3}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 3}, rightrule=.15mm, bottomrule=.15mm]
 
 Re-do your analysis but now using \texttt{log(bath)} as the explanatory
 variable. Calculate the point and interval estimates of the
@@ -496,7 +496,7 @@ R\textsuperscript{2} / R\textsuperscript{2} adjusted &
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 4}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 4}, rightrule=.15mm, bottomrule=.15mm]
 
 Fit the multiple linear regression model using the \textbf{log transform
 of all the variables} \texttt{price} (as the response) and both
@@ -545,7 +545,7 @@ R\textsuperscript{2} / R\textsuperscript{2} adjusted &
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 5}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 5}, rightrule=.15mm, bottomrule=.15mm]
 
 Using the objective measures for model comparisons, which of the models
 in task 2 ,3 and 4 would you favour? Is this consistent with your
@@ -631,7 +631,7 @@ and includes the key variables:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 6}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 6}, rightrule=.15mm, bottomrule=.15mm]
 
 Using the \texttt{ggpairs} function in the \texttt{GGally} package (see
 the following code) we can generate an informative set of graphical and
@@ -663,7 +663,7 @@ and food, which could lead to some collinearity issues.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 7}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 7}, rightrule=.15mm, bottomrule=.15mm]
 
 Fit the simple linear model with \texttt{Price} as the response and
 \texttt{Service} as the predictor and display the fitted model on a
@@ -703,7 +703,7 @@ Click here to see the solution
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 8}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 8}, rightrule=.15mm, bottomrule=.15mm]
 
 Now fit a multiple regressing model of \texttt{Price} on
 \texttt{Service}, \texttt{Food}, and \texttt{Decor}. What happens to the
@@ -757,7 +757,7 @@ R\textsuperscript{2} / R\textsuperscript{2} adjusted &
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, opacityback=0, left=2mm, rightrule=.15mm, toptitle=1mm, opacitybacktitle=0.6, colback=white, coltitle=black, breakable, bottomrule=.15mm, arc=.35mm, bottomtitle=1mm, title={Task 9}, toprule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, breakable, bottomtitle=1mm, coltitle=black, colback=white, arc=.35mm, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, titlerule=0mm, opacityback=0, title={Task 9}, rightrule=.15mm, bottomrule=.15mm]
 
 What is the correct interpretation of the coefficient on
 \texttt{Service} in the linear model which regresses \texttt{Price} on

@@ -2,147 +2,147 @@
   {
     "objectID": "slides/slides.html#simple-linear-regression",
     "href": "slides/slides.html#simple-linear-regression",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Simple Linear Regression",
     "text": "Simple Linear Regression\nLet the general form of the simple linear model:\n\\[y_i = \\beta_0 + \\beta_1 x_{i,1} + \\epsilon_i,  \\ i = 1,..n \\\\\n\\mathrm{such \\  that } \\ \\epsilon \\sim \\mathrm{Normal}(0,\\sigma^2)\\]\nused to describe the relationship between a response y and a set of variables or predictors x\n\n\\(y_i\\) is the \\(i^{th}\\) observation of the response variable;\n\\(\\alpha\\) is the intercept of the regression line;\n\\(\\beta\\) is the slope of the regression line;\n\\(x_i\\) is the \\(i^{th}\\) observation of the explanatory variable; and\n\\(\\epsilon_i\\) is the \\(i^{th}\\) random component."
   },
   {
     "objectID": "slides/slides.html#fitting-a-simple-linear-regression-in-r",
     "href": "slides/slides.html#fitting-a-simple-linear-regression-in-r",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Fitting a Simple Linear Regression in R",
     "text": "Fitting a Simple Linear Regression in R\nData\nStudent evaluations for a sample of 463 courses taught by 94 professors from the University of Texas at Austins, including information on the professor evaluation score and a the age of each professor.\n\nStatistical modelR-Code\n\n\n\\(\\text{score} = \\alpha + \\beta \\  \\text{age} + \\ \\epsilon\\)\n\n\n\nmodel &lt;- lm(score ~ age, data = evals.scores)\ntab_model(model)\n\n\n\n\n\n \nscore\n\n\nPredictors\nEstimates\nCI\np\n\n\n(Intercept)\n4.46\n4.21 – 4.71\n&lt;0.001\n\n\nage\n-0.01\n-0.01 – -0.00\n0.021\n\n\nObservations\n463\n\n\nR2 / R2 adjusted\n0.011 / 0.009"
   },
   {
     "objectID": "slides/slides.html#visualize-a-simple-linear-regression",
     "href": "slides/slides.html#visualize-a-simple-linear-regression",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Visualize a Simple Linear Regression",
     "text": "Visualize a Simple Linear Regression\n\nBest fitting lineModel Diagnostics\n\n\n\nggplot(evals.scores, aes(x = age, y = score)) +\n  geom_point() +\n  labs(x = \"Age\", y = \"Teaching Score\") +\n  geom_smooth(method = \"lm\", se = FALSE)\n\n\n\n\n\n\n\n\n\n\n\nlibrary(performance)\ncheck_model(model,check=c(\"homogeneity\",\"linearity\",\"qq\",\"normality\"))"
   },
   {
     "objectID": "slides/slides.html#simple-linear-regression-with-a-categorical-variable",
     "href": "slides/slides.html#simple-linear-regression-with-a-categorical-variable",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Simple Linear Regression with a Categorical variable",
     "text": "Simple Linear Regression with a Categorical variable\nHere, we will fit a simple linear regression model where the explanatory variable is categorical, i.e. a factor with two or more levels\n\nStatistical ModelR-Code\n\n\n\\[ y_{i} = \\alpha + \\beta_{\\text{male}} \\cdot \\mathbb{I}_{\\text{male}}(x) + \\epsilon_i \\]\n\\[\\mathbb{I}_{\\text{male}}(x)=\\left\\{\n            \\begin{array}{ll}\n              1 ~~~ \\text{If gender} ~ x ~ \\text{is male},\\\\\n              0 ~~~ \\text{Otherwise}.\\\\\n            \\end{array}\n          \\right.\\]\n\n\n\nmodel_2 &lt;- lm(score ~ gender, data = evals.scores_2)\ntab_model(model_2)\n\n\n\n\n\n \nscore\n\n\nPredictors\nEstimates\nCI\np\n\n\n(Intercept)\n4.09\n4.02 – 4.17\n&lt;0.001\n\n\ngender [male]\n0.14\n0.04 – 0.24\n0.006\n\n\nObservations\n463\n\n\nR2 / R2 adjusted\n0.017 / 0.014"
   },
   {
     "objectID": "slides/slides.html#multiple-linear-regression",
     "href": "slides/slides.html#multiple-linear-regression",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Multiple linear regression",
     "text": "Multiple linear regression\nLet the general form of the linear model:\n\\[y_i = \\beta_0 + \\beta_1 x_{i,1} + \\beta_2 x_{i,2} + ... +  \\beta_p x_{i,p} + \\epsilon_i,  \\ i = 1,..n\\]\n\n\\(y_i\\) is our response of the \\(i^{th}\\) observation;\n\\(\\beta_0\\) is the intercept;\n\\(\\beta_1\\) is the coefficient for the first explanatory variable \\(x_1\\);\n\\(\\beta_2\\) is the coefficient for the second explanatory variable \\(x_2\\);\n\\(\\beta_p\\) is the coefficient for the \\(p^{th}\\) explanatory variable \\(x_p\\);\n\\(\\epsilon_i\\) is the \\(i^{th}\\) random error component.\n\nLast week we covered the case with two numerical explanatory variables. This week, we will have a look at the case with one numerical and one categorical explanatory variable."
   },
   {
     "objectID": "slides/slides.html#parallel-lines-model",
     "href": "slides/slides.html#parallel-lines-model",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Parallel lines model",
     "text": "Parallel lines model\nWe already explored the relationship between teaching score (score) and age (age). Now, let’s also introduce the additional (binary) categorical explanatory variable gender (gender).\n\nStatistical ModelR Code\n\n\n\\[\\begin{align}\ny_{i} &= \\alpha + \\beta_{\\text{age}} \\cdot \\text{age} + \\beta_{\\text{male}} \\cdot \\mathbb{I}_{\\text{male}}(x) + \\epsilon_i, \\nonumber\n\\end{align}\\]\n\n\\(\\alpha\\) is the intercept of the regression line for females;\n\\(\\beta_{\\text{age}}\\) is the slope of the regression line for both males and females;\n\\(\\beta_{\\text{male}}\\) is the additional term added to \\(\\alpha\\) to get the intercept of the regression line for males; and\n\\(\\mathbb{I}_{\\text{male}}(x)\\) is an indicator function such that takes the value of 1 if the person is a male and zero otherwise.\n\n\n\n\nevals_multiple &lt;- evals %&gt;%\n                  select(score, gender, age)\npar.model &lt;- lm(score ~ age + gender, data = evals_multiple)\ntab_model(par.model)\n\n\n\n\n\n \nscore\n\n\nPredictors\nEstimates\nCI\np\n\n\n(Intercept)\n4.48\n4.24 – 4.73\n&lt;0.001\n\n\nage\n-0.01\n-0.01 – -0.00\n0.001\n\n\ngender [male]\n0.19\n0.09 – 0.29\n&lt;0.001\n\n\nObservations\n463\n\n\nR2 / R2 adjusted\n0.039 / 0.035\n\n\n\n\n\n\n\n\nHence, the regression line for females is given by:\n\\[\\widehat{\\text{score}} = 4.48 - 0.009 \\cdot \\text{age},\\]\nwhile the regression line for males is given by:\n\\[\\widehat{\\text{score}} = 4.48 - 0.009 \\cdot \\text{age} + 0.191 = 4.671 - 0.009 \\cdot \\text{age}.\\]"
   },
   {
     "objectID": "slides/slides.html#visualize-the-parallel-regression-lines",
     "href": "slides/slides.html#visualize-the-parallel-regression-lines",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Visualize the parallel regression lines",
     "text": "Visualize the parallel regression lines\n\n\nplot_model(model = par.model,                 \n           type=\"pred\",              \n           terms = c(\"age\",\"gender\"), \n           grid=T,                    \n           show.data = T,             \n           jitter=T,                  \n           ci.lvl = NA,               \n           title=\"\") \n\n\n\n\n\n\n\n\n\n\n\nFrom the parallel regression lines model the associated effect of age on teaching score is the same for both men and women.\nFor every one year increase in age, there is an associated decrease in teaching score of 0.009.\nMale instructors have a higher intercept terms. This is linked to the average difference in teaching scores that males obtain relative to females."
   },
   {
     "objectID": "slides/slides.html#multiple-regression-interaction-model",
     "href": "slides/slides.html#multiple-regression-interaction-model",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Multiple regression: interaction model",
     "text": "Multiple regression: interaction model\nIn this model, the effect of age on teaching scores will differ by gender.\n\nStatistical modelR Code\n\n\n\\[\\begin{align}\ny_{i} &= \\alpha + \\beta_{\\text{age}} \\cdot \\text{age} + \\beta_{\\text{male}} \\cdot \\mathbb{I}_{\\text{male}}(x) + \\beta_{\\text{age, male}} \\cdot \\text{age} \\cdot \\mathbb{I}_{\\text{male}}(x) + \\epsilon_i, \\nonumber\n\\end{align}\\]\nwhere \\(\\beta_{\\text{age, male}} \\cdot \\text{age} \\cdot \\mathbb{I}_{\\text{male}}(x)\\) corresponds to the interaction term.\nMore concretely:\n\\[y_{i}=\\left\\{\n                \\begin{array}{ll}\n                  \\alpha + \\beta_{\\text{age}} \\cdot \\text{age} + \\epsilon_i ~~~ \\text{If gender} ~ x ~ \\text{is female},\\\\\n                  (\\alpha + \\beta_{\\text{male}}) + (\\beta_{\\text{age}} + \\beta_{\\text{age, male}}) \\cdot \\text{age} + \\epsilon_i ~~~ \\text{Otherwise}.\\\\\n                \\end{array}\n              \\right.\\]\n\n\n\nint.model &lt;- lm(score ~ age * gender, data = evals_multiple)\nbroom::tidy(int.model)\n\n# A tibble: 4 × 5\n  term           estimate std.error statistic  p.value\n  &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)      4.88     0.205       23.8  4.02e-82\n2 age             -0.0175   0.00447     -3.92 1.03e- 4\n3 gendermale      -0.446    0.265       -1.68 9.35e- 2\n4 age:gendermale   0.0135   0.00553      2.45 1.48e- 2\n\n\n\nThe regression line for females is given by:\n\\[\n\\widehat{\\text{score}} = 4.88 - 0.018 \\cdot \\text{age},\n\\]\nThe regression line for males is given by:\n\n\\[\\widehat{\\text{score}} = 4.88 - 0.018 \\cdot \\text{age} - 0.446 + 0.014 \\cdot \\text{age} = 4.434 - 0.004 \\cdot \\text{age}.\\]"
   },
   {
     "objectID": "slides/slides.html#visualize-the-regression-model-with-interaction",
     "href": "slides/slides.html#visualize-the-regression-model-with-interaction",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Visualize the regression model with interaction",
     "text": "Visualize the regression model with interaction\n\n\nplot_model(model = int.model,        \n           type=  \"pred\",              \n           terms = c(\"age\",\"gender\"), \n           grid=F,                    \n           show.data = T,           \n           jitter=T,                  \n           ci.lvl = NA,               \n           title =\"\",\n           colors = c(\"purple\", \"orange\"))"
   },
   {
     "objectID": "slides/slides.html#assessing-model-fit",
     "href": "slides/slides.html#assessing-model-fit",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Assessing model fit",
     "text": "Assessing model fit\nNow we have to assess the fit of the model by looking at plots of the residuals.\n\nint.model_output &lt;-  evals_multiple %&gt;% \n  mutate(score_hat  = int.model$fitted.values,\n         residual = int.model$residuals)\n\n\nResiduals vs. ageResiduals vs. fitted valuesHistograms & QQ plots\n\n\n\nggplot(int.model_output, aes(x = age, y = residual)) +\n  geom_point() +\n  labs(x = \"age\", y = \"Residual\") +\n  geom_hline(yintercept = 0, col = \"blue\", linewidth = 1) +\n  facet_wrap(~ gender)\n\n\n\n\n\n\n\n\n\n\n\ncheck_model(int.model,check = c(\"linearity\",\"homogeneity\"))\n\n\n\n\n\n\n\n\n\n\n\ncheck_model(int.model,check = c(\"qq\",\"normality\"))"
   },
   {
     "objectID": "slides/slides.html#which-model-do-we-select",
     "href": "slides/slides.html#which-model-do-we-select",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Which model do we select?",
     "text": "Which model do we select?"
   },
   {
     "objectID": "slides/slides.html#inference-using-confidence-intervals",
     "href": "slides/slides.html#inference-using-confidence-intervals",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Inference using Confidence Intervals",
     "text": "Inference using Confidence Intervals\n\nA confidence interval gives a range of plausible values for a population parameter.\nIt depends on a specified confidence level.\nInstead of estimating an unknown parameter by using a single point estimate/sample statistic we can use a range of possible values based around our sample statistic to make a plausible guess as to the location of the parameter."
   },
   {
     "objectID": "slides/slides.html#confidence-intervals-for-regression-parameters",
     "href": "slides/slides.html#confidence-intervals-for-regression-parameters",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Confidence Intervals for Regression Parameters",
     "text": "Confidence Intervals for Regression Parameters\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nparallel lines model\ninteraction model\n\n\nPredictors\nEstimates\nstd. Error\nStatistic\np\nEstimates\nstd. Error\nStatistic\np\n\n\n(Intercept)\n4.48\n(4.24 – 4.73)\n0.13\n35.79\n&lt;0.001\n4.88\n(4.48 – 5.29)\n0.21\n23.80\n&lt;0.001\n\n\nage\n-0.01\n(-0.01 – -0.00)\n0.00\n-3.28\n0.001\n-0.02\n(-0.03 – -0.01)\n0.00\n-3.92\n&lt;0.001\n\n\ngender [male]\n0.19\n(0.09 – 0.29)\n0.05\n3.63\n&lt;0.001\n-0.45\n(-0.97 – 0.08)\n0.27\n-1.68\n0.094\n\n\nage × gender [male]\n\n\n\n\n0.01\n(0.00 – 0.02)\n0.01\n2.45\n0.015\n\n\nObservations\n463\n463\n\n\nR2 / R2 adjusted\n0.039 / 0.035\n0.051 / 0.045\n\n\n\n\n\n\n\n\n\n\nThe tables includes:\n\nstd_error: the standard error of each parameter estimate;\nstatistic: the test statistic value used to test the null hypothesis that the population parameter is zero;\np_value: the \\(p\\) value associated with the test statistic under the null hypothesis; and\nlower_ci and upper_ci: the lower and upper bounds of the 95% confidence interval for the population parameter"
   },
   {
     "objectID": "slides/slides.html#variable-selection-using-confidence-intervals",
     "href": "slides/slides.html#variable-selection-using-confidence-intervals",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Variable selection using confidence intervals",
     "text": "Variable selection using confidence intervals\n\nA confidence interval gives a range of plausible values for a population parameter.\nWhen there is more than one explanatory variable in a model, the parameter associated with each explanatory variable is interpreted as the change in the mean response based on a 1-unit change in the corresponding explanatory variable keeping all other variables held constant.\nWhen interpreting the confidence intervals of each parameter by acknowledging that each are plausible values conditional on all the other explanatory variables in the model.\n\nWe will introduce some of the ideas in the simple case where we have 2 potential explanatory variables (\\(x_1\\) and \\(x_2\\)) and use confidence intervals to decide which variables will be useful in predicting the response variable (\\(y\\))."
   },
   {
     "objectID": "slides/slides.html#variable-selection-using-confidence-intervals-1",
     "href": "slides/slides.html#variable-selection-using-confidence-intervals-1",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Variable selection using confidence intervals",
     "text": "Variable selection using confidence intervals\n\n\nOne approach is to consider a hierarchy of models:\n\\[y_i = \\alpha + \\beta_1 x_{1i} + \\beta_2 x_{2i}\\]\n\\[y_i = \\alpha + \\beta_1 x_{1i} \\qquad  \\qquad y_i = \\alpha + \\beta_2 x_{2i}\\]\n\\[y_i = \\alpha\\]\n\nWithin this structure we might take a top-down approach:\n\nFit the most general model.\nConstruct confidence intervals for \\(\\beta_1 ~\\textrm{and} ~\\beta_2\\)\n\nIf both intervals exclude 0 then retain the model with both \\(x_1\\) and \\(x_2\\).\nIf the interval for \\(\\beta_1\\) contains 0 but that for \\(\\beta_2\\) does not, fit the model with \\(x_2\\) alone.\nIf the interval for \\(\\beta_2\\) contains 0 but that for \\(\\beta_1\\) does not, fit the model with \\(x_1\\) alone.\nIf both intervals include 0 it may still be that a model with one variable is useful."
   },
   {
     "objectID": "slides/slides.html#example-variable-selection-using-confidence-intervals",
     "href": "slides/slides.html#example-variable-selection-using-confidence-intervals",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Example: variable selection using confidence intervals",
     "text": "Example: variable selection using confidence intervals\nRecall that as well as age and gender, there is also a potential explanatory variable bty_avg in the evals data, i.e. the numerical variable of the average beauty score from a panel of six students’ scores between 1 and 10.\n\nmlr.model &lt;- lm(score ~ age + bty_avg, data = evals) \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nscore\n\n\nPredictors\nEstimates\nstd. Error\np\n\n\n(Intercept)\n4.05\n(3.72 – 4.39)\n0.17\n&lt;0.001\n\n\nage\n-0.00\n(-0.01 – 0.00)\n0.00\n0.251\n\n\nbty avg\n0.06\n(0.03 – 0.09)\n0.02\n&lt;0.001\n\n\nR2 / R2 adjusted\n0.038 / 0.034\n\n\n\n\n\n\n\n\n\n\n\n\nQuestion\n\n\nWhich variable should we drop?"
   },
   {
     "objectID": "slides/slides.html#model-comparisons-using-objective-criteria",
     "href": "slides/slides.html#model-comparisons-using-objective-criteria",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Model comparisons using objective criteria",
     "text": "Model comparisons using objective criteria\nWhen the number of potential explanatory variables is large the problem of selecting which variables to include in the final model becomes more difficult.\nWhen we do model selection we compromise:\n\nPredictive accuracy (improved by including more predictor/explanatory variables)\nInterpretability (achieved by having less predictor/explanatory variables)\n\nThere are many objective criteria for comparing different models applied to the same data set.\nAll of them trade off the two objectives above, i.e. fit to the data against complexity. Common examples include:"
   },
   {
     "objectID": "slides/slides.html#model-comparisons-using-objective-criteria-1",
     "href": "slides/slides.html#model-comparisons-using-objective-criteria-1",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Model comparisons using objective criteria",
     "text": "Model comparisons using objective criteria\n\nR-squaredAICBIC\n\n\nThe \\(R^2_{adj}\\) values, i.e. the proportion of the total variation of the response variable explained by the models.\n\\[R_{adj}^2 = 1 - \\frac{RSS/(n-p-1)}{SST/(n-1)} = 100 \\times \\Bigg[ 1-\\frac{\\sum_{i=1}^n(y_i-\\widehat{y}_i)^2/(n-p-1)}{\\sum_{i=1}^n(y_i-\\bar y_i)^2/(n-1)}\\Bigg]\\]\n\nwhere\n\n\\(n\\) is the sample size and \\(p\\) is the number of parameters in the model\n\\(RSS\\) is the residual sum of squares from the fitted model\n\\(SST\\) is the total sum of squares around the mean response.\n\n\\(R_{adj}^2\\) values are used for nested models, i.e. where one model is a particular case of the other\n\n\n\nAkaike’s Information Criteria (AIC)\n\\[AIC = -2 \\cdot \\text{log-likeihood} + 2p = n\\ln\\left(\\frac{RSS}{n}\\right)+2p\\]\n\nA value based on the maximum likelihood function of the parameters in the fitted model penalised by the number of parameters in the model\nIt be used to compare any models fitted to the same response variable\nThe smaller the AIC the ‘better’ the model, i.e. no distributional results are employed to assess differences\nSee the stepAIC function from the MASS library.\n\n\n\nBayesian Information Criteria\n\\[BIC = -2 \\cdot \\text{log-likeihood} +\\ln(n)p\\]\nA popular data analysis strategy that can be adopted is to calculate \\(R_{adj}^2\\), \\(AIC\\) and \\(BIC\\) and compare the models which minimise the \\(AIC\\) and \\(BIC\\) with the model that maximises the \\(R_{adj}^2\\)."
   },
   {
     "objectID": "slides/slides.html#example-model-comparisons-using-objective-criteria",
     "href": "slides/slides.html#example-model-comparisons-using-objective-criteria",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "Example: Model comparisons using objective criteria",
     "text": "Example: Model comparisons using objective criteria\nTo illustrate this, let’s return to the evals data and the MLR on the teaching evaluation score score with the two continuous explanatory variables age and bty_avg and compare this with the SLR model with just bty_avg.\n\nlm(score ~ age, data = evals) %&gt;% # Model 1: score = age\nglance()\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0115       0.00931 0.541      5.34  0.0213     1  -372.  750.  762.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;\n\nlm(score ~ bty_avg, data = evals) %&gt;%  # Model 2: score = bty_avg\nglance()\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0350        0.0329 0.535      16.7 0.0000508     1  -366.  738.  751.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;\n\nlm(score ~ age + bty_avg, data = evals) %&gt;% # Model 3: score = age + bty_avg\nglance(mlr.model)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0378        0.0336 0.535      9.03 0.000142     2  -366.  739.  756.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
   },
   {
     "objectID": "slides/slides.html#a-final-word-on-model-selection",
     "href": "slides/slides.html#a-final-word-on-model-selection",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "A final word on model selection",
     "text": "A final word on model selection\n\nA great deal of care should be taken in selecting explanatory variables for a model because the values of the regression coefficients depend upon the variables included in the model.\nOne thing NOT to do is select hundreds of random predictors, bung them all into a regression analysis and hope for the best.\nThere are automatic strategies, such as Stepwise and Best Subsets regression, based on systematically searching through the entire list of variables not in the current model to make decisions on whether each should be included.\nThese strategies need to be handled with care,\n\nOur best strategy is a mixture of judgement on what variables should be included as potential explanatory variables, together with an interval estimation and hypothesis testing strategy for assessing these. The judgement should be made in the light of advice from the problem context."
   },
   {
     "objectID": "slides/slides.html#a-final-word-on-model-selection-1",
     "href": "slides/slides.html#a-final-word-on-model-selection-1",
-    "title": "Week 4: Regression modelling part 2",
+    "title": "Data Analysis",
     "section": "A final word on model selection",
     "text": "A final word on model selection\n\n\n\n\n\n\nImportant\n\n\nGolden rule for modelling\nThe key to modelling data is to only use the objective measures as a rough guide. In the end the choice of model will involve your own judgement. You have to be able to defend why you chose a particular model."
   },

@@ -282,7 +282,7 @@
 \@ifundefined{codebgcolor}{\definecolor{codebgcolor}{named}{light}}{}
 \makeatother
 \makeatletter
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, colback={codebgcolor}, breakable, enhanced, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, sharp corners, enhanced, frame hidden, breakable, colback={codebgcolor}]}{\end{tcolorbox}}\fi
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
@@ -605,11 +605,11 @@ weekday as the output
 # A tibble: 5 x 5
   dep_time            arr_time            sched_dep_time     
   <dttm>              <dttm>              <dttm>             
-1 2013-05-18 04:59:00 2013-05-18 06:38:00 2013-05-18 05:00:00
-2 2013-04-04 07:43:00 2013-04-04 10:29:00 2013-04-04 07:29:00
-3 2013-03-18 18:33:00 2013-03-18 21:57:00 2013-03-18 18:29:00
-4 2013-04-19 18:35:00 2013-04-19 21:32:00 2013-04-19 18:29:00
-5 2013-04-05 07:57:00 2013-04-05 10:09:00 2013-04-05 08:04:00
+1 2013-05-14 17:57:00 2013-05-14 21:09:00 2013-05-14 17:29:00
+2 2013-09-10 17:05:00 2013-09-10 18:48:00 2013-09-10 15:28:00
+3 2013-04-07 16:42:00 2013-04-07 18:39:00 2013-04-07 16:44:00
+4 2013-12-18 17:07:00 2013-12-18 18:50:00 2013-12-18 17:10:00
+5 2013-09-18 08:19:00 2013-09-18 10:17:00 2013-09-18 08:30:00
 # i 2 more variables: sched_arr_time <dttm>, weekday <ord>
 \end{verbatim}
 
@@ -669,7 +669,7 @@ extract individual date-time components:
 [1] 34
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, bottomrule=.15mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, leftrule=.75mm, title={Task}, breakable, titlerule=0mm, coltitle=black, rightrule=.15mm, toptitle=1mm, arc=.35mm, colback=white, opacityback=0, left=2mm, toprule=.15mm, colbacktitle=quarto-callout-warning-color!10!white]
+\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, toptitle=1mm, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, title={Task}, colback=white, breakable, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-warning-color!10!white, leftrule=.75mm, left=2mm, coltitle=black, opacitybacktitle=0.6]
 
 Can you make a plot showing how does the distribution of flight times
 within a day change over the course of the year? i.e., how many flights
@@ -705,7 +705,7 @@ We can see there is a peak of flights around 8am, a dip in flights from
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, bottomrule=.15mm, colframe=quarto-callout-warning-color-frame, opacitybacktitle=0.6, leftrule=.75mm, title={Task}, breakable, titlerule=0mm, coltitle=black, rightrule=.15mm, toptitle=1mm, arc=.35mm, colback=white, opacityback=0, left=2mm, toprule=.15mm, colbacktitle=quarto-callout-warning-color!10!white]
+\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, opacityback=0, colframe=quarto-callout-warning-color-frame, toptitle=1mm, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, title={Task}, colback=white, breakable, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-warning-color!10!white, leftrule=.75mm, left=2mm, coltitle=black, opacitybacktitle=0.6]
 
 Find out on what day of the week should you leave if you want to
 minimise the chance of a delay?

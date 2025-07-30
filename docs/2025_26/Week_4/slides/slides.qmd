@@ -1,17 +1,17 @@
 ---
-title: "Week 4: Regression modelling part 2"
-title-slide-attributes: 
-  data-background-image: logo2.png
-  data-background-size: 20%
-  data-background-position: 2% 2%
-format: 
-  revealjs: 
-    theme: dark
-    smaller: true
+title: "Data Analysis"
+subtitle: "Week 4: Regression modelling part 2"
 embed-resources: true
-editor: visual
-execute: 
-  echo: true
+title-slide-attributes: 
+  data-background-image: uog_cloistures2.jpg
+format: 
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
 include-in-header: 
   text: |
     <style>
@@ -22,6 +22,10 @@ include-in-header:
         font-size: .6em
       }
     </style>
+author:
+  - name: Jafet Belmont 
+    email: jafet.BelmontOsuna@glasgow.ac.uk 
+    affiliations: School of Mathematics and Statistics
 editor_options: 
   chunk_output_type: console
 ---
@@ -395,7 +399,6 @@ p1 +p2 +  plot_layout(ncol=2)
 
 ::: columns
 ::: {.column width="60%"}
-
 ::: custom-tiny
 ```{r}
 #| echo: false
@@ -431,11 +434,9 @@ We will introduce some of the ideas in the simple case where we have 2 potential
 
 ## Variable selection using confidence intervals {.smaller}
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="40%"}
 One approach is to consider a hierarchy of models:
-
 
 $$y_i = \alpha + \beta_1 x_{1i} + \beta_2 x_{2i}$$\
 $$y_i = \alpha + \beta_1 x_{1i} \qquad  \qquad y_i = \alpha + \beta_2 x_{2i}$$\
@@ -452,13 +453,7 @@ Within this structure we might take a top-down approach:
     (c) If the interval for $\beta_2$ contains 0 but that for $\beta_1$ does not, fit the model with $x_1$ alone.
     (d) If both intervals include 0 it may still be that a model with one variable is useful.
 :::
-
-::::
-
-
-
-
-
+:::
 
 ## Example: variable selection using confidence intervals {.smaller}
 
@@ -494,7 +489,6 @@ There are many objective criteria for comparing different models applied to the 
 All of them trade off the two objectives above, i.e. fit to the data against complexity. Common examples include:
 
 ## Model comparisons using objective criteria {.smaller}
-
 
 ::: panel-tabset
 ## R-squared
@@ -533,7 +527,6 @@ A popular data analysis strategy that can be adopted is to calculate $R_{adj}^2$
 
 To illustrate this, let's return to the `evals` data and the MLR on the teaching evaluation score `score` with the two continuous explanatory variables `age` and `bty_avg` and compare this with the SLR model with just `bty_avg`.
 
-
 ```{r}
  
 lm(score ~ age, data = evals) %>% # Model 1: score = age
@@ -560,7 +553,6 @@ glance(mlr.model)
 -   These strategies need to be handled with care,
 
 Our best strategy is a mixture of judgement on what variables should be included as potential explanatory variables, together with an interval estimation and hypothesis testing strategy for assessing these. The judgement should be made in the light of advice from the problem context.
-
 
 ## A final word on model selection {.smaller}
 
