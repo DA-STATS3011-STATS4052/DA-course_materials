@@ -2,6 +2,8 @@
 title: "Data analysis"
 subtitle: "Visualising and data tidying using R"
 embed-resources: true
+execute: 
+  echo: true
 title-slide-attributes: 
   data-background-image: uog_cloistures2.jpg
 format: 
@@ -34,7 +36,7 @@ editor_options:
 
 ::: custom-small
 | Week | Topic                                  | Assessment                       | Weights (%) |
-|------|----------------------------------------|----------------------------------|:-----------:|
+|-------------|-------------------------|---------------------|:-----------:|
 | 1    | Visualising and data tidying using `R` |                                  |             |
 | 2    | Introduction to Quarto                 |                                  |             |
 | 3    | Regression Modelling                   |                                  |             |
@@ -400,6 +402,7 @@ data %>% summarise(mean_x = mean(x, na.rm=T))
 
 ```{r}
 #| eval: false
+#| echo: true
 
 data %>% summarise(mean_x = mean(x, na.rm=T), .by = group) 
 
@@ -417,6 +420,7 @@ data %>% summarise(mean_x = mean(x, na.rm=T), .by = group)
 
 ```{r}
 #| eval: false
+#| echo: true
 
 data_1 %>%
   inner_join(data_2,

@@ -32,7 +32,7 @@
     "href": "slides/slides.html#load-libraries-data",
     "title": "Data analysis",
     "section": "Load libraries & data",
-    "text": "Load libraries & data\nWe shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:\n\n\nThe first library ggplot2 allows us to use functions within that package in order to create nicer data visualisations.\nThe second library tidyverse is a collection of package for data manipulation.\nThe final two libraries (nycflights13 and fivethirtyeight) contain interesting data sets that we shall examine in this session."
+    "text": "Load libraries & data\nWe shall now load into R all of the libraries we will need for this session. This can be done by typing the following into your R script:\n\nlibrary(ggplot2)\nlibrary(tidyverse)\nlibrary(nycflights13)\nlibrary(fivethirtyeight)\n\n\n\nThe first library ggplot2 allows us to use functions within that package in order to create nicer data visualisations.\nThe second library tidyverse is a collection of package for data manipulation.\nThe final two libraries (nycflights13 and fivethirtyeight) contain interesting data sets that we shall examine in this session."
   },
   {
     "objectID": "slides/slides.html#tidy-data",
@@ -53,28 +53,28 @@
     "href": "slides/slides.html#data-visualization-using-ggplot",
     "title": "Data analysis",
     "section": "Data Visualization using ggplot",
-    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots, line plots, etc.\n\nStart by specifying the tidy data you’re plotting from"
+    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots, line plots, etc.\n\n1ggplot(data ,\n       mapping = aes(x , y )) +\n  geom_point() +\n  labs(x , y , title )\n\n\n1\n\nStart by specifying the tidy data you’re plotting from"
   },
   {
     "objectID": "slides/slides.html#data-visualization-using-ggplot-1",
     "href": "slides/slides.html#data-visualization-using-ggplot-1",
     "title": "Data analysis",
     "section": "Data Visualization using ggplot",
-    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots,line plots, etc.\n\nStart by specifying the tidy data you’re plotting from\nUse the aesthetic mapping to define which variables go on the axes, colors, size, etc"
+    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots,line plots, etc.\n\n1ggplot(data ,\n2       mapping = aes(x , y )) +\n  geom_point() + \n  labs(x , y , \n       title ) \n\n\n1\n\nStart by specifying the tidy data you’re plotting from\n\n2\n\nUse the aesthetic mapping to define which variables go on the axes, colors, size, etc"
   },
   {
     "objectID": "slides/slides.html#data-visualization-using-ggplot-2",
     "href": "slides/slides.html#data-visualization-using-ggplot-2",
     "title": "Data analysis",
     "section": "Data Visualization using ggplot",
-    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots,line plots, etc.\n\nStart by specifying the tidy data you’re plotting from\nUse the aesthetic mapping to define which variables go on the axes, colors, size, etc\nAdd a geom layer (e.g., geom_point(), geom_bar(), geom_line())"
+    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots,line plots, etc.\n\n1ggplot(data ,\n2       mapping = aes(x , y )) +\n3  geom_point() +\n  labs(x , y , \n       title ) \n\n\n1\n\nStart by specifying the tidy data you’re plotting from\n\n2\n\nUse the aesthetic mapping to define which variables go on the axes, colors, size, etc\n\n3\n\nAdd a geom layer (e.g., geom_point(), geom_bar(), geom_line())"
   },
   {
     "objectID": "slides/slides.html#data-visualization-using-ggplot-3",
     "href": "slides/slides.html#data-visualization-using-ggplot-3",
     "title": "Data analysis",
     "section": "Data Visualization using ggplot",
-    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots,line plots, etc.\n\nStart by specifying the tidy data you’re plotting from\nUse the aesthetic mapping to define which variables go on the axes, colors, size, etc\nAdd a geom layer (e.g., geom_point(), geom_bar(), `geom_line()\nAdd labels for axes or a title to make your plot more readable."
+    "text": "Data Visualization using ggplot\nUse ggplot to produce scatter plots, boxplots, histograms, barplots,line plots, etc.\n\n1ggplot(data ,\n2       mapping = aes(x , y )) +\n3  geom_point() +\n4  labs(x , y , title )\n\n\n1\n\nStart by specifying the tidy data you’re plotting from\n\n2\n\nUse the aesthetic mapping to define which variables go on the axes, colors, size, etc\n\n3\n\nAdd a geom layer (e.g., geom_point(), geom_bar(), `geom_line()\n\n4\n\nAdd labels for axes or a title to make your plot more readable."
   },
   {
     "objectID": "slides/slides.html#data-wrangling",
@@ -88,42 +88,42 @@
     "href": "slides/slides.html#data-wrangling-1",
     "title": "Data analysis",
     "section": "Data wrangling",
-    "text": "Data wrangling\n\n\n\n\n\n\nSelect Columns"
+    "text": "Data wrangling\n\n\n\n\n\n\nSelect Columns\n\ndata %&gt;% select(c(column_1,column_3,column_6))"
   },
   {
     "objectID": "slides/slides.html#data-wrangling-2",
     "href": "slides/slides.html#data-wrangling-2",
     "title": "Data analysis",
     "section": "Data wrangling",
-    "text": "Data wrangling\n\n\n\n\n\n\nFilter observations"
+    "text": "Data wrangling\n\n\n\n\n\n\nFilter observations\n\ndata %&gt;% filter(year &gt; 2025 & month %in% c(\"Jan\",\"Feb\",\"Mar\"))"
   },
   {
     "objectID": "slides/slides.html#data-wrangling-3",
     "href": "slides/slides.html#data-wrangling-3",
     "title": "Data analysis",
     "section": "Data wrangling",
-    "text": "Data wrangling\n\n\n\n\n\n\nCreate/modify variables"
+    "text": "Data wrangling\n\n\n\n\n\n\nCreate/modify variables\n\ndata %&gt;% mutate(new_variable = existing_var + 1)"
   },
   {
     "objectID": "slides/slides.html#data-wrangling-4",
     "href": "slides/slides.html#data-wrangling-4",
     "title": "Data analysis",
     "section": "Data wrangling",
-    "text": "Data wrangling\n\n\n\n\n\n\nSummarise variables"
+    "text": "Data wrangling\n\n\n\n\n\n\nSummarise variables\n\ndata %&gt;% summarise(mean_x = mean(x, na.rm=T))"
   },
   {
     "objectID": "slides/slides.html#data-wrangling-5",
     "href": "slides/slides.html#data-wrangling-5",
     "title": "Data analysis",
     "section": "Data wrangling",
-    "text": "Data wrangling\n\n\n\n\n\n\nGrouping structure"
+    "text": "Data wrangling\n\n\n\n\n\n\nGrouping structure\n\ndata %&gt;% summarise(mean_x = mean(x, na.rm=T), .by = group)"
   },
   {
     "objectID": "slides/slides.html#data-wrangling-6",
     "href": "slides/slides.html#data-wrangling-6",
     "title": "Data analysis",
     "section": "Data wrangling",
-    "text": "Data wrangling\n\n\n\n\n\n\nJoining data frames"
+    "text": "Data wrangling\n\n\n\n\n\n\nJoining data frames\n\ndata_1 %&gt;%\n  inner_join(data_2,\n             by = join_by(key_var))"
   },
   {
     "objectID": "slides/slides.html#a-last-thing",
