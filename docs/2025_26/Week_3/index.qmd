@@ -218,7 +218,7 @@ evals.scores %>% summarise(rho = cor(score,bty_avg))
 Here, we are given a correlation coefficient of 0.187 for the relationship between teaching (`score`) and beauty (`bty_avg`) scores. This suggests a rather *weakly positive* linear relationship between the two variables. There is some subjective interpretation surrounding correlation coefficients not very close to -1, 0, 1. The table below provides a rough guide as to the verbal interpretation of a correlation coefficient.
 
 | Correlation coefficient       | Verbal interpretation                       |
-|------------------------------|------------------------------------------|
+|-------------------------------|---------------------------------------------|
 | 0.90 to 1.00 (-0.90 to -1.00) | Very strong positive (negative) correlation |
 | 0.70 to 0.90 (-0.70 to -0.90) | Strong positive (negative) correlation      |
 | 0.50 to 0.70 (-0.50 to -0.70) | Moderate positive (negative) correlation    |

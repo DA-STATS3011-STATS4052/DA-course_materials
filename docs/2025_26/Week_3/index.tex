@@ -282,7 +282,7 @@
 \@ifundefined{codebgcolor}{\definecolor{codebgcolor}{named}{light}}{}
 \makeatother
 \makeatletter
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, boxrule=0pt, enhanced, colback={codebgcolor}, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[colback={codebgcolor}, boxrule=0pt, breakable, frame hidden, sharp corners, enhanced]}{\end{tcolorbox}}\fi
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
@@ -358,7 +358,7 @@ and Data Science via R}.
 
 You can download today's session R script below:
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 I recommend opening a new Quarto file and using it to create your own
 notes as you work through today's exercises. This will help you practice
@@ -723,7 +723,7 @@ numerical variables:
 
 \end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 The outcome variable should always be plotted on the y-axis.
 
@@ -768,7 +768,7 @@ From the jittered scatterplot we can see that:
   originally appears due to over-plotting.
 \end{enumerate}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 Jittering does not actually change the values within a data set, it is
 merely a tool for visualisation purposes. Hence, we shall continue on
@@ -842,7 +842,7 @@ where
   \end{itemize}
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 The \texttt{broom} library is another alternative to \texttt{sjPlot}
 that allow us to visualize linear model output in a tidy way. For
@@ -1353,7 +1353,7 @@ variable \texttt{continent} we obtain:
   is, whether or not the ordering of the categories matter.
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, leftrule=.75mm, colframe=quarto-callout-important-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, titlerule=0mm, colframe=quarto-callout-important-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 It is important to always check your data after performing any kind of
 manipulation. This helps ensure that you have not accidentally
@@ -1607,7 +1607,7 @@ continent:
 
 \end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 We have jittered the points for each continent in order to see the
 residuals for each country more clearly.
@@ -1639,7 +1639,7 @@ values as follows:
 
 Again, our assumption that the residuals have mean zero seems to hold.
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title={Question}, leftrule=.75mm, colframe=quarto-callout-tip-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title={Question}, titlerule=0mm, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 What about the homoscedasticity assumption, is it valid?
 
@@ -1723,7 +1723,7 @@ level of education has on their income, we would also be considering the
 effect of the wealth of their parents simultaneously, as these two
 variables are likely to be related.
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 Additional information and examples can be found in
 \href{https://moderndive.com/6-multiple-regression.html}{Chapter 6} of
@@ -1741,7 +1741,7 @@ credit card balance of 400 individuals, were the predictions are based
 on information relating to income, credit limit and the level of
 education of an individual.
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 This is a simulated data set and is not based on credit card balances of
 actual individuals.
@@ -1773,7 +1773,7 @@ Lets begin by reading the data:
 \subsection{Exploratory data
 analysis}\label{exploratory-data-analysis-2}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title={Task}, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title={Task}, titlerule=0mm, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 Start by subsetting the \texttt{Credit} data set so that we only have
 the variables we are interested in, that is, \texttt{Balance},
@@ -1895,7 +1895,7 @@ Limit   0.8616973 1.0000000 0.7920883
 Income  0.4636565 0.7920883 1.0000000
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title={Question}, leftrule=.75mm, colframe=quarto-callout-tip-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title={Question}, titlerule=0mm, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 Why are the diagonal components of our correlation table all equal to 1?
 
@@ -1948,7 +1948,7 @@ use the \texttt{pairs} function or the \texttt{ggpairs} function from
 the \texttt{GGally} package to look at potential relationships between
 all of the variables within a data set.
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 When we have several potential explanatory variables a model selection
 technique can help to identify which explanatory variables are
@@ -2099,7 +2099,7 @@ R\textsuperscript{2} / R\textsuperscript{2} adjusted &
 0.871 / 0.870} \\
 \end{longtable}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, colframe=quarto-callout-note-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 To include multiple explanatory variables within a regression model we
 simply use the \texttt{+} sign, that is
@@ -2240,13 +2240,13 @@ the standard diagnostic plots for a fitted linear regression model:
 
 \end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title={Question}, leftrule=.75mm, colframe=quarto-callout-tip-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title={Question}, titlerule=0mm, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 Which assumptions does each of the following plots address?
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, arc=.35mm, coltitle=black, toprule=.15mm, colback=white, opacitybacktitle=0.6, left=2mm, breakable, rightrule=.15mm, colbacktitle=quarto-callout-warning-color!10!white, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title={Task}, leftrule=.75mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, colback=white, breakable, bottomtitle=1mm, opacityback=0, coltitle=black, title={Task}, titlerule=0mm, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, toprule=.15mm, toptitle=1mm, arc=.35mm, bottomrule=.15mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6]
 
 Use the \texttt{plot\_model} function from the \texttt{sjPlot} package
 to obtain the same diagnostic plots produced via
@@ -2300,7 +2300,7 @@ Click here to see the solution
 \end{tcolorbox}
 
 Lastly, besides our usual diagnostic plots to checks we need to be
-carefull with the collinearity among our predictor since a high
+carefull with the collinearity among our predictors since a high
 collinearity value may inflate the parameter uncertainty.
 
 To check for colliniearity we can compute the VIF (Variance Inflation

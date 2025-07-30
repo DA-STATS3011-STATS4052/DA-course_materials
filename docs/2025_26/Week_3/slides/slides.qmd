@@ -1,18 +1,17 @@
 ---
 title: "Data analysis"
 subtitle: "Regression Modelling part 1"
+embed-resources: true
 title-slide-attributes: 
-  data-background-image: logo2.png
-  data-background-size: 20%
-  data-background-position: 2% 2%
+  data-background-image: uog_cloistures2.jpg
 format: 
-  revealjs:
-    embed-resources: true
-    theme: night
-    smaller: true
-editor: visual
-execute: 
-  echo: true
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
 include-in-header: 
   text: |
     <style>
@@ -23,6 +22,10 @@ include-in-header:
         font-size: .6em
       }
     </style>
+author:
+  - name: Jafet Belmont 
+    email: jafet.BelmontOsuna@glasgow.ac.uk 
+    affiliations: School of Mathematics and Statistics
 editor_options: 
   chunk_output_type: console
 ---
@@ -507,12 +510,8 @@ To check for colliniearity we can compute the VIF (Variance Inflation Factor)
 
 -   VIF measures how much the variance of a regression coefficient is inflated due to multicollinearity among predictors.
 
-
-
-:::: {.columns}
-
+::: columns
 ::: {.column width="60%"}
-
 ```{r}
 #| echo: false
 #| fig-align: center
@@ -532,10 +531,4 @@ diag[[1]]
 
 -   VIF $\geq$ 5: High collinearity (may inflate coefficient variance, reducing reliability).
 :::
-
-::::
-
-
-
-
-
+:::
