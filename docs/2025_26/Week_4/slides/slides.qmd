@@ -181,6 +181,13 @@ Last week we covered the case with **two numerical** explanatory variables**. Th
 
 We already explored the relationship between teaching score (`score`) and age (`age`). Now, let's also introduce the additional (binary) categorical explanatory variable gender (`gender`).
 
+```{r}
+#| echo: false
+
+evals_multiple <- evals %>% select(score, gender, age)
+
+```
+
 ::: panel-tabset
 ## Statistical Model
 
@@ -200,12 +207,10 @@ y_{i} &= \alpha + \beta_{\text{age}} \cdot \text{age} + \beta_{\text{male}} \cdo
 ## R Code
 
 :::custom-small
+
 ```{r}
-evals_multiple <- evals %>%
-                  select(score, gender, age)
 par.model <- lm(score ~ age + gender, data = evals_multiple)
 tab_model(par.model,show.obs = F)
-
 ```
 :::
 
@@ -217,8 +222,28 @@ The regression line for (1) females and (2) males is given by:
 
 ## Visualize the parallel regression lines {.smaller}
 
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
 ```{r}
-#| output-location: column
+#| eval: false
+plot_model(model = par.model,                 
+           type="pred",              
+           terms = c("age","gender"), 
+           grid=T,                    
+           show.data = T,             
+           jitter=T,                  
+           ci.lvl = NA,               
+           title="") 
+```
+
+:::
+
+::: {.column width="60%"}
+```{r}
+#| echo: false
 #| fig-width: 8
 #| fig-height: 6
 plot_model(model = par.model,                 
@@ -230,6 +255,10 @@ plot_model(model = par.model,
            ci.lvl = NA,               
            title="") 
 ```
+:::
+
+::::
+
 
 -   From the parallel regression lines model the associated effect of age on teaching score is the same for both men and women.
 
@@ -280,10 +309,12 @@ The regression line for (1) females and (2) males are:
 
 ## Visualize the regression model with interaction
 
+
+
 ```{r}
 #| output-location: column
-#| fig-width: 8
-#| fig-height: 6
+#| fig-height: 8
+#| fig-width: 10
 plot_model(model = int.model,        
            type=  "pred",              
            terms = c("age","gender"), 
@@ -292,9 +323,10 @@ plot_model(model = int.model,
            jitter=T,                  
            ci.lvl = NA,               
            title ="",
-           colors = c("purple", "orange")) 
-
+           colors = c("purple", "orange"))  
 ```
+
+
 
 ## Assessing model fit {.smaller}
 
@@ -311,6 +343,8 @@ int.model_output <-  evals_multiple %>%
 
 ```{r}
 #| output-location: default
+#| fig-width: 7
+#| fig-height: 4
 
 ggplot(int.model_output, aes(x = age, y = residual)) +
   geom_point() +
@@ -340,7 +374,7 @@ check_model(int.model,check = c("qq","normality"))
 ```
 :::
 
-## Which model do we select?
+## Which model do we select? {.smaller}
 
 ```{r}
 #| echo: false
