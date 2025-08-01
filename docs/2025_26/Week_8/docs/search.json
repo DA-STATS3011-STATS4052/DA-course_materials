@@ -1,0 +1,387 @@
+[
+  {
+    "objectID": "slides/slides.html#ilos",
+    "href": "slides/slides.html#ilos",
+    "title": "Data Analysis",
+    "section": "ILOs",
+    "text": "ILOs\nBy the end of this session you will be able to:\n\nUnderstand version control and why it is useful.\nSetup your Git/GitHub account.\nCreate a local repository and commit changes to it using GitHub Desktop.\nPublish your local repo to GitHub"
+  },
+  {
+    "objectID": "slides/slides.html#what-is-a-version-control-system",
+    "href": "slides/slides.html#what-is-a-version-control-system",
+    "title": "Data Analysis",
+    "section": "What is a version control system?",
+    "text": "What is a version control system?\nVersion control is used throughout industry and academia as a way of developing and sharing code.\n\n\nIs a tool that helps keep track of code and software development projects as they change over time\nThe idea is to save snapshots of code at any given time, called versions/commits."
+  },
+  {
+    "objectID": "slides/slides.html#what-is-a-version-control-system-1",
+    "href": "slides/slides.html#what-is-a-version-control-system-1",
+    "title": "Data Analysis",
+    "section": "What is a version control system?",
+    "text": "What is a version control system?\nVersion control is used throughout industry and academia as a way of developing and sharing code.\n\nIs a tool that helps keep track of code and software development projects as they change over time\nThe idea is to save snapshots of code at any given time, called versions/commits.\nWhen coding collaboratively,researchers or developers can work on the same code base, keeping individual versions of the code through branches."
+  },
+  {
+    "objectID": "slides/slides.html#what-is-git",
+    "href": "slides/slides.html#what-is-git",
+    "title": "Data Analysis",
+    "section": "What is Git",
+    "text": "What is Git\n\nGit is a version control system invented by Linus Torvalds.\nTorvalds first commit message was as follows:\nInitial revision of \"git\", the information manager from hell\nAnd an interesting README\nGIT - the stupid content tracker\n\n\"git\" can mean anything, depending on your mood.\n\n - random three-letter combination that is pronounceable, and not\n   actually used by any common UNIX command.  The fact that it is a\n   mispronunciation of \"get\" may or may not be relevant.\n - stupid. contemptible and despicable. simple. Take your pick from the\n   dictionary of slang.\n - \"global information tracker\": you're in a good mood, and it actually\n   works for you. Angels sing, and a light suddenly fills the room.\n - \"goddamn idiotic truckload of sh*t\": when it breaks\n\nThis is a stupid (but extremely fast) directory content manager.  It\ndoesn't do a whole lot, but what it _does_ do is track directory\ncontents efficiently."
+  },
+  {
+    "objectID": "slides/slides.html#introduction-to-git",
+    "href": "slides/slides.html#introduction-to-git",
+    "title": "Data Analysis",
+    "section": "Introduction to Git",
+    "text": "Introduction to Git\nIt’s a system that can be run offline by itself, but its commonly used through a hosting service such as GitHub\n\n\nGit is a command-line program, however, you can opt to install a graphical user interface (GUI) for Git such as GitHub Desktop.\nIn this session we will focus on using Git through GitHub Desktop, but see the notes if you are interested in running it through the command-line.\nlets begin by signing up for GitHub"
+  },
+  {
+    "objectID": "slides/slides.html#sign-up-for-github",
+    "href": "slides/slides.html#sign-up-for-github",
+    "title": "Data Analysis",
+    "section": "Sign up for GitHub",
+    "text": "Sign up for GitHub\n\nYou can sign up for GitHub for free"
+  },
+  {
+    "objectID": "slides/slides.html#sign-up-for-github-1",
+    "href": "slides/slides.html#sign-up-for-github-1",
+    "title": "Data Analysis",
+    "section": "Sign up for GitHub",
+    "text": "Sign up for GitHub\n\nYou can sign up for GitHub for free\nYou can also download the desktop for free\n\nThere are other GUIs that you can use as well (e.g., Sourcetree), here we will cover GitHub Desktop (desktop.github.com)."
+  },
+  {
+    "objectID": "slides/slides.html#sign-up-for-github-2",
+    "href": "slides/slides.html#sign-up-for-github-2",
+    "title": "Data Analysis",
+    "section": "Sign up for GitHub",
+    "text": "Sign up for GitHub\n\nYou can sign up for GitHub for free\nYou can also download the desktop for free\nSet your Git Name and Email address you used in step 1."
+  },
+  {
+    "objectID": "slides/slides.html#sign-up-for-github-3",
+    "href": "slides/slides.html#sign-up-for-github-3",
+    "title": "Data Analysis",
+    "section": "Sign up for GitHub",
+    "text": "Sign up for GitHub\n\nYou can sign up for GitHub for free\nYou can also download the desktop for free\nSet your Git Name and Email address you used in step 1.\nConnect to GitHub"
+  },
+  {
+    "objectID": "slides/slides.html#why-do-i-need-this",
+    "href": "slides/slides.html#why-do-i-need-this",
+    "title": "Data Analysis",
+    "section": "Why do I need this?",
+    "text": "Why do I need this?\n\nThe primary reason for version control is to be able to track changes and if needs go back to an older version\n\nImagine you want to debug a code or test a new feature"
+  },
+  {
+    "objectID": "slides/slides.html#why-do-i-need-this-1",
+    "href": "slides/slides.html#why-do-i-need-this-1",
+    "title": "Data Analysis",
+    "section": "Why do I need this?",
+    "text": "Why do I need this?\n\nThe primary reason for version control is to be able to track changes and if needs go back to an older version\n\nImagine you want to debug a code or test a new feature\n\nVersion control allows you to implement it and then only choose whether you integrate it with your main code once you are sure it works"
+  },
+  {
+    "objectID": "slides/slides.html#why-do-i-need-this-2",
+    "href": "slides/slides.html#why-do-i-need-this-2",
+    "title": "Data Analysis",
+    "section": "Why do I need this?",
+    "text": "Why do I need this?\n\nThe primary reason for version control is to be able to track changes and if needs go back to an older version\n\nImagine you want to debug a code or test a new feature\n\nVersion control allows you to implement it and then only choose whether you integrate it with your main code once you are sure it works\nIt can also allow you to have multiple versions:\n\nE.g., one user could be using your released code while another develops a version which temporarily stops it working."
+  },
+  {
+    "objectID": "slides/slides.html#take-home",
+    "href": "slides/slides.html#take-home",
+    "title": "Data Analysis",
+    "section": "Take home",
+    "text": "Take home\nIn summary\n\nIt allows you to develop temporary and multiple versions of your code\nShare your code effectively with others (during or after completion)\nOthers can then use your code and you can use other people’s code.\nReproducibility\n\nYou cannot claim your method works if you don’t release it in a usable state!"
+  },
+  {
+    "objectID": "slides/slides.html#process-outline",
+    "href": "slides/slides.html#process-outline",
+    "title": "Data Analysis",
+    "section": "Process Outline",
+    "text": "Process Outline\nThere are two basic workflows for creating a repository and linking it to GitHub\n\nCreate a local repo and add (push) it to GitHub (Section 8.2 notes)"
+  },
+  {
+    "objectID": "slides/slides.html#process-outline-1",
+    "href": "slides/slides.html#process-outline-1",
+    "title": "Data Analysis",
+    "section": "Process Outline",
+    "text": "Process Outline\nThere are two basic workflows for creating a repo and linking it to GitHub\n\nCreate a repo on GitHub and cloning it (see Week Tasks)"
+  },
+  {
+    "objectID": "slides/slides.html#process-outline-2",
+    "href": "slides/slides.html#process-outline-2",
+    "title": "Data Analysis",
+    "section": "Process Outline",
+    "text": "Process Outline\nThere are two basic workflows for creating a repo and linking it to GitHub\n\nCreate a repo on GitHub and cloning it (see Week Tasks)\n\nRegardless of the approach, the end goal is to work collaboratively with others (we will get to this later)."
+  },
+  {
+    "objectID": "slides/slides.html#creating-a-local-repo",
+    "href": "slides/slides.html#creating-a-local-repo",
+    "title": "Data Analysis",
+    "section": "Creating a local repo",
+    "text": "Creating a local repo\n\nCreate a Git repository in your local machine by setting the Local Path field to your preferred location.\n\n\nThis will create a local folder where you can work and that is linked to your online repo on GitHub."
+  },
+  {
+    "objectID": "slides/slides.html#create-a-file",
+    "href": "slides/slides.html#create-a-file",
+    "title": "Data Analysis",
+    "section": "Create a file",
+    "text": "Create a file\n\n\n\nWe can now create a file to go into the repo\nThis file might be your Quarto document or R code\nAt this point you have not committed anything to Git (or GitHub)"
+  },
+  {
+    "objectID": "slides/slides.html#git-status---creating-a-file",
+    "href": "slides/slides.html#git-status---creating-a-file",
+    "title": "Data Analysis",
+    "section": "Git Status - creating a file",
+    "text": "Git Status - creating a file\n\nYou will now be able to see detected changes to your files"
+  },
+  {
+    "objectID": "slides/slides.html#git-status---creating-a-file-1",
+    "href": "slides/slides.html#git-status---creating-a-file-1",
+    "title": "Data Analysis",
+    "section": "Git Status - creating a file",
+    "text": "Git Status - creating a file\n\nYou will now be able to see detected changes to your files\n\n\n\n\nWe are on the main branch (we will cover branching next week)\nThis is the history tab where you can see all your old commits.\nThe tick here means that the file has been staged and is ready to be part of your next commit."
+  },
+  {
+    "objectID": "slides/slides.html#git-status---committing",
+    "href": "slides/slides.html#git-status---committing",
+    "title": "Data Analysis",
+    "section": "Git Status - committing",
+    "text": "Git Status - committing\n\n\n\n\n\n\n\n\nImportant\n\n\nThe changes in your project are not stored until you tell Git that they are ready to be stored by committing them!\n\n\n\n\nCommit its equivalent to taking snapshot 📸 of your whole project at that time. It’s still NOT on GitHub though!\nEach version should be accompanied by a message 💬 describing the change made by the commit."
+  },
+  {
+    "objectID": "slides/slides.html#git-status---post-commit",
+    "href": "slides/slides.html#git-status---post-commit",
+    "title": "Data Analysis",
+    "section": "Git Status - Post Commit",
+    "text": "Git Status - Post Commit\nNow we have committed, we will see that we no longer have any local changes"
+  },
+  {
+    "objectID": "slides/slides.html#git-status---post-commit-1",
+    "href": "slides/slides.html#git-status---post-commit-1",
+    "title": "Data Analysis",
+    "section": "Git Status - Post Commit",
+    "text": "Git Status - Post Commit\nNow we have committed, we will see that we no longer have any local changes\n\nAnd our commit sits nicely in our history tab.\nWe still do not have it on GitHub though!"
+  },
+  {
+    "objectID": "slides/slides.html#git-status---publishing-our-repo-on-github",
+    "href": "slides/slides.html#git-status---publishing-our-repo-on-github",
+    "title": "Data Analysis",
+    "section": "Git status - publishing our repo on GitHub",
+    "text": "Git status - publishing our repo on GitHub\n\nWe can now publish our repo directly from GitHub Desktop"
+  },
+  {
+    "objectID": "slides/slides.html#git-status---publishing-our-repo-on-github-1",
+    "href": "slides/slides.html#git-status---publishing-our-repo-on-github-1",
+    "title": "Data Analysis",
+    "section": "Git status - publishing our repo on GitHub",
+    "text": "Git status - publishing our repo on GitHub\n\nWe can now publish our repo directly from GitHub Desktop\nAnd you should now be able to see it on GitHub"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo",
+    "href": "slides/slides.html#update-your-repo",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\n\nlets go back our local repo and change our file\n\n\n\n\n\n\n\nImportant\n\n\nYou do this outside GitHub desktop, e.g., using R Studio, Note pad, Visual Code, Anaconda, etc., depending on your file.\n\n\n\n\nSuppose you rename our file from poem.txt to poem.md"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-1",
+    "href": "slides/slides.html#update-your-repo-1",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\nFrom a Git perspective this is equivalent to deleting and creating a new file"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-2",
+    "href": "slides/slides.html#update-your-repo-2",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\nFrom a Git perspective this is equivalent to deleting and creating a new file"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-3",
+    "href": "slides/slides.html#update-your-repo-3",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\nFrom a Git perspective this is equivalent to deleting and creating a new file\n\nCommit this change (Note that this is only committed to Git locally, the change will not be reflected on GitHub yet)"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-4",
+    "href": "slides/slides.html#update-your-repo-4",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\nBefore pushing our last commit (i.e., rename poem.txt to poem.md) lets make a few more changes to our file.\n\nLet’s first give our file a proper title using Markdown format\nBasically, add the # to make a section title."
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-5",
+    "href": "slides/slides.html#update-your-repo-5",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\n\nThis time we see changes to the text rather than the files\nWe can then give it a commit message 💬 and commit again"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-6",
+    "href": "slides/slides.html#update-your-repo-6",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\n\nWe have an updated local Git but GitHub remains the same\n\n How do we change this?🤔"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-7",
+    "href": "slides/slides.html#update-your-repo-7",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\n\nWe have an updated local Git but GitHub remains the same\n\n How do we change this? PUSH! 👈"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-8",
+    "href": "slides/slides.html#update-your-repo-8",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\n\nIn Git terms, the local copy of our repository is 2 commits ahead of the copy on GitHub.\nTo synchronise both repositories, we need to push our local changes:"
+  },
+  {
+    "objectID": "slides/slides.html#update-your-repo-9",
+    "href": "slides/slides.html#update-your-repo-9",
+    "title": "Data Analysis",
+    "section": "Update your repo",
+    "text": "Update your repo\nIf we jump over to GitHub we can see our renamed poem.md file and 3 commits:"
+  },
+  {
+    "objectID": "slides/slides.html#special-conventions",
+    "href": "slides/slides.html#special-conventions",
+    "title": "Data Analysis",
+    "section": "Special Conventions",
+    "text": "Special Conventions\n\n.gitignore A list of files that we don’t want to commit to our repo\nREADME Essentially the homepage of your repo. Can display download, usages, and citation information\nLICENSE Tells people how they are allowed to use your files. People don’t always follow it though!"
+  },
+  {
+    "objectID": "slides/slides.html#your-turn",
+    "href": "slides/slides.html#your-turn",
+    "title": "Data Analysis",
+    "section": "Your turn",
+    "text": "Your turn\nWeek Tasks:\n\nDownload the content from a GitHub repo\nClone the content from a gitHub repo\nCreate your own repo directly on GitHub and clone to your local machine"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Week Tasks",
+    "section": "",
+    "text": "There are two main ways to download a project to your computer from GitHub and you should pick the one that makes sense for what you want to do:\n\nThe most straightforward method is to download a .zip file containing the latest version of the files.\n\nClick on the green ‘Code’ button, then the ‘Download ZIP’ option. This will download a single file, archived and compressed using the common ZIP file format. Double-clicking the file will extract its contents to a folder next to the original .zip file.\nAn important distinction here is that you are downloading just the codebase — the files and folders of the repository — and not the Git repository itself. This means you lose some of the key functionality of Git, for example, if the project maintainers make any updates to the project, you will need to manually re-download the .zip file and extract it again to see those changes, instead of being able to easily pull these changes (more on this in the next example!).\n\nAnother way to download a project to your computer is to use Git’s clone method. To use clone, we need to tell Git installed on our computer to make a copy (or ‘clone’) of another repository, in this case from GitHub.\n\n\nCommand-line\nGitHub Desktop\n\n\n\nFirst, we need to copy the address of the repository we want to clone.\n\n\nClick on the green button labelled “Code”\nChoose either HTTPS or SSH, depending on how you connect to GitHub with Git on your computer (see the Configuration section of Unit 1)\nCopy the address\n\nThen in your terminal, navigate to your desired folder and issue the following command:\n\ngit clone &lt;address&gt;\n\nYou should now see the repository has been cloned to your computer.\n\n\nFirst, navigate to the repository you want to clone on the GitHub website.\n\n\nClick on the green button labelled ‘Code’\nClick on ‘Open with GitHub Desktop’\nYou should then see a window like this pop up in GitHub Desktop:\n\n\n\nThe URL of the repository on GitHub has automatically been populated\nChoose where you would like the repository to be cloned to on your computer\nClick ‘Clone’\n\n\n\n\nUsing this approach, we have a copy of the files and folders in the repository, but we have also copied the metadata which makes this into a Git repository. To answer the example above, now if a project maintainer makes an update to the project on GitHub, we can easily sync both versions:\n\n\nCommand-line\nGitHub Desktop\n\n\n\nIn the project folder just issue the pull command:\n\ngit pull\n\n\n\nOn GitHub Desktop, click the ‘Fetch origin’ button in the top bar:\n\n\n\n\n\nTo create a new GitHub repository we can either:\n\nCreate a local repo and the push it (see notes)\nCreate a repo and GitHub and the clone it as we did on Task 1.2.\n\nLets look at the second approach. First, navigate to you GitHub profile and click on Repositories. Then click on New :\n\n\n\n\nThen add a sensible name for your repo and configure it:\n\n\n\n\nOnce you have created this repo you can clone it to your local machine (see Task 1.2)."
+  },
+  {
+    "objectID": "about.html#sec-task1",
+    "href": "about.html#sec-task1",
+    "title": "Week Tasks",
+    "section": "",
+    "text": "The most straightforward method is to download a .zip file containing the latest version of the files.\n\nClick on the green ‘Code’ button, then the ‘Download ZIP’ option. This will download a single file, archived and compressed using the common ZIP file format. Double-clicking the file will extract its contents to a folder next to the original .zip file.\nAn important distinction here is that you are downloading just the codebase — the files and folders of the repository — and not the Git repository itself. This means you lose some of the key functionality of Git, for example, if the project maintainers make any updates to the project, you will need to manually re-download the .zip file and extract it again to see those changes, instead of being able to easily pull these changes (more on this in the next example!)."
+  },
+  {
+    "objectID": "about.html#sec-task2",
+    "href": "about.html#sec-task2",
+    "title": "Week Tasks",
+    "section": "",
+    "text": "Another way to download a project to your computer is to use Git’s clone method. To use clone, we need to tell Git installed on our computer to make a copy (or ‘clone’) of another repository, in this case from GitHub.\n\n\nCommand-line\nGitHub Desktop\n\n\n\nFirst, we need to copy the address of the repository we want to clone.\n\n\nClick on the green button labelled “Code”\nChoose either HTTPS or SSH, depending on how you connect to GitHub with Git on your computer (see the Configuration section of Unit 1)\nCopy the address\n\nThen in your terminal, navigate to your desired folder and issue the following command:\n\ngit clone &lt;address&gt;\n\nYou should now see the repository has been cloned to your computer.\n\n\nFirst, navigate to the repository you want to clone on the GitHub website.\n\n\nClick on the green button labelled ‘Code’\nClick on ‘Open with GitHub Desktop’\nYou should then see a window like this pop up in GitHub Desktop:\n\n\n\nThe URL of the repository on GitHub has automatically been populated\nChoose where you would like the repository to be cloned to on your computer\nClick ‘Clone’\n\n\n\n\nUsing this approach, we have a copy of the files and folders in the repository, but we have also copied the metadata which makes this into a Git repository. To answer the example above, now if a project maintainer makes an update to the project on GitHub, we can easily sync both versions:\n\n\nCommand-line\nGitHub Desktop\n\n\n\nIn the project folder just issue the pull command:\n\ngit pull\n\n\n\nOn GitHub Desktop, click the ‘Fetch origin’ button in the top bar:"
+  },
+  {
+    "objectID": "about.html#create-a-new-github-repository-for-your-group-project",
+    "href": "about.html#create-a-new-github-repository-for-your-group-project",
+    "title": "Week Tasks",
+    "section": "",
+    "text": "To create a new GitHub repository we can either:\n\nCreate a local repo and the push it (see notes)\nCreate a repo and GitHub and the clone it as we did on Task 1.2.\n\nLets look at the second approach. First, navigate to you GitHub profile and click on Repositories. Then click on New :\n\n\n\n\nThen add a sensible name for your repo and configure it:\n\n\n\n\nOnce you have created this repo you can clone it to your local machine (see Task 1.2)."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Collaborative Coding 1",
+    "section": "",
+    "text": "This week’s material is based on the Version Control Course from the School of Mathematics and Statistics from the University of Glasgow. The content has been reduced to fit the class structure. However, we do encourage you to take a look and attempt the full course. Please get in touch if you would like to get access the full course."
+  },
+  {
+    "objectID": "index.html#what-is-a-version-control-system",
+    "href": "index.html#what-is-a-version-control-system",
+    "title": "Collaborative Coding 1",
+    "section": "\n1.1 What is a version control system",
+    "text": "1.1 What is a version control system\nA Version Control System is a tool that helps keep track of code and software development projects as they change over time. The idea is to save snapshots of code at any given time, called versions, to allow developers to understand how the code was developed and if necessary revert (go back) to previous versions.\nWhen coding collaboratively researchers or developers can work on the same code base, keeping individual versions of the code separate from each other. These different sections are called branches, which you’ll learn about in this course, can later be combined by the system such that code that has stayed the same remains unchanged and changes made by each researcher or developer can be combined into one version."
+  },
+  {
+    "objectID": "index.html#separate-instructions-for-the-command-line-and-github-desktop",
+    "href": "index.html#separate-instructions-for-the-command-line-and-github-desktop",
+    "title": "Collaborative Coding 1",
+    "section": "\n2.1 Separate instructions for the command line and GitHub Desktop",
+    "text": "2.1 Separate instructions for the command line and GitHub Desktop\nAs with any tool, there are multiple ways of interacting with it and individuals tend to choose the way that works best for them/their workflow. Two of the most common ways of interacting with git/version control is either through the command line using the ‘git’ command or through a graphical user interface (GUI).\nTo address both needs throughout this course, you can either work through the examples using the command line or GitHub Desktop - a popular GUI (or compare both) for using Git. When you see a section that has a border around it, you can select either ‘Command-line’ or ‘GitHub Desktop’ at the top, and this will change all sections on the page to your preferred program."
+  },
+  {
+    "objectID": "index.html#installation-and-command-line-usage",
+    "href": "index.html#installation-and-command-line-usage",
+    "title": "Collaborative Coding 1",
+    "section": "\n2.2 Installation and command-line usage",
+    "text": "2.2 Installation and command-line usage\nAs Git is primarily a developer tool, it may be a little harder to install than you are used to. Git is a command-line program, however, you can opt to install a graphical user interface (GUI) for Git such as GitHub Desktop and avoid having to open a command-line terminal at all if you don’t want to!\nIf you’re familiar with installing command-line tools, GitHub provides a short guide named Install Git that should get you up and running quickly.\nBelow are some additional tips for those needing a bit more guidance.\n\n2.2.1 For Mac users\nGit is a command-line tool that is usually already installed on Macs and can be accessed from the built-in terminal. The Terminal application can be found by navigating to the Applications/Utilities folder or searching for ‘Terminal’ in Spotlight.\n\n2.2.2 For Windows users\nThis Getting Started guide provides a bit more detail on which options to select during the installation process for the best experience.\nAfter clicking the “Download Git for Windows” button you will arrive at a GitHub Release page, with lots of variations to choose from.\nTo know which option is right for your system, first, you need to find out if your computer is 32-bit or 64-bit:\nGo to Start &gt; Settings &gt; System &gt; About. Check the bit version under Device specifications &gt; System type.\nThen choose the .exe file that matches your system:\n\nOnce installed, it can be accessed from the Git r terminal which comes included as part of the Git For Windows package. You can find Git r by opening the Start menu and typing ‘Git r’ into the search bar. However, if you plan on using a GUI for Git such as GitHub Desktop, you don’t need to open a terminal at all."
+  },
+  {
+    "objectID": "index.html#set-your-git-name-and-email-address",
+    "href": "index.html#set-your-git-name-and-email-address",
+    "title": "Collaborative Coding 1",
+    "section": "\n5.1 Set your Git Name and Email address",
+    "text": "5.1 Set your Git Name and Email address\nGit needs a name and email address to attach to your commit signature (a bit like an email signature). Let’s set this up now, and be sure to use the same email address that you use to sign into GitHub.\n\n\nCommand-line\nGitHub Desktop\n\n\n\n\ngit config --global user.name \"Your Name\"\n\ngit config --global user.email \"youremail@yourdomain.com\"\n\nOnce done, you can confirm that the information is set by running:\n\ngit config --list\n\nAnd should see output similar to this:\nuser.name=Your Name\nuser.email=youremail@yourdomain.com\n\n\nFrom the main menu, select GitHub Desktop &gt; Settings... . In the settings pane, select ‘Git’ from the sidebar:"
+  },
+  {
+    "objectID": "index.html#process-outline",
+    "href": "index.html#process-outline",
+    "title": "Collaborative Coding 1",
+    "section": "\n8.1 Process Outline",
+    "text": "8.1 Process Outline\nOne way to think about a Git/GitHub project is a folder on your local computer which is version controlled and potentially (also) on GitHub.\nTo set up this structure, the workflow we are going to look at next is creating a local project folder, adding a file, initialising Git, and then saving a copy to Github. It’s also a valid workflow to first create a GitHub repository, then ‘clone’ it to your computer (see Unit 3).\nAs part of this course, you can either follow the instructions for Command-line or GitHub Desktop. Simply choose the tab you want below and all sections will change to the desired format. For example, the outline of the workflow is different for the two options, as GitHub Desktop automates some of the tasks:\n\n\nCommand-line\nGitHub Desktop\n\n\n\n\nCreate a local repository\nCreate a new file\nAdd the file to the Git ‘stage’\nCommit the file\nCreate a new repository on GitHub\nConfigure our local repository to point to the new GitHub repository as a remote ‘origin’\nPush our commit(s) to sync them with the repository on GitHub.\n\n\n\n\nCreate a local repository\nCreate a file\nCommit the file\nPublish the repository on GitHub.\n\n\n\n\nFinally, we are going to look at how you update this file. This essentially follows the same process where we:\n\nUpdate the file (or add one)\nAdd the changes\nCommit the changes\nPush the changes"
+  },
+  {
+    "objectID": "index.html#sec-local_git",
+    "href": "index.html#sec-local_git",
+    "title": "Collaborative Coding 1",
+    "section": "\n8.2 Create a local Git repository",
+    "text": "8.2 Create a local Git repository\nFirst we need to create a local Git repository which will allow us to work through this tutorial. Ensure you have Git installed (see the ‘Installation and command-line usage’ section).\n\n\nCommand-line\nGitHub Desktop\n\n\n\nCreate an empty folder on your computer using mkdir and then change to that directory using cd:\n\nmkdir tutorial1\n\nAlternatively as we will create several tutorials throughout this course you may wish to first create a folder to contain them and then create the folder for the first tutorial.\nThen run git init to initialise Git inside the folder:\n\ncd tutorial1\ngit init\n\nInitialized empty Git repository in /Users/staff/Work/tutorial1/.git/\nThe git init command turns a simple folder into a Git repository.\n\n\nChoose File &gt; New Repository... from the menu.\nIn the “Create a New Repository” form, name the repository “tutorial1”, set the “Local Path” field to your preferred location and click the “Create Repository” button:\n\n\n\n\nThat’s it! You now have a local Git repository running in this folder. We will come back and learn more about the settings for the README, Git Ignore, and License later on in the course. We can now visualise our new git repository, however as we have not added anything to our git it is currently empty.\nGit has created a new folder inside your folder called .git. You may not be able to see this folder on a Mac or Windows operating system, as it is a convention for files and folders that start with a . to be hidden by default. However, it is important to know that the folder is there, as it holds information that is necessary for Git to function correctly. This folder should not be manually edited, instead, you should use Git commands which in turn update the information here. If you decide to move all your files to another folder for some reason, be careful to also move this .git folder if you want to keep using your Git repository!\nIn the Finder on MacOS you can show hidden files using the following keyboard shortcut:\n\nShift + Command + \".\"\n\nIn File Explorer on Windows, select:\n\nView &gt; Show &gt; Hidden items."
+  },
+  {
+    "objectID": "index.html#create-a-file",
+    "href": "index.html#create-a-file",
+    "title": "Collaborative Coding 1",
+    "section": "\n8.3 Create a file",
+    "text": "8.3 Create a file\nNow let’s add a file. Of course, this would usually be code, configuration, or documentation files, but to keep this course somewhat generic and avoid distracting programming concepts, let’s add a short poem in a plain text file poem.txt to the folder.\n Download poem.txt \nYou should use your preferred Code Editor to create the file, such as VSCode or RStudio. If using Word or other “rich text” editors ensure you choose the File Format “Plain text (.txt)” when saving the file.\nNow We Are Six by A. A. Milne\n\nWhen I was One,\nI had just begun.\nWhen I was Two,\nI was nearly new.\nWhen I was Three\nI was hardly me.\nWhen I was Four,\nI was not much more.\nWhen I was Five,\nI was just alive.\nBut now I am Six,\nI'm as clever as clever,\nSo I think I'll be six now for ever and ever.\nEnsure the file is saved in your local repository. Git can only ‘see’ changes that are saved."
+  },
+  {
+    "objectID": "index.html#git-status",
+    "href": "index.html#git-status",
+    "title": "Collaborative Coding 1",
+    "section": "\n8.4 Git status",
+    "text": "8.4 Git status\n\n\nCommand-line\nGitHub Desktop\n\n\n\nLet’s have our first look at the output of git status.git status tries to provide helpful information depending on your current situation.\nWhen using Git, you’ll run git status so often that it will soon become muscle memory! The git status command only outputs status information and won’t modify commits or changes in your local repository.\nNow we’ve created a file let’s see what it outputs:\n\ngit status\n\nOn branch main\n\nNo commits yet\n\nUntracked files:\n(use \"git add &lt;file&gt;...\" to include in what will be committed)\npoem.txt\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n\nWe can see that Git knows we’re on the main branch (we’ll introduce branching concepts gradually as we progress through the course).\nThere have been no commits yet (more on this later in this unit).\nGit knows our poem.txt file has been created but it is still “untracked” (a version has not been explicitly added to Git yet and therefore this file is not covered by version control)\n\nThe --short or -s flag removes all but the most relevant information:\n\ngit status -s\n\n?? poem.txt\nHere we can see the Git shortened syntax for “untracked” is ??.\n\n\nLet’s have a look at GitHub Desktop. As you work on your project GitHub Desktop will watch your files update when it detects changes:\n\nHere we can see Git has found our new file! We have added some numbered purple circles to the screenshot above, let’s go through those areas:\n\nHere we can see that Git knows we’re on the main branch (we’ll introduce branching concepts gradually as we progress through the course).\nIf you click on the History tab, you’ll see there have been no commits yet (more on this later in this unit).\nThe checkbox beside the filename is checked, which in Git terms, means the file has been “staged” for commit"
+  },
+  {
+    "objectID": "index.html#adding-our-file-to-our-project",
+    "href": "index.html#adding-our-file-to-our-project",
+    "title": "Collaborative Coding 1",
+    "section": "\n8.5 Adding our file to our project",
+    "text": "8.5 Adding our file to our project\n\n8.5.1 Stage the file\nAdding files to the stage is an intermediate step before committing to a version. We need to choose (stage) the files we want to add to our commit. Staging may seem an unnecessary step at this point, but later we will demonstrate how this can be a powerful tool.\nFor now, we will stage all changes, our only file poem.txt.\n\n\nCommand-line\nGitHub Desktop\n\n\n\nWe can stage the file using the add command:\n\ngit add poem.txt\n\nNote that there two options here: * git add &lt;path&gt;: Stage a specific directory or file * git add .: Stage all files (that are not listed in the .gitignore) in the entire repository.\nNow we’ve staged the file let’s have a look at the status again:\n\ngit status\n\nOn branch main\n\nNo commits yet\n\nChanges to be committed:\n(use \"git rm --cached &lt;file&gt;...\" to unstage)\nnew file:   poem.txt\nOur poem.txt file has been added to the stage! If we view the short version we can see A for “add”:\n\ngit status -s\n\nA  poem.txt\nThere is also a --verbose or -v flag. In this case, it also includes the “diff” of poem.txt (more information on what a “diff” is after this example):\n\ngit status --verbose\n\nOn branch main\n\nNo commits yet\n\nChanges to be committed:\n(use \"git rm --cached &lt;file&gt;...\" to unstage)\nnew file:   poem.txt\n\ndiff --git a/poem.txt b/poem.txt\nnew file mode 100644\nindex 0000000..12f4ac3\n--- /dev/null\n+++ b/poem.txt\n@@ -0,0 +1,16 @@\n+Now We Are Six by A. A. Milne\n+\n+When I was One,\n+I had just begun.\n+When I was Two,\n+I was nearly new.\n+When I was Three\n+I was hardly me.\n+When I was Four,\n+I was not much more.\n+When I was Five,\n+I was just alive.\n+But now I am Six,\n+I'm as clever as clever,\n+So I think I'll be six now for ever and ever.\n+\nWe can view this “diff” output on its own using the command in the next box.\n\n\n\nGitHub Desktop has automatically added our new file to the stage as you can see by the checked checkbox.\nThe green plus symbol here indicates this is a new file (or technically, it has not been added to Git yet).\nThis area displays the “diff” of poem.txt (more information on what a “diff” is after this example).\n\n\n\n\n\n\n8.5.2 Commit the first version\nOnce we have determined which files we want to stage, we can then commit the change(s). Importantly unlike (say) Dropbox, the changes in your project are not stored until you tell Git that they are ready to be stored i.e. in Git you ‘commit’ them.\nThe act of ‘committing’ in Git creates a ‘version’ (sometimes just called a ‘commit’). A version can be thought of as a snapshot of your whole project at that time. Once a commit has been made, it’s always possible to get back to this version. This simple concept can be extremely powerful for the evolution and maintenance of small to very large programming projects.\nEach version should be accompanied by a message describing the change made by the commit. This can be a skill in itself as you wish to tell your collaborators or your future self what changes have been made (we will discuss best practices in Unit 4).\n\n\nCommand-line\nGitHub Desktop\n\n\n\nNow let’s create our first commit!\n\ngit commit --message \"Create poem.txt\"\n\n[main (root-commit) acf18e1] Create poem.txt\n1 file changed, 16 insertions(+)\ncreate mode 100644 poem.txt\nIf you do not specify a message then Git will open up your text editor of choice (see unit 1) to add a message.\nExperienced users will use the shorthand -m instead of --message, i.e. git commit -m \"Create poem.txt\".\nGit status shows “working tree clean”, which means all changes detected in the directory have been committed to Git:\n\ngit status\n\nOn branch main\nnothing to commit, working tree clean\nLet’s have our first look at the log:\n\ngit log\n\ncommit acf18e19f0803fd405f7d1e196fbaf710066728d\nAuthor: David McArthur &lt;david.mcarthur.2@glasgow.ac.uk&gt;\nDate:   Mon Aug 21 13:41:25 2023 +0100\n\nCreate poem.txt\nThere is a log of our first version! (Again this opens vim, and to exit press : followed by q).\n\n\nMake sure the file is staged making sure the checkbox poem.txt is ticked, add the message “Create poem.txt” to the summary, then click the “Commit to main” button:\n\nWe have created our first commit! GitHub Desktop now says we have “No local changes”, which means all changes detected in the directory have been committed to Git:\n\nWhere did our commit go? By clicking on the “History” tab, we can see our first commit:"
+  },
+  {
+    "objectID": "index.html#get-our-project-onto-github",
+    "href": "index.html#get-our-project-onto-github",
+    "title": "Collaborative Coding 1",
+    "section": "\n8.6 Get our project onto GitHub",
+    "text": "8.6 Get our project onto GitHub\nYou have now created a Git repository on your local machine and added a file, however this is only available to people who use your computer. In this section we will demonstrate how to make this available to everyone via the GitHub website.\n\n8.6.1 Create a new repository on GitHub\nUp to this point, we have been using Git locally. Next, let’s learn how to put a copy of our project on GitHub to share it with others or just make a backup for ourselves.\n\n\n\n\n\n\nPrivate or Public Repository\n\n\n\nWhen creating a GitHub repository, you will need to decide if it will be private or public. Private will mean the code is only available to yourself and other contributors, but public will mean that anyone will be able to see your code. The purpose and stage of your project will determine which of these makes the most sense.\nThe decision is ultimately a pragmatic one, and can strongly depend on your particular circumstances, for example, you may wish to develop a new open-source software library in a public repository to encourage interest and contributions from others earlier, or you may wish to keep it private either for your own use only or until it is ready to be shared. Approaches to this can also vary, in some parts of Academia it is common to having a public repository on active research projects, in others a repository is made public once the project has finished.\nImportant: Be careful not to put anything sensitive on a public repository as it will be accessible to all, although it is probably not to put it on GitHub either way.\n\n\n\n\nCommand-line\nGit-Desktop\n\n\n\nTo be able to add our content to a GitHub page (remote repository), you will firstly need to create a repository. GitHub Desktop does this for you, but for the command-line, we need to do it ourselves. You can do this by following the Create a repo quickstart guide to create a new repository for our example. Here it is named “tutorial1” but you can name it whatever you like.\nThe Git command for syncing local commits with GitHub is push. Let’s try it now:\n\ngit push\n\nfatal: No configured push destination.\nEither specify the URL from the command-line or configure a remote repository using\n\n    git remote add &lt;name&gt; &lt;url&gt;\n\nand then push using the remote name\n\n    git push &lt;name&gt;\nGit is telling us we still need to configure our local repository to use our new GitHub repository as a remote (a remote is a copy of our repository stored in another location, in this case on GitHub). When we ask Git to list the configured remotes there is no output:\n\ngit remote\n\norigin\nSo let’s set that up now.\nOn GitHub, copy the URL of your empty repository:\n\nAnd paste it in the following command:\n\ngit remote add origin &lt;your-repository-url&gt;\n\nYou can check git remote again:\n\ngit remote\n\norigin\n\ngit remote --verbose\n\norigin  https://github.com/dmca-glasgow/tutorial1.git (fetch)\norigin  https://github.com/dmca-glasgow/tutorial1.git (push)\nWe can see that our GitHub repository is configured for both fetch and push commands.\nNow let’s try to push again:\n\ngit push\n\nfatal: The current branch main has no upstream branch.\nTo push the current branch and set the remote as upstream, use\n\n    git push --set-upstream origin main\n\nTo have this happen automatically for branches without a tracking\nupstream, see 'push.autoSetupRemote' in 'git help config'.\nGit is telling us it can’t sync our local commits to main because GitHub doesn’t know about the main branch yet. So let’s follow its instructions to tell GitHub about this branch:\n\ngit push --set-upstream origin main\n\nTo https://github.com/dmca-glasgow/tutorial1.git\n  * [new branch]      main -&gt; main\nbranch 'main' set up to track 'origin/main'.\nAnd now, if we refresh our GitHub repository page, we should see our poem.txt file!\n\n\nIn GitHub Desktop, click the “Publish repository” tab, give it a name, and click the “Publish Repository” button:\n\n\n\n\nAnd now, if we refresh our GitHub repository page, we should see our poem.txt file!\n\nWe can click on the commits icon:\n\nTo view our commit history:\n\nAnd we can click on the branches button to view our main branch:"
+  },
+  {
+    "objectID": "index.html#updating-your-repository",
+    "href": "index.html#updating-your-repository",
+    "title": "Collaborative Coding 1",
+    "section": "\n8.7 Updating your repository",
+    "text": "8.7 Updating your repository\nNow that we have a local Git repository that is linked to GitHub, let’s briefly explore the process of updating our project.\n\n8.7.1 Rename the file\nFirst, let’s rename our poem.txt file to poem.md (for Markdown).\nIn Git terms, renaming a file is considered deleting one file (poem.txt) and creating a new file (poem.md).\n\n\nCommand-line\nGitHub Desktop\n\n\n\nYou can see that poem.md currently has ‘untracked’ status as it has not been added to Git yet.\n\ngit status\n\nOn branch main\nYour branch is up to date with 'origin/main'.\n\nChanges not staged for commit:\n(use \"git add/rm &lt;file&gt;...\" to update what will be committed)\n(use \"git restore &lt;file&gt;...\" to discard changes in working directory)\ndeleted:    poem.txt\n\nUntracked files:\n(use \"git add &lt;file&gt;...\" to include in what will be committed)\npoem.md\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n\n\nThe icon beside poem.md has a plus symbol for a new, untracked file, whereas the poem.txt file has a red minus symbol indicating it has been deleted.\n\n\n\n\nNext, let’s commit this change. It might seem counter-intuitive, but we need to stage and commit both files in this scenario because adding a file and deleting a file are both actions that need to be committed.\n\n\nCommand-line\nGitHub Desktop\n\n\n\nLet’s do that now:\n\ngit add poem.txt poem.md\n\ngit commit -m 'rename poem.txt to poem.md'\n[main edac35e] rename poem.txt to poem.md\n1 file changed, 0 insertions(+), 0 deletions(-)\nrename poem.txt =&gt; poem.md (100%)"
+  },
+  {
+    "objectID": "index.html#gitignore",
+    "href": "index.html#gitignore",
+    "title": "Collaborative Coding 1",
+    "section": "\n9.1 .gitignore",
+    "text": "9.1 .gitignore\nWhen we share our codebase using Git and GitHub, either with the public or with colleagues, we can choose to exclude certain files (e.g. tell Git/GitHub never to consider them) by making use of a .gitignore file. To be more precise, we are telling Git to ignore these files from our project folder by not adding them to any commit change list.\n\nFor example:\n# &lt;-- comments start with a hash sign\n# empty lines are ignored\n\n# ignore 'passwords.txt' at the root of your project:\n/passwords.txt\n\n# ignore 'passwords.txt' anywhere in your project:\npasswords.txt\n\n# ignore 'cache' folder  at the root of your project:\n/cache/\n\n# ignore all 'cache' folders:\ncache/\n\n# ignore all .log files inside a 'logs' folder:\nlogs/*.log\n\n# ignore all .html files inside the 'logs' folder including sub-folders:\nlogs/**/*.log\n\n# ignore all files with .log extension:\n**/*.log\nIf a file has already been committed to Git, ignoring it with .gitignore won’t remove it from the repository, only it’s changes from that point on. If you’d like to remove a file from Git, the simplest way is to follow these steps:\n\nMove the file out of your project folder\nGit will treat the file as deleted. Stage and commit this change.\nAdd the file path to .gitignore\nMove the file back into your project folder\nCheck the stage and confirm that Git is ignoring it\nCommit the updated .gitignore file\n\nHowever, while the file has been removed it is still present in your history in future sections."
+  },
+  {
+    "objectID": "index.html#gitkeep",
+    "href": "index.html#gitkeep",
+    "title": "Collaborative Coding 1",
+    "section": "\n9.2 .gitkeep",
+    "text": "9.2 .gitkeep\nA strange quirk of Git is that it is only concerned with files and not folders. Your project can be split into as many files and folders as you wish with no problems, but at some point, you may be confused that Git does not ‘see’ empty folders.\nAs a workaround, a common convention is to create an empty file inside the folder named .gitkeep, which you can commit, enabling you to store the (not really) empty folder in your repository."
+  }
+]

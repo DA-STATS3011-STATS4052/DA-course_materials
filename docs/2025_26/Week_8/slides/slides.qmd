@@ -1,0 +1,393 @@
+---
+title: "Data Analysis"
+subtitle: "Collaborative Coding 1"
+embed-resources: true
+title-slide-attributes: 
+  data-background-image: uog_cloistures2.jpg
+format: 
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
+include-in-header: 
+  text: |
+    <style>
+      .custom-small table {
+        font-size: .8em
+      }
+      .custom-tiny table {
+        font-size: .6em
+      }
+    </style>
+author:
+  - name: Jafet Belmont 
+    email: jafet.BelmontOsuna@glasgow.ac.uk 
+    affiliations: School of Mathematics and Statistics
+editor_options: 
+  chunk_output_type: console
+---
+
+## ILOs
+
+By the end of this session you will be able to:
+
+-   Understand version control and why it is useful.
+
+-   Setup your Git/GitHub account.
+
+-   Create a local repository and commit changes to it using GitHub Desktop.
+
+-   Publish your local repo to GitHub
+
+# Introduction to Version Control & Git {.smaller auto-animate="true"}
+
+## **What is a version control system?** {.smaller}
+
+Version control is used throughout industry and academia as a way of developing and sharing code.
+
+::: incremental
+-   Is a tool that helps keep track of code and software development projects as they change over time
+
+-   The idea is to save `snapshots` of code at any given time, called **versions/commits**.
+:::
+
+![](vc.png){fig-align="center" width="628"}
+
+## **What is a version control system?** {.smaller auto-animate="true"}
+
+Version control is used throughout industry and academia as a way of developing and sharing code.
+
+-   Is a tool that helps keep track of code and software development projects as they change over time
+
+-   The idea is to save `snapshots` of code at any given time, called **versions/commits**.
+
+-   When coding collaboratively,researchers or developers can work on the same code base, keeping individual versions of the code through **branches**.
+
+![](branches.png){fig-align="center" width="428"}
+
+## What is Git {.smaller}
+
+-   Git is a version control system invented by Linus Torvalds.
+
+-   Torvalds first commit message was as follows:
+
+    ``` {.markdown code-line-numbers="false"}
+    Initial revision of "git", the information manager from hell
+    ```
+
+-   And an interesting README
+
+    ``` {.markdown code-line-numbers="false"}
+    GIT - the stupid content tracker
+
+    "git" can mean anything, depending on your mood.
+
+     - random three-letter combination that is pronounceable, and not
+       actually used by any common UNIX command.  The fact that it is a
+       mispronunciation of "get" may or may not be relevant.
+     - stupid. contemptible and despicable. simple. Take your pick from the
+       dictionary of slang.
+     - "global information tracker": you're in a good mood, and it actually
+       works for you. Angels sing, and a light suddenly fills the room.
+     - "goddamn idiotic truckload of sh*t": when it breaks
+
+    This is a stupid (but extremely fast) directory content manager.  It
+    doesn't do a whole lot, but what it _does_ do is track directory
+    contents efficiently.
+    ```
+
+## Introduction to Git {.smaller}
+
+It's a system that can be run offline by itself, but its commonly used through a hosting service such as GitHub
+
+::: incremental
+-   Git is a command-line program, however, you can opt to install a graphical user interface (GUI) for Git such as GitHub Desktop.
+
+-   In this session we will focus on using Git through GitHub Desktop, but see the notes if you are interested in running it through the command-line.
+
+-   lets begin by signing up for GitHub
+:::
+
+## Sign up for GitHub {.smaller auto-animate="true"}
+
+1.  You can sign up for GitHub for free
+
+![](github_sign.png){fig-align="center" width="570"}
+
+## Sign up for GitHub {.smaller auto-animate="true"}
+
+1.  You can sign up for GitHub for free
+2.  You can also download the [desktop](https://github.com/apps/desktop) for free
+    -   There are other GUIs that you can use as well (e.g., Sourcetree), here we will cover GitHub Desktop ([desktop.github.com](desktop.github.com)).
+
+![](gitDesk.png){fig-align="center"}
+
+## Sign up for GitHub {.smaller auto-animate="true"}
+
+1.  You can sign up for GitHub for free
+2.  You can also download the [desktop](https://github.com/apps/desktop) for free
+3.  Set your Git Name and Email address you used in step 1.
+
+![](gitDesksign.png){fig-align="center"}
+
+## Sign up for GitHub {.smaller auto-animate="true"}
+
+1.  You can sign up for GitHub for free
+2.  You can also download the [desktop](https://github.com/apps/desktop) for free
+3.  Set your Git Name and Email address you used in step 1.
+4.  Connect to GitHub
+
+![](gitDeskconnect.png){fig-align="center"}
+
+## Why do I need this? {.smaller auto-animate="true"}
+
+-   The primary reason for version control is to be able to track changes and if needs go back to an older version
+
+Imagine you want to [debug]{style="color:red;"} a code or test a [new feature]{style="color:green;"}
+
+## Why do I need this? {.smaller auto-animate="true"}
+
+-   The primary reason for version control is to be able to track changes and if needs go back to an older version
+
+Imagine you want to [debug]{style="color:red;"} a code or test a [new feature]{style="color:green;"}
+
+-   Version control allows you to implement it and then only choose whether you integrate it with your `main code` once you are sure it works
+
+![](debug.png){fig-align="center"}
+
+## Why do I need this? {.smaller auto-animate="true"}
+
+-   The primary reason for version control is to be able to track changes and if needs go back to an older version
+
+Imagine you want to [debug]{style="color:red;"} a code or test a [new feature]{style="color:green;"}
+
+-   Version control allows you to implement it and then only choose whether you integrate it with your `main code` once you are sure it works
+-   It can also allow you to have multiple versions:
+    -   E.g., one user could be using your released code while another develops a version which temporarily stops it working.
+
+![](debug.png){fig-align="center"}
+
+## Take home
+
+**In summary**
+
+-   It allows you to develop temporary and multiple versions of your code
+
+-   Share your code effectively with others (during or after completion)
+
+-   Others can then use your code and you can use other people's code.
+
+-   **Reproducibility**
+
+You cannot claim your method works if you don't release it in a usable state!
+
+# Git Workflow
+
+## Process Outline {.smaller auto-animate="true"}
+
+There are two basic workflows for creating a repository and linking it to GitHub
+
+1.  Create a local repo and add (push) it to GitHub (Section 8.2 notes)
+
+![](wf1.png){fig-align="center"}
+
+## Process Outline {.smaller auto-animate="true"}
+
+There are two basic workflows for creating a repo and linking it to GitHub
+
+2.  Create a repo on GitHub and cloning it (see Week Tasks)
+
+![](wf2.png){fig-align="center"}
+
+## Process Outline {.smaller auto-animate="true"}
+
+There are two basic workflows for creating a repo and linking it to GitHub
+
+2.  Create a repo on GitHub and cloning it (see Week Tasks)
+
+Regardless of the approach, the end goal is to work collaboratively with others (we will get to this later).
+
+![](wf3.png){fig-align="center"}
+
+# **Basic workflow for a single user**
+
+## Creating a local repo {.smaller}
+
+1.  Create a Git repository in your local machine by setting the *Local Path* field to your preferred location.
+
+-   This will create a local folder where you can work and that is linked to your online repo on GitHub.
+
+![](local_repo.png){fig-align="center"}
+
+## **Create a file**
+
+::: columns
+::: {.column width="70%"}
+-   We can now create a file to go into the repo
+
+-   This file might be your Quarto document or R code
+
+-   At this point you have not committed anything to Git (or GitHub)
+:::
+
+::: {.column width="30%"}
+![](poem.png){fig-align="center"}
+:::
+:::
+
+## Git Status - creating a file {.smaller auto-animate="true"}
+
+-   You will now be able to see detected changes to your files
+
+![](gitstatus1.png){fig-align="center"}
+
+## Git Status - creating a file {.smaller auto-animate="true"}
+
+-   You will now be able to see detected changes to your files
+
+![](gitstatus1.png){fig-align="center"}
+
+::: incremental
+1.  We are on the *main branch* (we will cover branching next week)
+2.  This is the history tab where you can see all your old commits.
+3.  The tick here means that the file has been `staged` and is ready to be part of your next commit.
+:::
+
+## Git Status - committing {.smaller}
+
+::: columns
+::: {.column width="40%"}
+::: callout-important
+The changes in your project are not stored until you tell Git that they are ready to be stored by committing them!
+:::
+
+-   Commit its equivalent to taking snapshot 📸 of your whole project at that time. It's still **NOT** on GitHub though!
+
+-   Each version should be accompanied by a message 💬 describing the change made by the commit.
+:::
+
+::: {.column width="60%"}
+![](poem_commit.png){fig-align="center"}
+:::
+:::
+
+## Git Status - Post Commit {.smaller auto-animate="true"}
+
+Now we have committed, we will see that we no longer have any local changes
+
+![](post-commit.png){fig-align="center"}
+
+## Git Status - Post Commit {.smaller auto-animate="true"}
+
+Now we have committed, we will see that we no longer have any local changes
+
+-   And our commit sits nicely in our history tab.
+-   We still do not have it on GitHub though!
+
+![](post-comiit.png){fig-align="center"}
+
+## Git status - publishing our repo on GitHub {.smaller auto-animate="true"}
+
+-   We can now publish our repo directly from GitHub Desktop
+
+![](publish_repo.png){fig-align="center"}
+
+## Git status - publishing our repo on GitHub {.smaller auto-animate="true"}
+
+-   We can now publish our repo directly from GitHub Desktop
+-   And you should now be able to see it on GitHub
+
+![](publish_repoGitHub.png.png){fig-align="center"}
+
+## Update your repo {.smaller}
+
+-   lets go back our local repo and change our file
+
+::: callout-important
+You do this outside GitHub desktop, e.g., using R Studio, Note pad, Visual Code, Anaconda, etc., depending on your file.
+:::
+
+-   Suppose you rename our file from `poem.txt` to `poem.md`
+
+![](poem_md.png){fig-align="center" width="385"}
+
+## Update your repo {.smaller auto-animate="true"}
+
+From a Git perspective this is equivalent to [deleting]{style="color:red;"} and [creating]{style="color:green;"} a new file
+
+![](git_change_name.png){fig-align="center"}
+
+## Update your repo {.smaller auto-animate="true"}
+
+From a Git perspective this is equivalent to [deleting]{style="color:red;"} and [creating]{style="color:green;"} a new file
+
+![](commite_change_name.png){fig-align="center"}
+
+## Update your repo {.smaller auto-animate="true"}
+
+From a Git perspective this is equivalent to [deleting]{style="color:red;"} and [creating]{style="color:green;"} a new file
+
+-   Commit this change (Note that this is only committed to Git locally, the change will not be reflected on GitHub yet)
+
+![](git_push_exx.png){fig-align="center"}
+
+## Update your repo {.smaller auto-animate="true"}
+
+Before pushing our last commit (i.e., `rename poem.txt to poem.md`) lets make a few more changes to our file.
+
+-   Let's first give our file a proper title using Markdown format
+-   Basically, add the `#` to make a section title.
+
+![](poem_edit.png){fig-align="center"}
+
+## Update your repo {.smaller auto-animate="true"}
+
+-   This time we see changes to the text rather than the files
+-   We can then give it a commit message 💬 and `commit` again
+
+![](comite_title.png){fig-align="center"}
+
+## Update your repo {.smaller auto-animate="true"}
+
+-   We have an updated local Git but GitHub remains the same
+
+![](git_title_commit_diag0.png){fig-align="center"} **How do we change this?**🤔
+
+## Update your repo {.smaller auto-animate="true"}
+
+-   We have an updated local Git but GitHub remains the same
+
+![](git_title_commit_diag.png){fig-align="center"} **How do we change this?** PUSH! 👈
+
+## Update your repo {.smaller auto-animate="true"}
+
+-   In Git terms, the local copy of our repository is 2 commits ahead of the copy on GitHub.
+
+-   To synchronise both repositories, we need to `push` our local changes:
+
+![](last_push.png){fig-align="center"}
+
+## Update your repo {.smaller auto-animate="true"}
+
+If we jump over to GitHub we can see our renamed `poem.md` file and 3 commits:
+
+![](github_postcommit.png){fig-align="center"}
+
+## Special Conventions
+
+-   `.gitignore` A list of files that we don't want to commit to our repo
+
+-   `README` Essentially the homepage of your repo. Can display download, usages, and citation information
+
+-   `LICENSE` Tells people how they are allowed to use your files. People don't always follow it though!
+
+## Your turn
+
+Week Tasks:
+
+1.  Download the content from a GitHub repo
+2.  Clone the content from a gitHub repo
+3.  Create your own repo directly on GitHub and clone to your local machine
