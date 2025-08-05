@@ -282,7 +282,7 @@
 \@ifundefined{codebgcolor}{\definecolor{codebgcolor}{named}{light}}{}
 \makeatother
 \makeatletter
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, colback={codebgcolor}, enhanced, frame hidden, breakable, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[colback={codebgcolor}, frame hidden, enhanced, breakable, boxrule=0pt, sharp corners]}{\end{tcolorbox}}\fi
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
@@ -552,7 +552,7 @@ and click the ``Create Repository'' button:
 
 Add the following file to the repository:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 Hello
 
@@ -598,7 +598,7 @@ Switched to a new branch 'shout'
 Add an exclamation mark to the end of the word within the
 \texttt{example.md} file:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 Hello!
 
@@ -773,7 +773,7 @@ branch `question':
 Let's make a change to the file by changing the exclamation mark to a
 question mark:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 Hello?
 
@@ -802,7 +802,7 @@ Add the change to the stage and commit:
 
 Now let's make another change to our file:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 Hello?
 
@@ -1135,7 +1135,7 @@ Switched to a new branch 'capitalise'
 Now we're going to make a different change to the file on the main
 branch. This time change the contents to the following:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 HELLO
 
@@ -1205,7 +1205,7 @@ Is it me you're looking for?
 Now we're going to make a different change to the file on the main
 branch. This time change the contents to the following:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 Hello.
 
@@ -1347,7 +1347,7 @@ abort this action before you do anything else.
 Let's manually edit our file to what we want, like a mixture of both
 changes:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 HELLO.
 
@@ -1489,7 +1489,7 @@ branch `goodbye': \includegraphics{images/image58.png}
 
 Let's update the file like so:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 GOODBYE
 
@@ -1536,7 +1536,7 @@ Switched to branch 'main'
 
 Make a change to the file on the main branch:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 HELLO
 
@@ -1651,7 +1651,7 @@ HELLO
 And we can manually resolve it as before, this time with some Beatles
 lyrics:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{example.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 You say GOODBYE and I say HELLO
 
@@ -1684,7 +1684,7 @@ And commit the change.
 GitHub Desktop has automatically detected that our merge conflict has
 been resolved: \includegraphics{images/image68.png}
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 And now our branch could be ready for Code Review on GitHub via a Pull
 Request (see Supplement). This makes sense when you are contributing to
@@ -1862,7 +1862,7 @@ In Git terms, what you need to do is:
   modifications
 \end{enumerate}
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 What is the difference between Clone and Fork?
 
@@ -1906,7 +1906,6 @@ name, description, and which branch to fork:
 \includegraphics{images/image78.png}
 
 And that's it! You have a copy of the project under your name on GitHub:
-\includegraphics{images/image79.png}
 
 \subsection{Clone}\label{clone-1}
 
@@ -1953,7 +1952,7 @@ repository on your computer, then finally click `Clone':
 Let's add a new line to the \texttt{readme.md} file, making sure to save
 it:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, coltitle=black, opacitybacktitle=0.6, leftrule=.75mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{readme.md}, colback=white, breakable, opacityback=0, left=2mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, bottomtitle=1mm, arc=.35mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{readme.md}, colbacktitle=quarto-callout-note-color!10!white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, breakable, titlerule=0mm, bottomrule=.15mm, coltitle=black]
 
 \#\# Follow along tutorial 2: Create a Pull Request to an existing
 project

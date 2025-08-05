@@ -1427,7 +1427,7 @@ Then you have the opportunity to give the forked repository a different name, de
 ![](images/image78.png)
 
 And that's it! You have a copy of the project under your name on GitHub:
-![](images/image79.png)
+
 
 ## Clone
 
