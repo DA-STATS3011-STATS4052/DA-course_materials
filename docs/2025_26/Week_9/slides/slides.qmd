@@ -1,0 +1,529 @@
+---
+title: "Data Analysis"
+subtitle: "Collaborative Coding 2"
+embed-resources: true
+title-slide-attributes: 
+  data-background-image: uog_cloistures2.jpg
+format: 
+   metropolis-beamer-revealjs:
+    logo:  UofG.png
+    theme: custom.scss
+    header-includes: |
+      <script src="custom.js" type="application/javascript"></script>
+slide-number: true
+header-logo: UofG.png
+include-in-header: 
+  text: |
+    <style>
+      .custom-small table {
+        font-size: .8em
+      }
+      .custom-tiny table {
+        font-size: .6em
+      }
+    </style>
+author:
+  - name: Jafet Belmont 
+    email: jafet.BelmontOsuna@glasgow.ac.uk 
+    affiliations: School of Mathematics and Statistics
+editor_options: 
+  chunk_output_type: console
+---
+
+## ILOs
+
+By the end of this session you will be able to:
+
+1.  Learn the basics about collaborative work using GitHub.
+
+2.  Branching strategies
+
+3.  Creating and deleting a Branch
+
+4.  Merge conflicts
+
+5.  "A better approach to resolving merge conflicts"
+
+## **Inviting a collaborator** {.smaller}
+
+::: incremental
+1.  Ask for the username of the person you're inviting as a collaborator (the user name they used when they sign up for [GitHub](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github))
+
+2.  On GitHub, navigate to the main page of the repository.
+
+3.  Under your repository name, click {{< bi gear >}} **Settings**. If you cannot see the "Settings" tab, select the {{< bi three-dots >}} dropdown menu, then click **Settings**.
+
+    ![](/images/settings.png)
+
+4.  In the "Access" section of the sidebar, click {{< bi people >}} **Collaborators**.
+
+5.  Click **Add people**.
+
+6.  In the search field, start typing the name of person you want to invite, then click a name in the list of matches.
+
+7.  Click **Add NAME** to **REPOSITORY**.
+
+8.  The user will receive an email inviting them to the repository. Once they accept your invitation, they will have collaborator access to your repository.
+:::
+
+# Cloning a Repo {background-image="clones.jpg"}
+
+## Cloning a project {.smaller auto-animate="true"}
+
+-   Clone is a Git feature that allows a user to make a copy of a repository, including all the associated metadata on their computer so they can work on it.
+
+![](clone1.png){fig-align="center"}
+
+1.  To do this you need to the URL of the repo you are trying to clone, and a location you want to put the cloned folder
+
+-   Click on the green button labelled 'Code'
+-   Click on 'Open with GitHub Desktop' or copy the url
+
+## Cloning a project {.smaller auto-animate="true"}
+
+-   Clone is a Git feature that allows a user to make a copy of a repository, including all the associated metadata on their computer so they can work on it.
+
+![](clone2.png){fig-align="center"}
+
+2.  Open GitHub Desktop and paste the URL of the repository on GitHub populated.
+
+3.  Choose where you would like the repository to be cloned to on your computer (needs an empty folder)
+
+4.  Click 'Clone'
+
+## Cloning a project {.smaller auto-animate="true"}
+
+If an update is made, then all you need to do is resynchronise your local repo with the GitHub version
+
+![](clone_update.png){fig-align="center" width="554"} 
+
+# Branching {background-image="branches.jpg"}
+
+## Branching strategies {.smaller}
+
+\vspace{-1cm}
+
+::: incremental
+-   Up until this point we have only committed changes to one branch -the default branch called `main`
+
+![](main.png){fig-align="center" width="428"}
+
+-   If you are working on your own this can be a valid approach and avoids a lot of complexity in using Git.
+
+-   Branches represents a distinct version of the `main` repository and enable a team to work on the same files at the same time.
+
+![](branch1.png){fig-align="center" width="414"}
+
+-   Unlike Google Docs where you can track live changes, branches allow collaborators to work in isolation, not worrying about what others are up to, and when the time comes, **integrate** your changes into the default branch.
+:::
+
+## Branching strategies {.smaller}
+
+This week we are going to learn how to create a branch and make changes to it, then integrate this branch back into the `main` branch. This is particularly helpful when working collaboratively.
+
+-   In Git, a branch represents a distinct version of the `main` repository, serving as a snapshot of your changes.
+
+-   When implementing new features or addressing issues, creating a new branch is the practice to isolate your modifications. 
+
+-   When the work is complete, a branch can be merged with the main project. 
+
+![](branching_ex.png){fig-align="center"}
+
+## Creating a new branch {.smaller}
+
+Lets start a simple example by creating a new repo.
+
+        
+![](new_repo.png)
+
+
+## Creating a new branch {.smaller auto-animate="true"}
+
+Lets start a simple example by creating a new repo.
+
+-   We begin with a single commit with the following content
+
+    ![](hello_md.png)
+
+## Creating a new branch {.smaller auto-animate="true"}
+
+-   Now commit this change to git
+
+![](commit_repo.png){fig-align="center"}
+
+## Creating a new branch {.smaller}
+
+-   Next, let's create a branch named `shout` based on this commit.
+
+    -   You do this be going to the main menu and selecting `Branch > New Branch`
+
+![](shout_branch.png){fig-align="center"}
+
+## Working on a branch {.smaller}
+
+Lets modify the file by adding an explanation mark and commit the change!
+
+![](hello_md_ex.png){fig-align="center" width="208"}
+
+-   Check the status of our `shout` branch:
+
+    ![](shout_commit.png)
+
+## Working on a branch {.smaller auto-animate="true"}
+
+Our new changes appear on the new branch of our local repo.
+
+![](local_repo.png){fig-align="center" width="364"}
+
+-   Now we have made our change, we want to merge it back into the [main]{style="color:blue;"} branch
+
+## Merging a branch to main {.smaller auto-animate="true"}
+
+1.  switch back to the [main]{style="color:blue;"} branch
+
+![](merge_1.png){fig-align="center"}
+
+## Merging a branch to main {.smaller auto-animate="true"}
+
+2.  start the 'merge'
+
+![](start_merge.png){fig-align="center"}
+
+## Merging a branch to main {.smaller auto-animate="true"}
+
+3.  choose the branch that we want to merge back in (i.e., `shout`)
+
+![](choose_merge_branch.png){fig-align="center"}
+
+## Merging a branch to main {.smaller auto-animate="true"}
+
+4.  check that the version of our file in the main branch now has the exclamation mark
+
+![](check_merge.png){fig-align="center"}
+
+## Merging a branch to main {.smaller auto-animate="true"}
+
+5.  delete `shout` branch
+
+![](delete_shout.png){fig-align="center"}
+
+## Merging a branch to main {.smaller auto-animate="true"}
+
+Our current (local) work flow:
+
+![](merge_wf.png){fig-align="center" width="435"}
+
+-   Notice that the rejoining of the branches themselves then becomes a commit on the [main]{style="color:blue;"} branch, as this is the one we are updating.
+
+## A more complex example {.smaller auto-animate="true"}
+
+-   A slightly more complex situation occurs when we try to make change to two branches and then merge
+
+-   Let's create a new branch converting the `!` to a `?`
+
+![](question_branch.png){fig-align="center" width="620"}
+
+## A more complex example {.smaller auto-animate="true"}
+
+-   Say we then update the file on [question]{style="color:red;"} and get the following
+
+![](hello_qmd.png){fig-align="center" width="260"}
+
+-   Switching back to [main]{style="color:blue;"} then causes problems if you don't commit your changes first!
+
+-   If we switch branches without committing first will make us lose our local changes.
+
+## A more complex example {.smaller auto-animate="true"}
+
+If we want to switch a branch before committing our changes the following dialog will appear:
+
+![](stashing.png){fig-align="center"}
+
+GitHub Desktop offers us two options:
+
+-   **Leave my changes on question** allows us to stash the changes (*"save for later*" kind of thing) and come back to the branch later and apply the stash.
+
+-   **Bring my changes to main** automates the process of stashing the changes, switching to the desired branch, and applying the stash.
+
+## A more complex example {.smaller auto-animate="true"}
+
+If we **Bring my changes to main**, this will automatically bring forward the changes we made in [question]{style="color:red;"} to [main]{style="color:blue;"}.
+
+-   Now that we are on [main]{style="color:blue;"}, we only need to commit these changes:
+
+![](commit_question.png){fig-align="center"}
+
+## Recap {.smaller auto-animate="true"}
+
+Lets re-cap what we have done so far.
+
+1.  First, we created a `example.md` file in our main branch.
+
+![](step1.png){fig-align="center" width="230"}
+
+## Recap {.smaller auto-animate="true"}
+
+Lets re-cap what we have done so far.
+
+2.  Then we created a `shout` branch and added an exclamation mark
+
+![](step2.png){fig-align="center" width="230"}
+
+## Recap {.smaller auto-animate="true"}
+
+Lets re-cap what we have done so far.
+
+
+3.  We merged the `shout` branch into main
+
+![](step3.png){fig-align="center" width="230"}
+
+## Recap {.smaller auto-animate="true"}
+
+Lets re-cap what we have done so far.
+
+
+4.  Create a `question` branch and changed the exclamation mark for a question mark
+
+![](step4.png){fig-align="center" width="230"}
+
+## Recap {.smaller auto-animate="true"}
+
+Lets re-cap what we have done so far.
+
+
+5.  Add a second line to our file on the `question` branch without commit it. (This is equivalent to having unsaved changes in our file - see how our diagram has not changed)
+
+![](step4.png){fig-align="center" width="230"}
+
+## Recap {.smaller auto-animate="true"}
+
+Lets re-cap what we have done so far.
+
+
+6.  Merge the `question` branch into `main` while *bringing my changes to main* ![](step4.png){fig-align="center" width="230"}
+
+## Recap {.smaller auto-animate="true"}
+
+Lets re-cap what we have done so far.
+
+
+7.  Now we save this changes into `main` (i.e., commit)
+
+![](step5.png){fig-align="center" width="230"}
+
+## Recap {.smaller}
+
+If you follow these steps through, the your local Git should look like something this:
+
+![](end_branch.png){fig-align="center"}
+
+Then, you can `push` this into GitHub and somebody else can `pull` these changes to their own machine.
+
+# Resolving conflicts {background-image="conflicts.png"}
+
+## Merge Conflicts {.smaller}
+
+In the last examples above we created a branch, made some changes and then integrated back into main.
+
+However, what happens if you make a change to a line in a file on one branch, then you (or someone else) changes the same line of the same file on a different branch, what should Git do when you want to merge?
+
+This is a so-called **merge conflict**.
+
+![](conflict_merge.jpg){fig-align="center" width="427"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+Suppose we create a new branch called [capitalise]{style="color:purple;"} and change the file to the following:
+
+![](merge1.png){fig-align="center" width="355"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+Now imagine switch to [main]{style="color:blue;"} (or someone else is working there already) and add a full stop and commits this change before merging branches:
+
+![](merge2.png){fig-align="center" width="355"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+We have the following:
+
+![](merge3.png){fig-align="center" width="355"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+We have the following:
+
+![](merge4.png){fig-align="center" width="355"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+![](confuded.jpg){fig-align="center" width="355"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+-   At this point Git doesn't know what to do and passes back to us to decide
+-   There are two approaches to deciding / fixing the problem
+
+![](think.png){fig-align="center" width="405"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+We can choose to press ahead with the merge, like we did before
+
+![](merge_conflict.png){fig-align="center"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+GitHub Desktop will tell you which files need attention, and instruct you to open them in your preferred code editor.
+
+![](merge_conflict2.png){fig-align="center"} The Continue Merge button is disabled! as we need to resolve the conflicts in our files.
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+Open up `example.md` in your preferred editor and see what is happening:
+
+-   There is no automatic way of fixing this, so you will have to change it manually deleting the merge conflict syntax
+
+![](conflict_hello.png){fig-align="center"}
+
+-   The line(s) between $<<<<<<<$ and $======$ here show what you already had.
+
+-   The line(s) between $=======$ and $>>>>>>>$ is what was introduced by the other commit (in this case from the capitalise branch).
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+Let's manually edit our file to what we want, like a mixture of both changes.
+
+![](hello_stop.png){fig-align="center" width="151"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+Once the special `<<<<<<<`, `======` and `>>>>>>>` syntax is removed from our files, GitHub Desktop detects that our merge conflict has been resolved and allows us to 'Continue Merge':
+
+![](resolve_conflict.png){fig-align="center"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+Once the special `<<<<<<<`, `======` and `>>>>>>>` syntax is removed from our files, GitHub Desktop detects that our merge conflict has been resolved and allows us to 'Continue Merge':
+
+![](resolve_conflict2.png){fig-align="center"}
+
+## Merge Conflicts {.smaller auto-animate="true"}
+
+This is what we have done so far:
+
+![](resolve_conflict3.png){fig-align="center"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+-   There is a better way of doing it, that also demonstrates another use of branching
+-   Let's assume we have got to the following conflict
+
+![](conflict2.png){fig-align="center" width="523"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+-   Let's avoid dealing with our merge conflict on [main]{style="color:blue;"} and instead fix it on [goodbye]{style="color:gold;"}
+-   We do this my merging [main]{style="color:blue;"} into [goodbye]{style="color:gold;"}
+
+How?
+
+## An alternative approach {.smaller auto-animate="true"}
+
+1.  switch back to the [goodbye]{style="color:gold;"} branch.
+
+![](googbye1.png){fig-align="center"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+2.  choose [main]{style="color:blue;"} as our branch to merge into [goodbye]{style="color:gold;"}
+
+![](googbye2.png){fig-align="center"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+3.  Again, we get a conflict, but this time in [goodbye]{style="color:gold;"}
+
+    ![](goodbye_conflict.png)
+
+4.  Manually resolve it as before, this time with some Beatles lyrics in [goodbye]{style="color:gold;"}
+
+![](beatles.png){fig-align="center" width="209"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+5.  GitHub Desktop has automatically detected that our merge conflict has been resolved:
+
+![](goodblye_resolved.png){fig-align="center"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+6.  Switch back to [main]{style="color:blue;"}
+
+![](goodbye2main.png){fig-align="center"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+7.  Our change can be merged without a conflict.
+
+![](googbye3.png){fig-align="center"}
+
+## An alternative approach {.smaller auto-animate="true"}
+
+7.  Our change can be merged without a conflict.
+
+![](googbye4.png){fig-align="center"}
+
+## Re-cap to solve conflicts {.smaller aut-animate="true"}
+
+1.  We have a merge-conflict
+
+![](goodbye_gitgraph1.png){fig-align="center"}
+
+## Re-cap to solve conflicts {.smaller aut-animate="true"}
+
+1.  We have a merge-conflict
+2.  We switch to [goodbye]{style="color:gold;"} and merge [main]{style="color:blue;"} {{< bi arrow-right-circle-fill >}} [goodbye]{style="color:gold;"} after resolving the conflict.
+
+![](goodbye_gitgraph2.png){fig-align="center"}
+
+## Re-cap to solve conflicts {.smaller aut-animate="true"}
+
+1.  We have a merge-conflict
+2.  We switch to [goodbye]{style="color:gold;"} and merge [main]{style="color:blue;"} {{< bi arrow-right-circle-fill >}} [goodbye]{style="color:gold;"} after resolving the conflict.
+3.  We switch back to [main]{style="color:blue;"} and merge back [goodbye]{style="color:gold;"} {{< bi arrow-right-circle-fill >}} [main]{style="color:blue;"}.
+
+![](goodbye_gitgraph3.png){fig-align="center"}
+
+# Group projects {{< bi people >}}
+
+## Set up your Git
+
+-   Don't forget to invite `JBelmont89` to watch your group projects.
+-   No admin rights needed.
+-   Don't forget to accept your colleagues' invitations.
+
+## Cloning
+
+-   The colleagues who didn't create the repo will have to clone it.
+-   On GitDesktop go to `File -> Clone Repository` and find the repository on you Github.com.
+
+## Expectations for group project {.smaller}
+
+-   Agree on a branching workflow -- this will avoid confusion!
+
+-   Example of common rules:
+
+    -   **One branch, one owner**: Each branch is "owned" by a single team member. This means that team members should not switch to another team member's branch and start committing changes, unless they've been invited for a review (this can be done verbally).
+    -   Leave integration to the owner: Branches can only be merged by the owner. Possibly even after a successful review by other team members, since they're the ones who know best when the task is complete.
+
+-   This workflow allows each person to take ownership of their task.
+
+-   We invite you to tell us about your shared rules: It shows you thought about them!
+
+## Merge and copy & paste {.smaller}
+
+-   Do not copy and paste whole files saved on your machine instead of solving merge conflicts.
+
+-   This is bad practice and you may end up dismissing your colleagues' changes.
