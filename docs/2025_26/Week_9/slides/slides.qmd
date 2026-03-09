@@ -95,7 +95,7 @@ By the end of this session you will be able to:
 
 If an update is made, then all you need to do is resynchronise your local repo with the GitHub version
 
-![](clone_update.png){fig-align="center" width="554"} 
+![](clone_update.png){fig-align="center" width="554"}
 
 # Branching {background-image="branches.jpg"}
 
@@ -133,9 +133,7 @@ This week we are going to learn how to create a branch and make changes to it, t
 
 Lets start a simple example by creating a new repo.
 
-        
 ![](new_repo.png)
-
 
 ## Creating a new branch {.smaller auto-animate="true"}
 
@@ -273,7 +271,6 @@ Lets re-cap what we have done so far.
 
 Lets re-cap what we have done so far.
 
-
 3.  We merged the `shout` branch into main
 
 ![](step3.png){fig-align="center" width="230"}
@@ -281,7 +278,6 @@ Lets re-cap what we have done so far.
 ## Recap {.smaller auto-animate="true"}
 
 Lets re-cap what we have done so far.
-
 
 4.  Create a `question` branch and changed the exclamation mark for a question mark
 
@@ -291,7 +287,6 @@ Lets re-cap what we have done so far.
 
 Lets re-cap what we have done so far.
 
-
 5.  Add a second line to our file on the `question` branch without commit it. (This is equivalent to having unsaved changes in our file - see how our diagram has not changed)
 
 ![](step4.png){fig-align="center" width="230"}
@@ -300,13 +295,11 @@ Lets re-cap what we have done so far.
 
 Lets re-cap what we have done so far.
 
-
 6.  Merge the `question` branch into `main` while *bringing my changes to main* ![](step4.png){fig-align="center" width="230"}
 
 ## Recap {.smaller auto-animate="true"}
 
 Lets re-cap what we have done so far.
-
 
 7.  Now we save this changes into `main` (i.e., commit)
 
@@ -500,7 +493,7 @@ How?
 
 ## Set up your Git
 
--   Don't forget to invite `JBelmont89` to watch your group projects.
+-   Don't forget to invite the tutors to watch your group projects (see project descriptions).
 -   No admin rights needed.
 -   Don't forget to accept your colleagues' invitations.
 
